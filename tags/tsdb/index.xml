@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tsdb on 項 思 偉 (Davei) ~ Aal Izz Well!</title>
+    <link>/tags/tsdb/index.xml</link>
+    <description>Recent content in Tsdb on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <atom:link href="/tags/tsdb/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Compile influxdb 0.11.1 from source code</title>
+      <link>/tech/2017_03_13_compile_influxdb_0.11.1_from_source_code/</link>
+      <pubDate>Mon, 13 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tech/2017_03_13_compile_influxdb_0.11.1_from_source_code/</guid>
+      <description>
+
+&lt;h2 id=&#34;prepare-essential-directories-and-environment-variables&#34;&gt;Prepare essential directories and environment variables&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export GOPATH=/src/influxdb/
+
+mkdir -p $GOPATH/src/github.com/influxdata/
+
+cd $GOPATH/src/github.com/influxdata/
+
+export PATH=$GOPATH/bin:$PATH
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;installing-gdm&#34;&gt;Installing GDM&lt;/h2&gt;
+
+&lt;p&gt;InfluxDB uses gdm to manage dependencies. Install it by running the following:&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;go get github.com/sparrc/gdm
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2 id=&#34;extract-source-code&#34;&gt;Extract source code&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;tar zxf ~/Downloads/influxdb-0.11.1.tar.gz
+
+ln -sf influxdb-0.11.1/ influxdb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;installing-influxdb-dependencies&#34;&gt;Installing InfluxDB dependencies&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd influxdb
+
+gdm restore
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;build-and-install-the-binaries&#34;&gt;Build and install the binaries&lt;/h2&gt;
+
+&lt;p&gt;Run the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;go clean ./...
+
+go install ./...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and wait for a comment, the binaries will be installed to &lt;strong&gt;$GOPATH/bin&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ls -l $GOPATH/bin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;the output like the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;total 72624
+-rwxr-xr-x 1 davei davei  7822896 Mar 13 19:22 gdm
+-rwxr-xr-x 1 davei davei 10680057 Mar 13 19:26 influx
+-rwxr-xr-x 1 davei davei 17539115 Mar 13 19:26 influxd
+-rwxr-xr-x 1 davei davei  8591810 Mar 13 19:26 influx_inspect
+-rwxr-xr-x 1 davei davei  6094083 Mar 13 19:26 influx_stress
+-rwxr-xr-x 1 davei davei 11930449 Mar 13 19:26 influx_tsm
+-rwxr-xr-x 1 davei davei  5911435 Mar 13 19:26 stress_test_server
+-rwxr-xr-x 1 davei davei  3467812 Mar 13 19:26 test_client
+-rwxr-xr-x 1 davei davei  2312705 Mar 13 19:26 urlgen
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;test-the-influxdb-binaries-just-built&#34;&gt;Test the InfluxDB binaries just built&lt;/h2&gt;
+
+&lt;p&gt;generate default influxdb configuration file and data directory&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir -p $GOPATH/etc
+
+cd $GOPATH
+
+bin/influxd config &amp;gt; etc/influxd.conf
+
+mkdir -p $GOPATH/var/lib/influxdb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;specific bind address and data directory&lt;/p&gt;
+
+&lt;p&gt;start the InfluxDB server&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/influxd -config  etc/influxd.conf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;the output like the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;
+ 8888888           .d888 888                   8888888b.  888888b.
+   888            d88P&amp;quot;  888                   888  &amp;quot;Y88b 888  &amp;quot;88b
+   888            888    888                   888    888 888  .88P
+   888   88888b.  888888 888 888  888 888  888 888    888 8888888K.
+   888   888 &amp;quot;88b 888    888 888  888  Y8bd8P&#39; 888    888 888  &amp;quot;Y88b
+   888   888  888 888    888 888  888   X88K   888    888 888    888
+   888   888  888 888    888 Y88b 888 .d8&amp;quot;&amp;quot;8b. 888  .d88P 888   d88P
+ 8888888 888  888 888    888  &amp;quot;Y88888 888  888 8888888P&amp;quot;  8888888P&amp;quot;
+
+2017/03/13 19:42:23 InfluxDB starting, version unknown, branch unknown, commit unknown
+2017/03/13 19:42:23 Go version go1.7.5, GOMAXPROCS set to 4
+2017/03/13 19:42:23 Using configuration at: etc/influxd.conf
+[meta] 2017/03/13 19:42:23 Starting meta service
+[meta] 2017/03/13 19:42:23 Listening on HTTP: 127.0.0.1:8091
+[metastore] 2017/03/13 19:42:23 Using data dir: /src/influxdb/var/lib/influxdb/meta
+[metastore] 2017/03/13 19:42:23 Node at localhost:8088 [Follower]
+[metastore] 2017/03/13 19:42:25 Node at localhost:8088 [Leader]. peers=[localhost:8088]
+[store] 2017/03/13 19:42:25 Using data dir: /src/influxdb/var/lib/influxdb/data
+[tsm1wal] 2017/03/13 19:42:25 tsm1 WAL starting with 10485760 segment size
+[tsm1wal] 2017/03/13 19:42:25 tsm1 WAL writing to /src/influxdb/var/lib/influxdb/wal/_internal/monitor/1
+[cacheloader] 2017/03/13 19:42:25 reading file /src/influxdb/var/lib/influxdb/wal/_internal/monitor/1/_00001.wal, size 25887
+[cacheloader] 2017/03/13 19:42:25 reading file /src/influxdb/var/lib/influxdb/wal/_internal/monitor/1/_00002.wal, size 9629
+[cacheloader] 2017/03/13 19:42:25 reading file /src/influxdb/var/lib/influxdb/wal/_internal/monitor/1/_00003.wal, size 0
+[handoff] 2017/03/13 19:42:25 Starting hinted handoff service
+[monitor] 2017/03/13 19:42:25 &#39;hh&#39; registered for diagnostics monitoring
+[handoff] 2017/03/13 19:42:25 Using data dir: /src/influxdb/var/lib/influxdb/hh
+[subscriber] 2017/03/13 19:42:25 opened service
+[monitor] 2017/03/13 19:42:25 Starting monitor system
+[monitor] 2017/03/13 19:42:25 &#39;build&#39; registered for diagnostics monitoring
+[monitor] 2017/03/13 19:42:25 &#39;runtime&#39; registered for diagnostics monitoring
+[monitor] 2017/03/13 19:42:25 &#39;network&#39; registered for diagnostics monitoring
+[monitor] 2017/03/13 19:42:25 &#39;system&#39; registered for diagnostics monitoring
+[cluster] 2017/03/13 19:42:25 Starting cluster service
+[shard-precreation] 2017/03/13 19:42:25 Starting precreation service with check interval of 10m0s, advance period of 30m0s
+[snapshot] 2017/03/13 19:42:25 Starting snapshot service
+[copier] 2017/03/13 19:42:25 Starting copier service
+[admin] 2017/03/13 19:42:25 Starting admin service
+[admin] 2017/03/13 19:42:25 Listening on HTTP: 127.0.0.1:8083
+[continuous_querier] 2017/03/13 19:42:25 Starting continuous query service
+[httpd] 2017/03/13 19:42:25 Starting HTTP service
+[httpd] 2017/03/13 19:42:25 Authentication enabled: false
+[httpd] 2017/03/13 19:42:25 Listening on HTTP: 127.0.0.1:8086
+[retention] 2017/03/13 19:42:25 Starting retention policy enforcement service with check interval of 30m0s
+[monitor] 2017/03/13 19:42:25 Storing statistics in database &#39;_internal&#39; retention policy &#39;monitor&#39;, at interval 10s
+[run] 2017/03/13 19:42:25 Listening for signals
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

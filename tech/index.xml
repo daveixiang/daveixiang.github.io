@@ -1,0 +1,1033 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Teches on 項 思 偉 (Davei) ~ Aal Izz Well!</title>
+    <link>/tech/index.xml</link>
+    <description>Recent content in Teches on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 21 Mar 2017 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/tech/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Install Openstack from source code - glance (mitaka)</title>
+      <link>/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</link>
+      <pubDate>Tue, 21 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</guid>
+      <description>
+
+&lt;h2 id=&#34;create-image-service-database&#34;&gt;Create image service database&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export GLANCE_DBPASS=openstack
+export MYSQL_PASS=openstack
+
+mysql -uroot -p$MYSQL_PASS &amp;lt;&amp;lt;EOF
+CREATE DATABASE glance;
+GRANT ALL PRIVILEGES ON glance.* TO &#39;glance&#39;@&#39;localhost&#39; \
+  IDENTIFIED BY &#39;$GLANCE_DBPASS&#39;;
+GRANT ALL PRIVILEGES ON glance.* TO &#39;glance&#39;@&#39;%&#39; \
+  IDENTIFIED BY &#39;$GLANCE_DBPASS&#39;;
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;create-the-image-service-credentials-andapi-endpoints&#34;&gt;Create the image service credentials andAPI endpoints&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;openstack user create --domain default --password openstack glance
+openstack role add --project service --user glance admin
+
+openstack service create --name glance --description &amp;quot;OpenStack Image&amp;quot; image
+openstack endpoint create --region RegionOne image public http://controller:9292
+openstack endpoint create --region RegionOne image internal http://controller:9292
+openstack endpoint create --region RegionOne image admin http://controller:9292
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;install-glance-dependences&#34;&gt;Install glance dependences&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum install $(cat openstack-glance-deps.log | cut -d, -f1 | tr -s &#39;\n&#39;  &#39; &#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;git-clone-source-code-from-github&#34;&gt;Git clone source code from github&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git clone https://github.com/openstack/glance
+
+cd /src/openstack/glance
+
+git checkout stable/mitaka
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;build-glance-source-code&#34;&gt;Build glance source code&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd /src/openstack/glance
+
+python setup.py build
+
+cp -aR etc/* /etc/glance
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;make-glance-configuration&#34;&gt;Make glance configuration&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;glance-api.conf&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sed -i -E -e &#39;/^#.+?$/d&#39; -e &#39;/^$/d&#39; /etc/glance/glance-api.conf
+ini-config --set /etc/glance/glance-api.conf database connection &#39;postgresql://glance:openstack@controller/glance&#39;
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken auth_uri http://controller:5000
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken auth_url http://controller:35357
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken auth_type password
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken project_domain_name default
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken user_domain_name default
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken project_name service
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken username glance
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken password openstack
+ini-config --set /etc/glance/glance-api.conf paste_deploy flavor keystone
+ini-config --set /etc/glance/glance-api.conf glance_store stores file
+ini-config --set /etc/glance/glance-api.conf glance_store default_store file
+ini-config --set /etc/glance/glance-api.conf glance_store filesystem_store_datadir &#39;/var/lib/glance/images/&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;glance-registery.conf&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sed -i -E -e &#39;/^#.+?$/d&#39; -e &#39;/^$/d&#39; /etc/glance/glance-registry.conf
+ini-config --set /etc/glance/glance-registry.conf database connection &#39;postgresql://glance:openstack@controller/glance&#39;
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken auth_uri http://controller:5000
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken auth_url http://controller:35357
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken auth_type password
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken project_domain_name default
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken user_domain_name default
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken project_name service
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken username glance
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken password openstack
+ini-config --set /etc/glance/glance-registry.conf paste_deploy flavor keystone
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;create-glance-manage-glance-api-and-glance-registery-command&#34;&gt;Create &lt;em&gt;glance-manage&lt;/em&gt;, &lt;em&gt;glance-api&lt;/em&gt; and &lt;em&gt;glance-registery&lt;/em&gt; command&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;glance-manage&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat &amp;gt; glance/cmd/glance-manage &amp;lt;&amp;lt;EOF
+#!/bin/python
+import sys
+from glance.cmd.manage import main
+if __name__ == &amp;quot;__main__&amp;quot;:
+    sys.exit(main())
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;glance-api&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat &amp;gt; glance/cmd/glance-api &amp;lt;&amp;lt;EOF
+#!/bin/python
+import sys
+from glance.cmd.api import main
+if __name__ == &amp;quot;__main__&amp;quot;:
+    sys.exit(main())
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;glance-registery&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat &amp;gt; glance/cmd/glance-registry &amp;lt;&amp;lt;EOF
+#!/bin/python
+import sys
+from glance.cmd.registry import main
+if __name__ == &amp;quot;__main__&amp;quot;:
+    sys.exit(main())
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;populate-the-image-service-database-and-the-services&#34;&gt;Populate the Image service database and the services&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;populate the image service database&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;python glance/cmd/glance-manage db_sync
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;start the image services&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;python glance/cmd/glance-api --config-file=/etc/glance/glance-api.conf --config-file=/etc/glance/glance-api-paste.ini
+
+python glance/cmd/glance-registry --config-file=/etc/glance/glance-registry.conf --config-file=/etc/glance/glance-registry-paste.ini
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Compile influxdb 0.11.1 from source code</title>
+      <link>/tech/2017_03_13_compile_influxdb_0.11.1_from_source_code/</link>
+      <pubDate>Mon, 13 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tech/2017_03_13_compile_influxdb_0.11.1_from_source_code/</guid>
+      <description>
+
+&lt;h2 id=&#34;prepare-essential-directories-and-environment-variables&#34;&gt;Prepare essential directories and environment variables&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export GOPATH=/src/influxdb/
+
+mkdir -p $GOPATH/src/github.com/influxdata/
+
+cd $GOPATH/src/github.com/influxdata/
+
+export PATH=$GOPATH/bin:$PATH
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;installing-gdm&#34;&gt;Installing GDM&lt;/h2&gt;
+
+&lt;p&gt;InfluxDB uses gdm to manage dependencies. Install it by running the following:&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;go get github.com/sparrc/gdm
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2 id=&#34;extract-source-code&#34;&gt;Extract source code&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;tar zxf ~/Downloads/influxdb-0.11.1.tar.gz
+
+ln -sf influxdb-0.11.1/ influxdb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;installing-influxdb-dependencies&#34;&gt;Installing InfluxDB dependencies&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd influxdb
+
+gdm restore
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;build-and-install-the-binaries&#34;&gt;Build and install the binaries&lt;/h2&gt;
+
+&lt;p&gt;Run the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;go clean ./...
+
+go install ./...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and wait for a comment, the binaries will be installed to &lt;strong&gt;$GOPATH/bin&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ls -l $GOPATH/bin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;the output like the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;total 72624
+-rwxr-xr-x 1 davei davei  7822896 Mar 13 19:22 gdm
+-rwxr-xr-x 1 davei davei 10680057 Mar 13 19:26 influx
+-rwxr-xr-x 1 davei davei 17539115 Mar 13 19:26 influxd
+-rwxr-xr-x 1 davei davei  8591810 Mar 13 19:26 influx_inspect
+-rwxr-xr-x 1 davei davei  6094083 Mar 13 19:26 influx_stress
+-rwxr-xr-x 1 davei davei 11930449 Mar 13 19:26 influx_tsm
+-rwxr-xr-x 1 davei davei  5911435 Mar 13 19:26 stress_test_server
+-rwxr-xr-x 1 davei davei  3467812 Mar 13 19:26 test_client
+-rwxr-xr-x 1 davei davei  2312705 Mar 13 19:26 urlgen
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;test-the-influxdb-binaries-just-built&#34;&gt;Test the InfluxDB binaries just built&lt;/h2&gt;
+
+&lt;p&gt;generate default influxdb configuration file and data directory&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir -p $GOPATH/etc
+
+cd $GOPATH
+
+bin/influxd config &amp;gt; etc/influxd.conf
+
+mkdir -p $GOPATH/var/lib/influxdb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;specific bind address and data directory&lt;/p&gt;
+
+&lt;p&gt;start the InfluxDB server&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/influxd -config  etc/influxd.conf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;the output like the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;
+ 8888888           .d888 888                   8888888b.  888888b.
+   888            d88P&amp;quot;  888                   888  &amp;quot;Y88b 888  &amp;quot;88b
+   888            888    888                   888    888 888  .88P
+   888   88888b.  888888 888 888  888 888  888 888    888 8888888K.
+   888   888 &amp;quot;88b 888    888 888  888  Y8bd8P&#39; 888    888 888  &amp;quot;Y88b
+   888   888  888 888    888 888  888   X88K   888    888 888    888
+   888   888  888 888    888 Y88b 888 .d8&amp;quot;&amp;quot;8b. 888  .d88P 888   d88P
+ 8888888 888  888 888    888  &amp;quot;Y88888 888  888 8888888P&amp;quot;  8888888P&amp;quot;
+
+2017/03/13 19:42:23 InfluxDB starting, version unknown, branch unknown, commit unknown
+2017/03/13 19:42:23 Go version go1.7.5, GOMAXPROCS set to 4
+2017/03/13 19:42:23 Using configuration at: etc/influxd.conf
+[meta] 2017/03/13 19:42:23 Starting meta service
+[meta] 2017/03/13 19:42:23 Listening on HTTP: 127.0.0.1:8091
+[metastore] 2017/03/13 19:42:23 Using data dir: /src/influxdb/var/lib/influxdb/meta
+[metastore] 2017/03/13 19:42:23 Node at localhost:8088 [Follower]
+[metastore] 2017/03/13 19:42:25 Node at localhost:8088 [Leader]. peers=[localhost:8088]
+[store] 2017/03/13 19:42:25 Using data dir: /src/influxdb/var/lib/influxdb/data
+[tsm1wal] 2017/03/13 19:42:25 tsm1 WAL starting with 10485760 segment size
+[tsm1wal] 2017/03/13 19:42:25 tsm1 WAL writing to /src/influxdb/var/lib/influxdb/wal/_internal/monitor/1
+[cacheloader] 2017/03/13 19:42:25 reading file /src/influxdb/var/lib/influxdb/wal/_internal/monitor/1/_00001.wal, size 25887
+[cacheloader] 2017/03/13 19:42:25 reading file /src/influxdb/var/lib/influxdb/wal/_internal/monitor/1/_00002.wal, size 9629
+[cacheloader] 2017/03/13 19:42:25 reading file /src/influxdb/var/lib/influxdb/wal/_internal/monitor/1/_00003.wal, size 0
+[handoff] 2017/03/13 19:42:25 Starting hinted handoff service
+[monitor] 2017/03/13 19:42:25 &#39;hh&#39; registered for diagnostics monitoring
+[handoff] 2017/03/13 19:42:25 Using data dir: /src/influxdb/var/lib/influxdb/hh
+[subscriber] 2017/03/13 19:42:25 opened service
+[monitor] 2017/03/13 19:42:25 Starting monitor system
+[monitor] 2017/03/13 19:42:25 &#39;build&#39; registered for diagnostics monitoring
+[monitor] 2017/03/13 19:42:25 &#39;runtime&#39; registered for diagnostics monitoring
+[monitor] 2017/03/13 19:42:25 &#39;network&#39; registered for diagnostics monitoring
+[monitor] 2017/03/13 19:42:25 &#39;system&#39; registered for diagnostics monitoring
+[cluster] 2017/03/13 19:42:25 Starting cluster service
+[shard-precreation] 2017/03/13 19:42:25 Starting precreation service with check interval of 10m0s, advance period of 30m0s
+[snapshot] 2017/03/13 19:42:25 Starting snapshot service
+[copier] 2017/03/13 19:42:25 Starting copier service
+[admin] 2017/03/13 19:42:25 Starting admin service
+[admin] 2017/03/13 19:42:25 Listening on HTTP: 127.0.0.1:8083
+[continuous_querier] 2017/03/13 19:42:25 Starting continuous query service
+[httpd] 2017/03/13 19:42:25 Starting HTTP service
+[httpd] 2017/03/13 19:42:25 Authentication enabled: false
+[httpd] 2017/03/13 19:42:25 Listening on HTTP: 127.0.0.1:8086
+[retention] 2017/03/13 19:42:25 Starting retention policy enforcement service with check interval of 30m0s
+[monitor] 2017/03/13 19:42:25 Storing statistics in database &#39;_internal&#39; retention policy &#39;monitor&#39;, at interval 10s
+[run] 2017/03/13 19:42:25 Listening for signals
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Clone git repository only some directories</title>
+      <link>/tech/2017_03_06_clone_git_repository_only_some_directories/</link>
+      <pubDate>Mon, 06 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tech/2017_03_06_clone_git_repository_only_some_directories/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;First, do:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git clone --depth 1 [repo-root] [local_dir]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Then:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd [local_dir]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;And lastly:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git filter-branch --prune-empty --subdirectory-filter [repo-subdir] HEAD
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Install Openstack from source code - keystone (mitaka)</title>
+      <link>/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</link>
+      <pubDate>Sat, 04 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</guid>
+      <description>
+
+&lt;h2 id=&#34;install-keystone-dependences&#34;&gt;Install keystone dependences&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum install $(cat openstack-keystone-deps.log | cut -d, -f1 | tr -s &#39;\n&#39;  &#39; &#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;git-clone-source-code-from-github&#34;&gt;Git clone source code from github&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git clone https://github.com/openstack/keystone
+
+cd /src/openstack/keystone
+
+git checkout stable/mitaka
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;build-keystone-source-code&#34;&gt;Build keystone source code&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd /src/openstack/keystone
+
+python setup.py build
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;make-keystone-configuration&#34;&gt;Make keystone configuration&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cp -aR etc/* /etc/keystone
+mv /etc/keystone/keystone.conf.sample /etc/keystone/keystone.conf
+mv /etc/keystone/logging.conf.sample /etc/keystone/logging.conf
+mkdir /etc/keystone/fernet-keys/
+
+sed -i -E -e &#39;/^#.+?$/d&#39; -e &#39;/^$/d&#39; /etc/keystone/keystone.conf
+ini-config --set /etc/keystone/keystone.conf DEFAULT admin_token admintoken
+ini-config --set /etc/keystone/keystone.conf database connection &#39;postgresql://keystone:openstack@controller/keystone&#39;
+ini-config --set /etc/keystone/keystone.conf token provider fernet
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;create-keystone-all-and-keystone-manage-command&#34;&gt;Create &lt;em&gt;keystone-all&lt;/em&gt; and &lt;em&gt;keystone-manage&lt;/em&gt; command&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat &amp;gt; keystone/cmd/keystone-all &amp;lt;&amp;lt;EOF
+#!/bin/python
+import sys
+from keystone.cmd.all import main
+if __name__ == &amp;quot;__main__&amp;quot;:
+    sys.exit(main())
+EOF
+
+cat &amp;gt; keystone/cmd/keystone-manage &amp;lt;&amp;lt;EOF
+#!/bin/python
+import sys
+from keystone.cmd.manage import main
+if __name__ == &amp;quot;__main__&amp;quot;:
+    sys.exit(main())
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;populate-the-identity-service-database&#34;&gt;Populate the Identity service database&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;python keystone/cmd/keystone-manage db_sync
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;initialize-fernet-key-repositories&#34;&gt;Initialize Fernet key repositories&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;python keystone/cmd/keystone-manage fernet_setup --keystone-user root --keystone-group root
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;bootstrap-the-identity-service&#34;&gt;Bootstrap the Identity service&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;python keystone/cmd/keystone-all --config-file=/etc/keystone/keystone.conf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;create-a-domain-projects-users-and-roles&#34;&gt;Create a domain, projects, users, and roles&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export OS_TOKEN=admintoken
+export OS_URL=http://controller:35357/v3
+export OS_IDENTITY_API_VERSION=3
+
+openstack service create --name keystone --description &amp;quot;OpenStack Identity&amp;quot; identity
+openstack endpoint create --region RegionOne identity public http://controller:5000/v3
+openstack endpoint create --region RegionOne identity internal http://controller:5000/v3
+openstack endpoint create --region RegionOne identity admin http://controller:35357/v3
+
+openstack domain create --description &amp;quot;Default Domain&amp;quot; default
+openstack project create --domain default --description &amp;quot;Admin Project&amp;quot; admin
+openstack user create --domain default --password openstack admin
+openstack role create admin
+openstack role add --project admin --user admin admin
+openstack project create --domain default --description &amp;quot;Service Project&amp;quot; service
+
+cat &amp;gt; ~/admin_rc &amp;lt;&amp;lt;EOF
+export OS_PROJECT_DOMAIN_NAME=default
+export OS_USER_DOMAIN_NAME=default
+export OS_PROJECT_NAME=admin
+export OS_USERNAME=admin
+export OS_PASSWORD=openstack
+export OS_AUTH_URL=http://controller:35357/v3
+export OS_IDENTITY_API_VERSION=3
+export OS_IMAGE_API_VERSION=2
+export PS1=&#39;[\u@\h \W(admin)]\$ &#39;
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Build PostgreSQL with debug info</title>
+      <link>/tech/2017_03_01_build_postgresql_with_debug/</link>
+      <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tech/2017_03_01_build_postgresql_with_debug/</guid>
+      <description>
+
+&lt;h3 id=&#34;add-postgres-user&#34;&gt;Add &lt;em&gt;postgres&lt;/em&gt; user&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;useradd -m -b /src/ postgres
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;configure-postgresql&#34;&gt;Configure PostgreSQL&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./configure --prefix=/src/postgres \
+--without-tcl \
+--without-gssapi \
+--without-pam \
+--without-bsd-auth \
+--without-ldap \
+--without-bonjour \
+--without-selinux \
+--without-systemd \
+--with-uuid=ossp \
+--with-libxml \
+--with-libxslt \
+CFLAGS=&#39; &#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;build-and-install&#34;&gt;Build and install&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make -j$(nproc)
+
+su postgres -c &#39;make install&#39;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Install Openstack from source code dependences (mitaka)</title>
+      <link>/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</link>
+      <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</guid>
+      <description>&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/bin/bash
+
+function gen_pkg_deps()
+{
+  [ -z &amp;quot;$@&amp;quot; ] &amp;amp;&amp;amp; exit 0;
+  yum install  --assumeno &amp;quot;$@&amp;quot; | \
+  sed -n &#39;/Installing for dependencies:/,/Transaction Summary/p&#39; | \
+  sed -e &#39;/^=.*?$/d&#39; \
+  -e &#39;/Installing:/d&#39;  \
+  -e &#39;/Installing for dependencies:/d&#39; \
+  -e &#39;/Transaction Summary/d&#39; \
+  -e &#39;/Updating/d&#39; \
+  -e &#39;/^$/d&#39; | \
+awk &#39;BEGIN {n=1;arr[0]=0}
+
+{
+if (NF != 6)
+{
+    for (i=n; i&amp;lt;=n+NF-1;i++)
+arr[i] = $(i-n+1)
+    n+=NF;
+    if (n == 7)
+    {
+printf &amp;quot;%s,%s,%s,%s\n&amp;quot;, arr[1], arr[2], arr[3], arr[4]
+for (i=1; i&amp;lt;n;i++) del arr[i]
+n=1
+    }
+}
+else
+{
+    printf &amp;quot;%s,%s,%s,%s\n&amp;quot;,  $1, $2, $3, $4
+}
+}&#39; | sort | grep -v -E -e &#39;glance|keystone|nova|neutron|swift|cinder|ceilometer&#39;\
+  &amp;gt; &amp;quot;$@&amp;quot;-deps.log 2&amp;gt;&amp;amp;1
+}
+
+
+OPENSTACK_COMPONENTS=&amp;quot;
+openstack-keystone \
+python-keystoneclient \
+python-keystone \
+python-openstackclient \
+openstack-glance \
+python-glanceclient \
+python-glance \
+openstack-nova-api \
+openstack-nova-conductor \
+openstack-nova-console \
+openstack-nova-novncproxy \
+openstack-nova-scheduler \
+python-novaclient \
+python-nova \
+openstack-nova-compute \
+openstack-neutron \
+openstack-neutron-ml2 \
+python-neutronclient \
+python-neutron \
+openstack-ceilometer-api \
+openstack-ceilometer-collector \
+openstack-ceilometer-notification \
+openstack-ceilometer-central \
+openstack-ceilometer-alarm \
+openstack-ceilometer-compute \
+python-ceilometerclient \
+python-ceilometer \
+openstack-cinder
+&amp;quot;
+
+for component in $OPENSTACK_COMPONENTS
+do
+  gen_pkg_deps $component
+done
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Install Openstack from source code prepares (mitaka)</title>
+      <link>/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</link>
+      <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</guid>
+      <description>
+
+&lt;h2 id=&#34;disable-networkmanager-and-enable-network&#34;&gt;Disable NetworkManager and enable network&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;systemctl stop NetworkManager.service
+systemctl disable NetworkManager.service
+
+systemctl start network.service
+systemctl enable network.service
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;disable-selinux&#34;&gt;Disable SELinux&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sed -i &#39;s/SELINUX=enforcing/SELINUX=disabled/g&#39; /etc/selinux/config
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;disable-firewalld&#34;&gt;Disable Firewalld&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;systemctl stop firewalld
+systemctl disable firewalld
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;disalbe-yum-fast-mirrors-and-language-features&#34;&gt;Disalbe YUM fast mirrors and language features&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sed -i -E -e &#39;s/enabled=1/enabled=0/&#39; /etc/yum/pluginconf.d/fastestmirror.conf
+sed -i -E -e &#39;s/enabled=1/enabled=0/&#39; /etc/yum/pluginconf.d/langpacks.conf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;speed-up-ssh-connection&#34;&gt;Speed up SSH connection&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sed -i &#39;s/#UseDNS yes/UseDNS no/&#39;  /etc/ssh/sshd_config
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;install-and-configure-rabbitmq&#34;&gt;Install and configure rabbitmq&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum -y install rabbitmq-server
+systemctl start rabbitmq-server
+systemctl enable rabbitmq-server
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rabbitmqctl add_user openstack openstack 
+rabbitmqctl set_user_tags openstack administrator
+rabbitmqctl set_permissions -p / openstack &amp;quot;.*&amp;quot; &amp;quot;.*&amp;quot; &amp;quot;.*&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;install-and-configure-mysql-server&#34;&gt;Install and configure mysql server&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum -y install mariadb mariadb-server
+systemctl start mariadb
+systemctl enable mariadb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# delete username &#39;&#39; and change &#39;root&#39; password to &#39;openstack&#39;
+mysql &amp;lt;&amp;lt;EOF
+delete from mysql.user where user=&amp;quot;&amp;quot;;
+update mysql.user set password=password(&amp;quot;openstack&amp;quot;);
+flush privileges;
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;create-int-config-script&#34;&gt;Create int-config script&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum -y install crudini
+
+cat &amp;gt; /usr/bin/ini-config &amp;lt;&amp;lt;EOF
+exec crudini &amp;quot;\$@&amp;quot;
+EOF
+
+chmod 755 /usr/bin/ini-config
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;create-essential-directories&#34;&gt;Create essential directories&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;for SERVICE in keystone glance nova neutron
+do
+  mkdir -p /var/log/$SERVICE
+  mkdir -p /var/lib/$SERVICE
+  mkdir -p /etc/$SERVICE
+
+  if [ &amp;quot;$SERVICE&amp;quot; == &#39;neutron&#39; ]; then
+      mkdir -p /etc/neutron/plugins/ml2
+      mkdir -p /etc/neutron/rootwrap.d
+  fi
+done
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Compile Golang from source code</title>
+      <link>/tech/2017_01_22_compile_golang_from_source_code/</link>
+      <pubDate>Thu, 12 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tech/2017_01_22_compile_golang_from_source_code/</guid>
+      <description>
+
+&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
+
+&lt;p&gt;Go is a nice language started by Google. A nice advantage is that it
+compiles to native code and the binary does not have additional
+dependencies. Performance and low resource usage are focused on, even
+though I personally don&amp;rsquo;t like the gargabe collection based memory
+cleanup.&lt;/p&gt;
+
+&lt;h1 id=&#34;installation&#34;&gt;Installation&lt;/h1&gt;
+
+&lt;h2 id=&#34;first-start-with-go-1-4&#34;&gt;First start with Go 1.4&lt;/h2&gt;
+
+&lt;p&gt;Since Go version 1.5 you need Go itself to compile it. So we first
+start with Go 1.4:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Download &lt;a href=&#34;https://storage.googleapis.com/golang/go1.4.3.src.tar.gz&#34;&gt;go1.4.3.src.tar.gz&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Untar it to &lt;em&gt;/go/go1.4/&lt;/em&gt; directory:&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;tar zxf go1.4.3.src.tar.gz -C /go
+
+cd /go
+
+mv go go1.4
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Build Go 1.4 with:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd /go/go1.4/src
+
+./make.bash
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After some minutes you have a working Go 1.4 installation.&lt;/p&gt;
+
+&lt;h2 id=&#34;compile-the-current-version-go1-7-5&#34;&gt;Compile the current version (go1.7.5)&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Download &lt;a href=&#34;https://storage.googleapis.com/golang/go1.7.5.src.tar.gz&#34;&gt;go1.7.5.src.tar.gz&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Untar it to &lt;em&gt;/go/go1.6&lt;/em&gt; directory:&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;tar zxf go1.7.5.src.tar.gz -C /go
+
+cd /go
+
+mv go go1.7
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Tell Go where to find the Go compiler to bootstrap with:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export GOROOT_BOOTSTRAP=/go/go1.4
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Now build Go 1.7:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd /go/go1.7/src
+
+./make.bash
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After some more minutes, we finally have working Go 1.7 installation.&lt;/p&gt;
+
+&lt;h2 id=&#34;set-up-environment-variables-for-convenience&#34;&gt;Set up environment variables for convenience&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Set the root of the Go installation:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export GOROOT=/go/go1.7
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Tell go where to store additional packages downloaded with &amp;ldquo;go get&amp;rdquo;:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export GOPATH=&amp;lt;path/to/addons&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;And finally add the bin directory to your PATH:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export PATH=$PATH:$GOROOT/bin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;test-the-golang-compiler&#34;&gt;Test the Golang compiler&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Create a file &amp;ldquo;hello.go&amp;rdquo; with content&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;package main
+import &amp;quot;fmt&amp;quot;
+func main() {
+        fmt.Println(&amp;quot;Hello World&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Compile the sample code:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;go build hello.go
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Run with:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./hello
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Nested KVM</title>
+      <link>/tech/2016_09_03_nested_kvm/</link>
+      <pubDate>Sat, 03 Sep 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/tech/2016_09_03_nested_kvm/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;Enable the setting for Nested KVM&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat &amp;lt;&amp;lt;EOF &amp;gt; /etc/modprobe.d/kvm-nested.conf
+options kvm_intel nested=1
+EOF
+
+modprobe -r kvm_intel
+
+modprobe kvm_intel
+
+cat /sys/module/kvm_intel/parameters/nested
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Edit the configuration of a virtual machine you&amp;rsquo;d want to set nested&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;virsh edit {DOMAIN_NAME}/{DOMAIN_ID}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;cpu mode=&#39;host-passthrough&#39;&amp;gt;
+&amp;lt;/cpu&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>C declaration Right-Left rule</title>
+      <link>/tech/2016_04_27_c_declaration_right_left_rule/</link>
+      <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/tech/2016_04_27_c_declaration_right_left_rule/</guid>
+      <description>&lt;pre&gt;&lt;code&gt;The &amp;quot;right-left&amp;quot; rule is a completely regular rule for deciphering C
+declarations.  It can also be useful in creating them.
+
+First, symbols.  Read
+
+     *		as &amp;quot;pointer to&amp;quot;			- always on the left side
+     [] 	as &amp;quot;array of&amp;quot;			- always on the right side
+     ()		as &amp;quot;function returning&amp;quot;		- always on the right side
+
+as you encounter them in the declaration.
+
+STEP 1
+------
+Find the identifier.  This is your starting point.  Then say to yourself,
+&amp;quot;identifier is.&amp;quot;  You&#39;ve started your declaration.
+
+STEP 2
+------
+Look at the symbols on the right of the identifier.  If, say, you find &amp;quot;()&amp;quot;
+there, then you know that this is the declaration for a function.  So you
+would then have &amp;quot;identifier is function returning&amp;quot;.  Or if you found a 
+&amp;quot;[]&amp;quot; there, you would say &amp;quot;identifier is array of&amp;quot;.  Continue right until
+you run out of symbols *OR* hit a *right* parenthesis &amp;quot;)&amp;quot;.  (If you hit a 
+left parenthesis, that&#39;s the beginning of a () symbol, even if there
+is stuff in between the parentheses.  More on that below.)
+
+STEP 3
+------
+Look at the symbols to the left of the identifier.  If it is not one of our
+symbols above (say, something like &amp;quot;int&amp;quot;), just say it.  Otherwise, translate
+it into English using that table above.  Keep going left until you run out of
+symbols *OR* hit a *left* parenthesis &amp;quot;(&amp;quot;.  
+
+Now repeat steps 2 and 3 until you&#39;ve formed your declaration.  Here are some
+examples:
+
+     int *p[];
+
+1) Find identifier.          int *p[];
+                                  ^
+   &amp;quot;p is&amp;quot;
+
+2) Move right until out of symbols or right parenthesis hit.
+                             int *p[];
+                                   ^^
+   &amp;quot;p is array of&amp;quot;
+
+3) Can&#39;t move right anymore (out of symbols), so move left and find:
+                             int *p[];
+                                 ^
+   &amp;quot;p is array of pointer to&amp;quot;
+
+4) Keep going left and find:
+                             int *p[];
+                             ^^^
+   &amp;quot;p is array of pointer to int&amp;quot;. 
+   (or &amp;quot;p is an array where each element is of type pointer to int&amp;quot;)
+
+Another example:
+
+   int *(*func())();
+
+1) Find the identifier.      int *(*func())();
+                                    ^^^^
+   &amp;quot;func is&amp;quot;
+
+2) Move right.               int *(*func())();
+                                        ^^
+   &amp;quot;func is function returning&amp;quot;
+
+3) Can&#39;t move right anymore because of the right parenthesis, so move left.
+                             int *(*func())();
+                                   ^
+   &amp;quot;func is function returning pointer to&amp;quot;
+
+4) Can&#39;t move left anymore because of the left parenthesis, so keep going
+   right.                    int *(*func())();
+                                           ^^
+   &amp;quot;func is function returning pointer to function returning&amp;quot;
+
+5) Can&#39;t move right anymore because we&#39;re out of symbols, so go left.
+                             int *(*func())();
+                                 ^
+   &amp;quot;func is function returning pointer to function returning pointer to&amp;quot;
+
+6) And finally, keep going left, because there&#39;s nothing left on the right.
+                             int *(*func())();
+                             ^^^
+   &amp;quot;func is function returning pointer to function returning pointer to int&amp;quot;.
+
+
+As you can see, this rule can be quite useful.  You can also use it to
+sanity check yourself while you are creating declarations, and to give
+you a hint about where to put the next symbol and whether parentheses
+are required.
+
+Some declarations look much more complicated than they are due to array
+sizes and argument lists in prototype form.  If you see &amp;quot;[3]&amp;quot;, that&#39;s
+read as &amp;quot;array (size 3) of...&amp;quot;.  If you see &amp;quot;(char *,int)&amp;quot; that&#39;s read
+as &amp;quot;function expecting (char *,int) and returning...&amp;quot;.  Here&#39;s a fun
+one:
+
+                 int (*(*fun_one)(char *,double))[9][20];
+
+I won&#39;t go through each of the steps to decipher this one.
+
+Ok.  It&#39;s:
+
+     &amp;quot;fun_one is pointer to function expecting (char *,double) and 
+      returning pointer to array (size 9) of array (size 20) of int.&amp;quot;
+
+As you can see, it&#39;s not as complicated if you get rid of the array sizes
+and argument lists:
+
+     int (*(*fun_one)())[][];
+
+You can decipher it that way, and then put in the array sizes and argument
+lists later.
+
+Some final words:
+
+It is quite possible to make illegal declarations using this rule,
+so some knowledge of what&#39;s legal in C is necessary.  For instance,
+if the above had been:
+
+     int *((*fun_one)())[][];
+
+it would have been &amp;quot;fun_one is pointer to function returning array of array of
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^
+pointer to int&amp;quot;.  Since a function cannot return an array, but only a 
+pointer to an array, that declaration is illegal.
+
+
+Illegal combinations include:
+
+	 []() - cannot have an array of functions
+	 ()() - cannot have a function that returns a function
+	 ()[] - cannot have a function that returns an array
+
+In all the above cases, you would need a set of parens to bind a *
+symbol on the left between these () and [] right-side symbols in order
+for the declaration to be legal.
+
+Here are some legal and illegal examples:
+
+int i;                  an int
+int *p;                 an int pointer (ptr to an int)
+int a[];                an array of ints
+int f();                a function returning an int
+int **pp;               a pointer to an int pointer (ptr to a ptr to an int)
+int (*pa)[];            a pointer to an array of ints
+int (*pf)();            a pointer to a function returning an int
+int *ap[];              an array of int pointers (array of ptrs to ints)
+int aa[][];             an array of arrays of ints
+int af[]();             an array of functions returning an int (ILLEGAL)
+int *fp();              a function returning an int pointer
+int fa()[];             a function returning an array of ints (ILLEGAL)
+int ff()();             a function returning a function returning an int
+                                (ILLEGAL)
+int ***ppp;             a pointer to a pointer to an int pointer
+int (**ppa)[];          a pointer to a pointer to an array of ints
+int (**ppf)();          a pointer to a pointer to a function returning an int
+int *(*pap)[];          a pointer to an array of int pointers
+int (*paa)[][];         a pointer to an array of arrays of ints
+int (*paf)[]();         a pointer to a an array of functions returning an int
+                                (ILLEGAL)
+int *(*pfp)();          a pointer to a function returning an int pointer
+int (*pfa)()[];         a pointer to a function returning an array of ints
+                                (ILLEGAL)
+int (*pff)()();         a pointer to a function returning a function
+                                returning an int (ILLEGAL)
+int **app[];            an array of pointers to int pointers
+int (*apa[])[];         an array of pointers to arrays of ints
+int (*apf[])();         an array of pointers to functions returning an int
+int *aap[][];           an array of arrays of int pointers
+int aaa[][][];          an array of arrays of arrays of ints
+int aaf[][]();          an array of arrays of functions returning an int
+                                (ILLEGAL)
+int *afp[]();           an array of functions returning int pointers (ILLEGAL)
+int afa[]()[];          an array of functions returning an array of ints
+                                (ILLEGAL)
+int aff[]()();          an array of functions returning functions
+                                returning an int (ILLEGAL)
+int **fpp();            a function returning a pointer to an int pointer
+int (*fpa())[];         a function returning a pointer to an array of ints
+int (*fpf())();         a function returning a pointer to a function
+                                returning an int
+int *fap()[];           a function returning an array of int pointers (ILLEGAL)
+int faa()[][];          a function returning an array of arrays of ints
+                                (ILLEGAL)
+int faf()[]();          a function returning an array of functions
+                                returning an int (ILLEGAL)
+int *ffp()();           a function returning a function
+                                returning an int pointer (ILLEGAL)
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
