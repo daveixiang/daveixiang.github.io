@@ -2,19 +2,72 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>項 思 偉 (Davei) ~ Aal Izz Well!</title>
-    <link>/index.xml</link>
+    <link>http://daveixiang.github.io/index.xml</link>
     <description>Recent content on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 21 Mar 2017 15:51:52 +0800</lastBuildDate>
-    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 23 Mar 2017 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://daveixiang.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Configure libvirt with openvswitch bridge</title>
+      <link>http://daveixiang.github.io/tech/2017_03_23_configure_libvirt_with_openvswitch_bridge/</link>
+      <pubDate>Thu, 23 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://daveixiang.github.io/tech/2017_03_23_configure_libvirt_with_openvswitch_bridge/</guid>
+      <description>
+
+&lt;h1 id=&#34;create-openvswitch-bridge&#34;&gt;Create OpenvSwitch bridge&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ovs-vsctl add-br br0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;configure-libvirt-with-br0-just-created&#34;&gt;Configure libvirt with &lt;em&gt;br0&lt;/em&gt; just created&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;BRNAME=br0
+
+cat &amp;gt; /tmp/libvirt-net.xml &amp;lt;&amp;lt;EOF
+&amp;lt;network&amp;gt;
+  &amp;lt;name&amp;gt;${BRNAME}&amp;lt;/name&amp;gt;
+  &amp;lt;forward mode=&#39;bridge&#39;/&amp;gt;
+  &amp;lt;bridge name=&#39;${BRNAME}&#39;/&amp;gt;
+  &amp;lt;virtualport type=&#39;openvswitch&#39;/&amp;gt;
+&amp;lt;/network&amp;gt;
+EOF
+
+virsh net-define /tmp/libvirt-net.xml
+virsh net-start $BRNAME
+virsh net-autostart $BRNAME
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>How to get the complete and exact list of mounted filesystems in Linux?</title>
+      <link>http://daveixiang.github.io/tips/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</link>
+      <pubDate>Wed, 22 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://daveixiang.github.io/tips/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</guid>
+      <description>&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;findmnt -lo source,target,fstype,label,options,used -t xfs
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;SOURCE    TARGET FSTYPE LABEL OPTIONS
+/dev/vda1 /      xfs          rw,relatime,attr2,inode64,noquota
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;/proc/mounts
+
+/etc/mtab
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>xin</title>
-      <link>/xin/</link>
+      <link>http://daveixiang.github.io/xin/</link>
       <pubDate>Tue, 21 Mar 2017 15:51:52 +0800</pubDate>
       
-      <guid>/xin/</guid>
+      <guid>http://daveixiang.github.io/xin/</guid>
       <description>&lt;p&gt;觀自在菩薩，行深般若波羅蜜多時，照見五蘊皆空，度一切苦厄。&lt;/p&gt;
 
 &lt;p&gt;舍利子！色不異空，空不異色，色即是空，空即是色，受想行識亦復如是，舍利子！是諸法空相，不生不滅，不垢不淨，不增不減。是故空中無色無受想行識，無眼耳鼻舌身意，無色聲香味觸法。無眼界乃至無意識界，無無明亦無無明盡，乃至無老死亦無老死盡。無苦集滅道。無智亦無得，以無所得故。&lt;/p&gt;
@@ -31,10 +84,10 @@
     
     <item>
       <title>Install Openstack from source code - glance (mitaka)</title>
-      <link>/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</link>
+      <link>http://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</link>
       <pubDate>Tue, 21 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</guid>
+      <guid>http://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</guid>
       <description>
 
 &lt;h2 id=&#34;create-image-service-database&#34;&gt;Create image service database&lt;/h2&gt;
@@ -187,10 +240,10 @@ python glance/cmd/glance-registry --config-file=/etc/glance/glance-registry.conf
     
     <item>
       <title>Compile influxdb 0.11.1 from source code</title>
-      <link>/tech/2017_03_13_compile_influxdb_0.11.1_from_source_code/</link>
+      <link>http://daveixiang.github.io/tech/2017_03_13_compile_influxdb_0.11.1_from_source_code/</link>
       <pubDate>Mon, 13 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tech/2017_03_13_compile_influxdb_0.11.1_from_source_code/</guid>
+      <guid>http://daveixiang.github.io/tech/2017_03_13_compile_influxdb_0.11.1_from_source_code/</guid>
       <description>
 
 &lt;h2 id=&#34;prepare-essential-directories-and-environment-variables&#34;&gt;Prepare essential directories and environment variables&lt;/h2&gt;
@@ -328,10 +381,10 @@ mkdir -p $GOPATH/var/lib/influxdb
     
     <item>
       <title>Clone git repository only some directories</title>
-      <link>/tech/2017_03_06_clone_git_repository_only_some_directories/</link>
+      <link>http://daveixiang.github.io/tech/2017_03_06_clone_git_repository_only_some_directories/</link>
       <pubDate>Mon, 06 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tech/2017_03_06_clone_git_repository_only_some_directories/</guid>
+      <guid>http://daveixiang.github.io/tech/2017_03_06_clone_git_repository_only_some_directories/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;First, do:&lt;/li&gt;
 &lt;/ul&gt;
@@ -357,10 +410,10 @@ mkdir -p $GOPATH/var/lib/influxdb
     
     <item>
       <title>Install Openstack from source code - keystone (mitaka)</title>
-      <link>/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</link>
+      <link>http://daveixiang.github.io/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</link>
       <pubDate>Sat, 04 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</guid>
+      <guid>http://daveixiang.github.io/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</guid>
       <description>
 
 &lt;h2 id=&#34;install-keystone-dependences&#34;&gt;Install keystone dependences&lt;/h2&gt;
@@ -466,10 +519,10 @@ EOF
     
     <item>
       <title>Build PostgreSQL with debug info</title>
-      <link>/tech/2017_03_01_build_postgresql_with_debug/</link>
+      <link>http://daveixiang.github.io/tech/2017_03_01_build_postgresql_with_debug/</link>
       <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tech/2017_03_01_build_postgresql_with_debug/</guid>
+      <guid>http://daveixiang.github.io/tech/2017_03_01_build_postgresql_with_debug/</guid>
       <description>
 
 &lt;h3 id=&#34;add-postgres-user&#34;&gt;Add &lt;em&gt;postgres&lt;/em&gt; user&lt;/h3&gt;
@@ -505,10 +558,10 @@ su postgres -c &#39;make install&#39;
     
     <item>
       <title>Install Openstack from source code dependences (mitaka)</title>
-      <link>/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</link>
+      <link>http://daveixiang.github.io/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</link>
       <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</guid>
+      <guid>http://daveixiang.github.io/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</guid>
       <description>&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/bin/bash
 
 function gen_pkg_deps()
@@ -587,10 +640,10 @@ done
     
     <item>
       <title>Install Openstack from source code prepares (mitaka)</title>
-      <link>/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</link>
+      <link>http://daveixiang.github.io/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</link>
       <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</guid>
+      <guid>http://daveixiang.github.io/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</guid>
       <description>
 
 &lt;h2 id=&#34;disable-networkmanager-and-enable-network&#34;&gt;Disable NetworkManager and enable network&lt;/h2&gt;
@@ -681,10 +734,10 @@ done
     
     <item>
       <title>Compile Golang from source code</title>
-      <link>/tech/2017_01_22_compile_golang_from_source_code/</link>
+      <link>http://daveixiang.github.io/tech/2017_01_22_compile_golang_from_source_code/</link>
       <pubDate>Thu, 12 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tech/2017_01_22_compile_golang_from_source_code/</guid>
+      <guid>http://daveixiang.github.io/tech/2017_01_22_compile_golang_from_source_code/</guid>
       <description>
 
 &lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
@@ -813,10 +866,10 @@ func main() {
     
     <item>
       <title>Nested KVM</title>
-      <link>/tech/2016_09_03_nested_kvm/</link>
+      <link>http://daveixiang.github.io/tech/2016_09_03_nested_kvm/</link>
       <pubDate>Sat, 03 Sep 2016 00:00:00 +0000</pubDate>
       
-      <guid>/tech/2016_09_03_nested_kvm/</guid>
+      <guid>http://daveixiang.github.io/tech/2016_09_03_nested_kvm/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;Enable the setting for Nested KVM&lt;/li&gt;
 &lt;/ul&gt;
@@ -836,8 +889,10 @@ cat /sys/module/kvm_intel/parameters/nested
 &lt;li&gt;Edit the configuration of a virtual machine you&amp;rsquo;d want to set nested&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;virsh edit {DOMAIN_NAME}/{DOMAIN_ID}
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;virsh edit {DOMAIN_NAME}
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and add the following setting to the vm configuration:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;cpu mode=&#39;host-passthrough&#39;&amp;gt;
 &amp;lt;/cpu&amp;gt;
@@ -847,10 +902,10 @@ cat /sys/module/kvm_intel/parameters/nested
     
     <item>
       <title>C declaration Right-Left rule</title>
-      <link>/tech/2016_04_27_c_declaration_right_left_rule/</link>
+      <link>http://daveixiang.github.io/tech/2016_04_27_c_declaration_right_left_rule/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>/tech/2016_04_27_c_declaration_right_left_rule/</guid>
+      <guid>http://daveixiang.github.io/tech/2016_04_27_c_declaration_right_left_rule/</guid>
       <description>&lt;pre&gt;&lt;code&gt;The &amp;quot;right-left&amp;quot; rule is a completely regular rule for deciphering C
 declarations.  It can also be useful in creating them.
 

@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Clan on 項 思 偉 (Davei) ~ Aal Izz Well!</title>
-    <link>/categories/clan/index.xml</link>
+    <link>http://daveixiang.github.io/categories/clan/index.xml</link>
     <description>Recent content in Clan on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <atom:link href="/categories/clan/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://daveixiang.github.io/categories/clan/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>C declaration Right-Left rule</title>
-      <link>/tech/2016_04_27_c_declaration_right_left_rule/</link>
+      <link>http://daveixiang.github.io/tech/2016_04_27_c_declaration_right_left_rule/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>/tech/2016_04_27_c_declaration_right_left_rule/</guid>
+      <guid>http://daveixiang.github.io/tech/2016_04_27_c_declaration_right_left_rule/</guid>
       <description>&lt;pre&gt;&lt;code&gt;The &amp;quot;right-left&amp;quot; rule is a completely regular rule for deciphering C
 declarations.  It can also be useful in creating them.
 

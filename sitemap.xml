@@ -2,181 +2,221 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>/xin/</loc>
+    <loc>http://daveixiang.github.io/tech/2017_03_23_configure_libvirt_with_openvswitch_bridge/</loc>
+    <lastmod>2017-03-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://daveixiang.github.io/tips/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</loc>
+    <lastmod>2017-03-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://daveixiang.github.io/xin/</loc>
     <lastmod>2017-03-21T15:51:52+08:00</lastmod>
   </url>
   
   <url>
-    <loc>/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</loc>
+    <loc>http://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</loc>
     <lastmod>2017-03-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tech/2017_03_13_compile_influxdb_0.11.1_from_source_code/</loc>
+    <loc>http://daveixiang.github.io/tech/2017_03_13_compile_influxdb_0.11.1_from_source_code/</loc>
     <lastmod>2017-03-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tech/2017_03_06_clone_git_repository_only_some_directories/</loc>
+    <loc>http://daveixiang.github.io/tech/2017_03_06_clone_git_repository_only_some_directories/</loc>
     <lastmod>2017-03-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</loc>
+    <loc>http://daveixiang.github.io/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</loc>
     <lastmod>2017-03-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tech/2017_03_01_build_postgresql_with_debug/</loc>
+    <loc>http://daveixiang.github.io/tech/2017_03_01_build_postgresql_with_debug/</loc>
     <lastmod>2017-03-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</loc>
+    <loc>http://daveixiang.github.io/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</loc>
     <lastmod>2017-03-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</loc>
+    <loc>http://daveixiang.github.io/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</loc>
     <lastmod>2017-02-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tech/2017_01_22_compile_golang_from_source_code/</loc>
+    <loc>http://daveixiang.github.io/tech/2017_01_22_compile_golang_from_source_code/</loc>
     <lastmod>2017-01-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tech/2016_09_03_nested_kvm/</loc>
+    <loc>http://daveixiang.github.io/tech/2016_09_03_nested_kvm/</loc>
     <lastmod>2016-09-03T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tech/2016_04_27_c_declaration_right_left_rule/</loc>
+    <loc>http://daveixiang.github.io/tech/2016_04_27_c_declaration_right_left_rule/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/categories/</loc>
+    <loc>http://daveixiang.github.io/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/centos/</loc>
+    <loc>http://daveixiang.github.io/tags/centos/</loc>
     <lastmod>2017-03-21T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/categories/clan/</loc>
+    <loc>http://daveixiang.github.io/categories/clan/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/database/</loc>
+    <loc>http://daveixiang.github.io/categories/database/</loc>
+    <lastmod>2017-03-13T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://daveixiang.github.io/tags/database/</loc>
     <lastmod>2017-03-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/categories/database/</loc>
-    <lastmod>2017-03-13T00:00:00+00:00</lastmod>
+    <loc>http://daveixiang.github.io/tags/filesystem/</loc>
+    <lastmod>2017-03-22T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/git/</loc>
+    <loc>http://daveixiang.github.io/categories/git/</loc>
     <lastmod>2017-03-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/categories/git/</loc>
+    <loc>http://daveixiang.github.io/tags/git/</loc>
     <lastmod>2017-03-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/golang/</loc>
-    <lastmod>2017-03-13T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/categories/golang/</loc>
+    <loc>http://daveixiang.github.io/categories/golang/</loc>
     <lastmod>2017-01-12T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/kvm/</loc>
-    <lastmod>2016-09-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/libvirt/</loc>
-    <lastmod>2016-09-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/linux/</loc>
-    <lastmod>2017-03-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/openstack/</loc>
-    <lastmod>2017-03-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/categories/openstack/</loc>
-    <lastmod>2017-03-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/postgresql/</loc>
-    <lastmod>2017-03-01T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tech/</loc>
-    <lastmod>2017-03-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/tips/</loc>
-    <lastmod>2017-03-06T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/tsdb/</loc>
+    <loc>http://daveixiang.github.io/tags/golang/</loc>
     <lastmod>2017-03-13T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/categories/virtualization/</loc>
+    <loc>http://daveixiang.github.io/tags/kvm/</loc>
     <lastmod>2016-09-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/</loc>
-    <lastmod>2017-03-21T15:51:52+08:00</lastmod>
+    <loc>http://daveixiang.github.io/categories/libvirt/</loc>
+    <lastmod>2017-03-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://daveixiang.github.io/tags/libvirt/</loc>
+    <lastmod>2017-03-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://daveixiang.github.io/tags/linux/</loc>
+    <lastmod>2017-03-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://daveixiang.github.io/categories/openstack/</loc>
+    <lastmod>2017-03-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://daveixiang.github.io/tags/openstack/</loc>
+    <lastmod>2017-03-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://daveixiang.github.io/tags/openvswitch/</loc>
+    <lastmod>2017-03-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://daveixiang.github.io/tags/postgresql/</loc>
+    <lastmod>2017-03-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://daveixiang.github.io/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://daveixiang.github.io/tech/</loc>
+    <lastmod>2017-03-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://daveixiang.github.io/categories/tips/</loc>
+    <lastmod>2017-03-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://daveixiang.github.io/tags/tips/</loc>
+    <lastmod>2017-03-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://daveixiang.github.io/tips/</loc>
+    <lastmod>2017-03-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://daveixiang.github.io/tags/tsdb/</loc>
+    <lastmod>2017-03-13T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://daveixiang.github.io/categories/virtualization/</loc>
+    <lastmod>2016-09-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://daveixiang.github.io/</loc>
+    <lastmod>2017-03-23T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tips on 項 思 偉 (Davei) ~ Aal Izz Well!</title>
-    <link>/tags/tips/index.xml</link>
+    <link>http://daveixiang.github.io/tags/tips/index.xml</link>
     <description>Recent content in Tips on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <atom:link href="/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://daveixiang.github.io/tags/tips/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Clone git repository only some directories</title>
-      <link>/tech/2017_03_06_clone_git_repository_only_some_directories/</link>
+      <link>http://daveixiang.github.io/tech/2017_03_06_clone_git_repository_only_some_directories/</link>
       <pubDate>Mon, 06 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tech/2017_03_06_clone_git_repository_only_some_directories/</guid>
+      <guid>http://daveixiang.github.io/tech/2017_03_06_clone_git_repository_only_some_directories/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;First, do:&lt;/li&gt;
 &lt;/ul&gt;
@@ -39,10 +39,10 @@
     
     <item>
       <title>Nested KVM</title>
-      <link>/tech/2016_09_03_nested_kvm/</link>
+      <link>http://daveixiang.github.io/tech/2016_09_03_nested_kvm/</link>
       <pubDate>Sat, 03 Sep 2016 00:00:00 +0000</pubDate>
       
-      <guid>/tech/2016_09_03_nested_kvm/</guid>
+      <guid>http://daveixiang.github.io/tech/2016_09_03_nested_kvm/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;Enable the setting for Nested KVM&lt;/li&gt;
 &lt;/ul&gt;
@@ -62,8 +62,10 @@ cat /sys/module/kvm_intel/parameters/nested
 &lt;li&gt;Edit the configuration of a virtual machine you&amp;rsquo;d want to set nested&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;virsh edit {DOMAIN_NAME}/{DOMAIN_ID}
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;virsh edit {DOMAIN_NAME}
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and add the following setting to the vm configuration:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;cpu mode=&#39;host-passthrough&#39;&amp;gt;
 &amp;lt;/cpu&amp;gt;
