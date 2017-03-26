@@ -66,6 +66,66 @@
                 
                 
                 <header class="article-header">
+                    <h1 itemprop="name"><a class="article-title" href="http://daveixiang.github.io/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/">Install Openstack from source code prepares (mitaka)</a></h1>
+                </header>
+                
+                <div class="article-meta">
+                    <a href="http://daveixiang.github.io/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/" class="article-date">
+                        <time datetime='2017-02-25T00:00:00.000&#43;00:00' itemprop="datePublished">2017-02-25</time>
+                    </a>
+                    
+                    
+                    <div class="post-categories">
+                        <div class="article-category">
+                            
+                            
+                            <a class="article-category-link" href="http://daveixiang.github.io//categories/openstack">openstack</a>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <div class="article-entry" itemprop="articleBody">
+                    <p>
+                        
+                    Disable NetworkManager and enable network systemctl stop NetworkManager.service systemctl disable NetworkManager.service systemctl start network.service systemctl enable network.service  Disable SELinux sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config  Disable Firewalld systemctl stop firewalld systemctl disable firewalld  Disalbe YUM fast mirrors and language features sed -i -E -e 's/enabled=1/enabled=0/' /etc/yum/pluginconf.d/fastestmirror.conf sed -i -E -e 's/enabled=1/enabled=0/' /etc/yum/pluginconf.d/langpacks.conf  Speed up SSH connection sed -i 's/#UseDNS yes/UseDNS no/' /etc/ssh/sshd_config  Install and configure rabbitmq yum -y install rabbitmq-server systemctl start rabbitmq-server systemctl enable rabbitmq-server  rabbitmqctl add_user openstack openstack rabbitmqctl set_user_tags openstack administrator rabbitmqctl set_permissions -p / openstack &quot;.
+                    </p>
+                    <p class="article-more-link">
+                        <a href="http://daveixiang.github.io/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/">Read More</a>
+                    </p>
+                </div>
+
+                
+                <footer class="article-footer">
+                    <ul class="article-tag-list">
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="http://daveixiang.github.io//tags/linux">linux
+                            </a>
+                        </li>
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="http://daveixiang.github.io//tags/centos">centos
+                            </a>
+                        </li>
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="http://daveixiang.github.io//tags/openstack">openstack
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </footer>
+                
+            </div>
+        </article>
+        
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+            <div class="article-inner">
+                
+                
+                <header class="article-header">
                     <h1 itemprop="name"><a class="article-title" href="http://daveixiang.github.io/tech/2017_01_22_compile_golang_from_source_code/">Compile Golang from source code</a></h1>
                 </header>
                 

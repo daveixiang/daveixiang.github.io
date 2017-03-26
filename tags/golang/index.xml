@@ -196,6 +196,16 @@ mv go go1.4
 
 &lt;p&gt;After some minutes you have a working Go 1.4 installation.&lt;/p&gt;
 
+&lt;p&gt;If get the following error:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;cannot load DWARF output from $WORK/os/user/_obj//_cgo_.o: decoding dwarf section info at offset 0x4: unsupported version 0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Using Go 1.4 to bootstrap a later version, disable cgo with:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;env CGO_ENABLED=0 ./make.bash
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;h2 id=&#34;compile-the-current-version-go1-7-5&#34;&gt;Compile the current version (go1.7.5)&lt;/h2&gt;
 
 &lt;ul&gt;

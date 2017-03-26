@@ -558,12 +558,12 @@ go clean ./... go install ./...  and wait for a comment, the binaries will be in
                 
                 
                 <header class="article-header">
-                    <h1 itemprop="name"><a class="article-title" href="http://daveixiang.github.io/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/">Install Openstack from source code prepares (mitaka)</a></h1>
+                    <h1 itemprop="name"><a class="article-title" href="http://daveixiang.github.io/tech/2017_02_28_multiple_ways_to_access_qmp/">Multiple ways to access QEMU Machine Protocol (QMP)</a></h1>
                 </header>
                 
                 <div class="article-meta">
-                    <a href="http://daveixiang.github.io/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/" class="article-date">
-                        <time datetime='2017-02-25T00:00:00.000&#43;00:00' itemprop="datePublished">2017-02-25</time>
+                    <a href="http://daveixiang.github.io/tech/2017_02_28_multiple_ways_to_access_qmp/" class="article-date">
+                        <time datetime='2017-02-28T00:00:00.000&#43;00:00' itemprop="datePublished">2017-02-28</time>
                     </a>
                     
                     
@@ -571,7 +571,7 @@ go clean ./... go install ./...  and wait for a comment, the binaries will be in
                         <div class="article-category">
                             
                             
-                            <a class="article-category-link" href="http://daveixiang.github.io//categories/openstack">openstack</a>
+                            <a class="article-category-link" href="http://daveixiang.github.io//categories/qemu">qemu</a>
                             
                         </div>
                     </div>
@@ -581,10 +581,11 @@ go clean ./... go install ./...  and wait for a comment, the binaries will be in
                 <div class="article-entry" itemprop="articleBody">
                     <p>
                         
-                    Disable NetworkManager and enable network systemctl stop NetworkManager.service systemctl disable NetworkManager.service systemctl start network.service systemctl enable network.service  Disable SELinux sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config  Disable Firewalld systemctl stop firewalld systemctl disable firewalld  Disalbe YUM fast mirrors and language features sed -i -E -e 's/enabled=1/enabled=0/' /etc/yum/pluginconf.d/fastestmirror.conf sed -i -E -e 's/enabled=1/enabled=0/' /etc/yum/pluginconf.d/langpacks.conf  Speed up SSH connection sed -i 's/#UseDNS yes/UseDNS no/' /etc/ssh/sshd_config  Install and configure rabbitmq yum -y install rabbitmq-server systemctl start rabbitmq-server systemctl enable rabbitmq-server  rabbitmqctl add_user openstack openstack rabbitmqctl set_user_tags openstack administrator rabbitmqctl set_permissions -p / openstack &quot;.
+                    QMP (QEMU Machine Protocol) is quiet useful. QMP allows applications to communicate withh a running QEMU&rsquo;s instance. There ae a few different ways to access the QEMU monitor to query the guest&rsquo;s information, modify the guest state using the QMP commands.
+Access QMP via libvirt’s qemu-monitor-command virsh qemu-monitor-command ${domain-name} --pretty '{&quot;execute&quot;:&quot;query-kvm&quot;}'  QMP via tcp socket  launch an qemu instance:  qemu-system-x86_64 --enable-kvm -drive if=virtio,format=qcow2,index=0,file=cirros-0.3.5-x86_64-disk.img --qmp tcp:127.0.0.1:12345,server  and the output in the terminal like:
                     </p>
                     <p class="article-more-link">
-                        <a href="http://daveixiang.github.io/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/">Read More</a>
+                        <a href="http://daveixiang.github.io/tech/2017_02_28_multiple_ways_to_access_qmp/">Read More</a>
                     </p>
                 </div>
 
@@ -593,17 +594,17 @@ go clean ./... go install ./...  and wait for a comment, the binaries will be in
                     <ul class="article-tag-list">
                         
                         <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="http://daveixiang.github.io//tags/qemu">qemu
+                            </a>
+                        </li>
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="http://daveixiang.github.io//tags/qmp">qmp
+                            </a>
+                        </li>
+                        
+                        <li class="article-tag-list-item">
                             <a class="article-tag-list-link" href="http://daveixiang.github.io//tags/linux">linux
-                            </a>
-                        </li>
-                        
-                        <li class="article-tag-list-item">
-                            <a class="article-tag-list-link" href="http://daveixiang.github.io//tags/centos">centos
-                            </a>
-                        </li>
-                        
-                        <li class="article-tag-list-item">
-                            <a class="article-tag-list-link" href="http://daveixiang.github.io//tags/openstack">openstack
                             </a>
                         </li>
                         
