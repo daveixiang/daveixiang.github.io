@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Virtualization on 項 思 偉 (Davei) ~ Aal Izz Well!</title>
-    <link>http://daveixiang.github.io/categories/virtualization/index.xml</link>
+    <link>https://daveixiang.github.io/categories/virtualization/index.xml</link>
     <description>Recent content in Virtualization on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <atom:link href="http://daveixiang.github.io/categories/virtualization/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://daveixiang.github.io/categories/virtualization/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Nested KVM</title>
-      <link>http://daveixiang.github.io/tech/2016_09_03_nested_kvm/</link>
+      <link>https://daveixiang.github.io/tech/2016_09_03_nested_kvm/</link>
       <pubDate>Sat, 03 Sep 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2016_09_03_nested_kvm/</guid>
+      <guid>https://daveixiang.github.io/tech/2016_09_03_nested_kvm/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;Enable the setting for Nested KVM&lt;/li&gt;
 &lt;/ul&gt;

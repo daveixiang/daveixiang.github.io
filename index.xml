@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>項 思 偉 (Davei) ~ Aal Izz Well!</title>
-    <link>http://daveixiang.github.io/index.xml</link>
+    <link>https://daveixiang.github.io/index.xml</link>
     <description>Recent content on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Thu, 23 Mar 2017 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://daveixiang.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://daveixiang.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Configure libvirt with openvswitch bridge</title>
-      <link>http://daveixiang.github.io/tech/2017_03_23_configure_libvirt_with_openvswitch_bridge/</link>
+      <link>https://daveixiang.github.io/tech/2017_03_23_configure_libvirt_with_openvswitch_bridge/</link>
       <pubDate>Thu, 23 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_03_23_configure_libvirt_with_openvswitch_bridge/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_03_23_configure_libvirt_with_openvswitch_bridge/</guid>
       <description>
 
 &lt;h1 id=&#34;create-openvswitch-bridge&#34;&gt;Create OpenvSwitch bridge&lt;/h1&gt;
@@ -44,10 +44,10 @@ virsh net-autostart $BRNAME
     
     <item>
       <title>How to get the complete and exact list of mounted filesystems in Linux?</title>
-      <link>http://daveixiang.github.io/tips/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</link>
+      <link>https://daveixiang.github.io/tips/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</link>
       <pubDate>Wed, 22 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tips/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</guid>
+      <guid>https://daveixiang.github.io/tips/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</guid>
       <description>&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;findmnt -lo source,target,fstype,label,options,used -t xfs
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -63,31 +63,447 @@ virsh net-autostart $BRNAME
     </item>
     
     <item>
-      <title>xin</title>
-      <link>http://daveixiang.github.io/xin/</link>
+      <title></title>
+      <link>https://daveixiang.github.io/xin/</link>
       <pubDate>Tue, 21 Mar 2017 15:51:52 +0800</pubDate>
       
-      <guid>http://daveixiang.github.io/xin/</guid>
-      <description>&lt;p&gt;觀自在菩薩，行深般若波羅蜜多時，照見五蘊皆空，度一切苦厄。&lt;/p&gt;
+      <guid>https://daveixiang.github.io/xin/</guid>
+      <description>&lt;table style=&#34;font-size: 1.2em; font-family: 华文楷体&#34;&gt;
 
-&lt;p&gt;舍利子！色不異空，空不異色，色即是空，空即是色，受想行識亦復如是，舍利子！是諸法空相，不生不滅，不垢不淨，不增不減。是故空中無色無受想行識，無眼耳鼻舌身意，無色聲香味觸法。無眼界乃至無意識界，無無明亦無無明盡，乃至無老死亦無老死盡。無苦集滅道。無智亦無得，以無所得故。&lt;/p&gt;
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;咒&lt;/td&gt;
+&lt;td&gt;苦&lt;/td&gt;
+&lt;td&gt;大&lt;/td&gt;
+&lt;td&gt;三&lt;/td&gt;
+&lt;td&gt;佛&lt;/td&gt;
+&lt;td&gt;有&lt;/td&gt;
+&lt;td&gt;般&lt;/td&gt;
+&lt;td&gt;道&lt;/td&gt;
+&lt;td&gt;明&lt;/td&gt;
+&lt;td&gt;法&lt;/td&gt;
+&lt;td&gt;想&lt;/td&gt;
+&lt;td&gt;不&lt;/td&gt;
+&lt;td&gt;亦&lt;/td&gt;
+&lt;td&gt;空&lt;/td&gt;
+&lt;td&gt;五&lt;/td&gt;
+&lt;td&gt;觀&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
 
-&lt;p&gt;菩提薩埵，依般若波羅蜜多故，心無罣礙，無罣礙故，無有恐佈，遠離顛倒夢想，究竟涅槃。&lt;/p&gt;
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;曰&lt;/td&gt;
+&lt;td&gt;真&lt;/td&gt;
+&lt;td&gt;明&lt;/td&gt;
+&lt;td&gt;菩&lt;/td&gt;
+&lt;td&gt;依&lt;/td&gt;
+&lt;td&gt;恐&lt;/td&gt;
+&lt;td&gt;若&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;盡&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;行&lt;/td&gt;
+&lt;td&gt;垢&lt;/td&gt;
+&lt;td&gt;復&lt;/td&gt;
+&lt;td&gt;不&lt;/td&gt;
+&lt;td&gt;蘊&lt;/td&gt;
+&lt;td&gt;自&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
 
-&lt;p&gt;三世諸佛，依般若波羅蜜多故，得阿耨多羅三藐三菩提。&lt;/p&gt;
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;波&lt;/td&gt;
+&lt;td&gt;揭&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;實&lt;/td&gt;
+&lt;td&gt;咒&lt;/td&gt;
+&lt;td&gt;提&lt;/td&gt;
+&lt;td&gt;般&lt;/td&gt;
+&lt;td&gt;怖&lt;/td&gt;
+&lt;td&gt;波&lt;/td&gt;
+&lt;td&gt;智&lt;/td&gt;
+&lt;td&gt;乃&lt;/td&gt;
+&lt;td&gt;眼&lt;/td&gt;
+&lt;td&gt;識&lt;/td&gt;
+&lt;td&gt;不&lt;/td&gt;
+&lt;td&gt;如&lt;/td&gt;
+&lt;td&gt;異&lt;/td&gt;
+&lt;td&gt;皆&lt;/td&gt;
+&lt;td&gt;在&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
 
-&lt;p&gt;故知般若波羅蜜多，是大神咒，是大明咒，是無上咒，是無等等咒，能除一切苦，真實不虛。故說般若波羅蜜多咒，即說咒曰：&lt;/p&gt;
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;羅&lt;/td&gt;
+&lt;td&gt;諦&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;不&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;故&lt;/td&gt;
+&lt;td&gt;若&lt;/td&gt;
+&lt;td&gt;遠&lt;/td&gt;
+&lt;td&gt;羅&lt;/td&gt;
+&lt;td&gt;亦&lt;/td&gt;
+&lt;td&gt;至&lt;/td&gt;
+&lt;td&gt;界&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;淨&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;色&lt;/td&gt;
+&lt;td&gt;空&lt;/td&gt;
+&lt;td&gt;菩&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr
 
-&lt;p&gt;揭諦　揭諦　波羅揭諦　波羅僧揭諦　菩提薩婆訶&lt;/p&gt;
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;僧&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;虛&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;知&lt;/td&gt;
+&lt;td&gt;波&lt;/td&gt;
+&lt;td&gt;離&lt;/td&gt;
+&lt;td&gt;密&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;乃&lt;/td&gt;
+&lt;td&gt;眼&lt;/td&gt;
+&lt;td&gt;不&lt;/td&gt;
+&lt;td&gt;舍&lt;/td&gt;
+&lt;td&gt;色&lt;/td&gt;
+&lt;td&gt;度&lt;/td&gt;
+&lt;td&gt;薩&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;般&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;揭&lt;/td&gt;
+&lt;td&gt;揭&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;故&lt;/td&gt;
+&lt;td&gt;上&lt;/td&gt;
+&lt;td&gt;般&lt;/td&gt;
+&lt;td&gt;羅&lt;/td&gt;
+&lt;td&gt;顛&lt;/td&gt;
+&lt;td&gt;多&lt;/td&gt;
+&lt;td&gt;得&lt;/td&gt;
+&lt;td&gt;老&lt;/td&gt;
+&lt;td&gt;至&lt;/td&gt;
+&lt;td&gt;耳&lt;/td&gt;
+&lt;td&gt;增&lt;/td&gt;
+&lt;td&gt;利&lt;/td&gt;
+&lt;td&gt;即&lt;/td&gt;
+&lt;td&gt;一&lt;/td&gt;
+&lt;td&gt;行&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;若&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;諦&lt;/td&gt;
+&lt;td&gt;諦&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;說&lt;/td&gt;
+&lt;td&gt;咒&lt;/td&gt;
+&lt;td&gt;若&lt;/td&gt;
+&lt;td&gt;密&lt;/td&gt;
+&lt;td&gt;倒&lt;/td&gt;
+&lt;td&gt;故&lt;/td&gt;
+&lt;td&gt;以&lt;/td&gt;
+&lt;td&gt;死&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;鼻&lt;/td&gt;
+&lt;td&gt;不&lt;/td&gt;
+&lt;td&gt;子&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;切&lt;/td&gt;
+&lt;td&gt;深&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;波&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;般&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;波&lt;/td&gt;
+&lt;td&gt;多&lt;/td&gt;
+&lt;td&gt;夢&lt;/td&gt;
+&lt;td&gt;心&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;亦&lt;/td&gt;
+&lt;td&gt;意&lt;/td&gt;
+&lt;td&gt;舌&lt;/td&gt;
+&lt;td&gt;減&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;空&lt;/td&gt;
+&lt;td&gt;苦&lt;/td&gt;
+&lt;td&gt;般&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;羅&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;菩&lt;/td&gt;
+&lt;td&gt;波&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;若&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;羅&lt;/td&gt;
+&lt;td&gt;故&lt;/td&gt;
+&lt;td&gt;想&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;所&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;識&lt;/td&gt;
+&lt;td&gt;身&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;諸&lt;/td&gt;
+&lt;td&gt;空&lt;/td&gt;
+&lt;td&gt;厄&lt;/td&gt;
+&lt;td&gt;若&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;密&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;提&lt;/td&gt;
+&lt;td&gt;羅&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;波&lt;/td&gt;
+&lt;td&gt;等&lt;/td&gt;
+&lt;td&gt;密&lt;/td&gt;
+&lt;td&gt;得&lt;/td&gt;
+&lt;td&gt;究&lt;/td&gt;
+&lt;td&gt;罣&lt;/td&gt;
+&lt;td&gt;得&lt;/td&gt;
+&lt;td&gt;老&lt;/td&gt;
+&lt;td&gt;界&lt;/td&gt;
+&lt;td&gt;意&lt;/td&gt;
+&lt;td&gt;故&lt;/td&gt;
+&lt;td&gt;法&lt;/td&gt;
+&lt;td&gt;即&lt;/td&gt;
+&lt;td&gt;舍&lt;/td&gt;
+&lt;td&gt;波&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;多&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;薩&lt;/td&gt;
+&lt;td&gt;揭&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;羅&lt;/td&gt;
+&lt;td&gt;等&lt;/td&gt;
+&lt;td&gt;多&lt;/td&gt;
+&lt;td&gt;阿&lt;/td&gt;
+&lt;td&gt;竟&lt;/td&gt;
+&lt;td&gt;礙&lt;/td&gt;
+&lt;td&gt;故&lt;/td&gt;
+&lt;td&gt;死&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;空&lt;/td&gt;
+&lt;td&gt;空&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;利&lt;/td&gt;
+&lt;td&gt;羅&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;心&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;項&lt;/td&gt;
+&lt;td&gt;婆&lt;/td&gt;
+&lt;td&gt;諦&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;密&lt;/td&gt;
+&lt;td&gt;咒&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;耨&lt;/td&gt;
+&lt;td&gt;涅&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;菩&lt;/td&gt;
+&lt;td&gt;盡&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;色&lt;/td&gt;
+&lt;td&gt;中&lt;/td&gt;
+&lt;td&gt;相&lt;/td&gt;
+&lt;td&gt;色&lt;/td&gt;
+&lt;td&gt;子&lt;/td&gt;
+&lt;td&gt;密&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;經&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;思&lt;/td&gt;
+&lt;td&gt;訶&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;多&lt;/td&gt;
+&lt;td&gt;能&lt;/td&gt;
+&lt;td&gt;大&lt;/td&gt;
+&lt;td&gt;多&lt;/td&gt;
+&lt;td&gt;槃&lt;/td&gt;
+&lt;td&gt;罣&lt;/td&gt;
+&lt;td&gt;提&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;明&lt;/td&gt;
+&lt;td&gt;聲&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;不&lt;/td&gt;
+&lt;td&gt;受&lt;/td&gt;
+&lt;td&gt;色&lt;/td&gt;
+&lt;td&gt;多&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;偉&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;咒&lt;/td&gt;
+&lt;td&gt;除&lt;/td&gt;
+&lt;td&gt;神&lt;/td&gt;
+&lt;td&gt;羅&lt;/td&gt;
+&lt;td&gt;三&lt;/td&gt;
+&lt;td&gt;礙&lt;/td&gt;
+&lt;td&gt;薩&lt;/td&gt;
+&lt;td&gt;苦&lt;/td&gt;
+&lt;td&gt;亦&lt;/td&gt;
+&lt;td&gt;香&lt;/td&gt;
+&lt;td&gt;色&lt;/td&gt;
+&lt;td&gt;生&lt;/td&gt;
+&lt;td&gt;想&lt;/td&gt;
+&lt;td&gt;不&lt;/td&gt;
+&lt;td&gt;時&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;即&lt;/td&gt;
+&lt;td&gt;一&lt;/td&gt;
+&lt;td&gt;咒&lt;/td&gt;
+&lt;td&gt;三&lt;/td&gt;
+&lt;td&gt;世&lt;/td&gt;
+&lt;td&gt;故&lt;/td&gt;
+&lt;td&gt;埵&lt;/td&gt;
+&lt;td&gt;集&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;味&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;不&lt;/td&gt;
+&lt;td&gt;行&lt;/td&gt;
+&lt;td&gt;異&lt;/td&gt;
+&lt;td&gt;照&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;編&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;說&lt;/td&gt;
+&lt;td&gt;切&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;藐&lt;/td&gt;
+&lt;td&gt;諸&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;依&lt;/td&gt;
+&lt;td&gt;滅&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;觸&lt;/td&gt;
+&lt;td&gt;受&lt;/td&gt;
+&lt;td&gt;滅&lt;/td&gt;
+&lt;td&gt;識&lt;/td&gt;
+&lt;td&gt;空&lt;/td&gt;
+&lt;td&gt;見&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;輯&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
 </description>
     </item>
     
     <item>
       <title>Install Openstack from source code - glance (mitaka)</title>
-      <link>http://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</link>
+      <link>https://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</link>
       <pubDate>Tue, 21 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</guid>
       <description>
 
 &lt;h2 id=&#34;create-image-service-database&#34;&gt;Create image service database&lt;/h2&gt;
@@ -240,10 +656,10 @@ python glance/cmd/glance-registry --config-file=/etc/glance/glance-registry.conf
     
     <item>
       <title>Compile influxdb 0.11.1 from source code</title>
-      <link>http://daveixiang.github.io/tech/2017_03_13_compile_influxdb_0.11.1_from_source_code/</link>
+      <link>https://daveixiang.github.io/tech/2017_03_13_compile_influxdb_0.11.1_from_source_code/</link>
       <pubDate>Mon, 13 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_03_13_compile_influxdb_0.11.1_from_source_code/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_03_13_compile_influxdb_0.11.1_from_source_code/</guid>
       <description>
 
 &lt;h2 id=&#34;prepare-essential-directories-and-environment-variables&#34;&gt;Prepare essential directories and environment variables&lt;/h2&gt;
@@ -381,10 +797,10 @@ mkdir -p $GOPATH/var/lib/influxdb
     
     <item>
       <title>Clone git repository only some directories</title>
-      <link>http://daveixiang.github.io/tech/2017_03_06_clone_git_repository_only_some_directories/</link>
+      <link>https://daveixiang.github.io/tech/2017_03_06_clone_git_repository_only_some_directories/</link>
       <pubDate>Mon, 06 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_03_06_clone_git_repository_only_some_directories/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_03_06_clone_git_repository_only_some_directories/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;First, do:&lt;/li&gt;
 &lt;/ul&gt;
@@ -410,10 +826,10 @@ mkdir -p $GOPATH/var/lib/influxdb
     
     <item>
       <title>Install Openstack from source code - keystone (mitaka)</title>
-      <link>http://daveixiang.github.io/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</link>
+      <link>https://daveixiang.github.io/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</link>
       <pubDate>Sat, 04 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</guid>
       <description>
 
 &lt;h2 id=&#34;install-keystone-dependences&#34;&gt;Install keystone dependences&lt;/h2&gt;
@@ -519,10 +935,10 @@ EOF
     
     <item>
       <title>Build PostgreSQL with debug info</title>
-      <link>http://daveixiang.github.io/tech/2017_03_01_build_postgresql_with_debug/</link>
+      <link>https://daveixiang.github.io/tech/2017_03_01_build_postgresql_with_debug/</link>
       <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_03_01_build_postgresql_with_debug/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_03_01_build_postgresql_with_debug/</guid>
       <description>
 
 &lt;h3 id=&#34;add-postgres-user&#34;&gt;Add &lt;em&gt;postgres&lt;/em&gt; user&lt;/h3&gt;
@@ -558,10 +974,10 @@ su postgres -c &#39;make install&#39;
     
     <item>
       <title>Install Openstack from source code dependences (mitaka)</title>
-      <link>http://daveixiang.github.io/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</link>
+      <link>https://daveixiang.github.io/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</link>
       <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</guid>
       <description>&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/bin/bash
 
 function gen_pkg_deps()
@@ -640,10 +1056,10 @@ done
     
     <item>
       <title>Multiple ways to access QEMU Machine Protocol (QMP)</title>
-      <link>http://daveixiang.github.io/tech/2017_02_28_multiple_ways_to_access_qmp/</link>
+      <link>https://daveixiang.github.io/tech/2017_02_28_multiple_ways_to_access_qmp/</link>
       <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_02_28_multiple_ways_to_access_qmp/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_02_28_multiple_ways_to_access_qmp/</guid>
       <description>
 
 &lt;p&gt;QMP (QEMU Machine Protocol) is quiet useful. QMP allows applications
@@ -727,10 +1143,10 @@ Escape character is &#39;^]&#39;.
     
     <item>
       <title>Install Openstack from source code prepares (mitaka)</title>
-      <link>http://daveixiang.github.io/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</link>
+      <link>https://daveixiang.github.io/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</link>
       <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</guid>
       <description>
 
 &lt;h2 id=&#34;disable-networkmanager-and-enable-network&#34;&gt;Disable NetworkManager and enable network&lt;/h2&gt;
@@ -821,10 +1237,10 @@ done
     
     <item>
       <title>Compile Golang from source code</title>
-      <link>http://daveixiang.github.io/tech/2017_01_22_compile_golang_from_source_code/</link>
+      <link>https://daveixiang.github.io/tech/2017_01_22_compile_golang_from_source_code/</link>
       <pubDate>Thu, 12 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_01_22_compile_golang_from_source_code/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_01_22_compile_golang_from_source_code/</guid>
       <description>
 
 &lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
@@ -963,10 +1379,10 @@ func main() {
     
     <item>
       <title>Nested KVM</title>
-      <link>http://daveixiang.github.io/tech/2016_09_03_nested_kvm/</link>
+      <link>https://daveixiang.github.io/tech/2016_09_03_nested_kvm/</link>
       <pubDate>Sat, 03 Sep 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2016_09_03_nested_kvm/</guid>
+      <guid>https://daveixiang.github.io/tech/2016_09_03_nested_kvm/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;Enable the setting for Nested KVM&lt;/li&gt;
 &lt;/ul&gt;
@@ -999,10 +1415,10 @@ cat /sys/module/kvm_intel/parameters/nested
     
     <item>
       <title>C declaration Right-Left rule</title>
-      <link>http://daveixiang.github.io/tech/2016_04_27_c_declaration_right_left_rule/</link>
+      <link>https://daveixiang.github.io/tech/2016_04_27_c_declaration_right_left_rule/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2016_04_27_c_declaration_right_left_rule/</guid>
+      <guid>https://daveixiang.github.io/tech/2016_04_27_c_declaration_right_left_rule/</guid>
       <description>&lt;pre&gt;&lt;code&gt;The &amp;quot;right-left&amp;quot; rule is a completely regular rule for deciphering C
 declarations.  It can also be useful in creating them.
 
@@ -1197,6 +1613,110 @@ int faf()[]();          a function returning an array of functions
                                 returning an int (ILLEGAL)
 int *ffp()();           a function returning a function
                                 returning an int pointer (ILLEGAL)
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Linux shared libraries</title>
+      <link>https://daveixiang.github.io/tech/2016_04_02_linux_shared_libraries/</link>
+      <pubDate>Sat, 02 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2016_04_02_linux_shared_libraries/</guid>
+      <description>
+
+&lt;p&gt;Shared libraries are collections of code that can be shared by
+programs. Unlike static (aka archive) libraries, they&amp;rsquo;re not part of
+the compiled program - they&amp;rsquo;re loaded in at the start of run-time if
+they&amp;rsquo;re not already being used. You don&amp;rsquo;t need to worry about them
+unless you&amp;rsquo;re a system manager or applications writer.&lt;/p&gt;
+
+&lt;h1 id=&#34;every-shared-library-has&#34;&gt;Every shared library has &amp;hellip;&lt;/h1&gt;
+
+&lt;h2 id=&#34;soname&#34;&gt;soname&lt;/h2&gt;
+
+&lt;p&gt;libname.so.version_number - the version number is incremented whenever
+the interface changes.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;libNAME.so.&amp;lt;version_number&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;realname&#34;&gt;realname&lt;/h2&gt;
+
+&lt;p&gt;The filename containing the actual library code. The &amp;ldquo;real name&amp;rdquo; adds
+to the &amp;ldquo;soname&amp;rdquo; a period, a minor number, another period, and the
+release number. The last period and release number are optional.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;libNAME.so.&amp;lt;version_number&amp;gt;.&amp;lt;minor_number&amp;gt;[.&amp;lt;release_number&amp;gt;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;linker-name&#34;&gt;linker name&lt;/h2&gt;
+
+&lt;p&gt;The name that the compiler uses (the soname without any version number).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;libNAME.so
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;creating-shared-libraries&#34;&gt;Creating shared libraries&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;To generate object files, use &lt;em&gt;-fPIC&lt;/em&gt; or &lt;em&gt;-fpic&lt;/em&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;To create a library, use &lt;em&gt;cc -shared -Wl,-soname,your_soname -o
+library_name file_list library_list&lt;/em&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;To install, put the shared library in one of the special
+directories then run ldconfig. This creates the &amp;ldquo;soname&amp;rdquo; as a symbolic
+link to the &amp;ldquo;real name&amp;rdquo; and sets up the cache file
+/etc/ld.so.cache. You also need to create the &amp;ldquo;linker name&amp;rdquo; - a
+symbolic link to the soname&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;shared-libraries-at-run-time&#34;&gt;Shared libraries at run-time&lt;/h1&gt;
+
+&lt;p&gt;On Linux, starting up an ELF binary executable automatically causes
+the program loader /lib/ld-linux.so.X to be loaded and run, which in
+turn, finds and loads all other shared libraries used by the
+program. The list of directories to be searched is stored in the file
+/etc/ld.so.conf (our file lists about 17 directories).&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Use the LD_LIBRARY_PATH environmental variable to change run-time
+behaviour&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Use &amp;ldquo;ldd program filename&amp;rdquo; to see the list of the sonames being
+depended on, along with the directory that those names resolve to.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Use export LD_DEBUG=files to print out information when you run
+subsequent commands Note that libc.so.N is the C library, which is
+used by just about all programs.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;how-to-get-the-soname&#34;&gt;How to get the SONAME&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;objdump -p /lib/libc.so.6  | grep SONAME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;readelf -d  /lib/libc.so.6  | grep SONAME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;get-default-shared-and-static-library-search-path&#34;&gt;Get default shared and static library search path&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;get the compiler default search path:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gcc -print-search-dirs | grep libraries | tr &#39;:&#39; &#39;\n&#39; | grep -v libraries | sed -E -e &#39;s/^ =(.*?)$/\1/g&#39;
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;get the linker default search path:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ld -verbose | grep -i &#39;search_dir&#39; | tr &#39;;&#39; &#39;\n&#39; | sed -E -e &#39;s/\s?SEARCH_DIR\(&amp;quot;(.+)&amp;quot;\)/\1/g&#39; -e &#39;/^$/d&#39;
 &lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>

@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linux on 項 思 偉 (Davei) ~ Aal Izz Well!</title>
-    <link>http://daveixiang.github.io/tags/linux/index.xml</link>
+    <link>https://daveixiang.github.io/tags/linux/index.xml</link>
     <description>Recent content in Linux on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <atom:link href="http://daveixiang.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://daveixiang.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>How to get the complete and exact list of mounted filesystems in Linux?</title>
-      <link>http://daveixiang.github.io/tips/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</link>
+      <link>https://daveixiang.github.io/tips/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</link>
       <pubDate>Wed, 22 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tips/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</guid>
+      <guid>https://daveixiang.github.io/tips/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</guid>
       <description>&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;findmnt -lo source,target,fstype,label,options,used -t xfs
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -30,10 +30,10 @@
     
     <item>
       <title>Install Openstack from source code - glance (mitaka)</title>
-      <link>http://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</link>
+      <link>https://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</link>
       <pubDate>Tue, 21 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</guid>
       <description>
 
 &lt;h2 id=&#34;create-image-service-database&#34;&gt;Create image service database&lt;/h2&gt;
@@ -186,10 +186,10 @@ python glance/cmd/glance-registry --config-file=/etc/glance/glance-registry.conf
     
     <item>
       <title>Install Openstack from source code - keystone (mitaka)</title>
-      <link>http://daveixiang.github.io/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</link>
+      <link>https://daveixiang.github.io/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</link>
       <pubDate>Sat, 04 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</guid>
       <description>
 
 &lt;h2 id=&#34;install-keystone-dependences&#34;&gt;Install keystone dependences&lt;/h2&gt;
@@ -295,10 +295,10 @@ EOF
     
     <item>
       <title>Install Openstack from source code dependences (mitaka)</title>
-      <link>http://daveixiang.github.io/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</link>
+      <link>https://daveixiang.github.io/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</link>
       <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</guid>
       <description>&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/bin/bash
 
 function gen_pkg_deps()
@@ -377,10 +377,10 @@ done
     
     <item>
       <title>Multiple ways to access QEMU Machine Protocol (QMP)</title>
-      <link>http://daveixiang.github.io/tech/2017_02_28_multiple_ways_to_access_qmp/</link>
+      <link>https://daveixiang.github.io/tech/2017_02_28_multiple_ways_to_access_qmp/</link>
       <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_02_28_multiple_ways_to_access_qmp/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_02_28_multiple_ways_to_access_qmp/</guid>
       <description>
 
 &lt;p&gt;QMP (QEMU Machine Protocol) is quiet useful. QMP allows applications
@@ -464,10 +464,10 @@ Escape character is &#39;^]&#39;.
     
     <item>
       <title>Install Openstack from source code prepares (mitaka)</title>
-      <link>http://daveixiang.github.io/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</link>
+      <link>https://daveixiang.github.io/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</link>
       <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</guid>
       <description>
 
 &lt;h2 id=&#34;disable-networkmanager-and-enable-network&#34;&gt;Disable NetworkManager and enable network&lt;/h2&gt;
@@ -558,10 +558,10 @@ done
     
     <item>
       <title>Nested KVM</title>
-      <link>http://daveixiang.github.io/tech/2016_09_03_nested_kvm/</link>
+      <link>https://daveixiang.github.io/tech/2016_09_03_nested_kvm/</link>
       <pubDate>Sat, 03 Sep 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2016_09_03_nested_kvm/</guid>
+      <guid>https://daveixiang.github.io/tech/2016_09_03_nested_kvm/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;Enable the setting for Nested KVM&lt;/li&gt;
 &lt;/ul&gt;
@@ -588,6 +588,110 @@ cat /sys/module/kvm_intel/parameters/nested
 
 &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;cpu mode=&#39;host-passthrough&#39;&amp;gt;
 &amp;lt;/cpu&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Linux shared libraries</title>
+      <link>https://daveixiang.github.io/tech/2016_04_02_linux_shared_libraries/</link>
+      <pubDate>Sat, 02 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2016_04_02_linux_shared_libraries/</guid>
+      <description>
+
+&lt;p&gt;Shared libraries are collections of code that can be shared by
+programs. Unlike static (aka archive) libraries, they&amp;rsquo;re not part of
+the compiled program - they&amp;rsquo;re loaded in at the start of run-time if
+they&amp;rsquo;re not already being used. You don&amp;rsquo;t need to worry about them
+unless you&amp;rsquo;re a system manager or applications writer.&lt;/p&gt;
+
+&lt;h1 id=&#34;every-shared-library-has&#34;&gt;Every shared library has &amp;hellip;&lt;/h1&gt;
+
+&lt;h2 id=&#34;soname&#34;&gt;soname&lt;/h2&gt;
+
+&lt;p&gt;libname.so.version_number - the version number is incremented whenever
+the interface changes.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;libNAME.so.&amp;lt;version_number&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;realname&#34;&gt;realname&lt;/h2&gt;
+
+&lt;p&gt;The filename containing the actual library code. The &amp;ldquo;real name&amp;rdquo; adds
+to the &amp;ldquo;soname&amp;rdquo; a period, a minor number, another period, and the
+release number. The last period and release number are optional.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;libNAME.so.&amp;lt;version_number&amp;gt;.&amp;lt;minor_number&amp;gt;[.&amp;lt;release_number&amp;gt;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;linker-name&#34;&gt;linker name&lt;/h2&gt;
+
+&lt;p&gt;The name that the compiler uses (the soname without any version number).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;libNAME.so
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;creating-shared-libraries&#34;&gt;Creating shared libraries&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;To generate object files, use &lt;em&gt;-fPIC&lt;/em&gt; or &lt;em&gt;-fpic&lt;/em&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;To create a library, use &lt;em&gt;cc -shared -Wl,-soname,your_soname -o
+library_name file_list library_list&lt;/em&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;To install, put the shared library in one of the special
+directories then run ldconfig. This creates the &amp;ldquo;soname&amp;rdquo; as a symbolic
+link to the &amp;ldquo;real name&amp;rdquo; and sets up the cache file
+/etc/ld.so.cache. You also need to create the &amp;ldquo;linker name&amp;rdquo; - a
+symbolic link to the soname&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;shared-libraries-at-run-time&#34;&gt;Shared libraries at run-time&lt;/h1&gt;
+
+&lt;p&gt;On Linux, starting up an ELF binary executable automatically causes
+the program loader /lib/ld-linux.so.X to be loaded and run, which in
+turn, finds and loads all other shared libraries used by the
+program. The list of directories to be searched is stored in the file
+/etc/ld.so.conf (our file lists about 17 directories).&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Use the LD_LIBRARY_PATH environmental variable to change run-time
+behaviour&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Use &amp;ldquo;ldd program filename&amp;rdquo; to see the list of the sonames being
+depended on, along with the directory that those names resolve to.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Use export LD_DEBUG=files to print out information when you run
+subsequent commands Note that libc.so.N is the C library, which is
+used by just about all programs.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;how-to-get-the-soname&#34;&gt;How to get the SONAME&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;objdump -p /lib/libc.so.6  | grep SONAME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;readelf -d  /lib/libc.so.6  | grep SONAME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;get-default-shared-and-static-library-search-path&#34;&gt;Get default shared and static library search path&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;get the compiler default search path:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gcc -print-search-dirs | grep libraries | tr &#39;:&#39; &#39;\n&#39; | grep -v libraries | sed -E -e &#39;s/^ =(.*?)$/\1/g&#39;
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;get the linker default search path:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ld -verbose | grep -i &#39;search_dir&#39; | tr &#39;;&#39; &#39;\n&#39; | sed -E -e &#39;s/\s?SEARCH_DIR\(&amp;quot;(.+)&amp;quot;\)/\1/g&#39; -e &#39;/^$/d&#39;
 &lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>

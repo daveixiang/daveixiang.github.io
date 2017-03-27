@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Centos on 項 思 偉 (Davei) ~ Aal Izz Well!</title>
-    <link>http://daveixiang.github.io/tags/centos/index.xml</link>
+    <link>https://daveixiang.github.io/tags/centos/index.xml</link>
     <description>Recent content in Centos on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <atom:link href="http://daveixiang.github.io/tags/centos/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://daveixiang.github.io/tags/centos/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Install Openstack from source code - glance (mitaka)</title>
-      <link>http://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</link>
+      <link>https://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</link>
       <pubDate>Tue, 21 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</guid>
       <description>
 
 &lt;h2 id=&#34;create-image-service-database&#34;&gt;Create image service database&lt;/h2&gt;
@@ -166,10 +166,10 @@ python glance/cmd/glance-registry --config-file=/etc/glance/glance-registry.conf
     
     <item>
       <title>Install Openstack from source code - keystone (mitaka)</title>
-      <link>http://daveixiang.github.io/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</link>
+      <link>https://daveixiang.github.io/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</link>
       <pubDate>Sat, 04 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</guid>
       <description>
 
 &lt;h2 id=&#34;install-keystone-dependences&#34;&gt;Install keystone dependences&lt;/h2&gt;
@@ -275,10 +275,10 @@ EOF
     
     <item>
       <title>Install Openstack from source code dependences (mitaka)</title>
-      <link>http://daveixiang.github.io/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</link>
+      <link>https://daveixiang.github.io/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</link>
       <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</guid>
       <description>&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/bin/bash
 
 function gen_pkg_deps()
@@ -357,10 +357,10 @@ done
     
     <item>
       <title>Install Openstack from source code prepares (mitaka)</title>
-      <link>http://daveixiang.github.io/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</link>
+      <link>https://daveixiang.github.io/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</link>
       <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</guid>
       <description>
 
 &lt;h2 id=&#34;disable-networkmanager-and-enable-network&#34;&gt;Disable NetworkManager and enable network&lt;/h2&gt;
