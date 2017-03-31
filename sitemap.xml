@@ -2,6 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://daveixiang.github.io/tech/2017_03_31_opensuse_add_repos/</loc>
+    <lastmod>2017-03-31T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://daveixiang.github.io/tech/2017_03_31_gcc_glibc_core_runtime_files/</loc>
+    <lastmod>2017-03-31T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://daveixiang.github.io/tech/2017_03_30_notation_meaning_in_top_out/</loc>
+    <lastmod>2017-03-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://daveixiang.github.io/tech/2017_03_23_configure_libvirt_with_openvswitch_bridge/</loc>
     <lastmod>2017-03-23T00:00:00+00:00</lastmod>
   </url>
@@ -52,8 +67,23 @@
   </url>
   
   <url>
+    <loc>https://daveixiang.github.io/tech/2017_02_25_build_cross_gcc_toolchain_arm64/</loc>
+    <lastmod>2017-02-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://daveixiang.github.io/tech/2017_02_25_build_minimal_linux_hack_env_with_busybox_arm64/</loc>
+    <lastmod>2017-02-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://daveixiang.github.io/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</loc>
     <lastmod>2017-02-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://daveixiang.github.io/tech/2017_01_14_compile_openvswitch_2_6_x_from_source_code/</loc>
+    <lastmod>2017-01-14T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -77,6 +107,12 @@
   </url>
   
   <url>
+    <loc>https://daveixiang.github.io/tags/busybox/</loc>
+    <lastmod>2017-02-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://daveixiang.github.io/categories/</loc>
     <priority>0</priority>
   </url>
@@ -88,20 +124,14 @@
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/categories/clan/</loc>
-    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://daveixiang.github.io/tags/clan/</loc>
-    <lastmod>2016-04-02T00:00:00+00:00</lastmod>
+    <lastmod>2017-03-31T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/categories/database/</loc>
-    <lastmod>2017-03-13T00:00:00+00:00</lastmod>
+    <loc>https://daveixiang.github.io/categories/clan/</loc>
+    <lastmod>2017-03-31T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -112,14 +142,20 @@
   </url>
   
   <url>
+    <loc>https://daveixiang.github.io/categories/database/</loc>
+    <lastmod>2017-03-13T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://daveixiang.github.io/tags/filesystem/</loc>
     <lastmod>2017-03-22T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/categories/git/</loc>
-    <lastmod>2017-03-06T00:00:00+00:00</lastmod>
+    <loc>https://daveixiang.github.io/tags/gcc/</loc>
+    <lastmod>2017-03-31T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -130,8 +166,8 @@
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/categories/golang/</loc>
-    <lastmod>2017-01-12T00:00:00+00:00</lastmod>
+    <loc>https://daveixiang.github.io/categories/git/</loc>
+    <lastmod>2017-03-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -142,19 +178,31 @@
   </url>
   
   <url>
+    <loc>https://daveixiang.github.io/categories/golang/</loc>
+    <lastmod>2017-01-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://daveixiang.github.io/tags/kernel/</loc>
+    <lastmod>2017-02-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://daveixiang.github.io/tags/kvm/</loc>
     <lastmod>2016-09-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/categories/libvirt/</loc>
+    <loc>https://daveixiang.github.io/tags/libvirt/</loc>
     <lastmod>2017-03-23T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/libvirt/</loc>
+    <loc>https://daveixiang.github.io/categories/libvirt/</loc>
     <lastmod>2017-03-23T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -166,14 +214,26 @@
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/categories/openstack/</loc>
-    <lastmod>2017-03-21T00:00:00+00:00</lastmod>
+    <loc>https://daveixiang.github.io/categories/linux/</loc>
+    <lastmod>2017-03-31T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://daveixiang.github.io/tags/openstack/</loc>
     <lastmod>2017-03-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://daveixiang.github.io/categories/openstack/</loc>
+    <lastmod>2017-03-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://daveixiang.github.io/tags/opensuse/</loc>
+    <lastmod>2017-03-31T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -190,13 +250,13 @@
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/categories/qemu/</loc>
+    <loc>https://daveixiang.github.io/tags/qemu/</loc>
     <lastmod>2017-02-28T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/qemu/</loc>
+    <loc>https://daveixiang.github.io/categories/qemu/</loc>
     <lastmod>2017-02-28T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -220,19 +280,19 @@
   
   <url>
     <loc>https://daveixiang.github.io/tech/</loc>
-    <lastmod>2017-03-23T00:00:00+00:00</lastmod>
+    <lastmod>2017-03-31T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://daveixiang.github.io/tags/tips/</loc>
+    <lastmod>2017-03-31T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://daveixiang.github.io/categories/tips/</loc>
     <lastmod>2017-03-22T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://daveixiang.github.io/tags/tips/</loc>
-    <lastmod>2017-03-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -250,13 +310,19 @@
   
   <url>
     <loc>https://daveixiang.github.io/categories/virtualization/</loc>
-    <lastmod>2016-09-03T00:00:00+00:00</lastmod>
+    <lastmod>2017-01-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://daveixiang.github.io/tags/zypper/</loc>
+    <lastmod>2017-03-31T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://daveixiang.github.io/</loc>
-    <lastmod>2017-03-23T00:00:00+00:00</lastmod>
+    <lastmod>2017-03-31T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

@@ -66,6 +66,171 @@
                 
                 
                 <header class="article-header">
+                    <h1 itemprop="name"><a class="article-title" href="https://daveixiang.github.io/tech/2017_03_31_opensuse_add_repos/">Add OpenSuse Leap 42.2 repos</a></h1>
+                </header>
+                
+                <div class="article-meta">
+                    <a href="https://daveixiang.github.io/tech/2017_03_31_opensuse_add_repos/" class="article-date">
+                        <time datetime='2017-03-31T00:00:00.000&#43;00:00' itemprop="datePublished">2017-03-31</time>
+                    </a>
+                    
+                    
+                    <div class="post-categories">
+                        <div class="article-category">
+                            
+                            
+                            <a class="article-category-link" href="https://daveixiang.github.io//categories/linux">linux</a>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <div class="article-entry" itemprop="articleBody">
+                    <p>
+                        
+                     Remove previous repos  zypper repos | grep Yes | cut -f3 -d '|' | sed -e &quot;s/ //&quot; | awk '{print &quot;zypper rr &quot; $1}' | bash   Add the repos and refresh  zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/oss/ openSUSE-leap-42.2-Oss zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/non-oss/ openSUSE-leap-42.2-Non-Oss zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/oss openSUSE-leap-42.2-Update-Oss zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/non-oss/ openSUSE-leap-42.2-Update-Non-Oss zypper refresh  
+                    </p>
+                    <p class="article-more-link">
+                        <a href="https://daveixiang.github.io/tech/2017_03_31_opensuse_add_repos/">Read More</a>
+                    </p>
+                </div>
+
+                
+                <footer class="article-footer">
+                    <ul class="article-tag-list">
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/opensuse">opensuse
+                            </a>
+                        </li>
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/zypper">zypper
+                            </a>
+                        </li>
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/tips">tips
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </footer>
+                
+            </div>
+        </article>
+        
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+            <div class="article-inner">
+                
+                
+                <header class="article-header">
+                    <h1 itemprop="name"><a class="article-title" href="https://daveixiang.github.io/tech/2017_03_31_gcc_glibc_core_runtime_files/">GCC and Glibc core runtime files</a></h1>
+                </header>
+                
+                <div class="article-meta">
+                    <a href="https://daveixiang.github.io/tech/2017_03_31_gcc_glibc_core_runtime_files/" class="article-date">
+                        <time datetime='2017-03-31T00:00:00.000&#43;00:00' itemprop="datePublished">2017-03-31</time>
+                    </a>
+                    
+                    
+                    <div class="post-categories">
+                        <div class="article-category">
+                            
+                            
+                            <a class="article-category-link" href="https://daveixiang.github.io//categories/clan">clan</a>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <div class="article-entry" itemprop="articleBody">
+                    <p>
+                        
+                    Files provided by glibc  crt0.o Older style of the initial runtime code. No one generates this anymore. crt1.o Newer style of the initial runtime code. Contains the _start symbol which sets up the env with argc/argv/libc _init/libc _fini before jumping to the libc main. glibc calls this file &lsquo;start.S&rsquo;. crti.o Defines the function prolog; _init in the .init section and _fini in the .fini section. glibc calls this &lsquo;initfini.
+                    </p>
+                    <p class="article-more-link">
+                        <a href="https://daveixiang.github.io/tech/2017_03_31_gcc_glibc_core_runtime_files/">Read More</a>
+                    </p>
+                </div>
+
+                
+                <footer class="article-footer">
+                    <ul class="article-tag-list">
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/gcc">gcc
+                            </a>
+                        </li>
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/clan">clan
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </footer>
+                
+            </div>
+        </article>
+        
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+            <div class="article-inner">
+                
+                
+                <header class="article-header">
+                    <h1 itemprop="name"><a class="article-title" href="https://daveixiang.github.io/tech/2017_03_30_notation_meaning_in_top_out/">Notation meaning in top out</a></h1>
+                </header>
+                
+                <div class="article-meta">
+                    <a href="https://daveixiang.github.io/tech/2017_03_30_notation_meaning_in_top_out/" class="article-date">
+                        <time datetime='2017-03-30T00:00:00.000&#43;00:00' itemprop="datePublished">2017-03-30</time>
+                    </a>
+                    
+                    
+                    <div class="post-categories">
+                        <div class="article-category">
+                            
+                            
+                            <a class="article-category-link" href="https://daveixiang.github.io//categories/linux">linux</a>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <div class="article-entry" itemprop="articleBody">
+                    <p>
+                        
+                    PID — Process Id  The task’s unique process ID, which periodically wraps, though never restarting at zero.   PPID — Parent Process Pid  The process ID of a task’s parent.   RUSER — Real User Name  The real user name of the task’s owner.   UID — User Id  The effective user ID of the task’s owner.   USER — User Name  The effective user name of the task’s owner.
+                    </p>
+                    <p class="article-more-link">
+                        <a href="https://daveixiang.github.io/tech/2017_03_30_notation_meaning_in_top_out/">Read More</a>
+                    </p>
+                </div>
+
+                
+                <footer class="article-footer">
+                    <ul class="article-tag-list">
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/tips">tips
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </footer>
+                
+            </div>
+        </article>
+        
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+            <div class="article-inner">
+                
+                
+                <header class="article-header">
                     <h1 itemprop="name"><a class="article-title" href="https://daveixiang.github.io/tech/2017_03_23_configure_libvirt_with_openvswitch_bridge/">Configure libvirt with openvswitch bridge</a></h1>
                 </header>
                 
@@ -429,182 +594,6 @@ go clean ./... go install ./...  and wait for a comment, the binaries will be in
             </div>
         </article>
         
-        <article class="article article-type-post" itemscope itemprop="blogPost">
-            <div class="article-inner">
-                
-                
-                <header class="article-header">
-                    <h1 itemprop="name"><a class="article-title" href="https://daveixiang.github.io/tech/2017_03_01_build_postgresql_with_debug/">Build PostgreSQL with debug info</a></h1>
-                </header>
-                
-                <div class="article-meta">
-                    <a href="https://daveixiang.github.io/tech/2017_03_01_build_postgresql_with_debug/" class="article-date">
-                        <time datetime='2017-03-01T00:00:00.000&#43;00:00' itemprop="datePublished">2017-03-01</time>
-                    </a>
-                    
-                    
-                    <div class="post-categories">
-                        <div class="article-category">
-                            
-                            
-                            <a class="article-category-link" href="https://daveixiang.github.io//categories/database">database</a>
-                            
-                        </div>
-                    </div>
-                    
-                    
-                </div>
-                <div class="article-entry" itemprop="articleBody">
-                    <p>
-                        
-                     Add postgres user useradd -m -b /src/ postgres  Configure PostgreSQL ./configure --prefix=/src/postgres \ --without-tcl \ --without-gssapi \ --without-pam \ --without-bsd-auth \ --without-ldap \ --without-bonjour \ --without-selinux \ --without-systemd \ --with-uuid=ossp \ --with-libxml \ --with-libxslt \ CFLAGS=' '  Build and install make -j$(nproc) su postgres -c 'make install'  
-                    </p>
-                    <p class="article-more-link">
-                        <a href="https://daveixiang.github.io/tech/2017_03_01_build_postgresql_with_debug/">Read More</a>
-                    </p>
-                </div>
-
-                
-                <footer class="article-footer">
-                    <ul class="article-tag-list">
-                        
-                        <li class="article-tag-list-item">
-                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/postgresql">postgresql
-                            </a>
-                        </li>
-                        
-                        <li class="article-tag-list-item">
-                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/database">database
-                            </a>
-                        </li>
-                        
-                    </ul>
-                </footer>
-                
-            </div>
-        </article>
-        
-        <article class="article article-type-post" itemscope itemprop="blogPost">
-            <div class="article-inner">
-                
-                
-                <header class="article-header">
-                    <h1 itemprop="name"><a class="article-title" href="https://daveixiang.github.io/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/">Install Openstack from source code dependences (mitaka)</a></h1>
-                </header>
-                
-                <div class="article-meta">
-                    <a href="https://daveixiang.github.io/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/" class="article-date">
-                        <time datetime='2017-03-01T00:00:00.000&#43;00:00' itemprop="datePublished">2017-03-01</time>
-                    </a>
-                    
-                    
-                    <div class="post-categories">
-                        <div class="article-category">
-                            
-                            
-                            <a class="article-category-link" href="https://daveixiang.github.io//categories/openstack">openstack</a>
-                            
-                        </div>
-                    </div>
-                    
-                    
-                </div>
-                <div class="article-entry" itemprop="articleBody">
-                    <p>
-                        
-                    #!/bin/bash function gen_pkg_deps() { [ -z &quot;$@&quot; ] &amp;&amp; exit 0; yum install --assumeno &quot;$@&quot; | \ sed -n '/Installing for dependencies:/,/Transaction Summary/p' | \ sed -e '/^=.*?$/d' \ -e '/Installing:/d' \ -e '/Installing for dependencies:/d' \ -e '/Transaction Summary/d' \ -e '/Updating/d' \ -e '/^$/d' | \ awk 'BEGIN {n=1;arr[0]=0} { if (NF != 6) { for (i=n; i&lt;=n+NF-1;i++) arr[i] = $(i-n+1) n+=NF; if (n == 7) { printf &quot;%s,%s,%s,%s\n&quot;, arr[1], arr[2], arr[3], arr[4] for (i=1; i&lt;n;i++) del arr[i] n=1 } } else { printf &quot;%s,%s,%s,%s\n&quot;, $1, $2, $3, $4 } }' | sort | grep -v -E -e 'glance|keystone|nova|neutron|swift|cinder|ceilometer'\ &gt; &quot;$@&quot;-deps.
-                    </p>
-                    <p class="article-more-link">
-                        <a href="https://daveixiang.github.io/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/">Read More</a>
-                    </p>
-                </div>
-
-                
-                <footer class="article-footer">
-                    <ul class="article-tag-list">
-                        
-                        <li class="article-tag-list-item">
-                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/linux">linux
-                            </a>
-                        </li>
-                        
-                        <li class="article-tag-list-item">
-                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/centos">centos
-                            </a>
-                        </li>
-                        
-                        <li class="article-tag-list-item">
-                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/openstack">openstack
-                            </a>
-                        </li>
-                        
-                    </ul>
-                </footer>
-                
-            </div>
-        </article>
-        
-        <article class="article article-type-post" itemscope itemprop="blogPost">
-            <div class="article-inner">
-                
-                
-                <header class="article-header">
-                    <h1 itemprop="name"><a class="article-title" href="https://daveixiang.github.io/tech/2017_02_28_multiple_ways_to_access_qmp/">Multiple ways to access QEMU Machine Protocol (QMP)</a></h1>
-                </header>
-                
-                <div class="article-meta">
-                    <a href="https://daveixiang.github.io/tech/2017_02_28_multiple_ways_to_access_qmp/" class="article-date">
-                        <time datetime='2017-02-28T00:00:00.000&#43;00:00' itemprop="datePublished">2017-02-28</time>
-                    </a>
-                    
-                    
-                    <div class="post-categories">
-                        <div class="article-category">
-                            
-                            
-                            <a class="article-category-link" href="https://daveixiang.github.io//categories/qemu">qemu</a>
-                            
-                        </div>
-                    </div>
-                    
-                    
-                </div>
-                <div class="article-entry" itemprop="articleBody">
-                    <p>
-                        
-                    QMP (QEMU Machine Protocol) is quiet useful. QMP allows applications to communicate withh a running QEMU&rsquo;s instance. There ae a few different ways to access the QEMU monitor to query the guest&rsquo;s information, modify the guest state using the QMP commands.
-Access QMP via libvirt’s qemu-monitor-command virsh qemu-monitor-command ${domain-name} --pretty '{&quot;execute&quot;:&quot;query-kvm&quot;}'  QMP via tcp socket  launch an qemu instance:  qemu-system-x86_64 --enable-kvm -drive if=virtio,format=qcow2,index=0,file=cirros-0.3.5-x86_64-disk.img --qmp tcp:127.0.0.1:12345,server  and the output in the terminal like:
-                    </p>
-                    <p class="article-more-link">
-                        <a href="https://daveixiang.github.io/tech/2017_02_28_multiple_ways_to_access_qmp/">Read More</a>
-                    </p>
-                </div>
-
-                
-                <footer class="article-footer">
-                    <ul class="article-tag-list">
-                        
-                        <li class="article-tag-list-item">
-                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/qemu">qemu
-                            </a>
-                        </li>
-                        
-                        <li class="article-tag-list-item">
-                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/qmp">qmp
-                            </a>
-                        </li>
-                        
-                        <li class="article-tag-list-item">
-                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/linux">linux
-                            </a>
-                        </li>
-                        
-                    </ul>
-                </footer>
-                
-            </div>
-        </article>
-        
 
         
 
@@ -617,6 +606,10 @@ Access QMP via libvirt’s qemu-monitor-command virsh qemu-monitor-command ${dom
     
     
     <a href="https://daveixiang.github.io/page/2/">2</a>
+    
+    
+    
+    <a href="https://daveixiang.github.io/page/3/">3</a>
     
     
 

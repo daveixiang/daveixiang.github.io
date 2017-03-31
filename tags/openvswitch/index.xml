@@ -41,5 +41,75 @@ virsh net-autostart $BRNAME
 </description>
     </item>
     
+    <item>
+      <title>Compile OpenvSwitch 2.5.x LST from source code</title>
+      <link>https://daveixiang.github.io/tech/2017_01_14_compile_openvswitch_2_6_x_from_source_code/</link>
+      <pubDate>Sat, 14 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_01_14_compile_openvswitch_2_6_x_from_source_code/</guid>
+      <description>
+
+&lt;h1 id=&#34;install-compile-dependencies&#34;&gt;Install compile dependencies&lt;/h1&gt;
+
+&lt;h1 id=&#34;configure-and-compile-the-source-code&#34;&gt;Configure and compile the source code&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./configure --with-linux=/lib/modules/$(uname -r)/build --prefix=/src/ovs
+
+make -j$(nproc)
+
+make install &amp;amp;&amp;amp; make modules_install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;load-openvswitch-module&#34;&gt;Load OpenvSwitch module&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;modprobe gre
+modprobe openvswitch
+modprobe libcrc32c
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;configure-ovsdb&#34;&gt;Configure ovsdb&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/src/ovs/bin/ovsdb-tool create /src/ovs/etc/openvswitch/conf.db /src/ovs/share/openvswitch/vswitch.ovsschema
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;start-ovs&#34;&gt;Start OVS&lt;/h1&gt;
+
+&lt;h2 id=&#34;start-ovsdb-server&#34;&gt;Start ovsdb-server&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;without ssl&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/src/ovs/sbin/ovsdb-server --remote=punix:/src/ovs/var/run/openvswitch/db.sock \
+--remote=db:Open_vSwitch,Open_vSwitch,manager_options \
+--pidfile --detach --log-file
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;with ssl&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/src/ovs/sbin/ovsdb-server --remote=punix:/src/ovs/var/run/openvswitch/db.sock \
+--remote=db:Open_vSwitch,Open_vSwitch,manager_options \
+--private-key=db:Open_vSwitch,SSL,private_key \
+--certificate=db:Open_vSwitch,SSL,certificate \
+--bootstrap-ca-cert=db:Open_vSwitch,SSL,ca_cert \
+--pidfile --detach --log-file
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;View /src/ovs/var/log/openvswitch/ovsdb-server.log to get server status&lt;/p&gt;
+
+&lt;h2 id=&#34;init-ovs&#34;&gt;Init OVS&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/src/ovs/bin/ovs-vsctl --no-wait init
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;View /src/ovs/var/log/openvswitch/ovs-vswitchd.log to get ovs-switchd status&lt;/p&gt;
+
+&lt;h2 id=&#34;start-ovs-switchd&#34;&gt;Start ovs-switchd&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/src/ovs/sbin/ovs-vswitchd --pidfile --detach --log-file
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
   </channel>
 </rss>

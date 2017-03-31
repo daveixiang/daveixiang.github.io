@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Opensuse on 項 思 偉 (Davei) ~ Aal Izz Well!</title>
+    <link>https://daveixiang.github.io/tags/opensuse/index.xml</link>
+    <description>Recent content in Opensuse on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <atom:link href="https://daveixiang.github.io/tags/opensuse/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Add OpenSuse Leap 42.2 repos</title>
+      <link>https://daveixiang.github.io/tech/2017_03_31_opensuse_add_repos/</link>
+      <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_03_31_opensuse_add_repos/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;Remove previous repos&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;zypper repos | grep Yes | cut -f3 -d &#39;|&#39; | sed -e &amp;quot;s/ //&amp;quot; | awk &#39;{print &amp;quot;zypper rr &amp;quot; $1}&#39; | bash
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Add the repos and refresh&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/oss/ openSUSE-leap-42.2-Oss
+zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/non-oss/ openSUSE-leap-42.2-Non-Oss
+zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/oss openSUSE-leap-42.2-Update-Oss
+zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/non-oss/ openSUSE-leap-42.2-Update-Non-Oss
+
+zypper refresh
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
