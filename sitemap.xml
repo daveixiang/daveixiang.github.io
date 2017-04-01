@@ -2,12 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://daveixiang.github.io/tech/2017_04_01_build_cross_gcc_toolchain_x86_64/</loc>
+    <lastmod>2017-04-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://daveixiang.github.io/tech/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</loc>
+    <lastmod>2017-04-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://daveixiang.github.io/tech/2017_03_31_opensuse_add_repos/</loc>
     <lastmod>2017-03-31T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://daveixiang.github.io/tech/2017_03_31_gcc_glibc_core_runtime_files/</loc>
+    <lastmod>2017-03-31T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://daveixiang.github.io/tech/2017_03_31_netlink_hello_world_example/</loc>
     <lastmod>2017-03-31T00:00:00+00:00</lastmod>
   </url>
   
@@ -108,7 +123,7 @@
   
   <url>
     <loc>https://daveixiang.github.io/tags/busybox/</loc>
-    <lastmod>2017-02-25T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -125,13 +140,13 @@
   
   <url>
     <loc>https://daveixiang.github.io/tags/clan/</loc>
-    <lastmod>2017-03-31T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://daveixiang.github.io/categories/clan/</loc>
-    <lastmod>2017-03-31T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -155,7 +170,7 @@
   
   <url>
     <loc>https://daveixiang.github.io/tags/gcc/</loc>
-    <lastmod>2017-03-31T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -185,7 +200,13 @@
   
   <url>
     <loc>https://daveixiang.github.io/tags/kernel/</loc>
-    <lastmod>2017-02-25T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://daveixiang.github.io/categories/kernel/</loc>
+    <lastmod>2017-03-31T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -209,13 +230,13 @@
   
   <url>
     <loc>https://daveixiang.github.io/tags/linux/</loc>
-    <lastmod>2017-03-22T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://daveixiang.github.io/categories/linux/</loc>
-    <lastmod>2017-03-31T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -239,7 +260,7 @@
   
   <url>
     <loc>https://daveixiang.github.io/tags/openvswitch/</loc>
-    <lastmod>2017-03-23T00:00:00+00:00</lastmod>
+    <lastmod>2017-03-31T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -280,7 +301,7 @@
   
   <url>
     <loc>https://daveixiang.github.io/tech/</loc>
-    <lastmod>2017-03-31T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -322,7 +343,7 @@
   
   <url>
     <loc>https://daveixiang.github.io/</loc>
-    <lastmod>2017-03-31T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

@@ -66,6 +66,178 @@
                 
                 
                 <header class="article-header">
+                    <h1 itemprop="name"><a class="article-title" href="https://daveixiang.github.io/tech/2017_03_13_compile_influxdb_0.11.1_from_source_code/">Compile influxdb 0.11.1 from source code</a></h1>
+                </header>
+                
+                <div class="article-meta">
+                    <a href="https://daveixiang.github.io/tech/2017_03_13_compile_influxdb_0.11.1_from_source_code/" class="article-date">
+                        <time datetime='2017-03-13T00:00:00.000&#43;00:00' itemprop="datePublished">2017-03-13</time>
+                    </a>
+                    
+                    
+                    <div class="post-categories">
+                        <div class="article-category">
+                            
+                            
+                            <a class="article-category-link" href="https://daveixiang.github.io//categories/database">database</a>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <div class="article-entry" itemprop="articleBody">
+                    <p>
+                        
+                    Prepare essential directories and environment variables export GOPATH=/src/influxdb/ mkdir -p $GOPATH/src/github.com/influxdata/ cd $GOPATH/src/github.com/influxdata/ export PATH=$GOPATH/bin:$PATH  Installing GDM InfluxDB uses gdm to manage dependencies. Install it by running the following:
+go get github.com/sparrc/gdm  Extract source code tar zxf ~/Downloads/influxdb-0.11.1.tar.gz ln -sf influxdb-0.11.1/ influxdb  Installing InfluxDB dependencies cd influxdb gdm restore  Build and install the binaries Run the following command:
+go clean ./... go install ./...  and wait for a comment, the binaries will be installed to $GOPATH/bin:
+                    </p>
+                    <p class="article-more-link">
+                        <a href="https://daveixiang.github.io/tech/2017_03_13_compile_influxdb_0.11.1_from_source_code/">Read More</a>
+                    </p>
+                </div>
+
+                
+                <footer class="article-footer">
+                    <ul class="article-tag-list">
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/tsdb">tsdb
+                            </a>
+                        </li>
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/golang">golang
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </footer>
+                
+            </div>
+        </article>
+        
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+            <div class="article-inner">
+                
+                
+                <header class="article-header">
+                    <h1 itemprop="name"><a class="article-title" href="https://daveixiang.github.io/tech/2017_03_06_clone_git_repository_only_some_directories/">Clone git repository only some directories</a></h1>
+                </header>
+                
+                <div class="article-meta">
+                    <a href="https://daveixiang.github.io/tech/2017_03_06_clone_git_repository_only_some_directories/" class="article-date">
+                        <time datetime='2017-03-06T00:00:00.000&#43;00:00' itemprop="datePublished">2017-03-06</time>
+                    </a>
+                    
+                    
+                    <div class="post-categories">
+                        <div class="article-category">
+                            
+                            
+                            <a class="article-category-link" href="https://daveixiang.github.io//categories/git">git</a>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <div class="article-entry" itemprop="articleBody">
+                    <p>
+                        
+                     First, do:  git clone --depth 1 [repo-root] [local_dir]   Then:  cd [local_dir]   And lastly:  git filter-branch --prune-empty --subdirectory-filter [repo-subdir] HEAD  
+                    </p>
+                    <p class="article-more-link">
+                        <a href="https://daveixiang.github.io/tech/2017_03_06_clone_git_repository_only_some_directories/">Read More</a>
+                    </p>
+                </div>
+
+                
+                <footer class="article-footer">
+                    <ul class="article-tag-list">
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/git">git
+                            </a>
+                        </li>
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/tips">tips
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </footer>
+                
+            </div>
+        </article>
+        
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+            <div class="article-inner">
+                
+                
+                <header class="article-header">
+                    <h1 itemprop="name"><a class="article-title" href="https://daveixiang.github.io/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/">Install Openstack from source code - keystone (mitaka)</a></h1>
+                </header>
+                
+                <div class="article-meta">
+                    <a href="https://daveixiang.github.io/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/" class="article-date">
+                        <time datetime='2017-03-04T00:00:00.000&#43;00:00' itemprop="datePublished">2017-03-04</time>
+                    </a>
+                    
+                    
+                    <div class="post-categories">
+                        <div class="article-category">
+                            
+                            
+                            <a class="article-category-link" href="https://daveixiang.github.io//categories/openstack">openstack</a>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <div class="article-entry" itemprop="articleBody">
+                    <p>
+                        
+                    Install keystone dependences yum install $(cat openstack-keystone-deps.log | cut -d, -f1 | tr -s '\n' ' ')  Git clone source code from github git clone https://github.com/openstack/keystone cd /src/openstack/keystone git checkout stable/mitaka  Build keystone source code cd /src/openstack/keystone python setup.py build  Make keystone configuration cp -aR etc/* /etc/keystone mv /etc/keystone/keystone.conf.sample /etc/keystone/keystone.conf mv /etc/keystone/logging.conf.sample /etc/keystone/logging.conf mkdir /etc/keystone/fernet-keys/ sed -i -E -e '/^#.+?$/d' -e '/^$/d' /etc/keystone/keystone.conf ini-config --set /etc/keystone/keystone.conf DEFAULT admin_token admintoken ini-config --set /etc/keystone/keystone.
+                    </p>
+                    <p class="article-more-link">
+                        <a href="https://daveixiang.github.io/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/">Read More</a>
+                    </p>
+                </div>
+
+                
+                <footer class="article-footer">
+                    <ul class="article-tag-list">
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/linux">linux
+                            </a>
+                        </li>
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/centos">centos
+                            </a>
+                        </li>
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/openstack">openstack
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </footer>
+                
+            </div>
+        </article>
+        
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+            <div class="article-inner">
+                
+                
+                <header class="article-header">
                     <h1 itemprop="name"><a class="article-title" href="https://daveixiang.github.io/tech/2017_03_01_build_postgresql_with_debug/">Build PostgreSQL with debug info</a></h1>
                 </header>
                 
@@ -460,162 +632,6 @@ Access QMP via libvirt’s qemu-monitor-command virsh qemu-monitor-command ${dom
                         
                     </ul>
                 </footer>
-                
-            </div>
-        </article>
-        
-        <article class="article article-type-post" itemscope itemprop="blogPost">
-            <div class="article-inner">
-                
-                
-                <header class="article-header">
-                    <h1 itemprop="name"><a class="article-title" href="https://daveixiang.github.io/tech/2017_01_22_compile_golang_from_source_code/">Compile Golang from source code</a></h1>
-                </header>
-                
-                <div class="article-meta">
-                    <a href="https://daveixiang.github.io/tech/2017_01_22_compile_golang_from_source_code/" class="article-date">
-                        <time datetime='2017-01-12T00:00:00.000&#43;00:00' itemprop="datePublished">2017-01-12</time>
-                    </a>
-                    
-                    
-                    <div class="post-categories">
-                        <div class="article-category">
-                            
-                            
-                            <a class="article-category-link" href="https://daveixiang.github.io//categories/golang">golang</a>
-                            
-                        </div>
-                    </div>
-                    
-                    
-                </div>
-                <div class="article-entry" itemprop="articleBody">
-                    <p>
-                        
-                    Introduction Go is a nice language started by Google. A nice advantage is that it compiles to native code and the binary does not have additional dependencies. Performance and low resource usage are focused on, even though I personally don&rsquo;t like the gargabe collection based memory cleanup.
-Installation First start with Go 1.4 Since Go version 1.5 you need Go itself to compile it. So we first start with Go 1.
-                    </p>
-                    <p class="article-more-link">
-                        <a href="https://daveixiang.github.io/tech/2017_01_22_compile_golang_from_source_code/">Read More</a>
-                    </p>
-                </div>
-
-                
-                <footer class="article-footer">
-                    <ul class="article-tag-list">
-                        
-                        <li class="article-tag-list-item">
-                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/golang">golang
-                            </a>
-                        </li>
-                        
-                    </ul>
-                </footer>
-                
-            </div>
-        </article>
-        
-        <article class="article article-type-post" itemscope itemprop="blogPost">
-            <div class="article-inner">
-                
-                
-                <header class="article-header">
-                    <h1 itemprop="name"><a class="article-title" href="https://daveixiang.github.io/tech/2016_09_03_nested_kvm/">Nested KVM</a></h1>
-                </header>
-                
-                <div class="article-meta">
-                    <a href="https://daveixiang.github.io/tech/2016_09_03_nested_kvm/" class="article-date">
-                        <time datetime='2016-09-03T00:00:00.000&#43;00:00' itemprop="datePublished">2016-09-03</time>
-                    </a>
-                    
-                    
-                    <div class="post-categories">
-                        <div class="article-category">
-                            
-                            
-                            <a class="article-category-link" href="https://daveixiang.github.io//categories/virtualization">virtualization</a>
-                            
-                        </div>
-                    </div>
-                    
-                    
-                </div>
-                <div class="article-entry" itemprop="articleBody">
-                    <p>
-                        
-                     Enable the setting for Nested KVM  cat &lt;&lt;EOF &gt; /etc/modprobe.d/kvm-nested.conf options kvm_intel nested=1 EOF modprobe -r kvm_intel modprobe kvm_intel cat /sys/module/kvm_intel/parameters/nested   Edit the configuration of a virtual machine you&rsquo;d want to set nested  virsh edit {DOMAIN_NAME}  and add the following setting to the vm configuration:
-&lt;cpu mode='host-passthrough'&gt; &lt;/cpu&gt;  
-                    </p>
-                    <p class="article-more-link">
-                        <a href="https://daveixiang.github.io/tech/2016_09_03_nested_kvm/">Read More</a>
-                    </p>
-                </div>
-
-                
-                <footer class="article-footer">
-                    <ul class="article-tag-list">
-                        
-                        <li class="article-tag-list-item">
-                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/kvm">kvm
-                            </a>
-                        </li>
-                        
-                        <li class="article-tag-list-item">
-                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/linux">linux
-                            </a>
-                        </li>
-                        
-                        <li class="article-tag-list-item">
-                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/libvirt">libvirt
-                            </a>
-                        </li>
-                        
-                        <li class="article-tag-list-item">
-                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/tips">tips
-                            </a>
-                        </li>
-                        
-                    </ul>
-                </footer>
-                
-            </div>
-        </article>
-        
-        <article class="article article-type-post" itemscope itemprop="blogPost">
-            <div class="article-inner">
-                
-                
-                <header class="article-header">
-                    <h1 itemprop="name"><a class="article-title" href="https://daveixiang.github.io/tech/2016_04_27_c_declaration_right_left_rule/">C declaration Right-Left rule</a></h1>
-                </header>
-                
-                <div class="article-meta">
-                    <a href="https://daveixiang.github.io/tech/2016_04_27_c_declaration_right_left_rule/" class="article-date">
-                        <time datetime='2016-04-27T00:00:00.000&#43;00:00' itemprop="datePublished">2016-04-27</time>
-                    </a>
-                    
-                    
-                    <div class="post-categories">
-                        <div class="article-category">
-                            
-                            
-                            <a class="article-category-link" href="https://daveixiang.github.io//categories/clan">clan</a>
-                            
-                        </div>
-                    </div>
-                    
-                    
-                </div>
-                <div class="article-entry" itemprop="articleBody">
-                    <p>
-                        
-                    The &quot;right-left&quot; rule is a completely regular rule for deciphering C declarations. It can also be useful in creating them. First, symbols. Read *	as &quot;pointer to&quot;	- always on the left side [] as &quot;array of&quot;	- always on the right side ()	as &quot;function returning&quot;	- always on the right side as you encounter them in the declaration. STEP 1 ------ Find the identifier. This is your starting point.
-                    </p>
-                    <p class="article-more-link">
-                        <a href="https://daveixiang.github.io/tech/2016_04_27_c_declaration_right_left_rule/">Read More</a>
-                    </p>
-                </div>
-
                 
             </div>
         </article>

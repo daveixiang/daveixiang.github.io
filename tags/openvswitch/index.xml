@@ -9,6 +9,177 @@
     <atom:link href="https://daveixiang.github.io/tags/openvswitch/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Netlink hell world example</title>
+      <link>https://daveixiang.github.io/tech/2017_03_31_netlink_hello_world_example/</link>
+      <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_03_31_netlink_hello_world_example/</guid>
+      <description>
+
+&lt;h2 id=&#34;demo-kernel-code&#34;&gt;demo kernel code&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;hello_nl_kern.c&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;linux/module.h&amp;gt;
+#include &amp;lt;net/sock.h&amp;gt;
+#include &amp;lt;linux/netlink.h&amp;gt;
+#include &amp;lt;linux/skbuff.h&amp;gt;
+
+#define NETLINK_USER 31
+
+struct sock *nl_sk = NULL;
+
+static void hello_nl_recv_msg(struct sk_buff *skb)
+{
+        struct nlmsghdr *nlh;
+        int pid;
+        struct sk_buff *skb_out;
+        int msg_size;
+        char *msg = &amp;quot;Hello from kernel&amp;quot;;
+        int res;
+        printk(KERN_INFO &amp;quot;Entering: %s\n&amp;quot;, __FUNCTION__);
+
+        msg_size = strlen(msg);
+        nlh = (struct nlmsghdr *)skb-&amp;gt;data;
+        printk(KERN_INFO &amp;quot;Netlink received msg payload: %s\n&amp;quot;,(char*)nlmsg_data(nlh));
+        pid = nlh-&amp;gt;nlmsg_pid;
+
+        skb_out = nlmsg_new(msg_size,0);
+        if (!skb_out)
+        {
+                printk(KERN_ERR &amp;quot;Failed to allocate new skb\n&amp;quot;);
+                return;
+        }
+
+        nlh = nlmsg_put(skb_out, 0, 0, NLMSG_DONE, msg_size, 0);
+        NETLINK_CB(skb_out).dst_group = 0;
+        strncpy(nlmsg_data(nlh), msg,msg_size);
+
+        res = nlmsg_unicast(nl_sk, skb_out, pid);
+        if (res &amp;lt; 0)
+                printk(KERN_INFO &amp;quot;Error while sending bak to user\n&amp;quot;);
+}
+
+static int __init hello_init(void)
+{
+        struct netlink_kernel_cfg cfg = {
+                .input = hello_nl_recv_msg,
+        };
+
+        printk(&amp;quot;Entering: %s\n&amp;quot;, __FUNCTION__);
+
+        nl_sk = netlink_kernel_create(&amp;amp;init_net, NETLINK_USER, &amp;amp;cfg);
+
+        if (!nl_sk)
+        {
+                printk(KERN_ALERT &amp;quot;Error creating socket.\n&amp;quot;);
+                return -10;
+        }
+
+        return 0;
+}
+
+static void __exit hello_exit(void)
+{
+        printk(KERN_INFO &amp;quot;exiting hello module\n&amp;quot;);
+        netlink_kernel_release(nl_sk);
+}
+
+module_init(hello_init);
+module_exit(hello_exit);
+
+MODULE_LICENSE(&amp;quot;GPL&amp;quot;);
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;makefile&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-makefile&#34;&gt;obj-m := hello_nl_kern.o
+
+KERNEL_SOURCE := /lib/modules/$(shell uname -r)/build
+
+PWD := $(shell pwd)
+
+all:
+        make -C $(KERNEL_SOURCE) SUBDIRS=${PWD} modules
+clean:
+        make -C $(KERNEL_SOURCE) SUBDIRS=${PWD} clean
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;demo-user-code&#34;&gt;demo user code&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;hello_nl_user.c&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;sys/socket.h&amp;gt;
+#include &amp;lt;linux/netlink.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+
+#define NETLINK_USER 31
+
+#define MAX_PAYLOAD 1024 /* maximum payload size*/
+
+struct sockaddr_nl src_addr, dest_addr;
+struct nlmsghdr *nlh = NULL;
+struct iovec iov;
+int sock_fd;
+struct msghdr msg;
+
+int main(int argc, char *argv[])
+{
+        sock_fd = socket(PF_NETLINK, SOCK_RAW, NETLINK_USER);
+        if (sock_fd &amp;lt; 0)
+                return -1;
+
+        memset(&amp;amp;src_addr, 0, sizeof(src_addr));
+        src_addr.nl_family = AF_NETLINK;
+        src_addr.nl_pid = getpid();
+
+        bind(sock_fd, (struct sockaddr*)&amp;amp;src_addr, sizeof(src_addr));
+
+        memset(&amp;amp;dest_addr, 0, sizeof(dest_addr));
+        dest_addr.nl_family = AF_NETLINK;
+        dest_addr.nl_pid = 0; /* For Linux Kernel */
+        dest_addr.nl_groups = 0; /* unicast */
+
+        nlh = (struct nlmsghdr *)malloc(NLMSG_SPACE(MAX_PAYLOAD));
+        memset(nlh, 0, NLMSG_SPACE(MAX_PAYLOAD));
+        nlh-&amp;gt;nlmsg_len = NLMSG_SPACE(MAX_PAYLOAD);
+        nlh-&amp;gt;nlmsg_pid = getpid();
+        nlh-&amp;gt;nlmsg_flags = 0;
+
+        strcpy(NLMSG_DATA(nlh), &amp;quot;Hello&amp;quot;);
+
+        iov.iov_base = (void *)nlh;
+        iov.iov_len = nlh-&amp;gt;nlmsg_len;
+        msg.msg_name = (void *)&amp;amp;dest_addr;
+        msg.msg_namelen = sizeof(dest_addr);
+        msg.msg_iov = &amp;amp;iov;
+        msg.msg_iovlen = 1;
+
+        /* Sending message to kernel */
+        sendmsg(sock_fd,&amp;amp;msg,0);
+        printf(&amp;quot;Waiting for message from kernel\n&amp;quot;);
+
+        /* Read message from kernel */
+        recvmsg(sock_fd, &amp;amp;msg, 0);
+        printf(&amp;quot;Received message payload: %s\n&amp;quot;, (char *)NLMSG_DATA(nlh));
+        close(sock_fd);
+
+        return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Configure libvirt with openvswitch bridge</title>
       <link>https://daveixiang.github.io/tech/2017_03_23_configure_libvirt_with_openvswitch_bridge/</link>
       <pubDate>Thu, 23 Mar 2017 00:00:00 +0000</pubDate>

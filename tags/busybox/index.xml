@@ -9,6 +9,137 @@
     <atom:link href="https://daveixiang.github.io/tags/busybox/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Build minimal linux hack env with busybox (Target: x86_64)</title>
+      <link>https://daveixiang.github.io/tech/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</link>
+      <pubDate>Sat, 01 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</guid>
+      <description>
+
+&lt;h2 id=&#34;build-the-kernel&#34;&gt;Build the kernel&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Use x86_64 default configuration&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- defconfig
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Simplify x86_64 configuration by cutting unused drivers&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- menuconfig
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Create Image&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- -j8
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;build-busybox&#34;&gt;Build busybox&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Use busybox default configuration&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- defconfig
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Customize configurations&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- menuconfig
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;Busybox Settings  ---&amp;gt;
+  --- Build Options
+  [*]   Build BusyBox as a position independent executable
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Create busybox&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- -j$(nproc)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Install busybox(default path: BUSYBOX/_install)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;generate-minimal-initramfs&#34;&gt;Generate minimal initramfs&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/usr/bin/bash
+ROOTFS=rootfs
+BUSYBOX=$(find busybox* -maxdepth 0 -type d)
+SYSROOT=$(x86_64-linux-gnu-gcc --print-sysroot)
+DYNAMIC_LIB_PATH_32=${SYSROOT}/lib
+DYNAMIC_LIB_PATH_64=${SYSROOT}/lib64
+
+rm -rf $ROOTFS
+mkdir -p ${ROOTFS}/{proc,sys,dev,etc,etc/init.d,lib,lib64,mnt}
+
+cat &amp;gt; $ROOTFS/etc/init.d/rcS &amp;lt;&amp;lt;EOF
+#!/bin/sh
+mount -t proc none /proc
+mount -t sysfs none /sys
+/sbin/mdev -s
+ifconfig lo up
+EOF
+
+chmod +x $ROOTFS/etc/init.d/rcS
+
+cat &amp;gt; $ROOTFS/etc/inittab &amp;lt;&amp;lt;EOF
+# /etc/inittab
+::sysinit:/etc/init.d/rcS
+::askfirst:-/bin/sh
+::ctrlaltdel:/sbin/reboot
+::shutdown:/bin/umount -a -r
+EOF
+
+chmod +x $ROOTFS/etc/inittab
+
+cp -rP ${BUSYBOX}/_install/* ${ROOTFS}
+
+cp -rP ${DYNAMIC_LIB_PATH_64}/libc-2.25.so ${ROOTFS}/lib64/
+cp -rP ${DYNAMIC_LIB_PATH_64}/libc.so.6 ${ROOTFS}/lib64/
+cp -rP ${DYNAMIC_LIB_PATH_64}/libm-2.25.so ${ROOTFS}/lib64/
+cp -rP ${DYNAMIC_LIB_PATH_64}/libm.so.6 ${ROOTFS}/lib64/
+cp -rP ${DYNAMIC_LIB_PATH_64}/ld-2.25.so ${ROOTFS}/lib64/
+cp -rP ${DYNAMIC_LIB_PATH_64}/ld-linux-x86-64.so.2 ${ROOTFS}/lib64/
+
+cd ${ROOTFS}
+ln -sf bin/busybox init
+find . | cpio -o --format=newc &amp;gt; ../initramfs
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;test-the-kernel-and-initramfs-just-built&#34;&gt;Test the kernel and initramfs just built&lt;/h2&gt;
+
+&lt;p&gt;Use qemu to test the Image and initramfs which we just builded:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;qemu-system-x86_64  -nographic \
+-kernel ./bzImage -initrd ./initramfs -append  &amp;quot;console=ttyS0 quiet&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and the output just like the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;Please press Enter to activate this console. 
+/ # ls
+bin      etc      lib      linuxrc  proc     sbin     usr
+dev      init     lib64    mnt      root     sys
+/ #
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Build minimal linux hack env ith busybox (Target: arm64)</title>
       <link>https://daveixiang.github.io/tech/2017_02_25_build_minimal_linux_hack_env_with_busybox_arm64/</link>
       <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
