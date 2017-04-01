@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Openstack on 項 思 偉 (Davei) ~ Aal Izz Well!</title>
+    <link>https://daveixiang.github.io/categories/openstack/index.xml</link>
+    <description>Recent content in Openstack on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <atom:link href="https://daveixiang.github.io/categories/openstack/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Install Openstack from source code - glance (mitaka)</title>
+      <link>https://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</link>
+      <pubDate>Tue, 21 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</guid>
+      <description>
+
+&lt;h2 id=&#34;create-image-service-database&#34;&gt;Create image service database&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export GLANCE_DBPASS=openstack
+export MYSQL_PASS=openstack
+
+mysql -uroot -p$MYSQL_PASS &amp;lt;&amp;lt;EOF
+CREATE DATABASE glance;
+GRANT ALL PRIVILEGES ON glance.* TO &#39;glance&#39;@&#39;localhost&#39; \
+  IDENTIFIED BY &#39;$GLANCE_DBPASS&#39;;
+GRANT ALL PRIVILEGES ON glance.* TO &#39;glance&#39;@&#39;%&#39; \
+  IDENTIFIED BY &#39;$GLANCE_DBPASS&#39;;
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;create-the-image-service-credentials-andapi-endpoints&#34;&gt;Create the image service credentials andAPI endpoints&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;openstack user create --domain default --password openstack glance
+openstack role add --project service --user glance admin
+
+openstack service create --name glance --description &amp;quot;OpenStack Image&amp;quot; image
+openstack endpoint create --region RegionOne image public http://controller:9292
+openstack endpoint create --region RegionOne image internal http://controller:9292
+openstack endpoint create --region RegionOne image admin http://controller:9292
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;install-glance-dependences&#34;&gt;Install glance dependences&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum install $(cat openstack-glance-deps.log | cut -d, -f1 | tr -s &#39;\n&#39;  &#39; &#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;git-clone-source-code-from-github&#34;&gt;Git clone source code from github&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git clone https://github.com/openstack/glance
+
+cd /src/openstack/glance
+
+git checkout stable/mitaka
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;build-glance-source-code&#34;&gt;Build glance source code&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd /src/openstack/glance
+
+python setup.py build
+
+cp -aR etc/* /etc/glance
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;make-glance-configuration&#34;&gt;Make glance configuration&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;glance-api.conf&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sed -i -E -e &#39;/^#.+?$/d&#39; -e &#39;/^$/d&#39; /etc/glance/glance-api.conf
+ini-config --set /etc/glance/glance-api.conf database connection &#39;postgresql://glance:openstack@controller/glance&#39;
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken auth_uri http://controller:5000
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken auth_url http://controller:35357
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken auth_type password
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken project_domain_name default
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken user_domain_name default
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken project_name service
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken username glance
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken password openstack
+ini-config --set /etc/glance/glance-api.conf paste_deploy flavor keystone
+ini-config --set /etc/glance/glance-api.conf glance_store stores file
+ini-config --set /etc/glance/glance-api.conf glance_store default_store file
+ini-config --set /etc/glance/glance-api.conf glance_store filesystem_store_datadir &#39;/var/lib/glance/images/&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;glance-registery.conf&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sed -i -E -e &#39;/^#.+?$/d&#39; -e &#39;/^$/d&#39; /etc/glance/glance-registry.conf
+ini-config --set /etc/glance/glance-registry.conf database connection &#39;postgresql://glance:openstack@controller/glance&#39;
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken auth_uri http://controller:5000
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken auth_url http://controller:35357
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken auth_type password
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken project_domain_name default
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken user_domain_name default
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken project_name service
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken username glance
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken password openstack
+ini-config --set /etc/glance/glance-registry.conf paste_deploy flavor keystone
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;create-glance-manage-glance-api-and-glance-registery-command&#34;&gt;Create &lt;em&gt;glance-manage&lt;/em&gt;, &lt;em&gt;glance-api&lt;/em&gt; and &lt;em&gt;glance-registery&lt;/em&gt; command&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;glance-manage&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat &amp;gt; glance/cmd/glance-manage &amp;lt;&amp;lt;EOF
+#!/bin/python
+import sys
+from glance.cmd.manage import main
+if __name__ == &amp;quot;__main__&amp;quot;:
+    sys.exit(main())
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;glance-api&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat &amp;gt; glance/cmd/glance-api &amp;lt;&amp;lt;EOF
+#!/bin/python
+import sys
+from glance.cmd.api import main
+if __name__ == &amp;quot;__main__&amp;quot;:
+    sys.exit(main())
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;glance-registery&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat &amp;gt; glance/cmd/glance-registry &amp;lt;&amp;lt;EOF
+#!/bin/python
+import sys
+from glance.cmd.registry import main
+if __name__ == &amp;quot;__main__&amp;quot;:
+    sys.exit(main())
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;populate-the-image-service-database-and-the-services&#34;&gt;Populate the Image service database and the services&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;populate the image service database&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;python glance/cmd/glance-manage db_sync
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;start the image services&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;python glance/cmd/glance-api --config-file=/etc/glance/glance-api.conf --config-file=/etc/glance/glance-api-paste.ini
+
+python glance/cmd/glance-registry --config-file=/etc/glance/glance-registry.conf --config-file=/etc/glance/glance-registry-paste.ini
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Install Openstack from source code - keystone (mitaka)</title>
+      <link>https://daveixiang.github.io/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</link>
+      <pubDate>Sat, 04 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</guid>
+      <description>
+
+&lt;h2 id=&#34;install-keystone-dependences&#34;&gt;Install keystone dependences&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum install $(cat openstack-keystone-deps.log | cut -d, -f1 | tr -s &#39;\n&#39;  &#39; &#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;git-clone-source-code-from-github&#34;&gt;Git clone source code from github&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git clone https://github.com/openstack/keystone
+
+cd /src/openstack/keystone
+
+git checkout stable/mitaka
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;build-keystone-source-code&#34;&gt;Build keystone source code&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd /src/openstack/keystone
+
+python setup.py build
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;make-keystone-configuration&#34;&gt;Make keystone configuration&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cp -aR etc/* /etc/keystone
+mv /etc/keystone/keystone.conf.sample /etc/keystone/keystone.conf
+mv /etc/keystone/logging.conf.sample /etc/keystone/logging.conf
+mkdir /etc/keystone/fernet-keys/
+
+sed -i -E -e &#39;/^#.+?$/d&#39; -e &#39;/^$/d&#39; /etc/keystone/keystone.conf
+ini-config --set /etc/keystone/keystone.conf DEFAULT admin_token admintoken
+ini-config --set /etc/keystone/keystone.conf database connection &#39;postgresql://keystone:openstack@controller/keystone&#39;
+ini-config --set /etc/keystone/keystone.conf token provider fernet
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;create-keystone-all-and-keystone-manage-command&#34;&gt;Create &lt;em&gt;keystone-all&lt;/em&gt; and &lt;em&gt;keystone-manage&lt;/em&gt; command&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat &amp;gt; keystone/cmd/keystone-all &amp;lt;&amp;lt;EOF
+#!/bin/python
+import sys
+from keystone.cmd.all import main
+if __name__ == &amp;quot;__main__&amp;quot;:
+    sys.exit(main())
+EOF
+
+cat &amp;gt; keystone/cmd/keystone-manage &amp;lt;&amp;lt;EOF
+#!/bin/python
+import sys
+from keystone.cmd.manage import main
+if __name__ == &amp;quot;__main__&amp;quot;:
+    sys.exit(main())
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;populate-the-identity-service-database&#34;&gt;Populate the Identity service database&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;python keystone/cmd/keystone-manage db_sync
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;initialize-fernet-key-repositories&#34;&gt;Initialize Fernet key repositories&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;python keystone/cmd/keystone-manage fernet_setup --keystone-user root --keystone-group root
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;bootstrap-the-identity-service&#34;&gt;Bootstrap the Identity service&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;python keystone/cmd/keystone-all --config-file=/etc/keystone/keystone.conf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;create-a-domain-projects-users-and-roles&#34;&gt;Create a domain, projects, users, and roles&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export OS_TOKEN=admintoken
+export OS_URL=http://controller:35357/v3
+export OS_IDENTITY_API_VERSION=3
+
+openstack service create --name keystone --description &amp;quot;OpenStack Identity&amp;quot; identity
+openstack endpoint create --region RegionOne identity public http://controller:5000/v3
+openstack endpoint create --region RegionOne identity internal http://controller:5000/v3
+openstack endpoint create --region RegionOne identity admin http://controller:35357/v3
+
+openstack domain create --description &amp;quot;Default Domain&amp;quot; default
+openstack project create --domain default --description &amp;quot;Admin Project&amp;quot; admin
+openstack user create --domain default --password openstack admin
+openstack role create admin
+openstack role add --project admin --user admin admin
+openstack project create --domain default --description &amp;quot;Service Project&amp;quot; service
+
+cat &amp;gt; ~/admin_rc &amp;lt;&amp;lt;EOF
+export OS_PROJECT_DOMAIN_NAME=default
+export OS_USER_DOMAIN_NAME=default
+export OS_PROJECT_NAME=admin
+export OS_USERNAME=admin
+export OS_PASSWORD=openstack
+export OS_AUTH_URL=http://controller:35357/v3
+export OS_IDENTITY_API_VERSION=3
+export OS_IMAGE_API_VERSION=2
+export PS1=&#39;[\u@\h \W(admin)]\$ &#39;
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Install Openstack from source code dependences (mitaka)</title>
+      <link>https://daveixiang.github.io/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</link>
+      <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</guid>
+      <description>&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/bin/bash
+
+function gen_pkg_deps()
+{
+  [ -z &amp;quot;$@&amp;quot; ] &amp;amp;&amp;amp; exit 0;
+  yum install  --assumeno &amp;quot;$@&amp;quot; | \
+  sed -n &#39;/Installing for dependencies:/,/Transaction Summary/p&#39; | \
+  sed -e &#39;/^=.*?$/d&#39; \
+  -e &#39;/Installing:/d&#39;  \
+  -e &#39;/Installing for dependencies:/d&#39; \
+  -e &#39;/Transaction Summary/d&#39; \
+  -e &#39;/Updating/d&#39; \
+  -e &#39;/^$/d&#39; | \
+awk &#39;BEGIN {n=1;arr[0]=0}
+
+{
+if (NF != 6)
+{
+    for (i=n; i&amp;lt;=n+NF-1;i++)
+arr[i] = $(i-n+1)
+    n+=NF;
+    if (n == 7)
+    {
+printf &amp;quot;%s,%s,%s,%s\n&amp;quot;, arr[1], arr[2], arr[3], arr[4]
+for (i=1; i&amp;lt;n;i++) del arr[i]
+n=1
+    }
+}
+else
+{
+    printf &amp;quot;%s,%s,%s,%s\n&amp;quot;,  $1, $2, $3, $4
+}
+}&#39; | sort | grep -v -E -e &#39;glance|keystone|nova|neutron|swift|cinder|ceilometer&#39;\
+  &amp;gt; &amp;quot;$@&amp;quot;-deps.log 2&amp;gt;&amp;amp;1
+}
+
+
+OPENSTACK_COMPONENTS=&amp;quot;
+openstack-keystone \
+python-keystoneclient \
+python-keystone \
+python-openstackclient \
+openstack-glance \
+python-glanceclient \
+python-glance \
+openstack-nova-api \
+openstack-nova-conductor \
+openstack-nova-console \
+openstack-nova-novncproxy \
+openstack-nova-scheduler \
+python-novaclient \
+python-nova \
+openstack-nova-compute \
+openstack-neutron \
+openstack-neutron-ml2 \
+python-neutronclient \
+python-neutron \
+openstack-ceilometer-api \
+openstack-ceilometer-collector \
+openstack-ceilometer-notification \
+openstack-ceilometer-central \
+openstack-ceilometer-alarm \
+openstack-ceilometer-compute \
+python-ceilometerclient \
+python-ceilometer \
+openstack-cinder
+&amp;quot;
+
+for component in $OPENSTACK_COMPONENTS
+do
+  gen_pkg_deps $component
+done
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Install Openstack from source code prepares (mitaka)</title>
+      <link>https://daveixiang.github.io/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</link>
+      <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</guid>
+      <description>
+
+&lt;h2 id=&#34;disable-networkmanager-and-enable-network&#34;&gt;Disable NetworkManager and enable network&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;systemctl stop NetworkManager.service
+systemctl disable NetworkManager.service
+
+systemctl start network.service
+systemctl enable network.service
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;disable-selinux&#34;&gt;Disable SELinux&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sed -i &#39;s/SELINUX=enforcing/SELINUX=disabled/g&#39; /etc/selinux/config
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;disable-firewalld&#34;&gt;Disable Firewalld&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;systemctl stop firewalld
+systemctl disable firewalld
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;disalbe-yum-fast-mirrors-and-language-features&#34;&gt;Disalbe YUM fast mirrors and language features&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sed -i -E -e &#39;s/enabled=1/enabled=0/&#39; /etc/yum/pluginconf.d/fastestmirror.conf
+sed -i -E -e &#39;s/enabled=1/enabled=0/&#39; /etc/yum/pluginconf.d/langpacks.conf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;speed-up-ssh-connection&#34;&gt;Speed up SSH connection&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sed -i &#39;s/#UseDNS yes/UseDNS no/&#39;  /etc/ssh/sshd_config
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;install-and-configure-rabbitmq&#34;&gt;Install and configure rabbitmq&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum -y install rabbitmq-server
+systemctl start rabbitmq-server
+systemctl enable rabbitmq-server
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rabbitmqctl add_user openstack openstack 
+rabbitmqctl set_user_tags openstack administrator
+rabbitmqctl set_permissions -p / openstack &amp;quot;.*&amp;quot; &amp;quot;.*&amp;quot; &amp;quot;.*&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;install-and-configure-mysql-server&#34;&gt;Install and configure mysql server&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum -y install mariadb mariadb-server
+systemctl start mariadb
+systemctl enable mariadb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# delete username &#39;&#39; and change &#39;root&#39; password to &#39;openstack&#39;
+mysql &amp;lt;&amp;lt;EOF
+delete from mysql.user where user=&amp;quot;&amp;quot;;
+update mysql.user set password=password(&amp;quot;openstack&amp;quot;);
+flush privileges;
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;create-int-config-script&#34;&gt;Create int-config script&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum -y install crudini
+
+cat &amp;gt; /usr/bin/ini-config &amp;lt;&amp;lt;EOF
+exec crudini &amp;quot;\$@&amp;quot;
+EOF
+
+chmod 755 /usr/bin/ini-config
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;create-essential-directories&#34;&gt;Create essential directories&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;for SERVICE in keystone glance nova neutron
+do
+  mkdir -p /var/log/$SERVICE
+  mkdir -p /var/lib/$SERVICE
+  mkdir -p /etc/$SERVICE
+
+  if [ &amp;quot;$SERVICE&amp;quot; == &#39;neutron&#39; ]; then
+      mkdir -p /etc/neutron/plugins/ml2
+      mkdir -p /etc/neutron/rootwrap.d
+  fi
+done
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

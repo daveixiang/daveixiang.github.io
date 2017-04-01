@@ -1,0 +1,1133 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on 項 思 偉 (Davei) ~ Aal Izz Well!</title>
+    <link>https://daveixiang.github.io/tags/linux/index.xml</link>
+    <description>Recent content in Linux on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <atom:link href="https://daveixiang.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Build minimal linux hack env with busybox (Target: x86_64)</title>
+      <link>https://daveixiang.github.io/tech/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</link>
+      <pubDate>Sat, 01 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</guid>
+      <description>
+
+&lt;h2 id=&#34;build-the-kernel&#34;&gt;Build the kernel&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Use x86_64 default configuration&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- defconfig
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Simplify x86_64 configuration by cutting unused drivers&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- menuconfig
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Create Image&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- -j8
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;build-busybox&#34;&gt;Build busybox&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Use busybox default configuration&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- defconfig
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Customize configurations&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- menuconfig
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;Busybox Settings  ---&amp;gt;
+  --- Build Options
+  [*]   Build BusyBox as a position independent executable
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Create busybox&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- -j$(nproc)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Install busybox(default path: BUSYBOX/_install)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;generate-minimal-initramfs&#34;&gt;Generate minimal initramfs&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/usr/bin/bash
+ROOTFS=rootfs
+BUSYBOX=$(find busybox* -maxdepth 0 -type d)
+SYSROOT=$(x86_64-linux-gnu-gcc --print-sysroot)
+DYNAMIC_LIB_PATH_32=${SYSROOT}/lib
+DYNAMIC_LIB_PATH_64=${SYSROOT}/lib64
+
+rm -rf $ROOTFS
+mkdir -p ${ROOTFS}/{proc,sys,dev,etc,etc/init.d,lib,lib64,mnt}
+
+cat &amp;gt; $ROOTFS/etc/init.d/rcS &amp;lt;&amp;lt;EOF
+#!/bin/sh
+mount -t proc none /proc
+mount -t sysfs none /sys
+/sbin/mdev -s
+ifconfig lo up
+EOF
+
+chmod +x $ROOTFS/etc/init.d/rcS
+
+cat &amp;gt; $ROOTFS/etc/inittab &amp;lt;&amp;lt;EOF
+# /etc/inittab
+::sysinit:/etc/init.d/rcS
+::askfirst:-/bin/sh
+::ctrlaltdel:/sbin/reboot
+::shutdown:/bin/umount -a -r
+EOF
+
+chmod +x $ROOTFS/etc/inittab
+
+cp -rP ${BUSYBOX}/_install/* ${ROOTFS}
+
+cp -rP ${DYNAMIC_LIB_PATH_64}/libc-2.25.so ${ROOTFS}/lib64/
+cp -rP ${DYNAMIC_LIB_PATH_64}/libc.so.6 ${ROOTFS}/lib64/
+cp -rP ${DYNAMIC_LIB_PATH_64}/libm-2.25.so ${ROOTFS}/lib64/
+cp -rP ${DYNAMIC_LIB_PATH_64}/libm.so.6 ${ROOTFS}/lib64/
+cp -rP ${DYNAMIC_LIB_PATH_64}/ld-2.25.so ${ROOTFS}/lib64/
+cp -rP ${DYNAMIC_LIB_PATH_64}/ld-linux-x86-64.so.2 ${ROOTFS}/lib64/
+
+cd ${ROOTFS}
+ln -sf bin/busybox init
+find . | cpio -o --format=newc &amp;gt; ../initramfs
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;test-the-kernel-and-initramfs-just-built&#34;&gt;Test the kernel and initramfs just built&lt;/h2&gt;
+
+&lt;p&gt;Use qemu to test the Image and initramfs which we just builded:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;qemu-system-x86_64  -nographic \
+-kernel ./bzImage -initrd ./initramfs -append  &amp;quot;console=ttyS0 quiet&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and the output just like the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;Please press Enter to activate this console. 
+/ # ls
+bin      etc      lib      linuxrc  proc     sbin     usr
+dev      init     lib64    mnt      root     sys
+/ #
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Netlink hell world example</title>
+      <link>https://daveixiang.github.io/tech/2017_03_31_netlink_hello_world_example/</link>
+      <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_03_31_netlink_hello_world_example/</guid>
+      <description>
+
+&lt;h2 id=&#34;demo-kernel-code&#34;&gt;demo kernel code&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;hello_nl_kern.c&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;linux/module.h&amp;gt;
+#include &amp;lt;net/sock.h&amp;gt;
+#include &amp;lt;linux/netlink.h&amp;gt;
+#include &amp;lt;linux/skbuff.h&amp;gt;
+
+#define NETLINK_USER 31
+
+struct sock *nl_sk = NULL;
+
+static void hello_nl_recv_msg(struct sk_buff *skb)
+{
+        struct nlmsghdr *nlh;
+        int pid;
+        struct sk_buff *skb_out;
+        int msg_size;
+        char *msg = &amp;quot;Hello from kernel&amp;quot;;
+        int res;
+        printk(KERN_INFO &amp;quot;Entering: %s\n&amp;quot;, __FUNCTION__);
+
+        msg_size = strlen(msg);
+        nlh = (struct nlmsghdr *)skb-&amp;gt;data;
+        printk(KERN_INFO &amp;quot;Netlink received msg payload: %s\n&amp;quot;,(char*)nlmsg_data(nlh));
+        pid = nlh-&amp;gt;nlmsg_pid;
+
+        skb_out = nlmsg_new(msg_size,0);
+        if (!skb_out)
+        {
+                printk(KERN_ERR &amp;quot;Failed to allocate new skb\n&amp;quot;);
+                return;
+        }
+
+        nlh = nlmsg_put(skb_out, 0, 0, NLMSG_DONE, msg_size, 0);
+        NETLINK_CB(skb_out).dst_group = 0;
+        strncpy(nlmsg_data(nlh), msg,msg_size);
+
+        res = nlmsg_unicast(nl_sk, skb_out, pid);
+        if (res &amp;lt; 0)
+                printk(KERN_INFO &amp;quot;Error while sending bak to user\n&amp;quot;);
+}
+
+static int __init hello_init(void)
+{
+        struct netlink_kernel_cfg cfg = {
+                .input = hello_nl_recv_msg,
+        };
+
+        printk(&amp;quot;Entering: %s\n&amp;quot;, __FUNCTION__);
+
+        nl_sk = netlink_kernel_create(&amp;amp;init_net, NETLINK_USER, &amp;amp;cfg);
+
+        if (!nl_sk)
+        {
+                printk(KERN_ALERT &amp;quot;Error creating socket.\n&amp;quot;);
+                return -10;
+        }
+
+        return 0;
+}
+
+static void __exit hello_exit(void)
+{
+        printk(KERN_INFO &amp;quot;exiting hello module\n&amp;quot;);
+        netlink_kernel_release(nl_sk);
+}
+
+module_init(hello_init);
+module_exit(hello_exit);
+
+MODULE_LICENSE(&amp;quot;GPL&amp;quot;);
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;makefile&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-makefile&#34;&gt;obj-m := hello_nl_kern.o
+
+KERNEL_SOURCE := /lib/modules/$(shell uname -r)/build
+
+PWD := $(shell pwd)
+
+all:
+        make -C $(KERNEL_SOURCE) SUBDIRS=${PWD} modules
+clean:
+        make -C $(KERNEL_SOURCE) SUBDIRS=${PWD} clean
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;demo-user-code&#34;&gt;demo user code&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;hello_nl_user.c&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;sys/socket.h&amp;gt;
+#include &amp;lt;linux/netlink.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+
+#define NETLINK_USER 31
+
+#define MAX_PAYLOAD 1024 /* maximum payload size*/
+
+struct sockaddr_nl src_addr, dest_addr;
+struct nlmsghdr *nlh = NULL;
+struct iovec iov;
+int sock_fd;
+struct msghdr msg;
+
+int main(int argc, char *argv[])
+{
+        sock_fd = socket(PF_NETLINK, SOCK_RAW, NETLINK_USER);
+        if (sock_fd &amp;lt; 0)
+                return -1;
+
+        memset(&amp;amp;src_addr, 0, sizeof(src_addr));
+        src_addr.nl_family = AF_NETLINK;
+        src_addr.nl_pid = getpid();
+
+        bind(sock_fd, (struct sockaddr*)&amp;amp;src_addr, sizeof(src_addr));
+
+        memset(&amp;amp;dest_addr, 0, sizeof(dest_addr));
+        dest_addr.nl_family = AF_NETLINK;
+        dest_addr.nl_pid = 0; /* For Linux Kernel */
+        dest_addr.nl_groups = 0; /* unicast */
+
+        nlh = (struct nlmsghdr *)malloc(NLMSG_SPACE(MAX_PAYLOAD));
+        memset(nlh, 0, NLMSG_SPACE(MAX_PAYLOAD));
+        nlh-&amp;gt;nlmsg_len = NLMSG_SPACE(MAX_PAYLOAD);
+        nlh-&amp;gt;nlmsg_pid = getpid();
+        nlh-&amp;gt;nlmsg_flags = 0;
+
+        strcpy(NLMSG_DATA(nlh), &amp;quot;Hello&amp;quot;);
+
+        iov.iov_base = (void *)nlh;
+        iov.iov_len = nlh-&amp;gt;nlmsg_len;
+        msg.msg_name = (void *)&amp;amp;dest_addr;
+        msg.msg_namelen = sizeof(dest_addr);
+        msg.msg_iov = &amp;amp;iov;
+        msg.msg_iovlen = 1;
+
+        /* Sending message to kernel */
+        sendmsg(sock_fd,&amp;amp;msg,0);
+        printf(&amp;quot;Waiting for message from kernel\n&amp;quot;);
+
+        /* Read message from kernel */
+        recvmsg(sock_fd, &amp;amp;msg, 0);
+        printf(&amp;quot;Received message payload: %s\n&amp;quot;, (char *)NLMSG_DATA(nlh));
+        close(sock_fd);
+
+        return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>How to get the complete and exact list of mounted filesystems in Linux?</title>
+      <link>https://daveixiang.github.io/tips/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</link>
+      <pubDate>Wed, 22 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tips/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</guid>
+      <description>&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;findmnt -lo source,target,fstype,label,options,used -t xfs
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;SOURCE    TARGET FSTYPE LABEL OPTIONS
+/dev/vda1 /      xfs          rw,relatime,attr2,inode64,noquota
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;/proc/mounts
+
+/etc/mtab
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Install Openstack from source code - glance (mitaka)</title>
+      <link>https://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</link>
+      <pubDate>Tue, 21 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</guid>
+      <description>
+
+&lt;h2 id=&#34;create-image-service-database&#34;&gt;Create image service database&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export GLANCE_DBPASS=openstack
+export MYSQL_PASS=openstack
+
+mysql -uroot -p$MYSQL_PASS &amp;lt;&amp;lt;EOF
+CREATE DATABASE glance;
+GRANT ALL PRIVILEGES ON glance.* TO &#39;glance&#39;@&#39;localhost&#39; \
+  IDENTIFIED BY &#39;$GLANCE_DBPASS&#39;;
+GRANT ALL PRIVILEGES ON glance.* TO &#39;glance&#39;@&#39;%&#39; \
+  IDENTIFIED BY &#39;$GLANCE_DBPASS&#39;;
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;create-the-image-service-credentials-andapi-endpoints&#34;&gt;Create the image service credentials andAPI endpoints&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;openstack user create --domain default --password openstack glance
+openstack role add --project service --user glance admin
+
+openstack service create --name glance --description &amp;quot;OpenStack Image&amp;quot; image
+openstack endpoint create --region RegionOne image public http://controller:9292
+openstack endpoint create --region RegionOne image internal http://controller:9292
+openstack endpoint create --region RegionOne image admin http://controller:9292
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;install-glance-dependences&#34;&gt;Install glance dependences&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum install $(cat openstack-glance-deps.log | cut -d, -f1 | tr -s &#39;\n&#39;  &#39; &#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;git-clone-source-code-from-github&#34;&gt;Git clone source code from github&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git clone https://github.com/openstack/glance
+
+cd /src/openstack/glance
+
+git checkout stable/mitaka
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;build-glance-source-code&#34;&gt;Build glance source code&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd /src/openstack/glance
+
+python setup.py build
+
+cp -aR etc/* /etc/glance
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;make-glance-configuration&#34;&gt;Make glance configuration&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;glance-api.conf&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sed -i -E -e &#39;/^#.+?$/d&#39; -e &#39;/^$/d&#39; /etc/glance/glance-api.conf
+ini-config --set /etc/glance/glance-api.conf database connection &#39;postgresql://glance:openstack@controller/glance&#39;
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken auth_uri http://controller:5000
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken auth_url http://controller:35357
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken auth_type password
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken project_domain_name default
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken user_domain_name default
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken project_name service
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken username glance
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken password openstack
+ini-config --set /etc/glance/glance-api.conf paste_deploy flavor keystone
+ini-config --set /etc/glance/glance-api.conf glance_store stores file
+ini-config --set /etc/glance/glance-api.conf glance_store default_store file
+ini-config --set /etc/glance/glance-api.conf glance_store filesystem_store_datadir &#39;/var/lib/glance/images/&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;glance-registery.conf&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sed -i -E -e &#39;/^#.+?$/d&#39; -e &#39;/^$/d&#39; /etc/glance/glance-registry.conf
+ini-config --set /etc/glance/glance-registry.conf database connection &#39;postgresql://glance:openstack@controller/glance&#39;
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken auth_uri http://controller:5000
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken auth_url http://controller:35357
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken auth_type password
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken project_domain_name default
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken user_domain_name default
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken project_name service
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken username glance
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken password openstack
+ini-config --set /etc/glance/glance-registry.conf paste_deploy flavor keystone
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;create-glance-manage-glance-api-and-glance-registery-command&#34;&gt;Create &lt;em&gt;glance-manage&lt;/em&gt;, &lt;em&gt;glance-api&lt;/em&gt; and &lt;em&gt;glance-registery&lt;/em&gt; command&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;glance-manage&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat &amp;gt; glance/cmd/glance-manage &amp;lt;&amp;lt;EOF
+#!/bin/python
+import sys
+from glance.cmd.manage import main
+if __name__ == &amp;quot;__main__&amp;quot;:
+    sys.exit(main())
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;glance-api&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat &amp;gt; glance/cmd/glance-api &amp;lt;&amp;lt;EOF
+#!/bin/python
+import sys
+from glance.cmd.api import main
+if __name__ == &amp;quot;__main__&amp;quot;:
+    sys.exit(main())
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;glance-registery&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat &amp;gt; glance/cmd/glance-registry &amp;lt;&amp;lt;EOF
+#!/bin/python
+import sys
+from glance.cmd.registry import main
+if __name__ == &amp;quot;__main__&amp;quot;:
+    sys.exit(main())
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;populate-the-image-service-database-and-the-services&#34;&gt;Populate the Image service database and the services&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;populate the image service database&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;python glance/cmd/glance-manage db_sync
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;start the image services&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;python glance/cmd/glance-api --config-file=/etc/glance/glance-api.conf --config-file=/etc/glance/glance-api-paste.ini
+
+python glance/cmd/glance-registry --config-file=/etc/glance/glance-registry.conf --config-file=/etc/glance/glance-registry-paste.ini
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Install Openstack from source code - keystone (mitaka)</title>
+      <link>https://daveixiang.github.io/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</link>
+      <pubDate>Sat, 04 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</guid>
+      <description>
+
+&lt;h2 id=&#34;install-keystone-dependences&#34;&gt;Install keystone dependences&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum install $(cat openstack-keystone-deps.log | cut -d, -f1 | tr -s &#39;\n&#39;  &#39; &#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;git-clone-source-code-from-github&#34;&gt;Git clone source code from github&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git clone https://github.com/openstack/keystone
+
+cd /src/openstack/keystone
+
+git checkout stable/mitaka
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;build-keystone-source-code&#34;&gt;Build keystone source code&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd /src/openstack/keystone
+
+python setup.py build
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;make-keystone-configuration&#34;&gt;Make keystone configuration&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cp -aR etc/* /etc/keystone
+mv /etc/keystone/keystone.conf.sample /etc/keystone/keystone.conf
+mv /etc/keystone/logging.conf.sample /etc/keystone/logging.conf
+mkdir /etc/keystone/fernet-keys/
+
+sed -i -E -e &#39;/^#.+?$/d&#39; -e &#39;/^$/d&#39; /etc/keystone/keystone.conf
+ini-config --set /etc/keystone/keystone.conf DEFAULT admin_token admintoken
+ini-config --set /etc/keystone/keystone.conf database connection &#39;postgresql://keystone:openstack@controller/keystone&#39;
+ini-config --set /etc/keystone/keystone.conf token provider fernet
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;create-keystone-all-and-keystone-manage-command&#34;&gt;Create &lt;em&gt;keystone-all&lt;/em&gt; and &lt;em&gt;keystone-manage&lt;/em&gt; command&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat &amp;gt; keystone/cmd/keystone-all &amp;lt;&amp;lt;EOF
+#!/bin/python
+import sys
+from keystone.cmd.all import main
+if __name__ == &amp;quot;__main__&amp;quot;:
+    sys.exit(main())
+EOF
+
+cat &amp;gt; keystone/cmd/keystone-manage &amp;lt;&amp;lt;EOF
+#!/bin/python
+import sys
+from keystone.cmd.manage import main
+if __name__ == &amp;quot;__main__&amp;quot;:
+    sys.exit(main())
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;populate-the-identity-service-database&#34;&gt;Populate the Identity service database&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;python keystone/cmd/keystone-manage db_sync
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;initialize-fernet-key-repositories&#34;&gt;Initialize Fernet key repositories&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;python keystone/cmd/keystone-manage fernet_setup --keystone-user root --keystone-group root
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;bootstrap-the-identity-service&#34;&gt;Bootstrap the Identity service&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;python keystone/cmd/keystone-all --config-file=/etc/keystone/keystone.conf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;create-a-domain-projects-users-and-roles&#34;&gt;Create a domain, projects, users, and roles&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export OS_TOKEN=admintoken
+export OS_URL=http://controller:35357/v3
+export OS_IDENTITY_API_VERSION=3
+
+openstack service create --name keystone --description &amp;quot;OpenStack Identity&amp;quot; identity
+openstack endpoint create --region RegionOne identity public http://controller:5000/v3
+openstack endpoint create --region RegionOne identity internal http://controller:5000/v3
+openstack endpoint create --region RegionOne identity admin http://controller:35357/v3
+
+openstack domain create --description &amp;quot;Default Domain&amp;quot; default
+openstack project create --domain default --description &amp;quot;Admin Project&amp;quot; admin
+openstack user create --domain default --password openstack admin
+openstack role create admin
+openstack role add --project admin --user admin admin
+openstack project create --domain default --description &amp;quot;Service Project&amp;quot; service
+
+cat &amp;gt; ~/admin_rc &amp;lt;&amp;lt;EOF
+export OS_PROJECT_DOMAIN_NAME=default
+export OS_USER_DOMAIN_NAME=default
+export OS_PROJECT_NAME=admin
+export OS_USERNAME=admin
+export OS_PASSWORD=openstack
+export OS_AUTH_URL=http://controller:35357/v3
+export OS_IDENTITY_API_VERSION=3
+export OS_IMAGE_API_VERSION=2
+export PS1=&#39;[\u@\h \W(admin)]\$ &#39;
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Install Openstack from source code dependences (mitaka)</title>
+      <link>https://daveixiang.github.io/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</link>
+      <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</guid>
+      <description>&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/bin/bash
+
+function gen_pkg_deps()
+{
+  [ -z &amp;quot;$@&amp;quot; ] &amp;amp;&amp;amp; exit 0;
+  yum install  --assumeno &amp;quot;$@&amp;quot; | \
+  sed -n &#39;/Installing for dependencies:/,/Transaction Summary/p&#39; | \
+  sed -e &#39;/^=.*?$/d&#39; \
+  -e &#39;/Installing:/d&#39;  \
+  -e &#39;/Installing for dependencies:/d&#39; \
+  -e &#39;/Transaction Summary/d&#39; \
+  -e &#39;/Updating/d&#39; \
+  -e &#39;/^$/d&#39; | \
+awk &#39;BEGIN {n=1;arr[0]=0}
+
+{
+if (NF != 6)
+{
+    for (i=n; i&amp;lt;=n+NF-1;i++)
+arr[i] = $(i-n+1)
+    n+=NF;
+    if (n == 7)
+    {
+printf &amp;quot;%s,%s,%s,%s\n&amp;quot;, arr[1], arr[2], arr[3], arr[4]
+for (i=1; i&amp;lt;n;i++) del arr[i]
+n=1
+    }
+}
+else
+{
+    printf &amp;quot;%s,%s,%s,%s\n&amp;quot;,  $1, $2, $3, $4
+}
+}&#39; | sort | grep -v -E -e &#39;glance|keystone|nova|neutron|swift|cinder|ceilometer&#39;\
+  &amp;gt; &amp;quot;$@&amp;quot;-deps.log 2&amp;gt;&amp;amp;1
+}
+
+
+OPENSTACK_COMPONENTS=&amp;quot;
+openstack-keystone \
+python-keystoneclient \
+python-keystone \
+python-openstackclient \
+openstack-glance \
+python-glanceclient \
+python-glance \
+openstack-nova-api \
+openstack-nova-conductor \
+openstack-nova-console \
+openstack-nova-novncproxy \
+openstack-nova-scheduler \
+python-novaclient \
+python-nova \
+openstack-nova-compute \
+openstack-neutron \
+openstack-neutron-ml2 \
+python-neutronclient \
+python-neutron \
+openstack-ceilometer-api \
+openstack-ceilometer-collector \
+openstack-ceilometer-notification \
+openstack-ceilometer-central \
+openstack-ceilometer-alarm \
+openstack-ceilometer-compute \
+python-ceilometerclient \
+python-ceilometer \
+openstack-cinder
+&amp;quot;
+
+for component in $OPENSTACK_COMPONENTS
+do
+  gen_pkg_deps $component
+done
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Multiple ways to access QEMU Machine Protocol (QMP)</title>
+      <link>https://daveixiang.github.io/tech/2017_02_28_multiple_ways_to_access_qmp/</link>
+      <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_02_28_multiple_ways_to_access_qmp/</guid>
+      <description>
+
+&lt;p&gt;QMP (QEMU Machine Protocol) is quiet useful. QMP allows applications
+to communicate withh a running QEMU&amp;rsquo;s instance. There ae a few
+different ways to access the QEMU monitor to query the guest&amp;rsquo;s
+information, modify the guest state using the QMP commands.&lt;/p&gt;
+
+&lt;h2 id=&#34;access-qmp-via-libvirt-s-qemu-monitor-command&#34;&gt;Access QMP via libvirt’s qemu-monitor-command&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;virsh qemu-monitor-command ${domain-name} --pretty &#39;{&amp;quot;execute&amp;quot;:&amp;quot;query-kvm&amp;quot;}&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;qmp-via-tcp-socket&#34;&gt;QMP via tcp socket&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;launch an qemu instance:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;qemu-system-x86_64 --enable-kvm -drive if=virtio,format=qcow2,index=0,file=cirros-0.3.5-x86_64-disk.img --qmp tcp:127.0.0.1:12345,server
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and the output in the terminal like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;QEMU waiting for connection on: disconnected:tcp:127.0.0.1:12345,serve
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;launch another terminal to access the instance we have&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;launched using telnet:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;telnet 127.0.0.1 12345
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and the output like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;Trying 127.0.0.1...
+Connected to 127.0.0.1.
+Escape character is &#39;^]&#39;.
+{&amp;quot;QMP&amp;quot;: {&amp;quot;version&amp;quot;: {&amp;quot;qemu&amp;quot;: {&amp;quot;micro&amp;quot;: 0, &amp;quot;minor&amp;quot;: 8, &amp;quot;major&amp;quot;: 2}, &amp;quot;package&amp;quot;: &amp;quot;&amp;quot;}, &amp;quot;capabilities&amp;quot;: []}}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;execute &amp;lsquo;query-kvm&amp;rsquo; command&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;{&amp;quot;execute&amp;quot; : &amp;quot;qmp_capabilities&amp;quot;}
+{&amp;quot;return&amp;quot;: {}}
+{&amp;quot;execute&amp;quot; : &amp;quot;query-kvm&amp;quot;}
+{&amp;quot;return&amp;quot;: {&amp;quot;enabled&amp;quot;: true, &amp;quot;present&amp;quot;: true}}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;qmp-via-unix-socket&#34;&gt;QMP via unix socket&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;launch an qemu instance with unix socket:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;qemu-system-x86_64 --enable-kvm -drive if=virtio,format=qcow2,index=0,file=cirros-0.3.5-x86_64-disk.img -qmp unix:./qmp-sock,server
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and the output in the terminal like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;QEMU waiting for connection on: disconnected:unix:./qmp-sock,server
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;access the instance we have launched using socat and rlwrap:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rlwrap socat UNIX-CONNECT:./qmp-sock STDIO
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and the output like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;{&amp;quot;QMP&amp;quot;: {&amp;quot;version&amp;quot;: {&amp;quot;qemu&amp;quot;: {&amp;quot;micro&amp;quot;: 0, &amp;quot;minor&amp;quot;: 8, &amp;quot;major&amp;quot;: 2}, &amp;quot;package&amp;quot;: &amp;quot;&amp;quot;}, &amp;quot;capabilities&amp;quot;: []}}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Build minimal linux hack env ith busybox (Target: arm64)</title>
+      <link>https://daveixiang.github.io/tech/2017_02_25_build_minimal_linux_hack_env_with_busybox_arm64/</link>
+      <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_02_25_build_minimal_linux_hack_env_with_busybox_arm64/</guid>
+      <description>
+
+&lt;h2 id=&#34;build-the-kernel&#34;&gt;Build the kernel&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Use arm64 default configuration&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- defconfig
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Simplify arm64 configuration by cutting unused drivers&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- menuconfig
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Create Image&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j8
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;build-busybox&#34;&gt;Build busybox&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Use busybox default configuration&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- defconfig
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Customize configurations&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- menuconfig
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;Busybox Settings  ---&amp;gt;
+  --- Build Options
+  [*]   Build BusyBox as a position independent executable
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Create busybox&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j$(nproc)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Install busybox(default path: BUSYBOX/_install)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;generate-minimal-initramfs&#34;&gt;Generate minimal initramfs&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/usr/bin/bash
+ROOTFS=rootfs
+BUSYBOX=$(find busybox* -maxdepth 0 -type d)
+SYSROOT=$(aarch64-linux-gnu-gcc --print-sysroot)
+DYNAMIC_LIB_PATH_32=${SYSROOT}/lib
+DYNAMIC_LIB_PATH_64=${SYSROOT}/lib64
+
+rm -rf $ROOTFS
+mkdir -p ${ROOTFS}/{proc,sys,dev,etc,etc/init.d,lib,lib64,mnt}
+
+cat &amp;gt; $ROOTFS/etc/init.d/rcS &amp;lt;&amp;lt;EOF
+#!/bin/sh
+mount -t proc none /proc
+mount -t sysfs none /sys
+/sbin/mdev -s
+ifconfig lo up
+EOF
+
+chmod +x $ROOTFS/etc/init.d/rcS
+
+cat &amp;gt; $ROOTFS/etc/inittab &amp;lt;&amp;lt;EOF
+# /etc/inittab
+::sysinit:/etc/init.d/rcS
+::askfirst:-/bin/sh
+::ctrlaltdel:/sbin/reboot
+::shutdown:/bin/umount -a -r
+EOF
+
+chmod +x $ROOTFS/etc/inittab
+
+cp -rP ${BUSYBOX}/_install/* ${ROOTFS}
+
+cp -rP ${DYNAMIC_LIB_PATH_64}/libc-2.25.so ${ROOTFS}/lib64/
+cp -rP ${DYNAMIC_LIB_PATH_64}/libc.so.6 ${ROOTFS}/lib64/
+cp -rP ${DYNAMIC_LIB_PATH_64}/libm-2.25.so ${ROOTFS}/lib64/
+cp -rP ${DYNAMIC_LIB_PATH_64}/libm.so.6 ${ROOTFS}/lib64/
+cp -rP ${DYNAMIC_LIB_PATH_64}/ld-2.25.so ${ROOTFS}/lib64/
+cp -rP ${DYNAMIC_LIB_PATH_32}/ld-linux-aarch64.so.1 ${ROOTFS}/lib/
+
+cd ${ROOTFS}
+ln -sf bin/busybox init
+find . | cpio -o --format=newc &amp;gt; ../initramfs
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;test-the-kernel-and-initramfs-just-built&#34;&gt;Test the kernel and initramfs just built&lt;/h1&gt;
+
+&lt;p&gt;Use qemu to test the Image and initramfs which we just builded:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;qemu-system-aarch64 -machine virt -cpu cortex-a57 \
+-kernel ./Image -initrd ./initramfs -nographic -append &amp;quot;console=ttyAMA0&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and the output just like the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;Please press Enter to activate this console. 
+/ # ls
+bin      etc      lib      linuxrc  proc     sbin     usr
+dev      init     lib64    mnt      root     sys
+/ #
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Install Openstack from source code prepares (mitaka)</title>
+      <link>https://daveixiang.github.io/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</link>
+      <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</guid>
+      <description>
+
+&lt;h2 id=&#34;disable-networkmanager-and-enable-network&#34;&gt;Disable NetworkManager and enable network&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;systemctl stop NetworkManager.service
+systemctl disable NetworkManager.service
+
+systemctl start network.service
+systemctl enable network.service
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;disable-selinux&#34;&gt;Disable SELinux&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sed -i &#39;s/SELINUX=enforcing/SELINUX=disabled/g&#39; /etc/selinux/config
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;disable-firewalld&#34;&gt;Disable Firewalld&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;systemctl stop firewalld
+systemctl disable firewalld
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;disalbe-yum-fast-mirrors-and-language-features&#34;&gt;Disalbe YUM fast mirrors and language features&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sed -i -E -e &#39;s/enabled=1/enabled=0/&#39; /etc/yum/pluginconf.d/fastestmirror.conf
+sed -i -E -e &#39;s/enabled=1/enabled=0/&#39; /etc/yum/pluginconf.d/langpacks.conf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;speed-up-ssh-connection&#34;&gt;Speed up SSH connection&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sed -i &#39;s/#UseDNS yes/UseDNS no/&#39;  /etc/ssh/sshd_config
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;install-and-configure-rabbitmq&#34;&gt;Install and configure rabbitmq&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum -y install rabbitmq-server
+systemctl start rabbitmq-server
+systemctl enable rabbitmq-server
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rabbitmqctl add_user openstack openstack 
+rabbitmqctl set_user_tags openstack administrator
+rabbitmqctl set_permissions -p / openstack &amp;quot;.*&amp;quot; &amp;quot;.*&amp;quot; &amp;quot;.*&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;install-and-configure-mysql-server&#34;&gt;Install and configure mysql server&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum -y install mariadb mariadb-server
+systemctl start mariadb
+systemctl enable mariadb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# delete username &#39;&#39; and change &#39;root&#39; password to &#39;openstack&#39;
+mysql &amp;lt;&amp;lt;EOF
+delete from mysql.user where user=&amp;quot;&amp;quot;;
+update mysql.user set password=password(&amp;quot;openstack&amp;quot;);
+flush privileges;
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;create-int-config-script&#34;&gt;Create int-config script&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum -y install crudini
+
+cat &amp;gt; /usr/bin/ini-config &amp;lt;&amp;lt;EOF
+exec crudini &amp;quot;\$@&amp;quot;
+EOF
+
+chmod 755 /usr/bin/ini-config
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;create-essential-directories&#34;&gt;Create essential directories&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;for SERVICE in keystone glance nova neutron
+do
+  mkdir -p /var/log/$SERVICE
+  mkdir -p /var/lib/$SERVICE
+  mkdir -p /etc/$SERVICE
+
+  if [ &amp;quot;$SERVICE&amp;quot; == &#39;neutron&#39; ]; then
+      mkdir -p /etc/neutron/plugins/ml2
+      mkdir -p /etc/neutron/rootwrap.d
+  fi
+done
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Nested KVM</title>
+      <link>https://daveixiang.github.io/tech/2016_09_03_nested_kvm/</link>
+      <pubDate>Sat, 03 Sep 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2016_09_03_nested_kvm/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;Enable the setting for Nested KVM&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat &amp;lt;&amp;lt;EOF &amp;gt; /etc/modprobe.d/kvm-nested.conf
+options kvm_intel nested=1
+EOF
+
+modprobe -r kvm_intel
+
+modprobe kvm_intel
+
+cat /sys/module/kvm_intel/parameters/nested
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Edit the configuration of a virtual machine you&amp;rsquo;d want to set nested&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;virsh edit {DOMAIN_NAME}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and add the following setting to the vm configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;cpu mode=&#39;host-passthrough&#39;&amp;gt;
+&amp;lt;/cpu&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Linux shared libraries</title>
+      <link>https://daveixiang.github.io/tech/2016_04_02_linux_shared_libraries/</link>
+      <pubDate>Sat, 02 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2016_04_02_linux_shared_libraries/</guid>
+      <description>
+
+&lt;p&gt;Shared libraries are collections of code that can be shared by
+programs. Unlike static (aka archive) libraries, they&amp;rsquo;re not part of
+the compiled program - they&amp;rsquo;re loaded in at the start of run-time if
+they&amp;rsquo;re not already being used. You don&amp;rsquo;t need to worry about them
+unless you&amp;rsquo;re a system manager or applications writer.&lt;/p&gt;
+
+&lt;h1 id=&#34;every-shared-library-has&#34;&gt;Every shared library has &amp;hellip;&lt;/h1&gt;
+
+&lt;h2 id=&#34;soname&#34;&gt;soname&lt;/h2&gt;
+
+&lt;p&gt;libname.so.version_number - the version number is incremented whenever
+the interface changes.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;libNAME.so.&amp;lt;version_number&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;realname&#34;&gt;realname&lt;/h2&gt;
+
+&lt;p&gt;The filename containing the actual library code. The &amp;ldquo;real name&amp;rdquo; adds
+to the &amp;ldquo;soname&amp;rdquo; a period, a minor number, another period, and the
+release number. The last period and release number are optional.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;libNAME.so.&amp;lt;version_number&amp;gt;.&amp;lt;minor_number&amp;gt;[.&amp;lt;release_number&amp;gt;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;linker-name&#34;&gt;linker name&lt;/h2&gt;
+
+&lt;p&gt;The name that the compiler uses (the soname without any version number).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;libNAME.so
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;creating-shared-libraries&#34;&gt;Creating shared libraries&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;To generate object files, use &lt;em&gt;-fPIC&lt;/em&gt; or &lt;em&gt;-fpic&lt;/em&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;To create a library, use &lt;em&gt;cc -shared -Wl,-soname,your_soname -o
+library_name file_list library_list&lt;/em&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;To install, put the shared library in one of the special
+directories then run ldconfig. This creates the &amp;ldquo;soname&amp;rdquo; as a symbolic
+link to the &amp;ldquo;real name&amp;rdquo; and sets up the cache file
+/etc/ld.so.cache. You also need to create the &amp;ldquo;linker name&amp;rdquo; - a
+symbolic link to the soname&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;shared-libraries-at-run-time&#34;&gt;Shared libraries at run-time&lt;/h1&gt;
+
+&lt;p&gt;On Linux, starting up an ELF binary executable automatically causes
+the program loader /lib/ld-linux.so.X to be loaded and run, which in
+turn, finds and loads all other shared libraries used by the
+program. The list of directories to be searched is stored in the file
+/etc/ld.so.conf (our file lists about 17 directories).&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Use the LD_LIBRARY_PATH environmental variable to change run-time
+behaviour&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Use &amp;ldquo;ldd program filename&amp;rdquo; to see the list of the sonames being
+depended on, along with the directory that those names resolve to.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Use export LD_DEBUG=files to print out information when you run
+subsequent commands Note that libc.so.N is the C library, which is
+used by just about all programs.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;how-to-get-the-soname&#34;&gt;How to get the SONAME&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;objdump -p /lib/libc.so.6  | grep SONAME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;readelf -d  /lib/libc.so.6  | grep SONAME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;get-default-shared-and-static-library-search-path&#34;&gt;Get default shared and static library search path&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;get the compiler default search path:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gcc -print-search-dirs | grep libraries | tr &#39;:&#39; &#39;\n&#39; | grep -v libraries | sed -E -e &#39;s/^ =(.*?)$/\1/g&#39;
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;get the linker default search path:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ld -verbose | grep -i &#39;search_dir&#39; | tr &#39;;&#39; &#39;\n&#39; | sed -E -e &#39;s/\s?SEARCH_DIR\(&amp;quot;(.+)&amp;quot;\)/\1/g&#39; -e &#39;/^$/d&#39;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>項 思 偉 (Davei) ~ Aal Izz Well!</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta property="og:title" content="項 思 偉 (Davei) ~ Aal Izz Well!" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content="https://daveixiang.github.io/" />
+
+
+    <link href="https://daveixiang.github.io/index.xml" rel="alternate" type="application/rss+xml" title="項 思 偉 (Davei) ~ Aal Izz Well!" />
+    <link rel="shortcut icon" href="https://daveixiang.github.io/favicon.png">
+
+    <link href="https://daveixiang.github.io/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="https://daveixiang.github.io/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://daveixiang.github.io/css/style.css">
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+    <meta name="generator" content="Hugo 0.19" />
+</head>
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="https://daveixiang.github.io/">項 思 偉 (Davei) ~ Aal Izz Well!</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="https://daveixiang.github.io/xin/">00 Xin</a>
+                
+                <a class="main-nav-link" href="https://daveixiang.github.io/tech/">01 Tech</a>
+                
+                <a class="main-nav-link" href="https://daveixiang.github.io/tags/">02 Tags</a>
+                
+                <a class="main-nav-link" href="https://daveixiang.github.io/categories/">03 Categories</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+            <div class="article-inner">
+                
+                
+                <header class="article-header">
+                    <h1 itemprop="name"><a class="article-title" href="https://daveixiang.github.io/tech/2017_01_22_compile_golang_from_source_code/">Compile Golang from source code</a></h1>
+                </header>
+                
+                <div class="article-meta">
+                    <a href="https://daveixiang.github.io/tech/2017_01_22_compile_golang_from_source_code/" class="article-date">
+                        <time datetime='2017-01-12T00:00:00.000&#43;00:00' itemprop="datePublished">2017-01-12</time>
+                    </a>
+                    
+                    
+                    <div class="post-categories">
+                        <div class="article-category">
+                            
+                            
+                            <a class="article-category-link" href="https://daveixiang.github.io//categories/golang">golang</a>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <div class="article-entry" itemprop="articleBody">
+                    <p>
+                        
+                    Introduction Go is a nice language started by Google. A nice advantage is that it compiles to native code and the binary does not have additional dependencies. Performance and low resource usage are focused on, even though I personally don&rsquo;t like the gargabe collection based memory cleanup.
+Installation First start with Go 1.4 Since Go version 1.5 you need Go itself to compile it. So we first start with Go 1.
+                    </p>
+                    <p class="article-more-link">
+                        <a href="https://daveixiang.github.io/tech/2017_01_22_compile_golang_from_source_code/">Read More</a>
+                    </p>
+                </div>
+
+                
+                <footer class="article-footer">
+                    <ul class="article-tag-list">
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/golang">golang
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </footer>
+                
+            </div>
+        </article>
+        
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+            <div class="article-inner">
+                
+                
+                <header class="article-header">
+                    <h1 itemprop="name"><a class="article-title" href="https://daveixiang.github.io/tech/2016_09_03_nested_kvm/">Nested KVM</a></h1>
+                </header>
+                
+                <div class="article-meta">
+                    <a href="https://daveixiang.github.io/tech/2016_09_03_nested_kvm/" class="article-date">
+                        <time datetime='2016-09-03T00:00:00.000&#43;00:00' itemprop="datePublished">2016-09-03</time>
+                    </a>
+                    
+                    
+                    <div class="post-categories">
+                        <div class="article-category">
+                            
+                            
+                            <a class="article-category-link" href="https://daveixiang.github.io//categories/virtualization">virtualization</a>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <div class="article-entry" itemprop="articleBody">
+                    <p>
+                        
+                     Enable the setting for Nested KVM  cat &lt;&lt;EOF &gt; /etc/modprobe.d/kvm-nested.conf options kvm_intel nested=1 EOF modprobe -r kvm_intel modprobe kvm_intel cat /sys/module/kvm_intel/parameters/nested   Edit the configuration of a virtual machine you&rsquo;d want to set nested  virsh edit {DOMAIN_NAME}  and add the following setting to the vm configuration:
+&lt;cpu mode='host-passthrough'&gt; &lt;/cpu&gt;  
+                    </p>
+                    <p class="article-more-link">
+                        <a href="https://daveixiang.github.io/tech/2016_09_03_nested_kvm/">Read More</a>
+                    </p>
+                </div>
+
+                
+                <footer class="article-footer">
+                    <ul class="article-tag-list">
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/kvm">kvm
+                            </a>
+                        </li>
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/linux">linux
+                            </a>
+                        </li>
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/libvirt">libvirt
+                            </a>
+                        </li>
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/tips">tips
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </footer>
+                
+            </div>
+        </article>
+        
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+            <div class="article-inner">
+                
+                
+                <header class="article-header">
+                    <h1 itemprop="name"><a class="article-title" href="https://daveixiang.github.io/tech/2016_04_27_c_declaration_right_left_rule/">C declaration Right-Left rule</a></h1>
+                </header>
+                
+                <div class="article-meta">
+                    <a href="https://daveixiang.github.io/tech/2016_04_27_c_declaration_right_left_rule/" class="article-date">
+                        <time datetime='2016-04-27T00:00:00.000&#43;00:00' itemprop="datePublished">2016-04-27</time>
+                    </a>
+                    
+                    
+                    <div class="post-categories">
+                        <div class="article-category">
+                            
+                            
+                            <a class="article-category-link" href="https://daveixiang.github.io//categories/clan">clan</a>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <div class="article-entry" itemprop="articleBody">
+                    <p>
+                        
+                    The &quot;right-left&quot; rule is a completely regular rule for deciphering C declarations. It can also be useful in creating them. First, symbols. Read *	as &quot;pointer to&quot;	- always on the left side [] as &quot;array of&quot;	- always on the right side ()	as &quot;function returning&quot;	- always on the right side as you encounter them in the declaration. STEP 1 ------ Find the identifier. This is your starting point.
+                    </p>
+                    <p class="article-more-link">
+                        <a href="https://daveixiang.github.io/tech/2016_04_27_c_declaration_right_left_rule/">Read More</a>
+                    </p>
+                </div>
+
+                
+            </div>
+        </article>
+        
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+            <div class="article-inner">
+                
+                
+                <header class="article-header">
+                    <h1 itemprop="name"><a class="article-title" href="https://daveixiang.github.io/tech/2016_04_02_linux_shared_libraries/">Linux shared libraries</a></h1>
+                </header>
+                
+                <div class="article-meta">
+                    <a href="https://daveixiang.github.io/tech/2016_04_02_linux_shared_libraries/" class="article-date">
+                        <time datetime='2016-04-02T00:00:00.000&#43;00:00' itemprop="datePublished">2016-04-02</time>
+                    </a>
+                    
+                    
+                    <div class="post-categories">
+                        <div class="article-category">
+                            
+                            
+                            <a class="article-category-link" href="https://daveixiang.github.io//categories/clan">clan</a>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <div class="article-entry" itemprop="articleBody">
+                    <p>
+                        
+                    Shared libraries are collections of code that can be shared by programs. Unlike static (aka archive) libraries, they&rsquo;re not part of the compiled program - they&rsquo;re loaded in at the start of run-time if they&rsquo;re not already being used. You don&rsquo;t need to worry about them unless you&rsquo;re a system manager or applications writer.
+Every shared library has &hellip; soname libname.so.version_number - the version number is incremented whenever the interface changes.
+                    </p>
+                    <p class="article-more-link">
+                        <a href="https://daveixiang.github.io/tech/2016_04_02_linux_shared_libraries/">Read More</a>
+                    </p>
+                </div>
+
+                
+                <footer class="article-footer">
+                    <ul class="article-tag-list">
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/linux">linux
+                            </a>
+                        </li>
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/shared-library">shared library
+                            </a>
+                        </li>
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/clan">clan
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </footer>
+                
+            </div>
+        </article>
+        
+
+        
+
+<nav id="page-nav">
+    
+    <a href="https://daveixiang.github.io/page/2/" rel="prev" class="extend prev">&laquo; Prev</a>
+    
+    
+    
+    <a href="https://daveixiang.github.io/">1</a>
+    
+    
+    
+    <a href="https://daveixiang.github.io/page/2/">2</a>
+    
+    
+    
+    <span class="page-number current">3</span>
+    
+    
+
+    
+</nav>
+
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 項 思 偉 (Davei) ~ Aal Izz Well!&nbsp;
+            Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos">Minos</a>
+        </div>
+    </div>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+</div>
+</body>
+</html>

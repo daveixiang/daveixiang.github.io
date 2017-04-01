@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Qmp on 項 思 偉 (Davei) ~ Aal Izz Well!</title>
+    <link>https://daveixiang.github.io/tags/qmp/index.xml</link>
+    <description>Recent content in Qmp on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <atom:link href="https://daveixiang.github.io/tags/qmp/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Multiple ways to access QEMU Machine Protocol (QMP)</title>
+      <link>https://daveixiang.github.io/tech/2017_02_28_multiple_ways_to_access_qmp/</link>
+      <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_02_28_multiple_ways_to_access_qmp/</guid>
+      <description>
+
+&lt;p&gt;QMP (QEMU Machine Protocol) is quiet useful. QMP allows applications
+to communicate withh a running QEMU&amp;rsquo;s instance. There ae a few
+different ways to access the QEMU monitor to query the guest&amp;rsquo;s
+information, modify the guest state using the QMP commands.&lt;/p&gt;
+
+&lt;h2 id=&#34;access-qmp-via-libvirt-s-qemu-monitor-command&#34;&gt;Access QMP via libvirt’s qemu-monitor-command&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;virsh qemu-monitor-command ${domain-name} --pretty &#39;{&amp;quot;execute&amp;quot;:&amp;quot;query-kvm&amp;quot;}&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;qmp-via-tcp-socket&#34;&gt;QMP via tcp socket&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;launch an qemu instance:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;qemu-system-x86_64 --enable-kvm -drive if=virtio,format=qcow2,index=0,file=cirros-0.3.5-x86_64-disk.img --qmp tcp:127.0.0.1:12345,server
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and the output in the terminal like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;QEMU waiting for connection on: disconnected:tcp:127.0.0.1:12345,serve
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;launch another terminal to access the instance we have&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;launched using telnet:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;telnet 127.0.0.1 12345
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and the output like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;Trying 127.0.0.1...
+Connected to 127.0.0.1.
+Escape character is &#39;^]&#39;.
+{&amp;quot;QMP&amp;quot;: {&amp;quot;version&amp;quot;: {&amp;quot;qemu&amp;quot;: {&amp;quot;micro&amp;quot;: 0, &amp;quot;minor&amp;quot;: 8, &amp;quot;major&amp;quot;: 2}, &amp;quot;package&amp;quot;: &amp;quot;&amp;quot;}, &amp;quot;capabilities&amp;quot;: []}}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;execute &amp;lsquo;query-kvm&amp;rsquo; command&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;{&amp;quot;execute&amp;quot; : &amp;quot;qmp_capabilities&amp;quot;}
+{&amp;quot;return&amp;quot;: {}}
+{&amp;quot;execute&amp;quot; : &amp;quot;query-kvm&amp;quot;}
+{&amp;quot;return&amp;quot;: {&amp;quot;enabled&amp;quot;: true, &amp;quot;present&amp;quot;: true}}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;qmp-via-unix-socket&#34;&gt;QMP via unix socket&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;launch an qemu instance with unix socket:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;qemu-system-x86_64 --enable-kvm -drive if=virtio,format=qcow2,index=0,file=cirros-0.3.5-x86_64-disk.img -qmp unix:./qmp-sock,server
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and the output in the terminal like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;QEMU waiting for connection on: disconnected:unix:./qmp-sock,server
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;access the instance we have launched using socat and rlwrap:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rlwrap socat UNIX-CONNECT:./qmp-sock STDIO
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and the output like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;{&amp;quot;QMP&amp;quot;: {&amp;quot;version&amp;quot;: {&amp;quot;qemu&amp;quot;: {&amp;quot;micro&amp;quot;: 0, &amp;quot;minor&amp;quot;: 8, &amp;quot;major&amp;quot;: 2}, &amp;quot;package&amp;quot;: &amp;quot;&amp;quot;}, &amp;quot;capabilities&amp;quot;: []}}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

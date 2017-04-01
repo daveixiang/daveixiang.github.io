@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kvm on 項 思 偉 (Davei) ~ Aal Izz Well!</title>
+    <link>https://daveixiang.github.io/tags/kvm/index.xml</link>
+    <description>Recent content in Kvm on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <atom:link href="https://daveixiang.github.io/tags/kvm/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Nested KVM</title>
+      <link>https://daveixiang.github.io/tech/2016_09_03_nested_kvm/</link>
+      <pubDate>Sat, 03 Sep 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2016_09_03_nested_kvm/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;Enable the setting for Nested KVM&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat &amp;lt;&amp;lt;EOF &amp;gt; /etc/modprobe.d/kvm-nested.conf
+options kvm_intel nested=1
+EOF
+
+modprobe -r kvm_intel
+
+modprobe kvm_intel
+
+cat /sys/module/kvm_intel/parameters/nested
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Edit the configuration of a virtual machine you&amp;rsquo;d want to set nested&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;virsh edit {DOMAIN_NAME}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and add the following setting to the vm configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;cpu mode=&#39;host-passthrough&#39;&amp;gt;
+&amp;lt;/cpu&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

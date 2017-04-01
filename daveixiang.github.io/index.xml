@@ -1,0 +1,1844 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>項 思 偉 (Davei) ~ Aal Izz Well!</title>
+    <link>https://daveixiang.github.io/index.xml</link>
+    <description>Recent content on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 01 Apr 2017 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://daveixiang.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Build Cross GCC Toolchain (TARGET:x86_64)</title>
+      <link>https://daveixiang.github.io/tech/2017_04_01_build_cross_gcc_toolchain_x86_64/</link>
+      <pubDate>Sat, 01 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_04_01_build_cross_gcc_toolchain_x86_64/</guid>
+      <description>&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export BASE_DIR=/src/cross/
+export LOG_DIR=$BASE_DIR/log
+export SRC_DIR=$BASE_DIR/src
+export BUILD_DIR=$BASE_DIR/build
+export INSTALL_DIR=$BASE_DIR/aarch64
+export SYSROOT_DIR=$INSTALL_DIR/sysroot
+
+export binutils_version=binutils-2.27
+export kernel_version=linux-4.4.51
+export gcc_version=gcc-5.4.0
+export glibc_version=glibc-2.25
+
+export BINUTILS_SRC=$SRC_DIR/$binutils_version
+export KERNEL_SRC=$SRC_DIR/$kernel_version
+export GCC_SRC=$SRC_DIR/$gcc_version
+export GLIBC_SRC=$SRC_DIR/$glibc_version
+
+export TARGET_MACH=x86_64-linux-gnu
+export LINUX_ARCH=x86_64
+export BUILD_MACH=$(gcc -dumpmachine)
+
+wrap_cmd() {
+    stage=$1; shift
+    LOGFILE=&amp;quot;$LOG_DIR/$stage.log&amp;quot;
+    rm -rf &amp;quot;$LOGFILE&amp;quot;
+    echo &amp;quot;begin $stage&amp;quot;
+    for cmd in &amp;quot;$@&amp;quot;
+    do
+    echo &amp;quot;begin $cmd&amp;quot;
+    eval &amp;quot;$cmd &amp;gt;&amp;gt; $LOGFILE 2&amp;gt;&amp;amp;1&amp;quot;
+    [ $? -ne 0 ] &amp;amp;&amp;amp; echo &amp;quot;error&amp;quot; &amp;amp;&amp;amp; exit 1
+    echo &amp;quot;end $cmd&amp;quot;
+    done
+    echo &amp;quot;end $stage&amp;quot;
+}
+
+rm -rf $BUILD_DIR
+mkdir -p $BUILD_DIR
+
+mkdir -p $SRC_DIR $LOG_DIR
+
+# wrap_cmd &amp;quot;00.download_packages&amp;quot; \
+#     &amp;quot;cd $SRC_DIR&amp;quot; \
+#     &amp;quot;wget https://mirrors4.tuna.tsinghua.edu.cn/gnu/binutils/$binutils_version.tar.bz2&amp;quot; \
+#     &amp;quot;wget https://mirrors4.tuna.tsinghua.edu.cn/gnu/gcc/$gcc_version/$gcc_version.tar.bz2&amp;quot; \
+#     &amp;quot;wget https://mirrors4.tuna.tsinghua.edu.cn/gnu/glibc/$glibc_version.tar.bz2&amp;quot; \
+#     &amp;quot;wget https://mirrors4.tuna.tsinghua.edu.cn/kernel/v4.x/$kernel_version.tar.gz&amp;quot; 
+
+wrap_cmd &amp;quot;01.binutils_extract&amp;quot; \
+     &amp;quot;rm -rf $BINUTILS_SRC&amp;quot; \
+     &amp;quot;tar jxf $BINUTILS_SRC.tar.bz2 -C $SRC_DIR/&amp;quot; \
+     &amp;quot;mkdir -p $BUILD_DIR/binutils&amp;quot;
+
+wrap_cmd &amp;quot;02.binutils_configure&amp;quot; \
+     &amp;quot;cd $BUILD_DIR/binutils&amp;quot; \
+     &amp;quot;$BINUTILS_SRC/configure --prefix=$INSTALL_DIR --build=$BUILD_MACH --target=$TARGET_MACH --with-sysroot=$SYSROOT_DIR --disable-werror&amp;quot;
+
+wrap_cmd &amp;quot;03.binutils_build&amp;quot; \
+     &amp;quot;cd $BUILD_DIR/binutils&amp;quot; \
+     &amp;quot;make -j$(nproc)&amp;quot; &amp;quot;make install&amp;quot;
+
+wrap_cmd &amp;quot;04.linux_extract&amp;quot; \
+     &amp;quot;rm -rf $KERNEL_SRC&amp;quot; \
+     &amp;quot;tar zxf $KERNEL_SRC.tar.gz -C $SRC_DIR/&amp;quot;
+
+wrap_cmd &amp;quot;05.linux_header_install&amp;quot; &amp;quot;cd $KERNEL_SRC&amp;quot; &amp;quot;make mrproper&amp;quot; &amp;quot;make ARCH=$LINUX_ARCH INSTALL_HDR_PATH=$SYSROOT_DIR/usr headers_install&amp;quot;
+
+wrap_cmd &amp;quot;06.gcc_extract&amp;quot; \
+     &amp;quot;rm -rf $GCC_SRC&amp;quot; \
+     &amp;quot;rm -rf $BUILD_DIR/bootstrap-gcc&amp;quot; \
+     &amp;quot;tar jxf $GCC_SRC.tar.bz2 -C $SRC_DIR/&amp;quot; \
+     &amp;quot;sed -i -e &#39;/k prot/agcc_cv_libc_provides_ssp=yes&#39; $GCC_SRC/gcc/configure&amp;quot; \
+     &amp;quot;mkdir $BUILD_DIR/bootstrap-gcc&amp;quot;
+
+wrap_cmd &amp;quot;07.gcc_configure&amp;quot; \
+     &amp;quot;cd $BUILD_DIR/bootstrap-gcc&amp;quot; \
+     &amp;quot;$GCC_SRC/configure --prefix=$INSTALL_DIR --build=$BUILD_MACH --host=$BUILD_MACH --target=$TARGET_MACH --without-headers --enable-boostrap --enable-languages=&#39;c&#39; --disable-threads --enable-__cxa_atexit --disable-libmudflap --with-gnu-ld --with-gnu-as --disable-libssp --disable-libgomp --disable-nls --disable-shared&amp;quot;
+
+wrap_cmd &amp;quot;08.gcc_build&amp;quot; \
+     &amp;quot;make -j$(nproc) all-gcc&amp;quot; \
+     &amp;quot;make install-gcc&amp;quot; \
+     &amp;quot;make -j$(nproc) all-target-libgcc&amp;quot; \
+     &amp;quot;make install-target-libgcc&amp;quot;
+
+
+wrap_cmd &amp;quot;09.glibc_extract&amp;quot; \
+     &amp;quot;rm -rf $GLIBC_SRC&amp;quot; \
+     &amp;quot;rm -rf $BUILD_DIR/libc&amp;quot; \
+     &amp;quot;tar jxf $GLIBC_SRC.tar.bz2 -C $SRC_DIR/&amp;quot; \
+     &amp;quot;mkdir -pv $BUILD_DIR/libc&amp;quot;
+
+wrap_cmd &amp;quot;10.glibc_configure&amp;quot; \
+     &amp;quot;cd $BUILD_DIR/libc&amp;quot; \
+     &amp;quot;echo &#39;libc_cv_forced_unwind=yes&#39; &amp;gt; config.cache&amp;quot; &amp;quot;echo &#39;libc_cv_c_cleanup=yes&#39; &amp;gt;&amp;gt; config.cache&amp;quot; \
+     &amp;quot;export PATH=$INSTALL_DIR/bin:$PATH&amp;quot; &amp;quot;export CC=${TARGET_MACH}-gcc&amp;quot; &amp;quot;export LD=${CROSS}-ld&amp;quot; &amp;quot;export AS=${TARGET_MACH}-as&amp;quot; \
+     &amp;quot;$GLIBC_SRC/configure --prefix=/usr --build=$BUILD_MACH --host=$TARGET_MACH --with-headers=$SYSROOT_DIR/usr/include --config-cache --enable-kernel=2.6.32&amp;quot;
+
+wrap_cmd &amp;quot;11.glibc_build&amp;quot; \
+     &amp;quot;make -k install-headers cross_compiling=yes install_root=$SYSROOT_DIR&amp;quot; \
+     &amp;quot;make -j$(nproc)&amp;quot; \
+     &amp;quot;make install_root=$SYSROOT_DIR install&amp;quot; \
+     &amp;quot;ln -sf $SYSROOT_DIR/lib64 $SYSROOT_DIR/lib&amp;quot; \
+     &amp;quot;ln -sf $SYSROOT_DIR/usr/lib64 $SYSROOT_DIR/usr/lib&amp;quot; \
+     &amp;quot;unset CC&amp;quot; &amp;quot;unset LD&amp;quot; &amp;quot;unset AS&amp;quot;
+
+wrap_cmd &amp;quot;12.gcc-final-01_extract&amp;quot; \
+     &amp;quot;rm -rf $GCC_SRC&amp;quot; \
+     &amp;quot;rm -rf $BUILD_DIR/final-gcc-01&amp;quot; \
+     &amp;quot;tar jxf $GCC_SRC.tar.bz2 -C $SRC_DIR/&amp;quot; \
+     &amp;quot;mkdir -pv $BUILD_DIR/final-gcc-01&amp;quot;
+
+wrap_cmd &amp;quot;13.gcc-final-01_configure&amp;quot; \
+     &amp;quot;cd $BUILD_DIR/final-gcc-01&amp;quot; \
+     &amp;quot;echo &#39;libc_cv_forced_unwind=yes&#39; &amp;gt; config.cache&amp;quot; &amp;quot;echo &#39;libc_cv_c_cleanup=yes&#39; &amp;gt;&amp;gt; config.cache&amp;quot; \
+     &amp;quot;$GCC_SRC/configure --prefix=$INSTALL_DIR --build=$BUILD_MACH --target=$TARGET_MACH --with-sysroot=$SYSROOT_DIR --enable-languages=&#39;c,c++&#39; --with-gnu-as --with-gnu-ld --disable-multilib --disable-nls --enable-threads=posix --enable-long-longx&amp;quot;
+
+wrap_cmd &amp;quot;14.gcc-final-01_build&amp;quot; \
+     &amp;quot;make -j$(nproc) all-gcc&amp;quot; \
+     &amp;quot;make install-gcc&amp;quot;
+
+
+wrap_cmd &amp;quot;13.gcc-final-02_extract&amp;quot; \
+     &amp;quot;rm -rf $BUILD_DIR/final-gcc-02&amp;quot; \
+     &amp;quot;mkdir -pv $BUILD_DIR/final-gcc-02&amp;quot;
+
+wrap_cmd &amp;quot;14.gcc-final-02_configure&amp;quot; \
+     &amp;quot;cd $BUILD_DIR/final-gcc-02&amp;quot; \
+     &amp;quot;echo &#39;libc_cv_forced_unwind=yes&#39; &amp;gt; config.cache&amp;quot; &amp;quot;echo &#39;libc_cv_c_cleanup=yes&#39; &amp;gt;&amp;gt; config.cache&amp;quot; \
+     &amp;quot;$GCC_SRC/configure --prefix=$INSTALL_DIR --build=$BUILD_MACH --target=$TARGET_MACH --with-sysroot=$SYSROOT_DIR --enable-languages=&#39;c,c++&#39; --with-gnu-as --with-gnu-ld --disable-multilib --disable-nls --enable-threads=posix --disable-libssp --enable-long-longx --with-shared&amp;quot;
+
+
+wrap_cmd &amp;quot;15.gcc-final-02_build&amp;quot; \
+     &amp;quot;make -j$(nproc)&amp;quot; \
+     &amp;quot;make install&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Build minimal linux hack env with busybox (Target: x86_64)</title>
+      <link>https://daveixiang.github.io/tech/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</link>
+      <pubDate>Sat, 01 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</guid>
+      <description>
+
+&lt;h2 id=&#34;build-the-kernel&#34;&gt;Build the kernel&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Use x86_64 default configuration&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- defconfig
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Simplify x86_64 configuration by cutting unused drivers&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- menuconfig
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Create Image&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- -j8
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;build-busybox&#34;&gt;Build busybox&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Use busybox default configuration&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- defconfig
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Customize configurations&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- menuconfig
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;Busybox Settings  ---&amp;gt;
+  --- Build Options
+  [*]   Build BusyBox as a position independent executable
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Create busybox&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- -j$(nproc)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Install busybox(default path: BUSYBOX/_install)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;generate-minimal-initramfs&#34;&gt;Generate minimal initramfs&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/usr/bin/bash
+ROOTFS=rootfs
+BUSYBOX=$(find busybox* -maxdepth 0 -type d)
+SYSROOT=$(x86_64-linux-gnu-gcc --print-sysroot)
+DYNAMIC_LIB_PATH_32=${SYSROOT}/lib
+DYNAMIC_LIB_PATH_64=${SYSROOT}/lib64
+
+rm -rf $ROOTFS
+mkdir -p ${ROOTFS}/{proc,sys,dev,etc,etc/init.d,lib,lib64,mnt}
+
+cat &amp;gt; $ROOTFS/etc/init.d/rcS &amp;lt;&amp;lt;EOF
+#!/bin/sh
+mount -t proc none /proc
+mount -t sysfs none /sys
+/sbin/mdev -s
+ifconfig lo up
+EOF
+
+chmod +x $ROOTFS/etc/init.d/rcS
+
+cat &amp;gt; $ROOTFS/etc/inittab &amp;lt;&amp;lt;EOF
+# /etc/inittab
+::sysinit:/etc/init.d/rcS
+::askfirst:-/bin/sh
+::ctrlaltdel:/sbin/reboot
+::shutdown:/bin/umount -a -r
+EOF
+
+chmod +x $ROOTFS/etc/inittab
+
+cp -rP ${BUSYBOX}/_install/* ${ROOTFS}
+
+cp -rP ${DYNAMIC_LIB_PATH_64}/libc-2.25.so ${ROOTFS}/lib64/
+cp -rP ${DYNAMIC_LIB_PATH_64}/libc.so.6 ${ROOTFS}/lib64/
+cp -rP ${DYNAMIC_LIB_PATH_64}/libm-2.25.so ${ROOTFS}/lib64/
+cp -rP ${DYNAMIC_LIB_PATH_64}/libm.so.6 ${ROOTFS}/lib64/
+cp -rP ${DYNAMIC_LIB_PATH_64}/ld-2.25.so ${ROOTFS}/lib64/
+cp -rP ${DYNAMIC_LIB_PATH_64}/ld-linux-x86-64.so.2 ${ROOTFS}/lib64/
+
+cd ${ROOTFS}
+ln -sf bin/busybox init
+find . | cpio -o --format=newc &amp;gt; ../initramfs
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;test-the-kernel-and-initramfs-just-built&#34;&gt;Test the kernel and initramfs just built&lt;/h2&gt;
+
+&lt;p&gt;Use qemu to test the Image and initramfs which we just builded:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;qemu-system-x86_64  -nographic \
+-kernel ./bzImage -initrd ./initramfs -append  &amp;quot;console=ttyS0 quiet&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and the output just like the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;Please press Enter to activate this console. 
+/ # ls
+bin      etc      lib      linuxrc  proc     sbin     usr
+dev      init     lib64    mnt      root     sys
+/ #
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Add OpenSuse Leap 42.2 repos</title>
+      <link>https://daveixiang.github.io/tech/2017_03_31_opensuse_add_repos/</link>
+      <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_03_31_opensuse_add_repos/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;Remove previous repos&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;zypper repos | grep Yes | cut -f3 -d &#39;|&#39; | sed -e &amp;quot;s/ //&amp;quot; | awk &#39;{print &amp;quot;zypper rr &amp;quot; $1}&#39; | bash
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Add the repos and refresh&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/oss/ openSUSE-leap-42.2-Oss
+zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/non-oss/ openSUSE-leap-42.2-Non-Oss
+zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/oss openSUSE-leap-42.2-Update-Oss
+zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/non-oss/ openSUSE-leap-42.2-Update-Non-Oss
+
+zypper refresh
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>GCC and Glibc core runtime files</title>
+      <link>https://daveixiang.github.io/tech/2017_03_31_gcc_glibc_core_runtime_files/</link>
+      <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_03_31_gcc_glibc_core_runtime_files/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;Files provided by glibc&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;center&#34;&gt;file&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;usage&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;crt0.o&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;Older style of the initial runtime code. No one generates this anymore.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;crt1.o&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;Newer style of the initial runtime code. Contains the _start symbol which sets up the env with argc/argv/libc _init/libc _fini before jumping to the libc main. glibc calls this file &amp;lsquo;start.S&amp;rsquo;.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;crti.o&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;Defines the function prolog; _init in the .init section and _fini in the .fini section. glibc calls this &amp;lsquo;initfini.c&amp;rsquo;.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;crtn.o&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;Defines the function epilog. glibc calls this &amp;lsquo;initfini.c&amp;rsquo;.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;Scrt1.o&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;Used in place of crt1.o when generating PIEs.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;gcrt1.o&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;Used in place of crt1.o when generating code with profiling information. Compile with -pg. Produces output suitable for the gprof util.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;Mcrt1.o&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;Like gcrt1.o, but is used with the prof utility. glibc installs this as a dummy file as it&amp;rsquo;s useless on linux systems.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Files provides by gcc&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;center&#34;&gt;file&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;usage&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;crtbegin.o&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;GCC uses this to find the start of the constructors.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;crtbeginS.o&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;Used in place of crtbegin.o when generating shared objects/PIEs.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;crtbeginT.o&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;Used in place of crtbegin.o when generating static executables.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;crtend.o&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;GCC uses this to find the start of the destructors.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;crtendS.o&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;Used in place of crtend.o when generating shared objects/PIEs.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Netlink hell world example</title>
+      <link>https://daveixiang.github.io/tech/2017_03_31_netlink_hello_world_example/</link>
+      <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_03_31_netlink_hello_world_example/</guid>
+      <description>
+
+&lt;h2 id=&#34;demo-kernel-code&#34;&gt;demo kernel code&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;hello_nl_kern.c&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;linux/module.h&amp;gt;
+#include &amp;lt;net/sock.h&amp;gt;
+#include &amp;lt;linux/netlink.h&amp;gt;
+#include &amp;lt;linux/skbuff.h&amp;gt;
+
+#define NETLINK_USER 31
+
+struct sock *nl_sk = NULL;
+
+static void hello_nl_recv_msg(struct sk_buff *skb)
+{
+        struct nlmsghdr *nlh;
+        int pid;
+        struct sk_buff *skb_out;
+        int msg_size;
+        char *msg = &amp;quot;Hello from kernel&amp;quot;;
+        int res;
+        printk(KERN_INFO &amp;quot;Entering: %s\n&amp;quot;, __FUNCTION__);
+
+        msg_size = strlen(msg);
+        nlh = (struct nlmsghdr *)skb-&amp;gt;data;
+        printk(KERN_INFO &amp;quot;Netlink received msg payload: %s\n&amp;quot;,(char*)nlmsg_data(nlh));
+        pid = nlh-&amp;gt;nlmsg_pid;
+
+        skb_out = nlmsg_new(msg_size,0);
+        if (!skb_out)
+        {
+                printk(KERN_ERR &amp;quot;Failed to allocate new skb\n&amp;quot;);
+                return;
+        }
+
+        nlh = nlmsg_put(skb_out, 0, 0, NLMSG_DONE, msg_size, 0);
+        NETLINK_CB(skb_out).dst_group = 0;
+        strncpy(nlmsg_data(nlh), msg,msg_size);
+
+        res = nlmsg_unicast(nl_sk, skb_out, pid);
+        if (res &amp;lt; 0)
+                printk(KERN_INFO &amp;quot;Error while sending bak to user\n&amp;quot;);
+}
+
+static int __init hello_init(void)
+{
+        struct netlink_kernel_cfg cfg = {
+                .input = hello_nl_recv_msg,
+        };
+
+        printk(&amp;quot;Entering: %s\n&amp;quot;, __FUNCTION__);
+
+        nl_sk = netlink_kernel_create(&amp;amp;init_net, NETLINK_USER, &amp;amp;cfg);
+
+        if (!nl_sk)
+        {
+                printk(KERN_ALERT &amp;quot;Error creating socket.\n&amp;quot;);
+                return -10;
+        }
+
+        return 0;
+}
+
+static void __exit hello_exit(void)
+{
+        printk(KERN_INFO &amp;quot;exiting hello module\n&amp;quot;);
+        netlink_kernel_release(nl_sk);
+}
+
+module_init(hello_init);
+module_exit(hello_exit);
+
+MODULE_LICENSE(&amp;quot;GPL&amp;quot;);
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;makefile&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-makefile&#34;&gt;obj-m := hello_nl_kern.o
+
+KERNEL_SOURCE := /lib/modules/$(shell uname -r)/build
+
+PWD := $(shell pwd)
+
+all:
+        make -C $(KERNEL_SOURCE) SUBDIRS=${PWD} modules
+clean:
+        make -C $(KERNEL_SOURCE) SUBDIRS=${PWD} clean
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;demo-user-code&#34;&gt;demo user code&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;hello_nl_user.c&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;sys/socket.h&amp;gt;
+#include &amp;lt;linux/netlink.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+
+#define NETLINK_USER 31
+
+#define MAX_PAYLOAD 1024 /* maximum payload size*/
+
+struct sockaddr_nl src_addr, dest_addr;
+struct nlmsghdr *nlh = NULL;
+struct iovec iov;
+int sock_fd;
+struct msghdr msg;
+
+int main(int argc, char *argv[])
+{
+        sock_fd = socket(PF_NETLINK, SOCK_RAW, NETLINK_USER);
+        if (sock_fd &amp;lt; 0)
+                return -1;
+
+        memset(&amp;amp;src_addr, 0, sizeof(src_addr));
+        src_addr.nl_family = AF_NETLINK;
+        src_addr.nl_pid = getpid();
+
+        bind(sock_fd, (struct sockaddr*)&amp;amp;src_addr, sizeof(src_addr));
+
+        memset(&amp;amp;dest_addr, 0, sizeof(dest_addr));
+        dest_addr.nl_family = AF_NETLINK;
+        dest_addr.nl_pid = 0; /* For Linux Kernel */
+        dest_addr.nl_groups = 0; /* unicast */
+
+        nlh = (struct nlmsghdr *)malloc(NLMSG_SPACE(MAX_PAYLOAD));
+        memset(nlh, 0, NLMSG_SPACE(MAX_PAYLOAD));
+        nlh-&amp;gt;nlmsg_len = NLMSG_SPACE(MAX_PAYLOAD);
+        nlh-&amp;gt;nlmsg_pid = getpid();
+        nlh-&amp;gt;nlmsg_flags = 0;
+
+        strcpy(NLMSG_DATA(nlh), &amp;quot;Hello&amp;quot;);
+
+        iov.iov_base = (void *)nlh;
+        iov.iov_len = nlh-&amp;gt;nlmsg_len;
+        msg.msg_name = (void *)&amp;amp;dest_addr;
+        msg.msg_namelen = sizeof(dest_addr);
+        msg.msg_iov = &amp;amp;iov;
+        msg.msg_iovlen = 1;
+
+        /* Sending message to kernel */
+        sendmsg(sock_fd,&amp;amp;msg,0);
+        printf(&amp;quot;Waiting for message from kernel\n&amp;quot;);
+
+        /* Read message from kernel */
+        recvmsg(sock_fd, &amp;amp;msg, 0);
+        printf(&amp;quot;Received message payload: %s\n&amp;quot;, (char *)NLMSG_DATA(nlh));
+        close(sock_fd);
+
+        return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Notation meaning in top out</title>
+      <link>https://daveixiang.github.io/tech/2017_03_30_notation_meaning_in_top_out/</link>
+      <pubDate>Thu, 30 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_03_30_notation_meaning_in_top_out/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;PID — Process Id&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The task’s unique process ID, which periodically wraps, though
+never restarting at zero.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;PPID — Parent Process Pid&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The process ID of a task’s parent.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;RUSER — Real User Name&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The real user name of the task’s owner.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;UID — User Id&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The effective user ID of the task’s owner.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;USER — User Name&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The effective user name of the task’s owner.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;GROUP — Group Name&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The effective group name of the task’s owner.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;TTY — Controlling Tty&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The name of the controlling terminal. This is usually the
+device (serial port, pty, etc.) from which the process was
+started, and which it uses for input or output. However, a
+task need not be associated with a terminal, in which case
+you’ll see ‘?’ displayed.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;PR — Priority&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The priority of the task.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;NI — Nice value&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The nice value of the task. A negative nice value means higher
+priority, whereas a positive nice value means lower priority.
+Zero in this field simply means priority will not be adjusted
+in determining a task’s dispatchability.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;P — Last used CPU (SMP)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;A number representing the last used processor. In a true SMP
+environment this will likely change frequently since the kernel
+intentionally uses weak affinity. Also, the very act of
+running top may break this weak affinity and cause more
+processes to change CPUs more often (because of the extra
+demand for cpu time).
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;%CPU — CPU usage&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The task’s share of the elapsed CPU time since the last screen
+update, expressed as a percentage of total CPU time. In a true
+SMP environment, if ‘Irix mode’ is Off, top will operate in
+‘Solaris mode’ where a task’s cpu usage will be divided by the
+total number of CPUs. You toggle ‘Irix/Solaris’ modes with the
+‘I’ interactive command.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;TIME — CPU Time&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;Total CPU time the task has used since it started. When
+‘Cumulative mode’ is On, each process is listed with the cpu
+time that it and its dead children has used. You toggle
+‘Cumulative mode’ with ‘S’, which is a command-line option and
+an interactive command. See the ‘S’ interactive command for
+additional information regarding this mode.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;TIME+ — CPU Time, hundredths&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The same as ‘TIME’, but reflecting more granularity through
+hundredths of a second.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;%MEM — Memory usage (RES)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;A task’s currently used share of available physical memory.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;VIRT — Virtual Image (kb)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The total amount of virtual memory used by the task. It
+includes all code, data and shared libraries plus pages that
+have been swapped out and pages that have been mapped but not
+used.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;SWAP — Swapped size (kb)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;Memory that is not resident but is present in a task. This is
+memory that has been swapped out but could include additional
+non-resident memory. This column is calculated by subtracting
+physical memory from virtual memory.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;RES — Resident size (kb)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The non-swapped physical memory a task has used.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;CODE — Code size (kb)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The amount of virtual memory devoted to executable code, also
+known as the ‘text resident set’ size or TRS.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;DATA — Data+Stack size (kb)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The amount of virtual memory devoted to other than executable
+code, also known as the ‘data resident set’ size or DRS.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;SHR — Shared Mem size (kb)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The amount of shared memory used by a task. It simply reflects
+memory that could be potentially shared with other processes.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;nFLT — Page Fault count&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The number of major page faults that have occurred for a task.
+A page fault occurs when a process attempts to read from or
+write to a virtual page that is not currently present in its
+address space. A major page fault is when backing storage
+access (such as a disk) is involved in making that page
+available.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;nDRT — Dirty Pages count&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The number of pages that have been modified since they were
+last written to disk. Dirty pages must be written to disk
+before the corresponding physical memory location can be used
+for some other virtual page.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;S — Process Status&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The status of the task which can be one of:
+‘D’ = uninterruptible sleep
+‘R’ = running
+‘S’ = sleeping
+‘T’ = traced or stopped
+‘Z’ = zombie
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Configure libvirt with openvswitch bridge</title>
+      <link>https://daveixiang.github.io/tech/2017_03_23_configure_libvirt_with_openvswitch_bridge/</link>
+      <pubDate>Thu, 23 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_03_23_configure_libvirt_with_openvswitch_bridge/</guid>
+      <description>
+
+&lt;h1 id=&#34;create-openvswitch-bridge&#34;&gt;Create OpenvSwitch bridge&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ovs-vsctl add-br br0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;configure-libvirt-with-br0-just-created&#34;&gt;Configure libvirt with &lt;em&gt;br0&lt;/em&gt; just created&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;BRNAME=br0
+
+cat &amp;gt; /tmp/libvirt-net.xml &amp;lt;&amp;lt;EOF
+&amp;lt;network&amp;gt;
+  &amp;lt;name&amp;gt;${BRNAME}&amp;lt;/name&amp;gt;
+  &amp;lt;forward mode=&#39;bridge&#39;/&amp;gt;
+  &amp;lt;bridge name=&#39;${BRNAME}&#39;/&amp;gt;
+  &amp;lt;virtualport type=&#39;openvswitch&#39;/&amp;gt;
+&amp;lt;/network&amp;gt;
+EOF
+
+virsh net-define /tmp/libvirt-net.xml
+virsh net-start $BRNAME
+virsh net-autostart $BRNAME
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>How to get the complete and exact list of mounted filesystems in Linux?</title>
+      <link>https://daveixiang.github.io/tips/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</link>
+      <pubDate>Wed, 22 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tips/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</guid>
+      <description>&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;findmnt -lo source,target,fstype,label,options,used -t xfs
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;SOURCE    TARGET FSTYPE LABEL OPTIONS
+/dev/vda1 /      xfs          rw,relatime,attr2,inode64,noquota
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;/proc/mounts
+
+/etc/mtab
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://daveixiang.github.io/xin/</link>
+      <pubDate>Tue, 21 Mar 2017 15:51:52 +0800</pubDate>
+      
+      <guid>https://daveixiang.github.io/xin/</guid>
+      <description>&lt;table style=&#34;font-size: 1.2em; font-family: 华文楷体&#34;&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;咒&lt;/td&gt;
+&lt;td&gt;苦&lt;/td&gt;
+&lt;td&gt;大&lt;/td&gt;
+&lt;td&gt;三&lt;/td&gt;
+&lt;td&gt;佛&lt;/td&gt;
+&lt;td&gt;有&lt;/td&gt;
+&lt;td&gt;般&lt;/td&gt;
+&lt;td&gt;道&lt;/td&gt;
+&lt;td&gt;明&lt;/td&gt;
+&lt;td&gt;法&lt;/td&gt;
+&lt;td&gt;想&lt;/td&gt;
+&lt;td&gt;不&lt;/td&gt;
+&lt;td&gt;亦&lt;/td&gt;
+&lt;td&gt;空&lt;/td&gt;
+&lt;td&gt;五&lt;/td&gt;
+&lt;td&gt;觀&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;曰&lt;/td&gt;
+&lt;td&gt;真&lt;/td&gt;
+&lt;td&gt;明&lt;/td&gt;
+&lt;td&gt;菩&lt;/td&gt;
+&lt;td&gt;依&lt;/td&gt;
+&lt;td&gt;恐&lt;/td&gt;
+&lt;td&gt;若&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;盡&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;行&lt;/td&gt;
+&lt;td&gt;垢&lt;/td&gt;
+&lt;td&gt;復&lt;/td&gt;
+&lt;td&gt;不&lt;/td&gt;
+&lt;td&gt;蘊&lt;/td&gt;
+&lt;td&gt;自&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;波&lt;/td&gt;
+&lt;td&gt;揭&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;實&lt;/td&gt;
+&lt;td&gt;咒&lt;/td&gt;
+&lt;td&gt;提&lt;/td&gt;
+&lt;td&gt;般&lt;/td&gt;
+&lt;td&gt;怖&lt;/td&gt;
+&lt;td&gt;波&lt;/td&gt;
+&lt;td&gt;智&lt;/td&gt;
+&lt;td&gt;乃&lt;/td&gt;
+&lt;td&gt;眼&lt;/td&gt;
+&lt;td&gt;識&lt;/td&gt;
+&lt;td&gt;不&lt;/td&gt;
+&lt;td&gt;如&lt;/td&gt;
+&lt;td&gt;異&lt;/td&gt;
+&lt;td&gt;皆&lt;/td&gt;
+&lt;td&gt;在&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;羅&lt;/td&gt;
+&lt;td&gt;諦&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;不&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;故&lt;/td&gt;
+&lt;td&gt;若&lt;/td&gt;
+&lt;td&gt;遠&lt;/td&gt;
+&lt;td&gt;羅&lt;/td&gt;
+&lt;td&gt;亦&lt;/td&gt;
+&lt;td&gt;至&lt;/td&gt;
+&lt;td&gt;界&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;淨&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;色&lt;/td&gt;
+&lt;td&gt;空&lt;/td&gt;
+&lt;td&gt;菩&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;僧&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;虛&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;知&lt;/td&gt;
+&lt;td&gt;波&lt;/td&gt;
+&lt;td&gt;離&lt;/td&gt;
+&lt;td&gt;密&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;乃&lt;/td&gt;
+&lt;td&gt;眼&lt;/td&gt;
+&lt;td&gt;不&lt;/td&gt;
+&lt;td&gt;舍&lt;/td&gt;
+&lt;td&gt;色&lt;/td&gt;
+&lt;td&gt;度&lt;/td&gt;
+&lt;td&gt;薩&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;般&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;揭&lt;/td&gt;
+&lt;td&gt;揭&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;故&lt;/td&gt;
+&lt;td&gt;上&lt;/td&gt;
+&lt;td&gt;般&lt;/td&gt;
+&lt;td&gt;羅&lt;/td&gt;
+&lt;td&gt;顛&lt;/td&gt;
+&lt;td&gt;多&lt;/td&gt;
+&lt;td&gt;得&lt;/td&gt;
+&lt;td&gt;老&lt;/td&gt;
+&lt;td&gt;至&lt;/td&gt;
+&lt;td&gt;耳&lt;/td&gt;
+&lt;td&gt;增&lt;/td&gt;
+&lt;td&gt;利&lt;/td&gt;
+&lt;td&gt;即&lt;/td&gt;
+&lt;td&gt;一&lt;/td&gt;
+&lt;td&gt;行&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;若&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;諦&lt;/td&gt;
+&lt;td&gt;諦&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;說&lt;/td&gt;
+&lt;td&gt;咒&lt;/td&gt;
+&lt;td&gt;若&lt;/td&gt;
+&lt;td&gt;密&lt;/td&gt;
+&lt;td&gt;倒&lt;/td&gt;
+&lt;td&gt;故&lt;/td&gt;
+&lt;td&gt;以&lt;/td&gt;
+&lt;td&gt;死&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;鼻&lt;/td&gt;
+&lt;td&gt;不&lt;/td&gt;
+&lt;td&gt;子&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;切&lt;/td&gt;
+&lt;td&gt;深&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;波&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;般&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;波&lt;/td&gt;
+&lt;td&gt;多&lt;/td&gt;
+&lt;td&gt;夢&lt;/td&gt;
+&lt;td&gt;心&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;亦&lt;/td&gt;
+&lt;td&gt;意&lt;/td&gt;
+&lt;td&gt;舌&lt;/td&gt;
+&lt;td&gt;減&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;空&lt;/td&gt;
+&lt;td&gt;苦&lt;/td&gt;
+&lt;td&gt;般&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;羅&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;菩&lt;/td&gt;
+&lt;td&gt;波&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;若&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;羅&lt;/td&gt;
+&lt;td&gt;故&lt;/td&gt;
+&lt;td&gt;想&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;所&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;識&lt;/td&gt;
+&lt;td&gt;身&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;諸&lt;/td&gt;
+&lt;td&gt;空&lt;/td&gt;
+&lt;td&gt;厄&lt;/td&gt;
+&lt;td&gt;若&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;密&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;提&lt;/td&gt;
+&lt;td&gt;羅&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;波&lt;/td&gt;
+&lt;td&gt;等&lt;/td&gt;
+&lt;td&gt;密&lt;/td&gt;
+&lt;td&gt;得&lt;/td&gt;
+&lt;td&gt;究&lt;/td&gt;
+&lt;td&gt;罣&lt;/td&gt;
+&lt;td&gt;得&lt;/td&gt;
+&lt;td&gt;老&lt;/td&gt;
+&lt;td&gt;界&lt;/td&gt;
+&lt;td&gt;意&lt;/td&gt;
+&lt;td&gt;故&lt;/td&gt;
+&lt;td&gt;法&lt;/td&gt;
+&lt;td&gt;即&lt;/td&gt;
+&lt;td&gt;舍&lt;/td&gt;
+&lt;td&gt;波&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;多&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;薩&lt;/td&gt;
+&lt;td&gt;揭&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;羅&lt;/td&gt;
+&lt;td&gt;等&lt;/td&gt;
+&lt;td&gt;多&lt;/td&gt;
+&lt;td&gt;阿&lt;/td&gt;
+&lt;td&gt;竟&lt;/td&gt;
+&lt;td&gt;礙&lt;/td&gt;
+&lt;td&gt;故&lt;/td&gt;
+&lt;td&gt;死&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;空&lt;/td&gt;
+&lt;td&gt;空&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;利&lt;/td&gt;
+&lt;td&gt;羅&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;心&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;項&lt;/td&gt;
+&lt;td&gt;婆&lt;/td&gt;
+&lt;td&gt;諦&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;密&lt;/td&gt;
+&lt;td&gt;咒&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;耨&lt;/td&gt;
+&lt;td&gt;涅&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;菩&lt;/td&gt;
+&lt;td&gt;盡&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;色&lt;/td&gt;
+&lt;td&gt;中&lt;/td&gt;
+&lt;td&gt;相&lt;/td&gt;
+&lt;td&gt;色&lt;/td&gt;
+&lt;td&gt;子&lt;/td&gt;
+&lt;td&gt;密&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;經&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;思&lt;/td&gt;
+&lt;td&gt;訶&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;多&lt;/td&gt;
+&lt;td&gt;能&lt;/td&gt;
+&lt;td&gt;大&lt;/td&gt;
+&lt;td&gt;多&lt;/td&gt;
+&lt;td&gt;槃&lt;/td&gt;
+&lt;td&gt;罣&lt;/td&gt;
+&lt;td&gt;提&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;明&lt;/td&gt;
+&lt;td&gt;聲&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;不&lt;/td&gt;
+&lt;td&gt;受&lt;/td&gt;
+&lt;td&gt;色&lt;/td&gt;
+&lt;td&gt;多&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;偉&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;咒&lt;/td&gt;
+&lt;td&gt;除&lt;/td&gt;
+&lt;td&gt;神&lt;/td&gt;
+&lt;td&gt;羅&lt;/td&gt;
+&lt;td&gt;三&lt;/td&gt;
+&lt;td&gt;礙&lt;/td&gt;
+&lt;td&gt;薩&lt;/td&gt;
+&lt;td&gt;苦&lt;/td&gt;
+&lt;td&gt;亦&lt;/td&gt;
+&lt;td&gt;香&lt;/td&gt;
+&lt;td&gt;色&lt;/td&gt;
+&lt;td&gt;生&lt;/td&gt;
+&lt;td&gt;想&lt;/td&gt;
+&lt;td&gt;不&lt;/td&gt;
+&lt;td&gt;時&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;即&lt;/td&gt;
+&lt;td&gt;一&lt;/td&gt;
+&lt;td&gt;咒&lt;/td&gt;
+&lt;td&gt;三&lt;/td&gt;
+&lt;td&gt;世&lt;/td&gt;
+&lt;td&gt;故&lt;/td&gt;
+&lt;td&gt;埵&lt;/td&gt;
+&lt;td&gt;集&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;味&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;不&lt;/td&gt;
+&lt;td&gt;行&lt;/td&gt;
+&lt;td&gt;異&lt;/td&gt;
+&lt;td&gt;照&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;編&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;說&lt;/td&gt;
+&lt;td&gt;切&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;藐&lt;/td&gt;
+&lt;td&gt;諸&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;依&lt;/td&gt;
+&lt;td&gt;滅&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;觸&lt;/td&gt;
+&lt;td&gt;受&lt;/td&gt;
+&lt;td&gt;滅&lt;/td&gt;
+&lt;td&gt;識&lt;/td&gt;
+&lt;td&gt;空&lt;/td&gt;
+&lt;td&gt;見&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;輯&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Install Openstack from source code - glance (mitaka)</title>
+      <link>https://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</link>
+      <pubDate>Tue, 21 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</guid>
+      <description>
+
+&lt;h2 id=&#34;create-image-service-database&#34;&gt;Create image service database&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export GLANCE_DBPASS=openstack
+export MYSQL_PASS=openstack
+
+mysql -uroot -p$MYSQL_PASS &amp;lt;&amp;lt;EOF
+CREATE DATABASE glance;
+GRANT ALL PRIVILEGES ON glance.* TO &#39;glance&#39;@&#39;localhost&#39; \
+  IDENTIFIED BY &#39;$GLANCE_DBPASS&#39;;
+GRANT ALL PRIVILEGES ON glance.* TO &#39;glance&#39;@&#39;%&#39; \
+  IDENTIFIED BY &#39;$GLANCE_DBPASS&#39;;
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;create-the-image-service-credentials-andapi-endpoints&#34;&gt;Create the image service credentials andAPI endpoints&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;openstack user create --domain default --password openstack glance
+openstack role add --project service --user glance admin
+
+openstack service create --name glance --description &amp;quot;OpenStack Image&amp;quot; image
+openstack endpoint create --region RegionOne image public http://controller:9292
+openstack endpoint create --region RegionOne image internal http://controller:9292
+openstack endpoint create --region RegionOne image admin http://controller:9292
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;install-glance-dependences&#34;&gt;Install glance dependences&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum install $(cat openstack-glance-deps.log | cut -d, -f1 | tr -s &#39;\n&#39;  &#39; &#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;git-clone-source-code-from-github&#34;&gt;Git clone source code from github&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git clone https://github.com/openstack/glance
+
+cd /src/openstack/glance
+
+git checkout stable/mitaka
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;build-glance-source-code&#34;&gt;Build glance source code&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd /src/openstack/glance
+
+python setup.py build
+
+cp -aR etc/* /etc/glance
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;make-glance-configuration&#34;&gt;Make glance configuration&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;glance-api.conf&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sed -i -E -e &#39;/^#.+?$/d&#39; -e &#39;/^$/d&#39; /etc/glance/glance-api.conf
+ini-config --set /etc/glance/glance-api.conf database connection &#39;postgresql://glance:openstack@controller/glance&#39;
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken auth_uri http://controller:5000
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken auth_url http://controller:35357
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken auth_type password
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken project_domain_name default
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken user_domain_name default
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken project_name service
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken username glance
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken password openstack
+ini-config --set /etc/glance/glance-api.conf paste_deploy flavor keystone
+ini-config --set /etc/glance/glance-api.conf glance_store stores file
+ini-config --set /etc/glance/glance-api.conf glance_store default_store file
+ini-config --set /etc/glance/glance-api.conf glance_store filesystem_store_datadir &#39;/var/lib/glance/images/&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;glance-registery.conf&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sed -i -E -e &#39;/^#.+?$/d&#39; -e &#39;/^$/d&#39; /etc/glance/glance-registry.conf
+ini-config --set /etc/glance/glance-registry.conf database connection &#39;postgresql://glance:openstack@controller/glance&#39;
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken auth_uri http://controller:5000
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken auth_url http://controller:35357
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken auth_type password
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken project_domain_name default
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken user_domain_name default
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken project_name service
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken username glance
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken password openstack
+ini-config --set /etc/glance/glance-registry.conf paste_deploy flavor keystone
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;create-glance-manage-glance-api-and-glance-registery-command&#34;&gt;Create &lt;em&gt;glance-manage&lt;/em&gt;, &lt;em&gt;glance-api&lt;/em&gt; and &lt;em&gt;glance-registery&lt;/em&gt; command&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;glance-manage&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat &amp;gt; glance/cmd/glance-manage &amp;lt;&amp;lt;EOF
+#!/bin/python
+import sys
+from glance.cmd.manage import main
+if __name__ == &amp;quot;__main__&amp;quot;:
+    sys.exit(main())
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;glance-api&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat &amp;gt; glance/cmd/glance-api &amp;lt;&amp;lt;EOF
+#!/bin/python
+import sys
+from glance.cmd.api import main
+if __name__ == &amp;quot;__main__&amp;quot;:
+    sys.exit(main())
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;glance-registery&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat &amp;gt; glance/cmd/glance-registry &amp;lt;&amp;lt;EOF
+#!/bin/python
+import sys
+from glance.cmd.registry import main
+if __name__ == &amp;quot;__main__&amp;quot;:
+    sys.exit(main())
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;populate-the-image-service-database-and-the-services&#34;&gt;Populate the Image service database and the services&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;populate the image service database&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;python glance/cmd/glance-manage db_sync
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;start the image services&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;python glance/cmd/glance-api --config-file=/etc/glance/glance-api.conf --config-file=/etc/glance/glance-api-paste.ini
+
+python glance/cmd/glance-registry --config-file=/etc/glance/glance-registry.conf --config-file=/etc/glance/glance-registry-paste.ini
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Compile influxdb 0.11.1 from source code</title>
+      <link>https://daveixiang.github.io/tech/2017_03_13_compile_influxdb_0.11.1_from_source_code/</link>
+      <pubDate>Mon, 13 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_03_13_compile_influxdb_0.11.1_from_source_code/</guid>
+      <description>
+
+&lt;h2 id=&#34;prepare-essential-directories-and-environment-variables&#34;&gt;Prepare essential directories and environment variables&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export GOPATH=/src/influxdb/
+
+mkdir -p $GOPATH/src/github.com/influxdata/
+
+cd $GOPATH/src/github.com/influxdata/
+
+export PATH=$GOPATH/bin:$PATH
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;installing-gdm&#34;&gt;Installing GDM&lt;/h2&gt;
+
+&lt;p&gt;InfluxDB uses gdm to manage dependencies. Install it by running the following:&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;go get github.com/sparrc/gdm
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2 id=&#34;extract-source-code&#34;&gt;Extract source code&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;tar zxf ~/Downloads/influxdb-0.11.1.tar.gz
+
+ln -sf influxdb-0.11.1/ influxdb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;installing-influxdb-dependencies&#34;&gt;Installing InfluxDB dependencies&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd influxdb
+
+gdm restore
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;build-and-install-the-binaries&#34;&gt;Build and install the binaries&lt;/h2&gt;
+
+&lt;p&gt;Run the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;go clean ./...
+
+go install ./...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and wait for a comment, the binaries will be installed to &lt;strong&gt;$GOPATH/bin&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ls -l $GOPATH/bin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;the output like the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;total 72624
+-rwxr-xr-x 1 davei davei  7822896 Mar 13 19:22 gdm
+-rwxr-xr-x 1 davei davei 10680057 Mar 13 19:26 influx
+-rwxr-xr-x 1 davei davei 17539115 Mar 13 19:26 influxd
+-rwxr-xr-x 1 davei davei  8591810 Mar 13 19:26 influx_inspect
+-rwxr-xr-x 1 davei davei  6094083 Mar 13 19:26 influx_stress
+-rwxr-xr-x 1 davei davei 11930449 Mar 13 19:26 influx_tsm
+-rwxr-xr-x 1 davei davei  5911435 Mar 13 19:26 stress_test_server
+-rwxr-xr-x 1 davei davei  3467812 Mar 13 19:26 test_client
+-rwxr-xr-x 1 davei davei  2312705 Mar 13 19:26 urlgen
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;test-the-influxdb-binaries-just-built&#34;&gt;Test the InfluxDB binaries just built&lt;/h2&gt;
+
+&lt;p&gt;generate default influxdb configuration file and data directory&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir -p $GOPATH/etc
+
+cd $GOPATH
+
+bin/influxd config &amp;gt; etc/influxd.conf
+
+mkdir -p $GOPATH/var/lib/influxdb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;specific bind address and data directory&lt;/p&gt;
+
+&lt;p&gt;start the InfluxDB server&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/influxd -config  etc/influxd.conf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;the output like the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;
+ 8888888           .d888 888                   8888888b.  888888b.
+   888            d88P&amp;quot;  888                   888  &amp;quot;Y88b 888  &amp;quot;88b
+   888            888    888                   888    888 888  .88P
+   888   88888b.  888888 888 888  888 888  888 888    888 8888888K.
+   888   888 &amp;quot;88b 888    888 888  888  Y8bd8P&#39; 888    888 888  &amp;quot;Y88b
+   888   888  888 888    888 888  888   X88K   888    888 888    888
+   888   888  888 888    888 Y88b 888 .d8&amp;quot;&amp;quot;8b. 888  .d88P 888   d88P
+ 8888888 888  888 888    888  &amp;quot;Y88888 888  888 8888888P&amp;quot;  8888888P&amp;quot;
+
+2017/03/13 19:42:23 InfluxDB starting, version unknown, branch unknown, commit unknown
+2017/03/13 19:42:23 Go version go1.7.5, GOMAXPROCS set to 4
+2017/03/13 19:42:23 Using configuration at: etc/influxd.conf
+[meta] 2017/03/13 19:42:23 Starting meta service
+[meta] 2017/03/13 19:42:23 Listening on HTTP: 127.0.0.1:8091
+[metastore] 2017/03/13 19:42:23 Using data dir: /src/influxdb/var/lib/influxdb/meta
+[metastore] 2017/03/13 19:42:23 Node at localhost:8088 [Follower]
+[metastore] 2017/03/13 19:42:25 Node at localhost:8088 [Leader]. peers=[localhost:8088]
+[store] 2017/03/13 19:42:25 Using data dir: /src/influxdb/var/lib/influxdb/data
+[tsm1wal] 2017/03/13 19:42:25 tsm1 WAL starting with 10485760 segment size
+[tsm1wal] 2017/03/13 19:42:25 tsm1 WAL writing to /src/influxdb/var/lib/influxdb/wal/_internal/monitor/1
+[cacheloader] 2017/03/13 19:42:25 reading file /src/influxdb/var/lib/influxdb/wal/_internal/monitor/1/_00001.wal, size 25887
+[cacheloader] 2017/03/13 19:42:25 reading file /src/influxdb/var/lib/influxdb/wal/_internal/monitor/1/_00002.wal, size 9629
+[cacheloader] 2017/03/13 19:42:25 reading file /src/influxdb/var/lib/influxdb/wal/_internal/monitor/1/_00003.wal, size 0
+[handoff] 2017/03/13 19:42:25 Starting hinted handoff service
+[monitor] 2017/03/13 19:42:25 &#39;hh&#39; registered for diagnostics monitoring
+[handoff] 2017/03/13 19:42:25 Using data dir: /src/influxdb/var/lib/influxdb/hh
+[subscriber] 2017/03/13 19:42:25 opened service
+[monitor] 2017/03/13 19:42:25 Starting monitor system
+[monitor] 2017/03/13 19:42:25 &#39;build&#39; registered for diagnostics monitoring
+[monitor] 2017/03/13 19:42:25 &#39;runtime&#39; registered for diagnostics monitoring
+[monitor] 2017/03/13 19:42:25 &#39;network&#39; registered for diagnostics monitoring
+[monitor] 2017/03/13 19:42:25 &#39;system&#39; registered for diagnostics monitoring
+[cluster] 2017/03/13 19:42:25 Starting cluster service
+[shard-precreation] 2017/03/13 19:42:25 Starting precreation service with check interval of 10m0s, advance period of 30m0s
+[snapshot] 2017/03/13 19:42:25 Starting snapshot service
+[copier] 2017/03/13 19:42:25 Starting copier service
+[admin] 2017/03/13 19:42:25 Starting admin service
+[admin] 2017/03/13 19:42:25 Listening on HTTP: 127.0.0.1:8083
+[continuous_querier] 2017/03/13 19:42:25 Starting continuous query service
+[httpd] 2017/03/13 19:42:25 Starting HTTP service
+[httpd] 2017/03/13 19:42:25 Authentication enabled: false
+[httpd] 2017/03/13 19:42:25 Listening on HTTP: 127.0.0.1:8086
+[retention] 2017/03/13 19:42:25 Starting retention policy enforcement service with check interval of 30m0s
+[monitor] 2017/03/13 19:42:25 Storing statistics in database &#39;_internal&#39; retention policy &#39;monitor&#39;, at interval 10s
+[run] 2017/03/13 19:42:25 Listening for signals
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Clone git repository only some directories</title>
+      <link>https://daveixiang.github.io/tech/2017_03_06_clone_git_repository_only_some_directories/</link>
+      <pubDate>Mon, 06 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_03_06_clone_git_repository_only_some_directories/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;First, do:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git clone --depth 1 [repo-root] [local_dir]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Then:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd [local_dir]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;And lastly:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git filter-branch --prune-empty --subdirectory-filter [repo-subdir] HEAD
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Install Openstack from source code - keystone (mitaka)</title>
+      <link>https://daveixiang.github.io/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</link>
+      <pubDate>Sat, 04 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</guid>
+      <description>
+
+&lt;h2 id=&#34;install-keystone-dependences&#34;&gt;Install keystone dependences&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum install $(cat openstack-keystone-deps.log | cut -d, -f1 | tr -s &#39;\n&#39;  &#39; &#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;git-clone-source-code-from-github&#34;&gt;Git clone source code from github&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git clone https://github.com/openstack/keystone
+
+cd /src/openstack/keystone
+
+git checkout stable/mitaka
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;build-keystone-source-code&#34;&gt;Build keystone source code&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd /src/openstack/keystone
+
+python setup.py build
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;make-keystone-configuration&#34;&gt;Make keystone configuration&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cp -aR etc/* /etc/keystone
+mv /etc/keystone/keystone.conf.sample /etc/keystone/keystone.conf
+mv /etc/keystone/logging.conf.sample /etc/keystone/logging.conf
+mkdir /etc/keystone/fernet-keys/
+
+sed -i -E -e &#39;/^#.+?$/d&#39; -e &#39;/^$/d&#39; /etc/keystone/keystone.conf
+ini-config --set /etc/keystone/keystone.conf DEFAULT admin_token admintoken
+ini-config --set /etc/keystone/keystone.conf database connection &#39;postgresql://keystone:openstack@controller/keystone&#39;
+ini-config --set /etc/keystone/keystone.conf token provider fernet
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;create-keystone-all-and-keystone-manage-command&#34;&gt;Create &lt;em&gt;keystone-all&lt;/em&gt; and &lt;em&gt;keystone-manage&lt;/em&gt; command&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat &amp;gt; keystone/cmd/keystone-all &amp;lt;&amp;lt;EOF
+#!/bin/python
+import sys
+from keystone.cmd.all import main
+if __name__ == &amp;quot;__main__&amp;quot;:
+    sys.exit(main())
+EOF
+
+cat &amp;gt; keystone/cmd/keystone-manage &amp;lt;&amp;lt;EOF
+#!/bin/python
+import sys
+from keystone.cmd.manage import main
+if __name__ == &amp;quot;__main__&amp;quot;:
+    sys.exit(main())
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;populate-the-identity-service-database&#34;&gt;Populate the Identity service database&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;python keystone/cmd/keystone-manage db_sync
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;initialize-fernet-key-repositories&#34;&gt;Initialize Fernet key repositories&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;python keystone/cmd/keystone-manage fernet_setup --keystone-user root --keystone-group root
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;bootstrap-the-identity-service&#34;&gt;Bootstrap the Identity service&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;python keystone/cmd/keystone-all --config-file=/etc/keystone/keystone.conf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;create-a-domain-projects-users-and-roles&#34;&gt;Create a domain, projects, users, and roles&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export OS_TOKEN=admintoken
+export OS_URL=http://controller:35357/v3
+export OS_IDENTITY_API_VERSION=3
+
+openstack service create --name keystone --description &amp;quot;OpenStack Identity&amp;quot; identity
+openstack endpoint create --region RegionOne identity public http://controller:5000/v3
+openstack endpoint create --region RegionOne identity internal http://controller:5000/v3
+openstack endpoint create --region RegionOne identity admin http://controller:35357/v3
+
+openstack domain create --description &amp;quot;Default Domain&amp;quot; default
+openstack project create --domain default --description &amp;quot;Admin Project&amp;quot; admin
+openstack user create --domain default --password openstack admin
+openstack role create admin
+openstack role add --project admin --user admin admin
+openstack project create --domain default --description &amp;quot;Service Project&amp;quot; service
+
+cat &amp;gt; ~/admin_rc &amp;lt;&amp;lt;EOF
+export OS_PROJECT_DOMAIN_NAME=default
+export OS_USER_DOMAIN_NAME=default
+export OS_PROJECT_NAME=admin
+export OS_USERNAME=admin
+export OS_PASSWORD=openstack
+export OS_AUTH_URL=http://controller:35357/v3
+export OS_IDENTITY_API_VERSION=3
+export OS_IMAGE_API_VERSION=2
+export PS1=&#39;[\u@\h \W(admin)]\$ &#39;
+EOF
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Build PostgreSQL with debug info</title>
+      <link>https://daveixiang.github.io/tech/2017_03_01_build_postgresql_with_debug/</link>
+      <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_03_01_build_postgresql_with_debug/</guid>
+      <description>
+
+&lt;h3 id=&#34;add-postgres-user&#34;&gt;Add &lt;em&gt;postgres&lt;/em&gt; user&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;useradd -m -b /src/ postgres
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;configure-postgresql&#34;&gt;Configure PostgreSQL&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./configure --prefix=/src/postgres \
+--without-tcl \
+--without-gssapi \
+--without-pam \
+--without-bsd-auth \
+--without-ldap \
+--without-bonjour \
+--without-selinux \
+--without-systemd \
+--with-uuid=ossp \
+--with-libxml \
+--with-libxslt \
+CFLAGS=&#39; &#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;build-and-install&#34;&gt;Build and install&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make -j$(nproc)
+
+su postgres -c &#39;make install&#39;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Install Openstack from source code dependences (mitaka)</title>
+      <link>https://daveixiang.github.io/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</link>
+      <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</guid>
+      <description>&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/bin/bash
+
+function gen_pkg_deps()
+{
+  [ -z &amp;quot;$@&amp;quot; ] &amp;amp;&amp;amp; exit 0;
+  yum install  --assumeno &amp;quot;$@&amp;quot; | \
+  sed -n &#39;/Installing for dependencies:/,/Transaction Summary/p&#39; | \
+  sed -e &#39;/^=.*?$/d&#39; \
+  -e &#39;/Installing:/d&#39;  \
+  -e &#39;/Installing for dependencies:/d&#39; \
+  -e &#39;/Transaction Summary/d&#39; \
+  -e &#39;/Updating/d&#39; \
+  -e &#39;/^$/d&#39; | \
+awk &#39;BEGIN {n=1;arr[0]=0}
+
+{
+if (NF != 6)
+{
+    for (i=n; i&amp;lt;=n+NF-1;i++)
+arr[i] = $(i-n+1)
+    n+=NF;
+    if (n == 7)
+    {
+printf &amp;quot;%s,%s,%s,%s\n&amp;quot;, arr[1], arr[2], arr[3], arr[4]
+for (i=1; i&amp;lt;n;i++) del arr[i]
+n=1
+    }
+}
+else
+{
+    printf &amp;quot;%s,%s,%s,%s\n&amp;quot;,  $1, $2, $3, $4
+}
+}&#39; | sort | grep -v -E -e &#39;glance|keystone|nova|neutron|swift|cinder|ceilometer&#39;\
+  &amp;gt; &amp;quot;$@&amp;quot;-deps.log 2&amp;gt;&amp;amp;1
+}
+
+
+OPENSTACK_COMPONENTS=&amp;quot;
+openstack-keystone \
+python-keystoneclient \
+python-keystone \
+python-openstackclient \
+openstack-glance \
+python-glanceclient \
+python-glance \
+openstack-nova-api \
+openstack-nova-conductor \
+openstack-nova-console \
+openstack-nova-novncproxy \
+openstack-nova-scheduler \
+python-novaclient \
+python-nova \
+openstack-nova-compute \
+openstack-neutron \
+openstack-neutron-ml2 \
+python-neutronclient \
+python-neutron \
+openstack-ceilometer-api \
+openstack-ceilometer-collector \
+openstack-ceilometer-notification \
+openstack-ceilometer-central \
+openstack-ceilometer-alarm \
+openstack-ceilometer-compute \
+python-ceilometerclient \
+python-ceilometer \
+openstack-cinder
+&amp;quot;
+
+for component in $OPENSTACK_COMPONENTS
+do
+  gen_pkg_deps $component
+done
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
