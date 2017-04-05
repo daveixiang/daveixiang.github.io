@@ -6,8 +6,46 @@
     <description>Recent content on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 01 Apr 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 05 Apr 2017 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://daveixiang.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Compiling qemu guest agent msi package for windows</title>
+      <link>https://daveixiang.github.io/tech/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</link>
+      <pubDate>Wed, 05 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tech/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</guid>
+      <description>
+
+&lt;h2 id=&#34;install-dependencies&#34;&gt;Install dependencies&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;mingw cross compilation toolchain&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;msitool&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;flex bison glib2-devel zlib-devel&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;configure-and-build-qemu-ga-msi-package&#34;&gt;configure and build qemu-ga msi package&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./configure --cross-prefix=x86_64-w64-mingw32-  \
+--enable-guest-agent \
+--enable-guest-agent-msi
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make msi
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After a while, get the msi package:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;[root@localhost qemu-2.8.1]# ls -l *msi
+-rw-r--r-- 1 root root 1711104 Apr  5 11:09 qemu-ga-x86_64.msi
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>Build Cross GCC Toolchain (TARGET:x86_64)</title>
@@ -19,8 +57,12 @@
 export LOG_DIR=$BASE_DIR/log
 export SRC_DIR=$BASE_DIR/src
 export BUILD_DIR=$BASE_DIR/build
-export INSTALL_DIR=$BASE_DIR/aarch64
+export INSTALL_DIR=$BASE_DIR/x86_64
 export SYSROOT_DIR=$INSTALL_DIR/sysroot
+
+export TARGET_MACH=x86_64-linux-gnu
+export LINUX_ARCH=x86_64
+export BUILD_MACH=$(gcc -dumpmachine)
 
 export binutils_version=binutils-2.27
 export kernel_version=linux-4.4.51
@@ -31,10 +73,6 @@ export BINUTILS_SRC=$SRC_DIR/$binutils_version
 export KERNEL_SRC=$SRC_DIR/$kernel_version
 export GCC_SRC=$SRC_DIR/$gcc_version
 export GLIBC_SRC=$SRC_DIR/$glibc_version
-
-export TARGET_MACH=x86_64-linux-gnu
-export LINUX_ARCH=x86_64
-export BUILD_MACH=$(gcc -dumpmachine)
 
 wrap_cmd() {
     stage=$1; shift
@@ -1754,88 +1792,6 @@ CFLAGS=&#39; &#39;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make -j$(nproc)
 
 su postgres -c &#39;make install&#39;
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Install Openstack from source code dependences (mitaka)</title>
-      <link>https://daveixiang.github.io/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</link>
-      <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://daveixiang.github.io/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</guid>
-      <description>&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/bin/bash
-
-function gen_pkg_deps()
-{
-  [ -z &amp;quot;$@&amp;quot; ] &amp;amp;&amp;amp; exit 0;
-  yum install  --assumeno &amp;quot;$@&amp;quot; | \
-  sed -n &#39;/Installing for dependencies:/,/Transaction Summary/p&#39; | \
-  sed -e &#39;/^=.*?$/d&#39; \
-  -e &#39;/Installing:/d&#39;  \
-  -e &#39;/Installing for dependencies:/d&#39; \
-  -e &#39;/Transaction Summary/d&#39; \
-  -e &#39;/Updating/d&#39; \
-  -e &#39;/^$/d&#39; | \
-awk &#39;BEGIN {n=1;arr[0]=0}
-
-{
-if (NF != 6)
-{
-    for (i=n; i&amp;lt;=n+NF-1;i++)
-arr[i] = $(i-n+1)
-    n+=NF;
-    if (n == 7)
-    {
-printf &amp;quot;%s,%s,%s,%s\n&amp;quot;, arr[1], arr[2], arr[3], arr[4]
-for (i=1; i&amp;lt;n;i++) del arr[i]
-n=1
-    }
-}
-else
-{
-    printf &amp;quot;%s,%s,%s,%s\n&amp;quot;,  $1, $2, $3, $4
-}
-}&#39; | sort | grep -v -E -e &#39;glance|keystone|nova|neutron|swift|cinder|ceilometer&#39;\
-  &amp;gt; &amp;quot;$@&amp;quot;-deps.log 2&amp;gt;&amp;amp;1
-}
-
-
-OPENSTACK_COMPONENTS=&amp;quot;
-openstack-keystone \
-python-keystoneclient \
-python-keystone \
-python-openstackclient \
-openstack-glance \
-python-glanceclient \
-python-glance \
-openstack-nova-api \
-openstack-nova-conductor \
-openstack-nova-console \
-openstack-nova-novncproxy \
-openstack-nova-scheduler \
-python-novaclient \
-python-nova \
-openstack-nova-compute \
-openstack-neutron \
-openstack-neutron-ml2 \
-python-neutronclient \
-python-neutron \
-openstack-ceilometer-api \
-openstack-ceilometer-collector \
-openstack-ceilometer-notification \
-openstack-ceilometer-central \
-openstack-ceilometer-alarm \
-openstack-ceilometer-compute \
-python-ceilometerclient \
-python-ceilometer \
-openstack-cinder
-&amp;quot;
-
-for component in $OPENSTACK_COMPONENTS
-do
-  gen_pkg_deps $component
-done
 &lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>

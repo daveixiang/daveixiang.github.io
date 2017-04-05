@@ -66,6 +66,66 @@
                 
                 
                 <header class="article-header">
+                    <h1 itemprop="name"><a class="article-title" href="https://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/">Install Openstack from source code - glance (mitaka)</a></h1>
+                </header>
+                
+                <div class="article-meta">
+                    <a href="https://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/" class="article-date">
+                        <time datetime='2017-03-21T00:00:00.000&#43;00:00' itemprop="datePublished">2017-03-21</time>
+                    </a>
+                    
+                    
+                    <div class="post-categories">
+                        <div class="article-category">
+                            
+                            
+                            <a class="article-category-link" href="https://daveixiang.github.io//categories/openstack">openstack</a>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <div class="article-entry" itemprop="articleBody">
+                    <p>
+                        
+                    Create image service database export GLANCE_DBPASS=openstack export MYSQL_PASS=openstack mysql -uroot -p$MYSQL_PASS &lt;&lt;EOF CREATE DATABASE glance; GRANT ALL PRIVILEGES ON glance.* TO 'glance'@'localhost' \ IDENTIFIED BY '$GLANCE_DBPASS'; GRANT ALL PRIVILEGES ON glance.* TO 'glance'@'%' \ IDENTIFIED BY '$GLANCE_DBPASS'; EOF  Create the image service credentials andAPI endpoints openstack user create --domain default --password openstack glance openstack role add --project service --user glance admin openstack service create --name glance --description &quot;OpenStack Image&quot; image openstack endpoint create --region RegionOne image public http://controller:9292 openstack endpoint create --region RegionOne image internal http://controller:9292 openstack endpoint create --region RegionOne image admin http://controller:9292  Install glance dependences yum install $(cat openstack-glance-deps.
+                    </p>
+                    <p class="article-more-link">
+                        <a href="https://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/">Read More</a>
+                    </p>
+                </div>
+
+                
+                <footer class="article-footer">
+                    <ul class="article-tag-list">
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/linux">linux
+                            </a>
+                        </li>
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/centos">centos
+                            </a>
+                        </li>
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/openstack">openstack
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </footer>
+                
+            </div>
+        </article>
+        
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+            <div class="article-inner">
+                
+                
+                <header class="article-header">
                     <h1 itemprop="name"><a class="article-title" href="https://daveixiang.github.io/tech/2017_03_13_compile_influxdb_0.11.1_from_source_code/">Compile influxdb 0.11.1 from source code</a></h1>
                 </header>
                 
@@ -575,58 +635,6 @@ Access QMP via libvirt’s qemu-monitor-command virsh qemu-monitor-command ${dom
                         
                         <li class="article-tag-list-item">
                             <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/openstack">openstack
-                            </a>
-                        </li>
-                        
-                    </ul>
-                </footer>
-                
-            </div>
-        </article>
-        
-        <article class="article article-type-post" itemscope itemprop="blogPost">
-            <div class="article-inner">
-                
-                
-                <header class="article-header">
-                    <h1 itemprop="name"><a class="article-title" href="https://daveixiang.github.io/tech/2017_01_14_compile_openvswitch_2_6_x_from_source_code/">Compile OpenvSwitch 2.5.x LST from source code</a></h1>
-                </header>
-                
-                <div class="article-meta">
-                    <a href="https://daveixiang.github.io/tech/2017_01_14_compile_openvswitch_2_6_x_from_source_code/" class="article-date">
-                        <time datetime='2017-01-14T00:00:00.000&#43;00:00' itemprop="datePublished">2017-01-14</time>
-                    </a>
-                    
-                    
-                    <div class="post-categories">
-                        <div class="article-category">
-                            
-                            
-                            <a class="article-category-link" href="https://daveixiang.github.io//categories/virtualization">virtualization</a>
-                            
-                        </div>
-                    </div>
-                    
-                    
-                </div>
-                <div class="article-entry" itemprop="articleBody">
-                    <p>
-                        
-                    Install compile dependencies Configure and compile the source code ./configure --with-linux=/lib/modules/$(uname -r)/build --prefix=/src/ovs make -j$(nproc) make install &amp;&amp; make modules_install  Load OpenvSwitch module modprobe gre modprobe openvswitch modprobe libcrc32c  Configure ovsdb /src/ovs/bin/ovsdb-tool create /src/ovs/etc/openvswitch/conf.db /src/ovs/share/openvswitch/vswitch.ovsschema  Start OVS Start ovsdb-server  without ssl
-/src/ovs/sbin/ovsdb-server --remote=punix:/src/ovs/var/run/openvswitch/db.sock \ --remote=db:Open_vSwitch,Open_vSwitch,manager_options \ --pidfile --detach --log-file  with ssl
-/src/ovs/sbin/ovsdb-server --remote=punix:/src/ovs/var/run/openvswitch/db.sock \ --remote=db:Open_vSwitch,Open_vSwitch,manager_options \ --private-key=db:Open_vSwitch,SSL,private_key \ --certificate=db:Open_vSwitch,SSL,certificate \ --bootstrap-ca-cert=db:Open_vSwitch,SSL,ca_cert \ --pidfile --detach --log-file   View /src/ovs/var/log/openvswitch/ovsdb-server.
-                    </p>
-                    <p class="article-more-link">
-                        <a href="https://daveixiang.github.io/tech/2017_01_14_compile_openvswitch_2_6_x_from_source_code/">Read More</a>
-                    </p>
-                </div>
-
-                
-                <footer class="article-footer">
-                    <ul class="article-tag-list">
-                        
-                        <li class="article-tag-list-item">
-                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/openvswitch">openvswitch
                             </a>
                         </li>
                         

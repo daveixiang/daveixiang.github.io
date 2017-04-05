@@ -2,17 +2,17 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Categories // 項 思 偉 (Davei) ~ Aal Izz Well!</title>
+    <title>Compiling qemu guest agent msi package for windows // 項 思 偉 (Davei) ~ Aal Izz Well!</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta property="og:title" content="Categories" />
+    <meta property="og:title" content="Compiling qemu guest agent msi package for windows" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="en_US" />
-<meta property="og:url" content="https://daveixiang.github.io/categories/" />
+<meta property="og:url" content="https://daveixiang.github.io/tech/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/" />
 
 
-    <link href="https://daveixiang.github.io/categories/index.xml" rel="alternate" type="application/rss+xml" title="項 思 偉 (Davei) ~ Aal Izz Well!" />
+    <link href="" rel="alternate" type="application/rss+xml" title="項 思 偉 (Davei) ~ Aal Izz Well!" />
     <link rel="shortcut icon" href="https://daveixiang.github.io/favicon.png">
 
     <link href="https://daveixiang.github.io/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
@@ -32,6 +32,7 @@
 
     <meta name="generator" content="Hugo 0.19" />
 </head>
+
 
 <body>
 <div id="container">
@@ -60,63 +61,92 @@
 </header>
 
     <section id="main" class="outer">
-        <section class="layout-wrap">
-            <div class="layout-title">
-                <span>Categories</span>
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">Compiling qemu guest agent msi package for windows</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="https://daveixiang.github.io/tech/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/" class="article-date">
+                <time datetime='2017-04-05T00:00:00.000&#43;00:00' itemprop="datePublished">2017-04-05</time>
+            </a>
+            
+            
+            <div class="post-categories">
+                <div class="article-category">
+                    
+                    
+                    <a class="article-category-link" href="https://daveixiang.github.io//categories/virtualization">virtualization</a>
+                    
+                </div>
             </div>
-            <div class="layout-wrap-inner tag-cloud">
-                
-                
-                <ul>
-                
-                <li>
-                    <a href="https://daveixiang.github.io/categories/clan">clan</a>(5)
-                </li>
-                
-                <li>
-                    <a href="https://daveixiang.github.io/categories/database">database</a>(2)
-                </li>
-                
-                <li>
-                    <a href="https://daveixiang.github.io/categories/git">git</a>(1)
-                </li>
-                
-                <li>
-                    <a href="https://daveixiang.github.io/categories/golang">golang</a>(1)
-                </li>
-                
-                <li>
-                    <a href="https://daveixiang.github.io/categories/kernel">kernel</a>(1)
-                </li>
-                
-                <li>
-                    <a href="https://daveixiang.github.io/categories/libvirt">libvirt</a>(1)
-                </li>
-                
-                <li>
-                    <a href="https://daveixiang.github.io/categories/linux">linux</a>(4)
-                </li>
-                
-                <li>
-                    <a href="https://daveixiang.github.io/categories/openstack">openstack</a>(4)
-                </li>
-                
-                <li>
-                    <a href="https://daveixiang.github.io/categories/qemu">qemu</a>(1)
-                </li>
-                
-                <li>
-                    <a href="https://daveixiang.github.io/categories/tips">tips</a>(1)
-                </li>
-                
-                <li>
-                    <a href="https://daveixiang.github.io/categories/virtualization">virtualization</a>(3)
-                </li>
-                
-                </ul>
-            </div>
+            
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            
 
-        </section>
+<h2 id="install-dependencies">Install dependencies</h2>
+
+<ul>
+<li><p>mingw cross compilation toolchain</p></li>
+
+<li><p>msitool</p></li>
+
+<li><p>flex bison glib2-devel zlib-devel</p></li>
+</ul>
+
+<h2 id="configure-and-build-qemu-ga-msi-package">configure and build qemu-ga msi package</h2>
+
+<pre><code class="language-bash">./configure --cross-prefix=x86_64-w64-mingw32-  \
+--enable-guest-agent \
+--enable-guest-agent-msi
+</code></pre>
+
+<p>and</p>
+
+<pre><code class="language-bash">make msi
+</code></pre>
+
+<p>After a while, get the msi package:</p>
+
+<pre><code class="language-txt">[root@localhost qemu-2.8.1]# ls -l *msi
+-rw-r--r-- 1 root root 1711104 Apr  5 11:09 qemu-ga-x86_64.msi
+</code></pre>
+
+        </div>
+
+        
+        <footer class="article-footer">
+            <ul class="article-tag-list">
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/qemu">qemu
+                    </a>
+                </li>
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/qemu-ga">qemu-ga
+                    </a>
+                </li>
+                
+            </ul>
+        </footer>
+        
+    </div>
+    <nav id="article-nav">
+    
+    
+    <a href="https://daveixiang.github.io/tech/2017_04_01_build_cross_gcc_toolchain_x86_64/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Build Cross GCC Toolchain (TARGET:x86_64)&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+</article>
+
+        
     </section>
     <footer id="footer">
     <div class="outer">

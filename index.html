@@ -66,6 +66,66 @@
                 
                 
                 <header class="article-header">
+                    <h1 itemprop="name"><a class="article-title" href="https://daveixiang.github.io/tech/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/">Compiling qemu guest agent msi package for windows</a></h1>
+                </header>
+                
+                <div class="article-meta">
+                    <a href="https://daveixiang.github.io/tech/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/" class="article-date">
+                        <time datetime='2017-04-05T00:00:00.000&#43;00:00' itemprop="datePublished">2017-04-05</time>
+                    </a>
+                    
+                    
+                    <div class="post-categories">
+                        <div class="article-category">
+                            
+                            
+                            <a class="article-category-link" href="https://daveixiang.github.io//categories/virtualization">virtualization</a>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <div class="article-entry" itemprop="articleBody">
+                    <p>
+                        
+                     Install dependencies  mingw cross compilation toolchain
+ msitool
+ flex bison glib2-devel zlib-devel
+  configure and build qemu-ga msi package ./configure --cross-prefix=x86_64-w64-mingw32- \ --enable-guest-agent \ --enable-guest-agent-msi  and
+make msi  After a while, get the msi package:
+[root@localhost qemu-2.8.1]# ls -l *msi -rw-r--r-- 1 root root 1711104 Apr 5 11:09 qemu-ga-x86_64.msi  
+                    </p>
+                    <p class="article-more-link">
+                        <a href="https://daveixiang.github.io/tech/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/">Read More</a>
+                    </p>
+                </div>
+
+                
+                <footer class="article-footer">
+                    <ul class="article-tag-list">
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/qemu">qemu
+                            </a>
+                        </li>
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/qemu-ga">qemu-ga
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </footer>
+                
+            </div>
+        </article>
+        
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+            <div class="article-inner">
+                
+                
+                <header class="article-header">
                     <h1 itemprop="name"><a class="article-title" href="https://daveixiang.github.io/tech/2017_04_01_build_cross_gcc_toolchain_x86_64/">Build Cross GCC Toolchain (TARGET:x86_64)</a></h1>
                 </header>
                 
@@ -89,7 +149,7 @@
                 <div class="article-entry" itemprop="articleBody">
                     <p>
                         
-                    export BASE_DIR=/src/cross/ export LOG_DIR=$BASE_DIR/log export SRC_DIR=$BASE_DIR/src export BUILD_DIR=$BASE_DIR/build export INSTALL_DIR=$BASE_DIR/aarch64 export SYSROOT_DIR=$INSTALL_DIR/sysroot export binutils_version=binutils-2.27 export kernel_version=linux-4.4.51 export gcc_version=gcc-5.4.0 export glibc_version=glibc-2.25 export BINUTILS_SRC=$SRC_DIR/$binutils_version export KERNEL_SRC=$SRC_DIR/$kernel_version export GCC_SRC=$SRC_DIR/$gcc_version export GLIBC_SRC=$SRC_DIR/$glibc_version export TARGET_MACH=x86_64-linux-gnu export LINUX_ARCH=x86_64 export BUILD_MACH=$(gcc -dumpmachine) wrap_cmd() { stage=$1; shift LOGFILE=&quot;$LOG_DIR/$stage.log&quot; rm -rf &quot;$LOGFILE&quot; echo &quot;begin $stage&quot; for cmd in &quot;$@&quot; do echo &quot;begin $cmd&quot; eval &quot;$cmd &gt;&gt; $LOGFILE 2&gt;&amp;1&quot; [ $? -ne 0 ] &amp;&amp; echo &quot;error&quot; &amp;&amp; exit 1 echo &quot;end $cmd&quot; done echo &quot;end $stage&quot; } rm -rf $BUILD_DIR mkdir -p $BUILD_DIR mkdir -p $SRC_DIR $LOG_DIR # wrap_cmd &quot;00.
+                    export BASE_DIR=/src/cross/ export LOG_DIR=$BASE_DIR/log export SRC_DIR=$BASE_DIR/src export BUILD_DIR=$BASE_DIR/build export INSTALL_DIR=$BASE_DIR/x86_64 export SYSROOT_DIR=$INSTALL_DIR/sysroot export TARGET_MACH=x86_64-linux-gnu export LINUX_ARCH=x86_64 export BUILD_MACH=$(gcc -dumpmachine) export binutils_version=binutils-2.27 export kernel_version=linux-4.4.51 export gcc_version=gcc-5.4.0 export glibc_version=glibc-2.25 export BINUTILS_SRC=$SRC_DIR/$binutils_version export KERNEL_SRC=$SRC_DIR/$kernel_version export GCC_SRC=$SRC_DIR/$gcc_version export GLIBC_SRC=$SRC_DIR/$glibc_version wrap_cmd() { stage=$1; shift LOGFILE=&quot;$LOG_DIR/$stage.log&quot; rm -rf &quot;$LOGFILE&quot; echo &quot;begin $stage&quot; for cmd in &quot;$@&quot; do echo &quot;begin $cmd&quot; eval &quot;$cmd &gt;&gt; $LOGFILE 2&gt;&amp;1&quot; [ $? -ne 0 ] &amp;&amp; echo &quot;error&quot; &amp;&amp; exit 1 echo &quot;end $cmd&quot; done echo &quot;end $stage&quot; } rm -rf $BUILD_DIR mkdir -p $BUILD_DIR mkdir -p $SRC_DIR $LOG_DIR # wrap_cmd &quot;00.
                     </p>
                     <p class="article-more-link">
                         <a href="https://daveixiang.github.io/tech/2017_04_01_build_cross_gcc_toolchain_x86_64/">Read More</a>
@@ -533,66 +593,6 @@
                     </p>
                 </div>
 
-                
-            </div>
-        </article>
-        
-        <article class="article article-type-post" itemscope itemprop="blogPost">
-            <div class="article-inner">
-                
-                
-                <header class="article-header">
-                    <h1 itemprop="name"><a class="article-title" href="https://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/">Install Openstack from source code - glance (mitaka)</a></h1>
-                </header>
-                
-                <div class="article-meta">
-                    <a href="https://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/" class="article-date">
-                        <time datetime='2017-03-21T00:00:00.000&#43;00:00' itemprop="datePublished">2017-03-21</time>
-                    </a>
-                    
-                    
-                    <div class="post-categories">
-                        <div class="article-category">
-                            
-                            
-                            <a class="article-category-link" href="https://daveixiang.github.io//categories/openstack">openstack</a>
-                            
-                        </div>
-                    </div>
-                    
-                    
-                </div>
-                <div class="article-entry" itemprop="articleBody">
-                    <p>
-                        
-                    Create image service database export GLANCE_DBPASS=openstack export MYSQL_PASS=openstack mysql -uroot -p$MYSQL_PASS &lt;&lt;EOF CREATE DATABASE glance; GRANT ALL PRIVILEGES ON glance.* TO 'glance'@'localhost' \ IDENTIFIED BY '$GLANCE_DBPASS'; GRANT ALL PRIVILEGES ON glance.* TO 'glance'@'%' \ IDENTIFIED BY '$GLANCE_DBPASS'; EOF  Create the image service credentials andAPI endpoints openstack user create --domain default --password openstack glance openstack role add --project service --user glance admin openstack service create --name glance --description &quot;OpenStack Image&quot; image openstack endpoint create --region RegionOne image public http://controller:9292 openstack endpoint create --region RegionOne image internal http://controller:9292 openstack endpoint create --region RegionOne image admin http://controller:9292  Install glance dependences yum install $(cat openstack-glance-deps.
-                    </p>
-                    <p class="article-more-link">
-                        <a href="https://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/">Read More</a>
-                    </p>
-                </div>
-
-                
-                <footer class="article-footer">
-                    <ul class="article-tag-list">
-                        
-                        <li class="article-tag-list-item">
-                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/linux">linux
-                            </a>
-                        </li>
-                        
-                        <li class="article-tag-list-item">
-                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/centos">centos
-                            </a>
-                        </li>
-                        
-                        <li class="article-tag-list-item">
-                            <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/openstack">openstack
-                            </a>
-                        </li>
-                        
-                    </ul>
-                </footer>
                 
             </div>
         </article>

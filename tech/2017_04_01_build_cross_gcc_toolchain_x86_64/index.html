@@ -90,8 +90,12 @@
 export LOG_DIR=$BASE_DIR/log
 export SRC_DIR=$BASE_DIR/src
 export BUILD_DIR=$BASE_DIR/build
-export INSTALL_DIR=$BASE_DIR/aarch64
+export INSTALL_DIR=$BASE_DIR/x86_64
 export SYSROOT_DIR=$INSTALL_DIR/sysroot
+
+export TARGET_MACH=x86_64-linux-gnu
+export LINUX_ARCH=x86_64
+export BUILD_MACH=$(gcc -dumpmachine)
 
 export binutils_version=binutils-2.27
 export kernel_version=linux-4.4.51
@@ -102,10 +106,6 @@ export BINUTILS_SRC=$SRC_DIR/$binutils_version
 export KERNEL_SRC=$SRC_DIR/$kernel_version
 export GCC_SRC=$SRC_DIR/$gcc_version
 export GLIBC_SRC=$SRC_DIR/$glibc_version
-
-export TARGET_MACH=x86_64-linux-gnu
-export LINUX_ARCH=x86_64
-export BUILD_MACH=$(gcc -dumpmachine)
 
 wrap_cmd() {
     stage=$1; shift
@@ -243,6 +243,12 @@ wrap_cmd &quot;15.gcc-final-02_build&quot; \
         
     </div>
     <nav id="article-nav">
+    
+    <a href="https://daveixiang.github.io/tech/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            Compiling qemu guest agent msi package for windows
+        </div>
+    </a>
     
     
     <a href="https://daveixiang.github.io/tech/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/" id="article-nav-older" class="article-nav-link-wrap">
