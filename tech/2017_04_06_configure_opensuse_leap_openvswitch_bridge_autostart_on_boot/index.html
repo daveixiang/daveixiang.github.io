@@ -2,17 +2,17 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Openvswitch // 項 思 偉 (Davei) ~ Aal Izz Well!</title>
+    <title>Configure OpenSuse Leap OpenvSwitch bridge autostart on boot // 項 思 偉 (Davei) ~ Aal Izz Well!</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta property="og:title" content="Openvswitch" />
+    <meta property="og:title" content="Configure OpenSuse Leap OpenvSwitch bridge autostart on boot" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="en_US" />
-<meta property="og:url" content="https://daveixiang.github.io/tags/openvswitch/" />
+<meta property="og:url" content="https://daveixiang.github.io/tech/2017_04_06_configure_opensuse_leap_openvswitch_bridge_autostart_on_boot/" />
 
 
-    <link href="https://daveixiang.github.io/tags/openvswitch/index.xml" rel="alternate" type="application/rss+xml" title="項 思 偉 (Davei) ~ Aal Izz Well!" />
+    <link href="" rel="alternate" type="application/rss+xml" title="項 思 偉 (Davei) ~ Aal Izz Well!" />
     <link rel="shortcut icon" href="https://daveixiang.github.io/favicon.png">
 
     <link href="https://daveixiang.github.io/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
@@ -32,6 +32,7 @@
 
     <meta name="generator" content="Hugo 0.19" />
 </head>
+
 
 <body>
 <div id="container">
@@ -60,67 +61,98 @@
 </header>
 
     <section id="main" class="outer">
-        <section class="archives-wrap">
-            <div class="archive-tag-wrap">
-                <span class="archive-tag">#Openvswitch</span>
-            </div>
-            <div class="archives">
-                
-                <article class="archive-article archive-type-post">
-    <div class="archive-article-inner">
-        <header class="archive-article-header">
-            <a href="https://daveixiang.github.io/tech/2017_04_06_configure_opensuse_leap_openvswitch_bridge_autostart_on_boot/" class="archive-article-date">
-                <time datetime='2017-04-06T00:00:00.000&#43;00:00' itemprop="datePublished">2017 Apr 6</time>
-            </a>
-            <h1 itemprop="name">
-                <a class="archive-article-title" href="https://daveixiang.github.io/tech/2017_04_06_configure_opensuse_leap_openvswitch_bridge_autostart_on_boot/">Configure OpenSuse Leap OpenvSwitch bridge autostart on boot</a>
-            </h1>
-        </header>
-    </div>
-</article>
-                
-                <article class="archive-article archive-type-post">
-    <div class="archive-article-inner">
-        <header class="archive-article-header">
-            <a href="https://daveixiang.github.io/tech/2017_03_31_netlink_hello_world_example/" class="archive-article-date">
-                <time datetime='2017-03-31T00:00:00.000&#43;00:00' itemprop="datePublished">2017 Mar 31</time>
-            </a>
-            <h1 itemprop="name">
-                <a class="archive-article-title" href="https://daveixiang.github.io/tech/2017_03_31_netlink_hello_world_example/">Netlink hell world example</a>
-            </h1>
-        </header>
-    </div>
-</article>
-                
-                <article class="archive-article archive-type-post">
-    <div class="archive-article-inner">
-        <header class="archive-article-header">
-            <a href="https://daveixiang.github.io/tech/2017_03_23_configure_libvirt_with_openvswitch_bridge/" class="archive-article-date">
-                <time datetime='2017-03-23T00:00:00.000&#43;00:00' itemprop="datePublished">2017 Mar 23</time>
-            </a>
-            <h1 itemprop="name">
-                <a class="archive-article-title" href="https://daveixiang.github.io/tech/2017_03_23_configure_libvirt_with_openvswitch_bridge/">Configure libvirt with openvswitch bridge</a>
-            </h1>
-        </header>
-    </div>
-</article>
-                
-                <article class="archive-article archive-type-post">
-    <div class="archive-article-inner">
-        <header class="archive-article-header">
-            <a href="https://daveixiang.github.io/tech/2017_01_14_compile_openvswitch_2_6_x_from_source_code/" class="archive-article-date">
-                <time datetime='2017-01-14T00:00:00.000&#43;00:00' itemprop="datePublished">2017 Jan 14</time>
-            </a>
-            <h1 itemprop="name">
-                <a class="archive-article-title" href="https://daveixiang.github.io/tech/2017_01_14_compile_openvswitch_2_6_x_from_source_code/">Compile OpenvSwitch 2.5.x LST from source code</a>
-            </h1>
-        </header>
-    </div>
-</article>
-                
-            </div></section>
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
         
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">Configure OpenSuse Leap OpenvSwitch bridge autostart on boot</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="https://daveixiang.github.io/tech/2017_04_06_configure_opensuse_leap_openvswitch_bridge_autostart_on_boot/" class="article-date">
+                <time datetime='2017-04-06T00:00:00.000&#43;00:00' itemprop="datePublished">2017-04-06</time>
+            </a>
+            
+            
+            <div class="post-categories">
+                <div class="article-category">
+                    
+                    
+                    <a class="article-category-link" href="https://daveixiang.github.io//categories/openvswitch">openvswitch</a>
+                    
+                </div>
+            </div>
+            
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            <ul>
+<li>ifcfg-br0</li>
+</ul>
 
+<pre><code class="language-bash">cat /etc/sysconfig/network/ifcfg-br0
+</code></pre>
+
+<p>and the output is</p>
+
+<pre><code class="language-txt">TARTMODE='auto'
+BOOTPROTO='static'
+OVS_BRIDGE='yes'
+OVS_BRIDGE_PORT_DEVICE='eth1'
+IPADDR='10.0.100.254/24'
+BROADCAST=''
+ETHTOOL_OPTIONS=''
+MTU=''
+NAME=''
+NETWORK=''
+REMOTE_IPADDR=''
+STARTMODE='auto'
+</code></pre>
+
+<ul>
+<li>ifcfg-eth0</li>
+</ul>
+
+<pre><code class="language-bash">cat /etc/sysconfig/network/ifcfg-eth1
+</code></pre>
+
+<p>and the output is</p>
+
+<pre><code class="language-txt">STARTMODE='auto'
+BOOTPROTO='none'
+</code></pre>
+
+        </div>
+
+        
+        <footer class="article-footer">
+            <ul class="article-tag-list">
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/openvswitch">openvswitch
+                    </a>
+                </li>
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/opensuse">opensuse
+                    </a>
+                </li>
+                
+            </ul>
+        </footer>
+        
+    </div>
+    <nav id="article-nav">
+    
+    
+    <a href="https://daveixiang.github.io/tech/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Compiling qemu guest agent msi package for windows&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+</article>
+
+        
     </section>
     <footer id="footer">
     <div class="outer">

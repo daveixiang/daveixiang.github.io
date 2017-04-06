@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://daveixiang.github.io/tech/2017_04_06_configure_opensuse_leap_openvswitch_bridge_autostart_on_boot/</loc>
+    <lastmod>2017-04-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://daveixiang.github.io/tech/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</loc>
     <lastmod>2017-04-05T00:00:00+00:00</lastmod>
   </url>
@@ -259,13 +264,19 @@
   
   <url>
     <loc>https://daveixiang.github.io/tags/opensuse/</loc>
-    <lastmod>2017-03-31T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://daveixiang.github.io/tags/openvswitch/</loc>
-    <lastmod>2017-03-31T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://daveixiang.github.io/categories/openvswitch/</loc>
+    <lastmod>2017-04-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -312,7 +323,7 @@
   
   <url>
     <loc>https://daveixiang.github.io/tech/</loc>
-    <lastmod>2017-04-05T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -354,7 +365,7 @@
   
   <url>
     <loc>https://daveixiang.github.io/</loc>
-    <lastmod>2017-04-05T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
