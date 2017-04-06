@@ -47,7 +47,7 @@
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/xin/</loc>
+    <loc>https://daveixiang.github.io/</loc>
     <lastmod>2017-03-21T15:51:52+08:00</lastmod>
   </url>
   
@@ -144,26 +144,26 @@
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/clan/</loc>
-    <lastmod>2017-04-01T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://daveixiang.github.io/categories/clan/</loc>
     <lastmod>2017-04-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/database/</loc>
-    <lastmod>2017-03-01T00:00:00+00:00</lastmod>
+    <loc>https://daveixiang.github.io/tags/clan/</loc>
+    <lastmod>2017-04-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://daveixiang.github.io/categories/database/</loc>
     <lastmod>2017-03-13T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://daveixiang.github.io/tags/database/</loc>
+    <lastmod>2017-03-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -180,20 +180,14 @@
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/git/</loc>
-    <lastmod>2017-03-06T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://daveixiang.github.io/categories/git/</loc>
     <lastmod>2017-03-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/golang/</loc>
-    <lastmod>2017-03-13T00:00:00+00:00</lastmod>
+    <loc>https://daveixiang.github.io/tags/git/</loc>
+    <lastmod>2017-03-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -204,8 +198,8 @@
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/kernel/</loc>
-    <lastmod>2017-04-01T00:00:00+00:00</lastmod>
+    <loc>https://daveixiang.github.io/tags/golang/</loc>
+    <lastmod>2017-03-13T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -216,14 +210,14 @@
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/kvm/</loc>
-    <lastmod>2016-09-03T00:00:00+00:00</lastmod>
+    <loc>https://daveixiang.github.io/tags/kernel/</loc>
+    <lastmod>2017-04-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/libvirt/</loc>
-    <lastmod>2017-03-23T00:00:00+00:00</lastmod>
+    <loc>https://daveixiang.github.io/tags/kvm/</loc>
+    <lastmod>2016-09-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -234,8 +228,8 @@
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/linux/</loc>
-    <lastmod>2017-04-01T00:00:00+00:00</lastmod>
+    <loc>https://daveixiang.github.io/tags/libvirt/</loc>
+    <lastmod>2017-03-23T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -246,13 +240,19 @@
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/openstack/</loc>
-    <lastmod>2017-03-21T00:00:00+00:00</lastmod>
+    <loc>https://daveixiang.github.io/tags/linux/</loc>
+    <lastmod>2017-04-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://daveixiang.github.io/categories/openstack/</loc>
+    <lastmod>2017-03-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://daveixiang.github.io/tags/openstack/</loc>
     <lastmod>2017-03-21T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -276,14 +276,14 @@
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/qemu/</loc>
-    <lastmod>2017-04-05T00:00:00+00:00</lastmod>
+    <loc>https://daveixiang.github.io/categories/qemu/</loc>
+    <lastmod>2017-02-28T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/categories/qemu/</loc>
-    <lastmod>2017-02-28T00:00:00+00:00</lastmod>
+    <loc>https://daveixiang.github.io/tags/qemu/</loc>
+    <lastmod>2017-04-05T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -317,14 +317,14 @@
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/tips/</loc>
-    <lastmod>2017-03-31T00:00:00+00:00</lastmod>
+    <loc>https://daveixiang.github.io/categories/tips/</loc>
+    <lastmod>2017-03-22T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/categories/tips/</loc>
-    <lastmod>2017-03-22T00:00:00+00:00</lastmod>
+    <loc>https://daveixiang.github.io/tags/tips/</loc>
+    <lastmod>2017-03-31T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
