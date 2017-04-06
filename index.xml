@@ -492,7 +492,7 @@ zypper refresh
     </item>
     
     <item>
-      <title>Netlink hell world example</title>
+      <title>Netlink hello world example</title>
       <link>https://daveixiang.github.io/tech/2017_03_31_netlink_hello_world_example/</link>
       <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
       
@@ -936,7 +936,7 @@ virsh net-autostart $BRNAME
       <pubDate>Tue, 21 Mar 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/xin/</guid>
-      <description>&lt;table style=&#34;font-size: 1.2em; font-family: 华文楷体&#34;&gt;
+      <description>&lt;table style=&#34;font-family: 华文楷体&#34;&gt;
 
 &lt;tr&gt;
 &lt;td&gt;&amp;nbsp;&lt;/td&gt;
