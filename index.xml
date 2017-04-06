@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>項 思 偉 (Davei) ~ Aal Izz Well!</title>
-    <link>http://daveixiang.github.io/index.xml</link>
+    <link>https://daveixiang.github.io/index.xml</link>
     <description>Recent content on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Wed, 05 Apr 2017 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://daveixiang.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://daveixiang.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Compiling qemu guest agent msi package for windows</title>
-      <link>http://daveixiang.github.io/tech/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</link>
+      <link>https://daveixiang.github.io/tech/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</link>
       <pubDate>Wed, 05 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</guid>
       <description>
 
 &lt;h2 id=&#34;install-dependencies&#34;&gt;Install dependencies&lt;/h2&gt;
@@ -49,10 +49,10 @@
     
     <item>
       <title>Build Cross GCC Toolchain (TARGET:x86_64)</title>
-      <link>http://daveixiang.github.io/tech/2017_04_01_build_cross_gcc_toolchain_x86_64/</link>
+      <link>https://daveixiang.github.io/tech/2017_04_01_build_cross_gcc_toolchain_x86_64/</link>
       <pubDate>Sat, 01 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_04_01_build_cross_gcc_toolchain_x86_64/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_04_01_build_cross_gcc_toolchain_x86_64/</guid>
       <description>&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export BASE_DIR=/src/cross/
 export LOG_DIR=$BASE_DIR/log
 export SRC_DIR=$BASE_DIR/src
@@ -193,10 +193,10 @@ wrap_cmd &amp;quot;15.gcc-final-02_build&amp;quot; \
     
     <item>
       <title>Build minimal linux hack env with busybox (Target: x86_64)</title>
-      <link>http://daveixiang.github.io/tech/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</link>
+      <link>https://daveixiang.github.io/tech/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</link>
       <pubDate>Sat, 01 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</guid>
       <description>
 
 &lt;h2 id=&#34;build-the-kernel&#34;&gt;Build the kernel&lt;/h2&gt;
@@ -324,10 +324,10 @@ dev      init     lib64    mnt      root     sys
     
     <item>
       <title>Add OpenSuse Leap 42.2 repos</title>
-      <link>http://daveixiang.github.io/tech/2017_03_31_opensuse_add_repos/</link>
+      <link>https://daveixiang.github.io/tech/2017_03_31_opensuse_add_repos/</link>
       <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_03_31_opensuse_add_repos/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_03_31_opensuse_add_repos/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;Remove previous repos&lt;/li&gt;
 &lt;/ul&gt;
@@ -351,10 +351,10 @@ zypper refresh
     
     <item>
       <title>GCC and Glibc core runtime files</title>
-      <link>http://daveixiang.github.io/tech/2017_03_31_gcc_glibc_core_runtime_files/</link>
+      <link>https://daveixiang.github.io/tech/2017_03_31_gcc_glibc_core_runtime_files/</link>
       <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_03_31_gcc_glibc_core_runtime_files/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_03_31_gcc_glibc_core_runtime_files/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;Files provided by glibc&lt;/li&gt;
 &lt;/ul&gt;
@@ -449,10 +449,10 @@ zypper refresh
     
     <item>
       <title>Netlink hell world example</title>
-      <link>http://daveixiang.github.io/tech/2017_03_31_netlink_hello_world_example/</link>
+      <link>https://daveixiang.github.io/tech/2017_03_31_netlink_hello_world_example/</link>
       <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_03_31_netlink_hello_world_example/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_03_31_netlink_hello_world_example/</guid>
       <description>
 
 &lt;h2 id=&#34;demo-kernel-code&#34;&gt;demo kernel code&lt;/h2&gt;
@@ -620,10 +620,10 @@ int main(int argc, char *argv[])
     
     <item>
       <title>Notation meaning in top out</title>
-      <link>http://daveixiang.github.io/tech/2017_03_30_notation_meaning_in_top_out/</link>
+      <link>https://daveixiang.github.io/tech/2017_03_30_notation_meaning_in_top_out/</link>
       <pubDate>Thu, 30 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_03_30_notation_meaning_in_top_out/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_03_30_notation_meaning_in_top_out/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;PID — Process Id&lt;/li&gt;
 &lt;/ul&gt;
@@ -835,10 +835,10 @@ for some other virtual page.
     
     <item>
       <title>Configure libvirt with openvswitch bridge</title>
-      <link>http://daveixiang.github.io/tech/2017_03_23_configure_libvirt_with_openvswitch_bridge/</link>
+      <link>https://daveixiang.github.io/tech/2017_03_23_configure_libvirt_with_openvswitch_bridge/</link>
       <pubDate>Thu, 23 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_03_23_configure_libvirt_with_openvswitch_bridge/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_03_23_configure_libvirt_with_openvswitch_bridge/</guid>
       <description>
 
 &lt;h1 id=&#34;create-openvswitch-bridge&#34;&gt;Create OpenvSwitch bridge&lt;/h1&gt;
@@ -868,10 +868,10 @@ virsh net-autostart $BRNAME
     
     <item>
       <title>How to get the complete and exact list of mounted filesystems in Linux?</title>
-      <link>http://daveixiang.github.io/tips/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</link>
+      <link>https://daveixiang.github.io/tips/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</link>
       <pubDate>Wed, 22 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tips/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</guid>
+      <guid>https://daveixiang.github.io/tips/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</guid>
       <description>&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;findmnt -lo source,target,fstype,label,options,used -t xfs
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -888,10 +888,10 @@ virsh net-autostart $BRNAME
     
     <item>
       <title></title>
-      <link>http://daveixiang.github.io/xin/</link>
+      <link>https://daveixiang.github.io/xin/</link>
       <pubDate>Tue, 21 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/xin/</guid>
+      <guid>https://daveixiang.github.io/xin/</guid>
       <description>&lt;table style=&#34;font-size: 1.2em; font-family: 华文楷体&#34;&gt;
 
 &lt;tr&gt;
@@ -1324,10 +1324,10 @@ virsh net-autostart $BRNAME
     
     <item>
       <title>Install Openstack from source code - glance (mitaka)</title>
-      <link>http://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</link>
+      <link>https://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</link>
       <pubDate>Tue, 21 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</guid>
       <description>
 
 &lt;h2 id=&#34;create-image-service-database&#34;&gt;Create image service database&lt;/h2&gt;
@@ -1480,10 +1480,10 @@ python glance/cmd/glance-registry --config-file=/etc/glance/glance-registry.conf
     
     <item>
       <title>Compile influxdb 0.11.1 from source code</title>
-      <link>http://daveixiang.github.io/tech/2017_03_13_compile_influxdb_0.11.1_from_source_code/</link>
+      <link>https://daveixiang.github.io/tech/2017_03_13_compile_influxdb_0.11.1_from_source_code/</link>
       <pubDate>Mon, 13 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_03_13_compile_influxdb_0.11.1_from_source_code/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_03_13_compile_influxdb_0.11.1_from_source_code/</guid>
       <description>
 
 &lt;h2 id=&#34;prepare-essential-directories-and-environment-variables&#34;&gt;Prepare essential directories and environment variables&lt;/h2&gt;
@@ -1621,10 +1621,10 @@ mkdir -p $GOPATH/var/lib/influxdb
     
     <item>
       <title>Clone git repository only some directories</title>
-      <link>http://daveixiang.github.io/tech/2017_03_06_clone_git_repository_only_some_directories/</link>
+      <link>https://daveixiang.github.io/tech/2017_03_06_clone_git_repository_only_some_directories/</link>
       <pubDate>Mon, 06 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_03_06_clone_git_repository_only_some_directories/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_03_06_clone_git_repository_only_some_directories/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;First, do:&lt;/li&gt;
 &lt;/ul&gt;
@@ -1650,10 +1650,10 @@ mkdir -p $GOPATH/var/lib/influxdb
     
     <item>
       <title>Install Openstack from source code - keystone (mitaka)</title>
-      <link>http://daveixiang.github.io/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</link>
+      <link>https://daveixiang.github.io/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</link>
       <pubDate>Sat, 04 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</guid>
       <description>
 
 &lt;h2 id=&#34;install-keystone-dependences&#34;&gt;Install keystone dependences&lt;/h2&gt;
@@ -1759,10 +1759,10 @@ EOF
     
     <item>
       <title>Build PostgreSQL with debug info</title>
-      <link>http://daveixiang.github.io/tech/2017_03_01_build_postgresql_with_debug/</link>
+      <link>https://daveixiang.github.io/tech/2017_03_01_build_postgresql_with_debug/</link>
       <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_03_01_build_postgresql_with_debug/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_03_01_build_postgresql_with_debug/</guid>
       <description>
 
 &lt;h3 id=&#34;add-postgres-user&#34;&gt;Add &lt;em&gt;postgres&lt;/em&gt; user&lt;/h3&gt;

@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Qemu on 項 思 偉 (Davei) ~ Aal Izz Well!</title>
-    <link>http://daveixiang.github.io/tags/qemu/index.xml</link>
+    <link>https://daveixiang.github.io/tags/qemu/index.xml</link>
     <description>Recent content in Qemu on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <atom:link href="http://daveixiang.github.io/tags/qemu/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://daveixiang.github.io/tags/qemu/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Compiling qemu guest agent msi package for windows</title>
-      <link>http://daveixiang.github.io/tech/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</link>
+      <link>https://daveixiang.github.io/tech/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</link>
       <pubDate>Wed, 05 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</guid>
       <description>
 
 &lt;h2 id=&#34;install-dependencies&#34;&gt;Install dependencies&lt;/h2&gt;
@@ -48,10 +48,10 @@
     
     <item>
       <title>Multiple ways to access QEMU Machine Protocol (QMP)</title>
-      <link>http://daveixiang.github.io/tech/2017_02_28_multiple_ways_to_access_qmp/</link>
+      <link>https://daveixiang.github.io/tech/2017_02_28_multiple_ways_to_access_qmp/</link>
       <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_02_28_multiple_ways_to_access_qmp/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_02_28_multiple_ways_to_access_qmp/</guid>
       <description>
 
 &lt;p&gt;QMP (QEMU Machine Protocol) is quiet useful. QMP allows applications

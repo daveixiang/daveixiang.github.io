@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Virtualization on 項 思 偉 (Davei) ~ Aal Izz Well!</title>
-    <link>http://daveixiang.github.io/categories/virtualization/index.xml</link>
+    <link>https://daveixiang.github.io/categories/virtualization/index.xml</link>
     <description>Recent content in Virtualization on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <atom:link href="http://daveixiang.github.io/categories/virtualization/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://daveixiang.github.io/categories/virtualization/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Compiling qemu guest agent msi package for windows</title>
-      <link>http://daveixiang.github.io/tech/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</link>
+      <link>https://daveixiang.github.io/tech/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</link>
       <pubDate>Wed, 05 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</guid>
       <description>
 
 &lt;h2 id=&#34;install-dependencies&#34;&gt;Install dependencies&lt;/h2&gt;
@@ -48,10 +48,10 @@
     
     <item>
       <title>Compile OpenvSwitch 2.5.x LST from source code</title>
-      <link>http://daveixiang.github.io/tech/2017_01_14_compile_openvswitch_2_6_x_from_source_code/</link>
+      <link>https://daveixiang.github.io/tech/2017_01_14_compile_openvswitch_2_6_x_from_source_code/</link>
       <pubDate>Sat, 14 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2017_01_14_compile_openvswitch_2_6_x_from_source_code/</guid>
+      <guid>https://daveixiang.github.io/tech/2017_01_14_compile_openvswitch_2_6_x_from_source_code/</guid>
       <description>
 
 &lt;h1 id=&#34;install-compile-dependencies&#34;&gt;Install compile dependencies&lt;/h1&gt;
@@ -118,10 +118,10 @@ modprobe libcrc32c
     
     <item>
       <title>Nested KVM</title>
-      <link>http://daveixiang.github.io/tech/2016_09_03_nested_kvm/</link>
+      <link>https://daveixiang.github.io/tech/2016_09_03_nested_kvm/</link>
       <pubDate>Sat, 03 Sep 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/tech/2016_09_03_nested_kvm/</guid>
+      <guid>https://daveixiang.github.io/tech/2016_09_03_nested_kvm/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;Enable the setting for Nested KVM&lt;/li&gt;
 &lt;/ul&gt;
