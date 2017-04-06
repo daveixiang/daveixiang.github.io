@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Golang on 項 思 偉 (Davei) ~ Aal Izz Well!</title>
-    <link>https://daveixiang.github.io/categories/golang/index.xml</link>
+    <link>http://daveixiang.github.io/categories/golang/index.xml</link>
     <description>Recent content in Golang on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <atom:link href="https://daveixiang.github.io/categories/golang/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://daveixiang.github.io/categories/golang/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Compile Golang from source code</title>
-      <link>https://daveixiang.github.io/tech/2017_01_22_compile_golang_from_source_code/</link>
+      <link>http://daveixiang.github.io/tech/2017_01_22_compile_golang_from_source_code/</link>
       <pubDate>Thu, 12 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/tech/2017_01_22_compile_golang_from_source_code/</guid>
+      <guid>http://daveixiang.github.io/tech/2017_01_22_compile_golang_from_source_code/</guid>
       <description>
 
 &lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;

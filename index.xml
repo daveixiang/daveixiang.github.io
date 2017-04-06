@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Teches on 項 思 偉 (Davei) ~ Aal Izz Well!</title>
-    <link>http://daveixiang.github.io/tech/index.xml</link>
-    <description>Recent content in Teches on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
+    <title>項 思 偉 (Davei) ~ Aal Izz Well!</title>
+    <link>http://daveixiang.github.io/index.xml</link>
+    <description>Recent content on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Wed, 05 Apr 2017 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://daveixiang.github.io/tech/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://daveixiang.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Compiling qemu guest agent msi package for windows</title>
@@ -867,6 +867,462 @@ virsh net-autostart $BRNAME
     </item>
     
     <item>
+      <title>How to get the complete and exact list of mounted filesystems in Linux?</title>
+      <link>http://daveixiang.github.io/tips/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</link>
+      <pubDate>Wed, 22 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://daveixiang.github.io/tips/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</guid>
+      <description>&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;findmnt -lo source,target,fstype,label,options,used -t xfs
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;SOURCE    TARGET FSTYPE LABEL OPTIONS
+/dev/vda1 /      xfs          rw,relatime,attr2,inode64,noquota
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;/proc/mounts
+
+/etc/mtab
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://daveixiang.github.io/xin/</link>
+      <pubDate>Tue, 21 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://daveixiang.github.io/xin/</guid>
+      <description>&lt;table style=&#34;font-size: 1.2em; font-family: 华文楷体&#34;&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;咒&lt;/td&gt;
+&lt;td&gt;苦&lt;/td&gt;
+&lt;td&gt;大&lt;/td&gt;
+&lt;td&gt;三&lt;/td&gt;
+&lt;td&gt;佛&lt;/td&gt;
+&lt;td&gt;有&lt;/td&gt;
+&lt;td&gt;般&lt;/td&gt;
+&lt;td&gt;道&lt;/td&gt;
+&lt;td&gt;明&lt;/td&gt;
+&lt;td&gt;法&lt;/td&gt;
+&lt;td&gt;想&lt;/td&gt;
+&lt;td&gt;不&lt;/td&gt;
+&lt;td&gt;亦&lt;/td&gt;
+&lt;td&gt;空&lt;/td&gt;
+&lt;td&gt;五&lt;/td&gt;
+&lt;td&gt;觀&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;曰&lt;/td&gt;
+&lt;td&gt;真&lt;/td&gt;
+&lt;td&gt;明&lt;/td&gt;
+&lt;td&gt;菩&lt;/td&gt;
+&lt;td&gt;依&lt;/td&gt;
+&lt;td&gt;恐&lt;/td&gt;
+&lt;td&gt;若&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;盡&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;行&lt;/td&gt;
+&lt;td&gt;垢&lt;/td&gt;
+&lt;td&gt;復&lt;/td&gt;
+&lt;td&gt;不&lt;/td&gt;
+&lt;td&gt;蘊&lt;/td&gt;
+&lt;td&gt;自&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;波&lt;/td&gt;
+&lt;td&gt;揭&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;實&lt;/td&gt;
+&lt;td&gt;咒&lt;/td&gt;
+&lt;td&gt;提&lt;/td&gt;
+&lt;td&gt;般&lt;/td&gt;
+&lt;td&gt;怖&lt;/td&gt;
+&lt;td&gt;波&lt;/td&gt;
+&lt;td&gt;智&lt;/td&gt;
+&lt;td&gt;乃&lt;/td&gt;
+&lt;td&gt;眼&lt;/td&gt;
+&lt;td&gt;識&lt;/td&gt;
+&lt;td&gt;不&lt;/td&gt;
+&lt;td&gt;如&lt;/td&gt;
+&lt;td&gt;異&lt;/td&gt;
+&lt;td&gt;皆&lt;/td&gt;
+&lt;td&gt;在&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;羅&lt;/td&gt;
+&lt;td&gt;諦&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;不&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;故&lt;/td&gt;
+&lt;td&gt;若&lt;/td&gt;
+&lt;td&gt;遠&lt;/td&gt;
+&lt;td&gt;羅&lt;/td&gt;
+&lt;td&gt;亦&lt;/td&gt;
+&lt;td&gt;至&lt;/td&gt;
+&lt;td&gt;界&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;淨&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;色&lt;/td&gt;
+&lt;td&gt;空&lt;/td&gt;
+&lt;td&gt;菩&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;僧&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;虛&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;知&lt;/td&gt;
+&lt;td&gt;波&lt;/td&gt;
+&lt;td&gt;離&lt;/td&gt;
+&lt;td&gt;密&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;乃&lt;/td&gt;
+&lt;td&gt;眼&lt;/td&gt;
+&lt;td&gt;不&lt;/td&gt;
+&lt;td&gt;舍&lt;/td&gt;
+&lt;td&gt;色&lt;/td&gt;
+&lt;td&gt;度&lt;/td&gt;
+&lt;td&gt;薩&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;般&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;揭&lt;/td&gt;
+&lt;td&gt;揭&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;故&lt;/td&gt;
+&lt;td&gt;上&lt;/td&gt;
+&lt;td&gt;般&lt;/td&gt;
+&lt;td&gt;羅&lt;/td&gt;
+&lt;td&gt;顛&lt;/td&gt;
+&lt;td&gt;多&lt;/td&gt;
+&lt;td&gt;得&lt;/td&gt;
+&lt;td&gt;老&lt;/td&gt;
+&lt;td&gt;至&lt;/td&gt;
+&lt;td&gt;耳&lt;/td&gt;
+&lt;td&gt;增&lt;/td&gt;
+&lt;td&gt;利&lt;/td&gt;
+&lt;td&gt;即&lt;/td&gt;
+&lt;td&gt;一&lt;/td&gt;
+&lt;td&gt;行&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;若&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;諦&lt;/td&gt;
+&lt;td&gt;諦&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;說&lt;/td&gt;
+&lt;td&gt;咒&lt;/td&gt;
+&lt;td&gt;若&lt;/td&gt;
+&lt;td&gt;密&lt;/td&gt;
+&lt;td&gt;倒&lt;/td&gt;
+&lt;td&gt;故&lt;/td&gt;
+&lt;td&gt;以&lt;/td&gt;
+&lt;td&gt;死&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;鼻&lt;/td&gt;
+&lt;td&gt;不&lt;/td&gt;
+&lt;td&gt;子&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;切&lt;/td&gt;
+&lt;td&gt;深&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;波&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;般&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;波&lt;/td&gt;
+&lt;td&gt;多&lt;/td&gt;
+&lt;td&gt;夢&lt;/td&gt;
+&lt;td&gt;心&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;亦&lt;/td&gt;
+&lt;td&gt;意&lt;/td&gt;
+&lt;td&gt;舌&lt;/td&gt;
+&lt;td&gt;減&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;空&lt;/td&gt;
+&lt;td&gt;苦&lt;/td&gt;
+&lt;td&gt;般&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;羅&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;菩&lt;/td&gt;
+&lt;td&gt;波&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;若&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;羅&lt;/td&gt;
+&lt;td&gt;故&lt;/td&gt;
+&lt;td&gt;想&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;所&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;識&lt;/td&gt;
+&lt;td&gt;身&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;諸&lt;/td&gt;
+&lt;td&gt;空&lt;/td&gt;
+&lt;td&gt;厄&lt;/td&gt;
+&lt;td&gt;若&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;密&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;提&lt;/td&gt;
+&lt;td&gt;羅&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;波&lt;/td&gt;
+&lt;td&gt;等&lt;/td&gt;
+&lt;td&gt;密&lt;/td&gt;
+&lt;td&gt;得&lt;/td&gt;
+&lt;td&gt;究&lt;/td&gt;
+&lt;td&gt;罣&lt;/td&gt;
+&lt;td&gt;得&lt;/td&gt;
+&lt;td&gt;老&lt;/td&gt;
+&lt;td&gt;界&lt;/td&gt;
+&lt;td&gt;意&lt;/td&gt;
+&lt;td&gt;故&lt;/td&gt;
+&lt;td&gt;法&lt;/td&gt;
+&lt;td&gt;即&lt;/td&gt;
+&lt;td&gt;舍&lt;/td&gt;
+&lt;td&gt;波&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;多&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;薩&lt;/td&gt;
+&lt;td&gt;揭&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;羅&lt;/td&gt;
+&lt;td&gt;等&lt;/td&gt;
+&lt;td&gt;多&lt;/td&gt;
+&lt;td&gt;阿&lt;/td&gt;
+&lt;td&gt;竟&lt;/td&gt;
+&lt;td&gt;礙&lt;/td&gt;
+&lt;td&gt;故&lt;/td&gt;
+&lt;td&gt;死&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;空&lt;/td&gt;
+&lt;td&gt;空&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;利&lt;/td&gt;
+&lt;td&gt;羅&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;心&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;項&lt;/td&gt;
+&lt;td&gt;婆&lt;/td&gt;
+&lt;td&gt;諦&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;密&lt;/td&gt;
+&lt;td&gt;咒&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;耨&lt;/td&gt;
+&lt;td&gt;涅&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;菩&lt;/td&gt;
+&lt;td&gt;盡&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;色&lt;/td&gt;
+&lt;td&gt;中&lt;/td&gt;
+&lt;td&gt;相&lt;/td&gt;
+&lt;td&gt;色&lt;/td&gt;
+&lt;td&gt;子&lt;/td&gt;
+&lt;td&gt;密&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;經&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;思&lt;/td&gt;
+&lt;td&gt;訶&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;多&lt;/td&gt;
+&lt;td&gt;能&lt;/td&gt;
+&lt;td&gt;大&lt;/td&gt;
+&lt;td&gt;多&lt;/td&gt;
+&lt;td&gt;槃&lt;/td&gt;
+&lt;td&gt;罣&lt;/td&gt;
+&lt;td&gt;提&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;明&lt;/td&gt;
+&lt;td&gt;聲&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;不&lt;/td&gt;
+&lt;td&gt;受&lt;/td&gt;
+&lt;td&gt;色&lt;/td&gt;
+&lt;td&gt;多&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;偉&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;咒&lt;/td&gt;
+&lt;td&gt;除&lt;/td&gt;
+&lt;td&gt;神&lt;/td&gt;
+&lt;td&gt;羅&lt;/td&gt;
+&lt;td&gt;三&lt;/td&gt;
+&lt;td&gt;礙&lt;/td&gt;
+&lt;td&gt;薩&lt;/td&gt;
+&lt;td&gt;苦&lt;/td&gt;
+&lt;td&gt;亦&lt;/td&gt;
+&lt;td&gt;香&lt;/td&gt;
+&lt;td&gt;色&lt;/td&gt;
+&lt;td&gt;生&lt;/td&gt;
+&lt;td&gt;想&lt;/td&gt;
+&lt;td&gt;不&lt;/td&gt;
+&lt;td&gt;時&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;即&lt;/td&gt;
+&lt;td&gt;一&lt;/td&gt;
+&lt;td&gt;咒&lt;/td&gt;
+&lt;td&gt;三&lt;/td&gt;
+&lt;td&gt;世&lt;/td&gt;
+&lt;td&gt;故&lt;/td&gt;
+&lt;td&gt;埵&lt;/td&gt;
+&lt;td&gt;集&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;味&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;不&lt;/td&gt;
+&lt;td&gt;行&lt;/td&gt;
+&lt;td&gt;異&lt;/td&gt;
+&lt;td&gt;照&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;編&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;說&lt;/td&gt;
+&lt;td&gt;切&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;藐&lt;/td&gt;
+&lt;td&gt;諸&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;依&lt;/td&gt;
+&lt;td&gt;滅&lt;/td&gt;
+&lt;td&gt;無&lt;/td&gt;
+&lt;td&gt;觸&lt;/td&gt;
+&lt;td&gt;受&lt;/td&gt;
+&lt;td&gt;滅&lt;/td&gt;
+&lt;td&gt;識&lt;/td&gt;
+&lt;td&gt;空&lt;/td&gt;
+&lt;td&gt;見&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;輯&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Install Openstack from source code - glance (mitaka)</title>
       <link>http://daveixiang.github.io/tech/2017_03_21_openstack_from_source_code_mitaka_02_glance/</link>
       <pubDate>Tue, 21 Mar 2017 00:00:00 +0000</pubDate>
@@ -1336,175 +1792,6 @@ CFLAGS=&#39; &#39;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make -j$(nproc)
 
 su postgres -c &#39;make install&#39;
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Install Openstack from source code dependences (mitaka)</title>
-      <link>http://daveixiang.github.io/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</link>
-      <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
-      
-      <guid>http://daveixiang.github.io/tech/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</guid>
-      <description>&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/bin/bash
-
-function gen_pkg_deps()
-{
-  [ -z &amp;quot;$@&amp;quot; ] &amp;amp;&amp;amp; exit 0;
-  yum install  --assumeno &amp;quot;$@&amp;quot; | \
-  sed -n &#39;/Installing for dependencies:/,/Transaction Summary/p&#39; | \
-  sed -e &#39;/^=.*?$/d&#39; \
-  -e &#39;/Installing:/d&#39;  \
-  -e &#39;/Installing for dependencies:/d&#39; \
-  -e &#39;/Transaction Summary/d&#39; \
-  -e &#39;/Updating/d&#39; \
-  -e &#39;/^$/d&#39; | \
-awk &#39;BEGIN {n=1;arr[0]=0}
-
-{
-if (NF != 6)
-{
-    for (i=n; i&amp;lt;=n+NF-1;i++)
-arr[i] = $(i-n+1)
-    n+=NF;
-    if (n == 7)
-    {
-printf &amp;quot;%s,%s,%s,%s\n&amp;quot;, arr[1], arr[2], arr[3], arr[4]
-for (i=1; i&amp;lt;n;i++) del arr[i]
-n=1
-    }
-}
-else
-{
-    printf &amp;quot;%s,%s,%s,%s\n&amp;quot;,  $1, $2, $3, $4
-}
-}&#39; | sort | grep -v -E -e &#39;glance|keystone|nova|neutron|swift|cinder|ceilometer&#39;\
-  &amp;gt; &amp;quot;$@&amp;quot;-deps.log 2&amp;gt;&amp;amp;1
-}
-
-
-OPENSTACK_COMPONENTS=&amp;quot;
-openstack-keystone \
-python-keystoneclient \
-python-keystone \
-python-openstackclient \
-openstack-glance \
-python-glanceclient \
-python-glance \
-openstack-nova-api \
-openstack-nova-conductor \
-openstack-nova-console \
-openstack-nova-novncproxy \
-openstack-nova-scheduler \
-python-novaclient \
-python-nova \
-openstack-nova-compute \
-openstack-neutron \
-openstack-neutron-ml2 \
-python-neutronclient \
-python-neutron \
-openstack-ceilometer-api \
-openstack-ceilometer-collector \
-openstack-ceilometer-notification \
-openstack-ceilometer-central \
-openstack-ceilometer-alarm \
-openstack-ceilometer-compute \
-python-ceilometerclient \
-python-ceilometer \
-openstack-cinder
-&amp;quot;
-
-for component in $OPENSTACK_COMPONENTS
-do
-  gen_pkg_deps $component
-done
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Multiple ways to access QEMU Machine Protocol (QMP)</title>
-      <link>http://daveixiang.github.io/tech/2017_02_28_multiple_ways_to_access_qmp/</link>
-      <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
-      
-      <guid>http://daveixiang.github.io/tech/2017_02_28_multiple_ways_to_access_qmp/</guid>
-      <description>
-
-&lt;p&gt;QMP (QEMU Machine Protocol) is quiet useful. QMP allows applications
-to communicate withh a running QEMU&amp;rsquo;s instance. There ae a few
-different ways to access the QEMU monitor to query the guest&amp;rsquo;s
-information, modify the guest state using the QMP commands.&lt;/p&gt;
-
-&lt;h2 id=&#34;access-qmp-via-libvirt-s-qemu-monitor-command&#34;&gt;Access QMP via libvirt’s qemu-monitor-command&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;virsh qemu-monitor-command ${domain-name} --pretty &#39;{&amp;quot;execute&amp;quot;:&amp;quot;query-kvm&amp;quot;}&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;qmp-via-tcp-socket&#34;&gt;QMP via tcp socket&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;launch an qemu instance:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;qemu-system-x86_64 --enable-kvm -drive if=virtio,format=qcow2,index=0,file=cirros-0.3.5-x86_64-disk.img --qmp tcp:127.0.0.1:12345,server
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;and the output in the terminal like:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;QEMU waiting for connection on: disconnected:tcp:127.0.0.1:12345,serve
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;launch another terminal to access the instance we have&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;launched using telnet:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;telnet 127.0.0.1 12345
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;and the output like:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;Trying 127.0.0.1...
-Connected to 127.0.0.1.
-Escape character is &#39;^]&#39;.
-{&amp;quot;QMP&amp;quot;: {&amp;quot;version&amp;quot;: {&amp;quot;qemu&amp;quot;: {&amp;quot;micro&amp;quot;: 0, &amp;quot;minor&amp;quot;: 8, &amp;quot;major&amp;quot;: 2}, &amp;quot;package&amp;quot;: &amp;quot;&amp;quot;}, &amp;quot;capabilities&amp;quot;: []}}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;execute &amp;lsquo;query-kvm&amp;rsquo; command&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;{&amp;quot;execute&amp;quot; : &amp;quot;qmp_capabilities&amp;quot;}
-{&amp;quot;return&amp;quot;: {}}
-{&amp;quot;execute&amp;quot; : &amp;quot;query-kvm&amp;quot;}
-{&amp;quot;return&amp;quot;: {&amp;quot;enabled&amp;quot;: true, &amp;quot;present&amp;quot;: true}}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;qmp-via-unix-socket&#34;&gt;QMP via unix socket&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;launch an qemu instance with unix socket:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;qemu-system-x86_64 --enable-kvm -drive if=virtio,format=qcow2,index=0,file=cirros-0.3.5-x86_64-disk.img -qmp unix:./qmp-sock,server
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;and the output in the terminal like:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;QEMU waiting for connection on: disconnected:unix:./qmp-sock,server
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;access the instance we have launched using socat and rlwrap:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rlwrap socat UNIX-CONNECT:./qmp-sock STDIO
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;and the output like:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;{&amp;quot;QMP&amp;quot;: {&amp;quot;version&amp;quot;: {&amp;quot;qemu&amp;quot;: {&amp;quot;micro&amp;quot;: 0, &amp;quot;minor&amp;quot;: 8, &amp;quot;major&amp;quot;: 2}, &amp;quot;package&amp;quot;: &amp;quot;&amp;quot;}, &amp;quot;capabilities&amp;quot;: []}}
 &lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>

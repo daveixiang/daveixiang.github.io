@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linux on 項 思 偉 (Davei) ~ Aal Izz Well!</title>
-    <link>https://daveixiang.github.io/categories/linux/index.xml</link>
+    <link>http://daveixiang.github.io/categories/linux/index.xml</link>
     <description>Recent content in Linux on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <atom:link href="https://daveixiang.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://daveixiang.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Build minimal linux hack env with busybox (Target: x86_64)</title>
-      <link>https://daveixiang.github.io/tech/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</link>
+      <link>http://daveixiang.github.io/tech/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</link>
       <pubDate>Sat, 01 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/tech/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</guid>
+      <guid>http://daveixiang.github.io/tech/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</guid>
       <description>
 
 &lt;h2 id=&#34;build-the-kernel&#34;&gt;Build the kernel&lt;/h2&gt;
@@ -141,10 +141,10 @@ dev      init     lib64    mnt      root     sys
     
     <item>
       <title>Add OpenSuse Leap 42.2 repos</title>
-      <link>https://daveixiang.github.io/tech/2017_03_31_opensuse_add_repos/</link>
+      <link>http://daveixiang.github.io/tech/2017_03_31_opensuse_add_repos/</link>
       <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/tech/2017_03_31_opensuse_add_repos/</guid>
+      <guid>http://daveixiang.github.io/tech/2017_03_31_opensuse_add_repos/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;Remove previous repos&lt;/li&gt;
 &lt;/ul&gt;
@@ -168,10 +168,10 @@ zypper refresh
     
     <item>
       <title>Notation meaning in top out</title>
-      <link>https://daveixiang.github.io/tech/2017_03_30_notation_meaning_in_top_out/</link>
+      <link>http://daveixiang.github.io/tech/2017_03_30_notation_meaning_in_top_out/</link>
       <pubDate>Thu, 30 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/tech/2017_03_30_notation_meaning_in_top_out/</guid>
+      <guid>http://daveixiang.github.io/tech/2017_03_30_notation_meaning_in_top_out/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;PID — Process Id&lt;/li&gt;
 &lt;/ul&gt;
@@ -383,10 +383,10 @@ for some other virtual page.
     
     <item>
       <title>Build minimal linux hack env ith busybox (Target: arm64)</title>
-      <link>https://daveixiang.github.io/tech/2017_02_25_build_minimal_linux_hack_env_with_busybox_arm64/</link>
+      <link>http://daveixiang.github.io/tech/2017_02_25_build_minimal_linux_hack_env_with_busybox_arm64/</link>
       <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/tech/2017_02_25_build_minimal_linux_hack_env_with_busybox_arm64/</guid>
+      <guid>http://daveixiang.github.io/tech/2017_02_25_build_minimal_linux_hack_env_with_busybox_arm64/</guid>
       <description>
 
 &lt;h2 id=&#34;build-the-kernel&#34;&gt;Build the kernel&lt;/h2&gt;

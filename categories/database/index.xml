@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Database on 項 思 偉 (Davei) ~ Aal Izz Well!</title>
-    <link>https://daveixiang.github.io/categories/database/index.xml</link>
+    <link>http://daveixiang.github.io/categories/database/index.xml</link>
     <description>Recent content in Database on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <atom:link href="https://daveixiang.github.io/categories/database/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://daveixiang.github.io/categories/database/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Compile influxdb 0.11.1 from source code</title>
-      <link>https://daveixiang.github.io/tech/2017_03_13_compile_influxdb_0.11.1_from_source_code/</link>
+      <link>http://daveixiang.github.io/tech/2017_03_13_compile_influxdb_0.11.1_from_source_code/</link>
       <pubDate>Mon, 13 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/tech/2017_03_13_compile_influxdb_0.11.1_from_source_code/</guid>
+      <guid>http://daveixiang.github.io/tech/2017_03_13_compile_influxdb_0.11.1_from_source_code/</guid>
       <description>
 
 &lt;h2 id=&#34;prepare-essential-directories-and-environment-variables&#34;&gt;Prepare essential directories and environment variables&lt;/h2&gt;
@@ -151,10 +151,10 @@ mkdir -p $GOPATH/var/lib/influxdb
     
     <item>
       <title>Build PostgreSQL with debug info</title>
-      <link>https://daveixiang.github.io/tech/2017_03_01_build_postgresql_with_debug/</link>
+      <link>http://daveixiang.github.io/tech/2017_03_01_build_postgresql_with_debug/</link>
       <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/tech/2017_03_01_build_postgresql_with_debug/</guid>
+      <guid>http://daveixiang.github.io/tech/2017_03_01_build_postgresql_with_debug/</guid>
       <description>
 
 &lt;h3 id=&#34;add-postgres-user&#34;&gt;Add &lt;em&gt;postgres&lt;/em&gt; user&lt;/h3&gt;

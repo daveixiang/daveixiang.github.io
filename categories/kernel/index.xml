@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Kernel on 項 思 偉 (Davei) ~ Aal Izz Well!</title>
-    <link>https://daveixiang.github.io/categories/kernel/index.xml</link>
+    <link>http://daveixiang.github.io/categories/kernel/index.xml</link>
     <description>Recent content in Kernel on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <atom:link href="https://daveixiang.github.io/categories/kernel/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://daveixiang.github.io/categories/kernel/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Netlink hell world example</title>
-      <link>https://daveixiang.github.io/tech/2017_03_31_netlink_hello_world_example/</link>
+      <link>http://daveixiang.github.io/tech/2017_03_31_netlink_hello_world_example/</link>
       <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/tech/2017_03_31_netlink_hello_world_example/</guid>
+      <guid>http://daveixiang.github.io/tech/2017_03_31_netlink_hello_world_example/</guid>
       <description>
 
 &lt;h2 id=&#34;demo-kernel-code&#34;&gt;demo kernel code&lt;/h2&gt;
