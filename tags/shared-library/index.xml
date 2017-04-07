@@ -10,10 +10,10 @@
     
     <item>
       <title>Linux shared libraries</title>
-      <link>https://daveixiang.github.io/tech/2016_04_02_linux_shared_libraries/</link>
+      <link>https://daveixiang.github.io/articles/2016_04_02_linux_shared_libraries/</link>
       <pubDate>Sat, 02 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/tech/2016_04_02_linux_shared_libraries/</guid>
+      <guid>https://daveixiang.github.io/articles/2016_04_02_linux_shared_libraries/</guid>
       <description>
 
 &lt;p&gt;Shared libraries are collections of code that can be shared by

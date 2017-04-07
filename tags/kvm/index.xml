@@ -10,10 +10,10 @@
     
     <item>
       <title>Nested KVM</title>
-      <link>https://daveixiang.github.io/tech/2016_09_03_nested_kvm/</link>
+      <link>https://daveixiang.github.io/articles/2016_09_03_nested_kvm/</link>
       <pubDate>Sat, 03 Sep 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/tech/2016_09_03_nested_kvm/</guid>
+      <guid>https://daveixiang.github.io/articles/2016_09_03_nested_kvm/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;Enable the setting for Nested KVM&lt;/li&gt;
 &lt;/ul&gt;

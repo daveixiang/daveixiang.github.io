@@ -9,11 +9,57 @@
     <atom:link href="https://daveixiang.github.io/tags/tips/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>go tool: no such tool &#39;6g&#39;</title>
+      <link>https://daveixiang.github.io/articles/2017_04_07_go_tool_no_such_tool_6g/</link>
+      <pubDate>Fri, 07 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_04_07_go_tool_no_such_tool_6g/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;Problem&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;davei@davei:/tmp&amp;gt; go tool 6g test.go
+go tool: no such tool &amp;quot;6g&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Solution&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;6g and friends were renamed to &amp;quot;compile&amp;quot; since Go 1.5. So use &amp;quot;compile&amp;quot; instead.
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>go tool: no such tool &#39;6l&#39;</title>
+      <link>https://daveixiang.github.io/articles/2017_04_07_go_tool_no_such_tool_6l/</link>
+      <pubDate>Fri, 07 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_04_07_go_tool_no_such_tool_6l/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;Problem&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;davei@davei:/tmp&amp;gt; go tool 6l test.o
+go tool: no such tool &amp;quot;6l&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Solution&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;6l and friends were renamed to &amp;quot;link&amp;quot; since Go 1.5. So use &amp;quot;link&amp;quot; instead.
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Add OpenSuse Leap 42.2 repos</title>
-      <link>https://daveixiang.github.io/tech/2017_03_31_opensuse_add_repos/</link>
+      <link>https://daveixiang.github.io/articles/2017_03_31_opensuse_add_repos/</link>
       <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/tech/2017_03_31_opensuse_add_repos/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_03_31_opensuse_add_repos/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;Remove previous repos&lt;/li&gt;
 &lt;/ul&gt;
@@ -37,10 +83,10 @@ zypper refresh
     
     <item>
       <title>Notation meaning in top out</title>
-      <link>https://daveixiang.github.io/tech/2017_03_30_notation_meaning_in_top_out/</link>
+      <link>https://daveixiang.github.io/articles/2017_03_30_notation_meaning_in_top_out/</link>
       <pubDate>Thu, 30 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/tech/2017_03_30_notation_meaning_in_top_out/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_03_30_notation_meaning_in_top_out/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;PID — Process Id&lt;/li&gt;
 &lt;/ul&gt;
@@ -252,10 +298,10 @@ for some other virtual page.
     
     <item>
       <title>Clone git repository only some directories</title>
-      <link>https://daveixiang.github.io/tech/2017_03_06_clone_git_repository_only_some_directories/</link>
+      <link>https://daveixiang.github.io/articles/2017_03_06_clone_git_repository_only_some_directories/</link>
       <pubDate>Mon, 06 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/tech/2017_03_06_clone_git_repository_only_some_directories/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_03_06_clone_git_repository_only_some_directories/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;First, do:&lt;/li&gt;
 &lt;/ul&gt;
@@ -281,10 +327,10 @@ for some other virtual page.
     
     <item>
       <title>Nested KVM</title>
-      <link>https://daveixiang.github.io/tech/2016_09_03_nested_kvm/</link>
+      <link>https://daveixiang.github.io/articles/2016_09_03_nested_kvm/</link>
       <pubDate>Sat, 03 Sep 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/tech/2016_09_03_nested_kvm/</guid>
+      <guid>https://daveixiang.github.io/articles/2016_09_03_nested_kvm/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;Enable the setting for Nested KVM&lt;/li&gt;
 &lt;/ul&gt;

@@ -10,10 +10,10 @@
     
     <item>
       <title>Multiple ways to access QEMU Machine Protocol (QMP)</title>
-      <link>https://daveixiang.github.io/tech/2017_02_28_multiple_ways_to_access_qmp/</link>
+      <link>https://daveixiang.github.io/articles/2017_02_28_multiple_ways_to_access_qmp/</link>
       <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/tech/2017_02_28_multiple_ways_to_access_qmp/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_02_28_multiple_ways_to_access_qmp/</guid>
       <description>
 
 &lt;p&gt;QMP (QEMU Machine Protocol) is quiet useful. QMP allows applications

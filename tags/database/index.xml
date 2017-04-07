@@ -10,10 +10,10 @@
     
     <item>
       <title>Build PostgreSQL with debug info</title>
-      <link>https://daveixiang.github.io/tech/2017_03_01_build_postgresql_with_debug/</link>
+      <link>https://daveixiang.github.io/articles/2017_03_01_build_postgresql_with_debug/</link>
       <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/tech/2017_03_01_build_postgresql_with_debug/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_03_01_build_postgresql_with_debug/</guid>
       <description>
 
 &lt;h3 id=&#34;add-postgres-user&#34;&gt;Add &lt;em&gt;postgres&lt;/em&gt; user&lt;/h3&gt;

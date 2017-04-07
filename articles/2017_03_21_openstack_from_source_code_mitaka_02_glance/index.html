@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Install Openstack from source code - glance (mitaka) // 項 思 偉 (Davei) ~ Aal Izz Well!</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta property="og:title" content="Install Openstack from source code - glance (mitaka)" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content="https://daveixiang.github.io/articles/2017_03_21_openstack_from_source_code_mitaka_02_glance/" />
+
+
+    <link href="" rel="alternate" type="application/rss+xml" title="項 思 偉 (Davei) ~ Aal Izz Well!" />
+    <link rel="shortcut icon" href="https://daveixiang.github.io/favicon.png">
+
+    <link href="https://daveixiang.github.io/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="https://daveixiang.github.io/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://daveixiang.github.io/css/style.css">
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+    <meta name="generator" content="Hugo 0.19" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="https://daveixiang.github.io/">項 思 偉 (Davei) ~ Aal Izz Well!</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="https://daveixiang.github.io/articles/">01 Articles</a>
+                
+                <a class="main-nav-link" href="https://daveixiang.github.io/tags/">02 Tags</a>
+                
+                <a class="main-nav-link" href="https://daveixiang.github.io/categories/">03 Categories</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">Install Openstack from source code - glance (mitaka)</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="https://daveixiang.github.io/articles/2017_03_21_openstack_from_source_code_mitaka_02_glance/" class="article-date">
+                <time datetime='2017-03-21T00:00:00.000&#43;00:00' itemprop="datePublished">2017-03-21</time>
+            </a>
+            
+            
+            <div class="post-categories">
+                <div class="article-category">
+                    
+                    
+                    <a class="article-category-link" href="https://daveixiang.github.io//categories/openstack">openstack</a>
+                    
+                </div>
+            </div>
+            
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            
+
+<h2 id="create-image-service-database">Create image service database</h2>
+
+<pre><code class="language-bash">export GLANCE_DBPASS=openstack
+export MYSQL_PASS=openstack
+
+mysql -uroot -p$MYSQL_PASS &lt;&lt;EOF
+CREATE DATABASE glance;
+GRANT ALL PRIVILEGES ON glance.* TO 'glance'@'localhost' \
+  IDENTIFIED BY '$GLANCE_DBPASS';
+GRANT ALL PRIVILEGES ON glance.* TO 'glance'@'%' \
+  IDENTIFIED BY '$GLANCE_DBPASS';
+EOF
+</code></pre>
+
+<h2 id="create-the-image-service-credentials-andapi-endpoints">Create the image service credentials andAPI endpoints</h2>
+
+<pre><code class="language-bash">openstack user create --domain default --password openstack glance
+openstack role add --project service --user glance admin
+
+openstack service create --name glance --description &quot;OpenStack Image&quot; image
+openstack endpoint create --region RegionOne image public http://controller:9292
+openstack endpoint create --region RegionOne image internal http://controller:9292
+openstack endpoint create --region RegionOne image admin http://controller:9292
+</code></pre>
+
+<h2 id="install-glance-dependences">Install glance dependences</h2>
+
+<pre><code class="language-bash">yum install $(cat openstack-glance-deps.log | cut -d, -f1 | tr -s '\n'  ' ')
+</code></pre>
+
+<h2 id="git-clone-source-code-from-github">Git clone source code from github</h2>
+
+<pre><code class="language-bash">git clone https://github.com/openstack/glance
+
+cd /src/openstack/glance
+
+git checkout stable/mitaka
+</code></pre>
+
+<h2 id="build-glance-source-code">Build glance source code</h2>
+
+<pre><code class="language-bash">cd /src/openstack/glance
+
+python setup.py build
+
+cp -aR etc/* /etc/glance
+</code></pre>
+
+<h2 id="make-glance-configuration">Make glance configuration</h2>
+
+<ul>
+<li>glance-api.conf</li>
+</ul>
+
+<pre><code class="language-bash">sed -i -E -e '/^#.+?$/d' -e '/^$/d' /etc/glance/glance-api.conf
+ini-config --set /etc/glance/glance-api.conf database connection 'postgresql://glance:openstack@controller/glance'
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken auth_uri http://controller:5000
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken auth_url http://controller:35357
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken auth_type password
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken project_domain_name default
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken user_domain_name default
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken project_name service
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken username glance
+ini-config --set /etc/glance/glance-api.conf keystone_authtoken password openstack
+ini-config --set /etc/glance/glance-api.conf paste_deploy flavor keystone
+ini-config --set /etc/glance/glance-api.conf glance_store stores file
+ini-config --set /etc/glance/glance-api.conf glance_store default_store file
+ini-config --set /etc/glance/glance-api.conf glance_store filesystem_store_datadir '/var/lib/glance/images/'
+</code></pre>
+
+<ul>
+<li>glance-registery.conf</li>
+</ul>
+
+<pre><code class="language-bash">sed -i -E -e '/^#.+?$/d' -e '/^$/d' /etc/glance/glance-registry.conf
+ini-config --set /etc/glance/glance-registry.conf database connection 'postgresql://glance:openstack@controller/glance'
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken auth_uri http://controller:5000
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken auth_url http://controller:35357
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken auth_type password
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken project_domain_name default
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken user_domain_name default
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken project_name service
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken username glance
+ini-config --set /etc/glance/glance-registry.conf keystone_authtoken password openstack
+ini-config --set /etc/glance/glance-registry.conf paste_deploy flavor keystone
+</code></pre>
+
+<h2 id="create-glance-manage-glance-api-and-glance-registery-command">Create <em>glance-manage</em>, <em>glance-api</em> and <em>glance-registery</em> command</h2>
+
+<ul>
+<li>glance-manage</li>
+</ul>
+
+<pre><code class="language-bash">cat &gt; glance/cmd/glance-manage &lt;&lt;EOF
+#!/bin/python
+import sys
+from glance.cmd.manage import main
+if __name__ == &quot;__main__&quot;:
+    sys.exit(main())
+EOF
+</code></pre>
+
+<ul>
+<li>glance-api</li>
+</ul>
+
+<pre><code class="language-bash">cat &gt; glance/cmd/glance-api &lt;&lt;EOF
+#!/bin/python
+import sys
+from glance.cmd.api import main
+if __name__ == &quot;__main__&quot;:
+    sys.exit(main())
+EOF
+</code></pre>
+
+<ul>
+<li>glance-registery</li>
+</ul>
+
+<pre><code class="language-bash">cat &gt; glance/cmd/glance-registry &lt;&lt;EOF
+#!/bin/python
+import sys
+from glance.cmd.registry import main
+if __name__ == &quot;__main__&quot;:
+    sys.exit(main())
+EOF
+</code></pre>
+
+<h2 id="populate-the-image-service-database-and-the-services">Populate the Image service database and the services</h2>
+
+<ul>
+<li>populate the image service database</li>
+</ul>
+
+<pre><code class="language-bash">python glance/cmd/glance-manage db_sync
+</code></pre>
+
+<ul>
+<li>start the image services</li>
+</ul>
+
+<pre><code class="language-bash">python glance/cmd/glance-api --config-file=/etc/glance/glance-api.conf --config-file=/etc/glance/glance-api-paste.ini
+
+python glance/cmd/glance-registry --config-file=/etc/glance/glance-registry.conf --config-file=/etc/glance/glance-registry-paste.ini
+</code></pre>
+
+        </div>
+
+        
+        <footer class="article-footer">
+            <ul class="article-tag-list">
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/linux">linux
+                    </a>
+                </li>
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/centos">centos
+                    </a>
+                </li>
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/openstack">openstack
+                    </a>
+                </li>
+                
+            </ul>
+        </footer>
+        
+    </div>
+    <nav id="article-nav">
+    
+    <a href="https://daveixiang.github.io/xin/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            
+        </div>
+    </a>
+    
+    
+    <a href="https://daveixiang.github.io/articles/2017_03_13_compile_influxdb_0.11.1_from_source_code/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Compile influxdb 0.11.1 from source code&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+</article>
+
+        
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 項 思 偉 (Davei) ~ Aal Izz Well!&nbsp;
+            Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos">Minos</a>
+        </div>
+    </div>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+</div>
+</body>
+</html>

@@ -10,10 +10,10 @@
     
     <item>
       <title>Netlink hello world example</title>
-      <link>https://daveixiang.github.io/tech/2017_03_31_netlink_hello_world_example/</link>
+      <link>https://daveixiang.github.io/articles/2017_03_31_netlink_hello_world_example/</link>
       <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/tech/2017_03_31_netlink_hello_world_example/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_03_31_netlink_hello_world_example/</guid>
       <description>
 
 &lt;h2 id=&#34;demo-kernel-code&#34;&gt;demo kernel code&lt;/h2&gt;

@@ -10,10 +10,10 @@
     
     <item>
       <title>Configure OpenSuse Leap OpenvSwitch bridge autostart on boot</title>
-      <link>https://daveixiang.github.io/tech/2017_04_06_configure_opensuse_leap_openvswitch_bridge_autostart_on_boot/</link>
+      <link>https://daveixiang.github.io/articles/2017_04_06_configure_opensuse_leap_openvswitch_bridge_autostart_on_boot/</link>
       <pubDate>Thu, 06 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/tech/2017_04_06_configure_opensuse_leap_openvswitch_bridge_autostart_on_boot/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_04_06_configure_opensuse_leap_openvswitch_bridge_autostart_on_boot/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;ifcfg-br0&lt;/li&gt;
 &lt;/ul&gt;

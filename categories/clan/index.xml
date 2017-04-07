@@ -10,10 +10,10 @@
     
     <item>
       <title>Build Cross GCC Toolchain (TARGET:x86_64)</title>
-      <link>https://daveixiang.github.io/tech/2017_04_01_build_cross_gcc_toolchain_x86_64/</link>
+      <link>https://daveixiang.github.io/articles/2017_04_01_build_cross_gcc_toolchain_x86_64/</link>
       <pubDate>Sat, 01 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/tech/2017_04_01_build_cross_gcc_toolchain_x86_64/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_04_01_build_cross_gcc_toolchain_x86_64/</guid>
       <description>&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export BASE_DIR=/src/cross/
 export LOG_DIR=$BASE_DIR/log
 export SRC_DIR=$BASE_DIR/src
@@ -154,10 +154,10 @@ wrap_cmd &amp;quot;15.gcc-final-02_build&amp;quot; \
     
     <item>
       <title>GCC and Glibc core runtime files</title>
-      <link>https://daveixiang.github.io/tech/2017_03_31_gcc_glibc_core_runtime_files/</link>
+      <link>https://daveixiang.github.io/articles/2017_03_31_gcc_glibc_core_runtime_files/</link>
       <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/tech/2017_03_31_gcc_glibc_core_runtime_files/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_03_31_gcc_glibc_core_runtime_files/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;Files provided by glibc&lt;/li&gt;
 &lt;/ul&gt;
@@ -252,10 +252,10 @@ wrap_cmd &amp;quot;15.gcc-final-02_build&amp;quot; \
     
     <item>
       <title>Build Cross GCC Toolchain (TARGET:arm64)</title>
-      <link>https://daveixiang.github.io/tech/2017_02_25_build_cross_gcc_toolchain_arm64/</link>
+      <link>https://daveixiang.github.io/articles/2017_02_25_build_cross_gcc_toolchain_arm64/</link>
       <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/tech/2017_02_25_build_cross_gcc_toolchain_arm64/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_02_25_build_cross_gcc_toolchain_arm64/</guid>
       <description>&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export BASE_DIR=/src/cross/
 export LOG_DIR=$BASE_DIR/log
 export SRC_DIR=$BASE_DIR/src
@@ -374,10 +374,10 @@ wrap_cmd &amp;quot;15.gcc-final-02_build&amp;quot; \
     
     <item>
       <title>C declaration Right-Left rule</title>
-      <link>https://daveixiang.github.io/tech/2016_04_27_c_declaration_right_left_rule/</link>
+      <link>https://daveixiang.github.io/articles/2016_04_27_c_declaration_right_left_rule/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/tech/2016_04_27_c_declaration_right_left_rule/</guid>
+      <guid>https://daveixiang.github.io/articles/2016_04_27_c_declaration_right_left_rule/</guid>
       <description>&lt;pre&gt;&lt;code&gt;The &amp;quot;right-left&amp;quot; rule is a completely regular rule for deciphering C
 declarations.  It can also be useful in creating them.
 
@@ -578,10 +578,10 @@ int *ffp()();           a function returning a function
     
     <item>
       <title>Linux shared libraries</title>
-      <link>https://daveixiang.github.io/tech/2016_04_02_linux_shared_libraries/</link>
+      <link>https://daveixiang.github.io/articles/2016_04_02_linux_shared_libraries/</link>
       <pubDate>Sat, 02 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/tech/2016_04_02_linux_shared_libraries/</guid>
+      <guid>https://daveixiang.github.io/articles/2016_04_02_linux_shared_libraries/</guid>
       <description>
 
 &lt;p&gt;Shared libraries are collections of code that can be shared by

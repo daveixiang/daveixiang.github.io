@@ -10,10 +10,10 @@
     
     <item>
       <title>Compiling qemu guest agent msi package for windows</title>
-      <link>https://daveixiang.github.io/tech/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</link>
+      <link>https://daveixiang.github.io/articles/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</link>
       <pubDate>Wed, 05 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/tech/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</guid>
       <description>
 
 &lt;h2 id=&#34;install-dependencies&#34;&gt;Install dependencies&lt;/h2&gt;

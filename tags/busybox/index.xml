@@ -10,10 +10,10 @@
     
     <item>
       <title>Build minimal linux hack env with busybox (Target: x86_64)</title>
-      <link>https://daveixiang.github.io/tech/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</link>
+      <link>https://daveixiang.github.io/articles/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</link>
       <pubDate>Sat, 01 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/tech/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</guid>
       <description>
 
 &lt;h2 id=&#34;build-the-kernel&#34;&gt;Build the kernel&lt;/h2&gt;
@@ -141,10 +141,10 @@ dev      init     lib64    mnt      root     sys
     
     <item>
       <title>Build minimal linux hack env ith busybox (Target: arm64)</title>
-      <link>https://daveixiang.github.io/tech/2017_02_25_build_minimal_linux_hack_env_with_busybox_arm64/</link>
+      <link>https://daveixiang.github.io/articles/2017_02_25_build_minimal_linux_hack_env_with_busybox_arm64/</link>
       <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/tech/2017_02_25_build_minimal_linux_hack_env_with_busybox_arm64/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_02_25_build_minimal_linux_hack_env_with_busybox_arm64/</guid>
       <description>
 
 &lt;h2 id=&#34;build-the-kernel&#34;&gt;Build the kernel&lt;/h2&gt;
