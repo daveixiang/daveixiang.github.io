@@ -26,7 +26,7 @@ go tool: no such tool &amp;quot;6g&amp;quot;
 &lt;li&gt;Solution&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;6g and friends were renamed to &amp;quot;compile&amp;quot; since Go 1.5. So use &amp;quot;compile&amp;quot; instead.
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;6g were renamed to &amp;quot;compile&amp;quot; since Go 1.5. So use &amp;quot;compile&amp;quot; instead.
 &lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
