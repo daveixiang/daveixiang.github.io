@@ -356,6 +356,69 @@ done
     </item>
     
     <item>
+      <title>Using PostgreSQL as Openstack backend database</title>
+      <link>https://daveixiang.github.io/articles/2017_03_01_using_postgresql_as_openstack_backend_db/</link>
+      <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_03_01_using_postgresql_as_openstack_backend_db/</guid>
+      <description>
+
+&lt;h2 id=&#34;install-postgresql-and-psycopg2&#34;&gt;Install &lt;em&gt;PostgreSQL&lt;/em&gt; and &lt;em&gt;psycopg2&lt;/em&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;psycopg2&lt;/em&gt; provides the Python interface to PostgreSQL&lt;/p&gt;
+
+&lt;h2 id=&#34;change-openstack-services-configuration-connection-information&#34;&gt;Change openstack services configuration connection information&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;connection = postgresql://&amp;lt;user&amp;gt;:&amp;lt;password&amp;gt;@&amp;lt;host&amp;gt;/&amp;lt;db&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;login-postgresql-create-roles-and-databases&#34;&gt;Login PostgreSQL create roles and databases&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;keystone
+```txt
+CREATE USER keystone WITH PASSWORD &amp;lsquo;openstack&amp;rsquo;;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;CREATE DATABASE keystone;
+GRANT ALL PRIVILEGES ON DATABASE &amp;ldquo;keystone&amp;rdquo; to keystone;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
+* glance
+
+```sql
+CREATE USER glance WITH PASSWORD &#39;openstack&#39;;
+
+CREATE DATABASE glance;
+GRANT ALL PRIVILEGES ON DATABASE &amp;quot;glance&amp;quot; to glance;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;nova&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE USER nova WITH PASSWORD &#39;openstack&#39;;
+
+CREATE DATABASE nova;
+GRANT ALL PRIVILEGES ON DATABASE &amp;quot;nova&amp;quot; to nova;
+
+CREATE DATABASE &amp;quot;nova_api&amp;quot;;
+GRANT ALL PRIVILEGES ON DATABASE &amp;quot;nova_api&amp;quot; to nova;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;neutron&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE USER neutron WITH PASSWORD &#39;openstack&#39;;
+
+CREATE DATABASE neutron;
+GRANT ALL PRIVILEGES ON DATABASE &amp;quot;neutron&amp;quot; to neutron;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Install Openstack from source code prepares (mitaka)</title>
       <link>https://daveixiang.github.io/articles/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</link>
       <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>

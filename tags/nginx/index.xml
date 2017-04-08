@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nginx on 項 思 偉 (Davei) ~ Aal Izz Well!</title>
+    <link>https://daveixiang.github.io/tags/nginx/index.xml</link>
+    <description>Recent content in Nginx on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <atom:link href="https://daveixiang.github.io/tags/nginx/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Compile static nginx</title>
+      <link>https://daveixiang.github.io/articles/2017_01_12_compile_static_nginx/</link>
+      <pubDate>Thu, 12 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_01_12_compile_static_nginx/</guid>
+      <description>
+
+&lt;h1 id=&#34;get-nginx-source-code-from-officall-website&#34;&gt;Get nginx source code from officall website&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;wget http://nginx.org/download/nginx-1.10.2.tar.gz
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;untar-it-to-specific-directory&#34;&gt;Untar it to specific directory&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;tar zxf nginx-1.10.2.tar.gz -C /src
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;go-to-the-src-and-execute-configure&#34;&gt;Go to the &lt;em&gt;/src&lt;/em&gt;, and execute &lt;em&gt;./configure&lt;/em&gt;&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd /src/nginx-1.10.2
+
+./configure --prefix=/src/nginx/ \
+--with-cc-opt=&amp;quot;-static -static-libgcc&amp;quot; \
+--with-ld-opt=&amp;quot;-static&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;build-it-with-make-nproc&#34;&gt;Build it with &lt;em&gt;make -$(nproc)&lt;/em&gt;&lt;/h1&gt;
+
+&lt;h2 id=&#34;error-output&#34;&gt;Error output&lt;/h2&gt;
+
+&lt;p&gt;But get the error:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/../../../../lib64/libpcre.a(libpcre_la-pcre_jit_compile.o): In function `sljit_generate_code&#39;:
+(.text+0x79f): undefined reference to `pthread_mutex_lock&#39;
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/../../../../lib64/libpcre.a(libpcre_la-pcre_jit_compile.o): In function `sljit_generate_code&#39;:
+(.text+0x894): undefined reference to `pthread_mutex_unlock&#39;
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/../../../../lib64/libpcre.a(libpcre_la-pcre_jit_compile.o): In function `sljit_generate_code&#39;:
+(.text+0xc0f): undefined reference to `pthread_mutex_unlock&#39;
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/../../../../lib64/libpcre.a(libpcre_la-pcre_jit_compile.o): In function `sljit_generate_code&#39;:
+(.text+0xc5f): undefined reference to `pthread_mutex_unlock&#39;
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/../../../../lib64/libpcre.a(libpcre_la-pcre_jit_compile.o): In function `sljit_free_exec&#39;:
+(.text+0xc8a): undefined reference to `pthread_mutex_lock&#39;
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/../../../../lib64/libpcre.a(libpcre_la-pcre_jit_compile.o): In function `pcre_jit_free_unused_memory&#39;:
+(.text+0x28467): undefined reference to `pthread_mutex_lock&#39;
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/../../../../lib64/libpcre.a(libpcre_la-pcre_jit_compile.o): In function `sljit_free_exec&#39;:
+(.text+0xcf0): undefined reference to `pthread_mutex_unlock&#39;
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/../../../../lib64/libpcre.a(libpcre_la-pcre_jit_compile.o): In function `pcre_jit_free_unused_memory&#39;:
+(.text+0x284d7): undefined reference to `pthread_mutex_unlock&#39;
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libgcc_eh.a(unwind-dw2-fde-dip.o): In function `__register_frame_info_bases&#39;:
+(.text+0x16e7): undefined reference to `pthread_mutex_lock&#39;
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libgcc_eh.a(unwind-dw2-fde-dip.o): In function `__register_frame_info&#39;:
+(.text+0x1782): undefined reference to `pthread_mutex_lock&#39;
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libgcc_eh.a(unwind-dw2-fde-dip.o): In function `__register_frame&#39;:
+(.text+0x1824): undefined reference to `pthread_mutex_lock&#39;
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libgcc_eh.a(unwind-dw2-fde-dip.o): In function `__register_frame_info_table_bases&#39;:
+(.text+0x18ab): undefined reference to `pthread_mutex_lock&#39;
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libgcc_eh.a(unwind-dw2-fde-dip.o): In function `__deregister_frame_info_bases&#39;:
+(.text+0x194e): undefined reference to `pthread_mutex_lock&#39;
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libgcc_eh.a(unwind-dw2-fde-dip.o): In function `__deregister_frame_info_bases&#39;:
+(.text+0x19e8): undefined reference to `pthread_mutex_unlock&#39;
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libgcc_eh.a(unwind-dw2-fde-dip.o): In function `_Unwind_Find_FDE&#39;:
+(.text+0x1ab6): undefined reference to `pthread_mutex_lock&#39;
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libgcc_eh.a(unwind-dw2-fde-dip.o): In function `_Unwind_Find_FDE&#39;:
+(.text+0x1b06): undefined reference to `pthread_mutex_unlock&#39;
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libgcc_eh.a(unwind-dw2-fde-dip.o): In function `_Unwind_Find_FDE&#39;:
+(.text+0x1bf0): undefined reference to `pthread_mutex_unlock&#39;
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libgcc_eh.a(unwind-dw2-fde-dip.o): In function `__register_frame_info_bases&#39;:
+(.text+0x1706): undefined reference to `pthread_mutex_unlock&#39;
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libgcc_eh.a(unwind-dw2-fde-dip.o): In function `__register_frame_info&#39;:
+(.text+0x17a1): undefined reference to `pthread_mutex_unlock&#39;
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libgcc_eh.a(unwind-dw2-fde-dip.o): In function `__register_frame&#39;:
+(.text+0x1848): undefined reference to `pthread_mutex_unlock&#39;
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libgcc_eh.a(unwind-dw2-fde-dip.o):(.text+0x18ca): more undefined references to `pthread_mutex_unlock&#39; follow
+collect2: error: ld returned 1 exit status
+objs/Makefile:222: recipe for target &#39;objs/nginx&#39; failed
+make[1]: *** [objs/nginx] Error 1
+make[1]: Leaving directory &#39;/src/nginx-1.10.2&#39;
+Makefile:8: recipe for target &#39;build&#39; failed
+make: *** [build] Error 2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After analyzing the output, we got common &lt;em&gt;undefined reference&lt;/em&gt; error. But actually the system have the &lt;em&gt;pthread&lt;/em&gt; library installed. The real cause is the &lt;em&gt;link order&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;solution-change-the-objs-makefile-to-adjust-the-link-order&#34;&gt;Solution - change the objs/Makefile to adjust the link order&lt;/h2&gt;
+
+&lt;p&gt;Get the following line in the file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-makefile&#34;&gt;	-static -ldl -lpthread -lcrypt -lpcre -lcrypto -lcrypto -lz
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and change it to:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-makefile&#34;&gt;	-static -ldl -lcrypt -lpcre -lcrypto -lcrypto -lz -lpthread
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The reason is that function &lt;em&gt;sljit_generate_code&lt;/em&gt; in &lt;em&gt;pcre&lt;/em&gt; library need &lt;em&gt;pthread&lt;/em&gt; library to resolve undfined symbol &lt;em&gt;pthread_mutex_unlock&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;build-again&#34;&gt;Build again:&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make -j$(nproc)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and the right result:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;-static -ldl -lcrypt -lpcre -lcrypto -lcrypto -lz -lpthread
+objs/src/core/nginx.o: In function `ngx_load_module&#39;:
+/src/nginx-1.10.2/src/core/nginx.c:1475: warning: Using &#39;dlopen&#39; in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+objs/src/os/unix/ngx_process_cycle.o: In function `ngx_worker_process_init&#39;:
+/src/nginx-1.10.2/src/os/unix/ngx_process_cycle.c:838: warning: Using &#39;initgroups&#39; in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+objs/src/core/nginx.o: In function `ngx_set_user&#39;:
+/src/nginx-1.10.2/src/core/nginx.c:1181: warning: Using &#39;getgrnam&#39; in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+/src/nginx-1.10.2/src/core/nginx.c:1169: warning: Using &#39;getpwnam&#39; in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+objs/src/core/ngx_inet.o: In function `ngx_inet_resolve_host&#39;:
+/src/nginx-1.10.2/src/core/ngx_inet.c:1120: warning: Using &#39;gethostbyname&#39; in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+make[1]: Leaving directory &#39;/src/nginx-1.10.2&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;run-the-server-and-check-the-result&#34;&gt;Run the server and check the result&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make install
+
+/src/nginx/sbin/nginx
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;The link order actually is a big problem we should consider during developing C/C++ project, which we may ignore!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

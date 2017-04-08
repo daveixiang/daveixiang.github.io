@@ -361,5 +361,77 @@ cat /sys/module/kvm_intel/parameters/nested
 </description>
     </item>
     
+    <item>
+      <title>Configure KVM using OpenvSwitch</title>
+      <link>https://daveixiang.github.io/articles/2016_07_08_configure_kvm_using_openvswitch/</link>
+      <pubDate>Fri, 08 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2016_07_08_configure_kvm_using_openvswitch/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;Add bridge ovsbr to Open vSwitch&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ovs-vsctl add-br ovsbr
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Create &lt;em&gt;ovsbr.xml&lt;/em&gt; for libvirtd&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;network&amp;gt;
+  &amp;lt;name&amp;gt;ovsbr&amp;lt;/name&amp;gt;
+  &amp;lt;forward mode=&#39;bridge&#39;/&amp;gt;
+  &amp;lt;bridge name=&#39;ovsbr&#39;/&amp;gt;
+  &amp;lt;virtualport type=&#39;openvswitch&#39;/&amp;gt;
+&amp;lt;/network&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Configure KVM using OVS&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;virsh net-define ovsbr.xml
+
+virsh net-start ovsbr
+
+virsh net-autostart ovsbr
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Reloading tmux config</title>
+      <link>https://daveixiang.github.io/articles/2016_04_10_reloading_tmux_config/</link>
+      <pubDate>Sun, 10 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2016_04_10_reloading_tmux_config/</guid>
+      <description>&lt;p&gt;If you have made changes to your tmux configuration file in the
+&lt;em&gt;~/.tmux.conf&lt;/em&gt; file, it shouldn’t be necessary to start the server up
+again from scratch with kill-server. Instead, you can prompt the
+current tmux session to reload the configuration with the source-file
+command.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Method 1&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This can be done either from within tmux, by pressing &lt;em&gt;Ctrl+B&lt;/em&gt; and then
+&lt;em&gt;:&lt;/em&gt; to bring up a command prompt, and typing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;:source-file ~/.tmux.conf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Method 2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;tmux source-file ~/.tmux.conf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This should apply your changes to the running tmux server without
+affecting the sessions or windows within them.&lt;/p&gt;
+</description>
+    </item>
+    
   </channel>
 </rss>

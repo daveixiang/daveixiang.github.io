@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Compile static docker without docker in docker // 項 思 偉 (Davei) ~ Aal Izz Well!</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta property="og:title" content="Compile static docker without docker in docker" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content="https://daveixiang.github.io/articles/2017_01_16_compile_static_docker_without_docker_in_docker/" />
+
+
+    <link href="" rel="alternate" type="application/rss+xml" title="項 思 偉 (Davei) ~ Aal Izz Well!" />
+    <link rel="shortcut icon" href="https://daveixiang.github.io/favicon.png">
+
+    <link href="https://daveixiang.github.io/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="https://daveixiang.github.io/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://daveixiang.github.io/css/style.css">
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+    <meta name="generator" content="Hugo 0.19" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="https://daveixiang.github.io/">項 思 偉 (Davei) ~ Aal Izz Well!</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="https://daveixiang.github.io/xin">0x00 xin</a>
+                
+                <a class="main-nav-link" href="https://daveixiang.github.io/tags/">0x01 Tags</a>
+                
+                <a class="main-nav-link" href="https://daveixiang.github.io/categories/">0x02 Categories</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">Compile static docker without docker in docker</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="https://daveixiang.github.io/articles/2017_01_16_compile_static_docker_without_docker_in_docker/" class="article-date">
+                <time datetime='2017-01-16T00:00:00.000&#43;00:00' itemprop="datePublished">2017-01-16</time>
+            </a>
+            
+            
+            <div class="post-categories">
+                <div class="article-category">
+                    
+                    
+                    <a class="article-category-link" href="https://daveixiang.github.io//categories/virtualization">virtualization</a>
+                    
+                </div>
+            </div>
+            
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            
+
+<h1 id="install-dependencies">Install dependencies</h1>
+
+<ul>
+<li>Install xfs btrfs packages</li>
+</ul>
+
+<pre><code class="language-bash">emerge --ask sys-fs/btrfs-progs sys-fs/xfsprogs
+</code></pre>
+
+<ul>
+<li>Install device mapper</li>
+</ul>
+
+<pre><code class="language-bash">export LVM2_VERSION=2.02.103 
+mkdir -p /usr/local/src/lvm2 &amp;&amp;
+curl -fsSL &quot;https://mirrors.kernel.org/sourceware/lvm2/LVM2.${LVM2_VERSION}.tgz&quot; | tar -xzC /usr/local/src/lvm2 --strip-components=1
+
+cd /usr/local/src/lvm2 \
+        &amp;&amp; ./configure \
+                --build=&quot;$(gcc -print-multiarch)&quot; \
+                --enable-static_link \
+        &amp;&amp; make device-mapper \
+        &amp;&amp; make install_device-mapper
+</code></pre>
+
+<h1 id="compile-runc-binary">Compile runc binary</h1>
+
+<ul>
+<li>get the runc source code</li>
+</ul>
+
+<pre><code class="language-bash">mkdir -p /go/src/github.com/opencontainers/
+
+cd /go/src/github.com/opencontainers/
+
+git clone https://github.com/opencontainers/runc.git
+</code></pre>
+
+<ul>
+<li>Compile static runc binary</li>
+</ul>
+
+<pre><code class="language-bash">cd runc
+
+git checkout v1.0.0-rc2
+
+make static
+</code></pre>
+
+<ul>
+<li>Install runc</li>
+</ul>
+
+<pre><code class="language-bash">mkdir -p /go/bin
+
+cp runc /go/bin/docker-runc
+</code></pre>
+
+<h1 id="compile-containerd-binary">Compile containerd binary</h1>
+
+<ul>
+<li>get the containerd source code</li>
+</ul>
+
+<pre><code class="language-bash">mkdir -p /go/src/github.com/docker/
+
+cd /go/src/github.com/docker/
+
+git clone https://github.com/docker/containerd.git
+</code></pre>
+
+<ul>
+<li>Compile static containerd binary</li>
+</ul>
+
+<pre><code class="language-bash">cd containerd
+
+git checkout v0.2.5
+
+export GOPATH=/go
+
+make static
+</code></pre>
+
+<ul>
+<li>Install containerd</li>
+</ul>
+
+<pre><code class="language-bash">cp bin/containerd /go/bin/docker-containerd
+
+cp bin/containerd-shim /go/bin/docker-containerd-shim
+
+cp bin/ctr /go/bin/docker-ctr
+</code></pre>
+
+<h1 id="compile-docker-binary">Compile docker binary</h1>
+
+<ul>
+<li>Get the docker source code</li>
+</ul>
+
+<pre><code class="language-bash">cd /go/src/github.com/docker/
+
+git clone https://github.com/docker/docker.git
+</code></pre>
+
+<ul>
+<li>Compile static docker binary</li>
+</ul>
+
+<pre><code class="language-bash">cd docker
+
+git checkout v1.12.6
+
+export GOPATH=/go
+export AUTO_GOPATH=1
+
+hack/make.sh binary
+</code></pre>
+
+<ul>
+<li>Install docker binary</li>
+</ul>
+
+<pre><code class="language-bash">cp bundles/latest/binary-client/docker /go/bin/docker
+
+cp bundles/latest/binary-daemon/dockerd /go/bin/dockerd
+
+cp bundles/latest/binary-daemon/docker-proxy /go/bin/docker-proxy
+</code></pre>
+
+<h1 id="check-the-build-result">Check the build result</h1>
+
+<ul>
+<li>Start docker daemon</li>
+</ul>
+
+<pre><code class="language-bash">dockerd --log-level=error
+</code></pre>
+
+<p>and the output is:</p>
+
+<pre><code class="language-txt">WARN[0000] containerd: low RLIMIT_NOFILE changing to max  current=1024 max=4096
+ERRO[0001] devmapper: Udev sync is not supported. This will lead to data loss and unexpected behavior. Install a dynamic binary to use devicemapper or select a different storage driver. For more information, see https://docs.docker.com/engine/reference/commandline/daemon/#daemon-storage-driver-option
+</code></pre>
+
+<ul>
+<li>Checkout docker info</li>
+</ul>
+
+<pre><code class="language-bash">docker info
+</code></pre>
+
+<p>the client and daemon info:</p>
+
+<pre><code class="language-txt">Containers: 0
+ Running: 0
+ Paused: 0
+ Stopped: 0
+Images: 0
+Server Version: 1.12.6
+Storage Driver: overlay
+ Backing Filesystem: xfs
+Logging Driver: json-file
+Cgroup Driver: cgroupfs
+Plugins:
+ Volume: local
+ Network: host bridge null overlay
+Swarm: inactive
+Runtimes: runc
+Default Runtime: runc
+Security Options: apparmor
+Kernel Version: 4.4.39-gentoo
+Operating System: Gentoo/Linux
+OSType: linux
+Architecture: x86_64
+CPUs: 4
+Total Memory: 7.796 GiB
+Name: meta
+ID: ZZOZ:GWOT:4LCM:5P7V:F2JW:2S3F:LTLM:H5N4:TX5W:DOR3:BVM6:XYZO
+Docker Root Dir: /var/lib/docker
+Debug Mode (client): false
+Debug Mode (server): false
+Registry: https://index.docker.io/v1/
+WARNING: No swap limit support
+Insecure Registries:
+ 127.0.0.0/8
+</code></pre>
+
+<ul>
+<li>pull <em>hello-world</em> image</li>
+</ul>
+
+<pre><code class="language-bash">docker pull hello-world
+</code></pre>
+
+<p>and the output is:</p>
+
+<pre><code class="language-txt">Using default tag: latest
+latest: Pulling from library/hello-world
+c04b14da8d14: Pull complete 
+Digest: sha256:0256e8a36e2070f7bf2d0b0763dbabdd67798512411de4cdcf9431a1feb60fd9
+Status: Downloaded newer image for hello-world:latest
+</code></pre>
+
+<ul>
+<li>run <em>hello-world</em> container</li>
+</ul>
+
+<pre><code class="language-bash">docker run hello-world
+</code></pre>
+
+<p>the output is:</p>
+
+<pre><code class="language-txt">Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the &quot;hello-world&quot; image from the Docker Hub.
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker Hub account:
+ https://hub.docker.com
+
+For more examples and ideas, visit:
+ https://docs.docker.com/engine/userguide/
+</code></pre>
+
+        </div>
+
+        
+        <footer class="article-footer">
+            <ul class="article-tag-list">
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/docker">docker
+                    </a>
+                </li>
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/golang">golang
+                    </a>
+                </li>
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/runc">runc
+                    </a>
+                </li>
+                
+            </ul>
+        </footer>
+        
+    </div>
+    <nav id="article-nav">
+    
+    <a href="https://daveixiang.github.io/articles/2017_01_31_ascii_code_table/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            ASCII Table
+        </div>
+    </a>
+    
+    
+    <a href="https://daveixiang.github.io/articles/2017_01_14_compile_openvswitch_2_6_x_from_source_code/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Compile OpenvSwitch 2.5.x LST from source code&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+</article>
+
+        
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 項 思 偉 (Davei) ~ Aal Izz Well!&nbsp;
+            Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos">Minos</a>
+        </div>
+    </div>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+</div>
+</body>
+</html>

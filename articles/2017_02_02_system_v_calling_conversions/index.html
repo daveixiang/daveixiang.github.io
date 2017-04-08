@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>System V Calling Conversions // 項 思 偉 (Davei) ~ Aal Izz Well!</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta property="og:title" content="System V Calling Conversions" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content="https://daveixiang.github.io/articles/2017_02_02_system_v_calling_conversions/" />
+
+
+    <link href="" rel="alternate" type="application/rss+xml" title="項 思 偉 (Davei) ~ Aal Izz Well!" />
+    <link rel="shortcut icon" href="https://daveixiang.github.io/favicon.png">
+
+    <link href="https://daveixiang.github.io/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="https://daveixiang.github.io/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://daveixiang.github.io/css/style.css">
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+    <meta name="generator" content="Hugo 0.19" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="https://daveixiang.github.io/">項 思 偉 (Davei) ~ Aal Izz Well!</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="https://daveixiang.github.io/xin">0x00 xin</a>
+                
+                <a class="main-nav-link" href="https://daveixiang.github.io/tags/">0x01 Tags</a>
+                
+                <a class="main-nav-link" href="https://daveixiang.github.io/categories/">0x02 Categories</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">System V Calling Conversions</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="https://daveixiang.github.io/articles/2017_02_02_system_v_calling_conversions/" class="article-date">
+                <time datetime='2017-02-02T00:00:00.000&#43;00:00' itemprop="datePublished">2017-02-02</time>
+            </a>
+            
+            
+            <div class="post-categories">
+                <div class="article-category">
+                    
+                    
+                    <a class="article-category-link" href="https://daveixiang.github.io//categories/clan">clan</a>
+                    
+                </div>
+            </div>
+            
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            
+
+<h1 id="system-v-i386">System V i386</h1>
+
+<ul>
+<li>Parameters</li>
+</ul>
+
+<p>Parameters are passed on the stack, with the first argument at the
+lowest address on the stack at the time of the call (pushed last, so
+it&rsquo;s just above the return address on entry to the function). The
+caller is responsible for popping parameters back off the stack after
+the call.</p>
+
+<ul>
+<li>Return Value</li>
+</ul>
+
+<p>For scalar return types, the return value is placed in EAX, or EDX:EAX
+for 64bit integers. Floating-point types are returned in st0
+(x87). Returning larger types like structures is done by reference,
+with a pointer passed as an implicit first parameter. (This pointer is
+returned in EAX, so the caller doesn&rsquo;t have to remember what it
+passed).</p>
+
+<ul>
+<li>Saved and Clobbered Registers</li>
+</ul>
+
+<p>EBX, EDI, ESI, EBP, and ESP (and FP / SSE rounding mode settings) must
+be preserved by the callee, such that the caller can rely on those
+registers not having been changed by a call.</p>
+
+<p>All other registers (EAX, ECX, EDX, FLAGS (other than DF), x87 and
+vector registers) may be freely modified by the callee; if a caller
+wishes to preserve a value before and after the function call, it must
+save the value elsewhere (such as in one of the saved registers or on
+the stack).</p>
+
+<h1 id="system-v-x86-64">System V x86-64</h1>
+
+<ul>
+<li>Parameters</li>
+</ul>
+
+<p>The first eight scalar parameters are passed in (in order) RDI, RSI,
+RDX, RCX, R8, R9, R10, R11. Parameters past the first eight are placed
+on the stack, with earlier parameters closer to the top of the
+stack. The caller is responsible for popping these values off the
+stack after the call if no longer needed.</p>
+
+<ul>
+<li>Return Value</li>
+</ul>
+
+<p>For scalar return types, the return value is placed in RAX. Returning
+larger types like structures is done by conceptually changing the
+signature of the function to add a parameter at the beginning of the
+parameter list that is a pointer to a location in which to place the
+return value.</p>
+
+<ul>
+<li>Saved and Clobbered Registers</li>
+</ul>
+
+<p>RBP, RBX, and R12–R15 are preserved by the callee. All other registers
+may be modified by the callee, and the caller must preserve a
+register’s value itself (e.g. on the stack) if it wishes to use that
+value later.</p>
+
+        </div>
+
+        
+        <footer class="article-footer">
+            <ul class="article-tag-list">
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/clan">clan
+                    </a>
+                </li>
+                
+            </ul>
+        </footer>
+        
+    </div>
+    <nav id="article-nav">
+    
+    <a href="https://daveixiang.github.io/articles/2017_02_08_KVM_OOM_case/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            内存不够导致KVM OOM
+        </div>
+    </a>
+    
+    
+    <a href="https://daveixiang.github.io/articles/2017_02_02_what_is_a_system_call_linux/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">What is a system call (Linux)&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+</article>
+
+        
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 項 思 偉 (Davei) ~ Aal Izz Well!&nbsp;
+            Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos">Minos</a>
+        </div>
+    </div>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+</div>
+</body>
+</html>

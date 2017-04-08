@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Asm on 項 思 偉 (Davei) ~ Aal Izz Well!</title>
+    <link>https://daveixiang.github.io/tags/asm/index.xml</link>
+    <description>Recent content in Asm on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <atom:link href="https://daveixiang.github.io/tags/asm/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>GCC inline assembly hello world example</title>
+      <link>https://daveixiang.github.io/articles/2017_02_17_gcc_inline_assembly_hello_world_example/</link>
+      <pubDate>Fri, 17 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_02_17_gcc_inline_assembly_hello_world_example/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;x86 example&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+
+int main(int argc, char *argv[])
+{
+        char *str = &amp;quot;Hello World\n&amp;quot;;
+        long len = strlen(str);
+        int ret = 0;
+/*
+ * ssize_t write(int fd, const void *buf, size_t count);
+ *
+ */
+        __asm__(&amp;quot;movl $1, %%eax\n\t&amp;quot;    // write syscall
+                &amp;quot;movl $1, %%ebx\n\t&amp;quot;    // fd   
+                &amp;quot;movl %1, %%ecx\n\t&amp;quot;    // buf
+                &amp;quot;movl %2, %%edx\n\t&amp;quot;    // count
+                &amp;quot;syscall\n\t&amp;quot;
+                &amp;quot;movl %%eax, %0&amp;quot;        // return result to ret
+                : &amp;quot;+m&amp;quot;(ret)
+                : &amp;quot;g&amp;quot;(str), &amp;quot;g&amp;quot;(len));
+        printf(&amp;quot;ret %d\n&amp;quot;, ret);
+
+        return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;x86-64 example&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+
+int main(int argc, char *argv[])
+{
+        char *str = &amp;quot;Hello World\n&amp;quot;;
+        long len = strlen(str);
+        int ret = 0;
+/*
+ * ssize_t write(int fd, const void *buf, size_t count);
+ *
+ */
+        __asm__(&amp;quot;movq $1, %%rax\n\t&amp;quot;    // write syscall
+                &amp;quot;movq $1, %%rdi\n\t&amp;quot;    // fd   
+                &amp;quot;movq %1, %%rsi\n\t&amp;quot;    // buf
+                &amp;quot;movl %2, %%edx\n\t&amp;quot;    // count
+                &amp;quot;syscall\n\t&amp;quot;
+                &amp;quot;movq %%rax, %0&amp;quot;        // return result to ret
+                : &amp;quot;+m&amp;quot;(ret)
+                : &amp;quot;g&amp;quot;(str), &amp;quot;g&amp;quot;(len));
+        printf(&amp;quot;ret %d\n&amp;quot;, ret);
+
+        return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>What is a system call (Linux)</title>
+      <link>https://daveixiang.github.io/articles/2017_02_02_what_is_a_system_call_linux/</link>
+      <pubDate>Thu, 02 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_02_02_what_is_a_system_call_linux/</guid>
+      <description>
+
+&lt;p&gt;An application program makes a system call to get the operating
+system to perform a service for it, like reading from a file.&lt;/p&gt;
+
+&lt;h1 id=&#34;system-calls-in-32-bit-linux&#34;&gt;System Calls in 32-bit Linux&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;To make a system call in &lt;strong&gt;32-bit&lt;/strong&gt; Linux, place the system call number
+in eax, then its arguments, in order, in &lt;strong&gt;ebx&lt;/strong&gt;, &lt;strong&gt;ecx&lt;/strong&gt;, &lt;strong&gt;edx&lt;/strong&gt;,
+&lt;strong&gt;esi&lt;/strong&gt;, &lt;strong&gt;edi&lt;/strong&gt;, and &lt;strong&gt;ebp&lt;/strong&gt;, then invoke &lt;strong&gt;int 0x80&lt;/strong&gt;.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Some system calls return information, usually in &lt;strong&gt;eax&lt;/strong&gt;.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;All registers are saved across the system call.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-asm&#34;&gt;.section .data
+mesg:
+    .asciz &amp;quot;Hello World\n&amp;quot;
+mesg_len = . - mesg
+
+.section .text
+.global _start
+_start:                         # ELF entry point
+    mov $4, %eax                # sys_write
+    mov $1, %ebx                # STDOUT
+    mov $mesg, %ecx             # buffer address
+    mov $mesg_len, %edx         # buffer length
+    int $0x80
+
+    mov $1, %eax                # sys_exit
+    mov $0, %ebx                # error code
+    int $0x80
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;system-calls-in-64-bit-linux&#34;&gt;System Calls in 64-bit Linux&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;To make a system call in &lt;strong&gt;64-bit&lt;/strong&gt; Linux, place the system call
+number in &lt;strong&gt;rax&lt;/strong&gt;, then its arguments, in order, in &lt;strong&gt;rdi&lt;/strong&gt;,
+&lt;strong&gt;rsi&lt;/strong&gt;, &lt;strong&gt;rdx&lt;/strong&gt;, &lt;strong&gt;r10&lt;/strong&gt;, &lt;strong&gt;r8&lt;/strong&gt;, and &lt;strong&gt;r9&lt;/strong&gt;, then invoke syscall.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Some system calls return information, usually in &lt;strong&gt;rax&lt;/strong&gt;.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The system call destroys &lt;strong&gt;rcx&lt;/strong&gt; and &lt;strong&gt;r11&lt;/strong&gt; but others registers
+are saved across the system call.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;code 01&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-assembly&#34;&gt;.section .data
+mesg:
+    .asciz &amp;quot;Hello World\n&amp;quot;
+mesg_len = . - mesg
+
+.section .text
+.global _start
+_start:                         # ELF entry point
+    mov $1, %rax                # sys_write
+    mov $1, %rdi                # STDOUT
+    mov $mesg, %rsi             # buffer address
+    mov $mesg_len, %rdx         # buffer length
+    syscall
+    mov %rax, %rbx
+
+    mov $60, %rax               # sys_exit
+    mov %rbx, %rdi              # 0
+    syscall
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;code 02&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-asm&#34;&gt;.data
+_hello:
+  .asciz &amp;quot;hello world\n&amp;quot;
+
+.text
+.globl _main
+_main:
+  subq $8, %rsp
+
+  movb $0, %al
+  leaq _hello(%rip), %rdi
+  call _printf
+
+  movq $0, %rdi
+  call _exit
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

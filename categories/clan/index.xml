@@ -373,6 +373,460 @@ wrap_cmd &amp;quot;15.gcc-final-02_build&amp;quot; \
     </item>
     
     <item>
+      <title>GCC inline assembly hello world example</title>
+      <link>https://daveixiang.github.io/articles/2017_02_17_gcc_inline_assembly_hello_world_example/</link>
+      <pubDate>Fri, 17 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_02_17_gcc_inline_assembly_hello_world_example/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;x86 example&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+
+int main(int argc, char *argv[])
+{
+        char *str = &amp;quot;Hello World\n&amp;quot;;
+        long len = strlen(str);
+        int ret = 0;
+/*
+ * ssize_t write(int fd, const void *buf, size_t count);
+ *
+ */
+        __asm__(&amp;quot;movl $1, %%eax\n\t&amp;quot;    // write syscall
+                &amp;quot;movl $1, %%ebx\n\t&amp;quot;    // fd   
+                &amp;quot;movl %1, %%ecx\n\t&amp;quot;    // buf
+                &amp;quot;movl %2, %%edx\n\t&amp;quot;    // count
+                &amp;quot;syscall\n\t&amp;quot;
+                &amp;quot;movl %%eax, %0&amp;quot;        // return result to ret
+                : &amp;quot;+m&amp;quot;(ret)
+                : &amp;quot;g&amp;quot;(str), &amp;quot;g&amp;quot;(len));
+        printf(&amp;quot;ret %d\n&amp;quot;, ret);
+
+        return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;x86-64 example&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+
+int main(int argc, char *argv[])
+{
+        char *str = &amp;quot;Hello World\n&amp;quot;;
+        long len = strlen(str);
+        int ret = 0;
+/*
+ * ssize_t write(int fd, const void *buf, size_t count);
+ *
+ */
+        __asm__(&amp;quot;movq $1, %%rax\n\t&amp;quot;    // write syscall
+                &amp;quot;movq $1, %%rdi\n\t&amp;quot;    // fd   
+                &amp;quot;movq %1, %%rsi\n\t&amp;quot;    // buf
+                &amp;quot;movl %2, %%edx\n\t&amp;quot;    // count
+                &amp;quot;syscall\n\t&amp;quot;
+                &amp;quot;movq %%rax, %0&amp;quot;        // return result to ret
+                : &amp;quot;+m&amp;quot;(ret)
+                : &amp;quot;g&amp;quot;(str), &amp;quot;g&amp;quot;(len));
+        printf(&amp;quot;ret %d\n&amp;quot;, ret);
+
+        return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>System V Calling Conversions</title>
+      <link>https://daveixiang.github.io/articles/2017_02_02_system_v_calling_conversions/</link>
+      <pubDate>Thu, 02 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_02_02_system_v_calling_conversions/</guid>
+      <description>
+
+&lt;h1 id=&#34;system-v-i386&#34;&gt;System V i386&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Parameters&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Parameters are passed on the stack, with the first argument at the
+lowest address on the stack at the time of the call (pushed last, so
+it&amp;rsquo;s just above the return address on entry to the function). The
+caller is responsible for popping parameters back off the stack after
+the call.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Return Value&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For scalar return types, the return value is placed in EAX, or EDX:EAX
+for 64bit integers. Floating-point types are returned in st0
+(x87). Returning larger types like structures is done by reference,
+with a pointer passed as an implicit first parameter. (This pointer is
+returned in EAX, so the caller doesn&amp;rsquo;t have to remember what it
+passed).&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Saved and Clobbered Registers&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;EBX, EDI, ESI, EBP, and ESP (and FP / SSE rounding mode settings) must
+be preserved by the callee, such that the caller can rely on those
+registers not having been changed by a call.&lt;/p&gt;
+
+&lt;p&gt;All other registers (EAX, ECX, EDX, FLAGS (other than DF), x87 and
+vector registers) may be freely modified by the callee; if a caller
+wishes to preserve a value before and after the function call, it must
+save the value elsewhere (such as in one of the saved registers or on
+the stack).&lt;/p&gt;
+
+&lt;h1 id=&#34;system-v-x86-64&#34;&gt;System V x86-64&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Parameters&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The first eight scalar parameters are passed in (in order) RDI, RSI,
+RDX, RCX, R8, R9, R10, R11. Parameters past the first eight are placed
+on the stack, with earlier parameters closer to the top of the
+stack. The caller is responsible for popping these values off the
+stack after the call if no longer needed.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Return Value&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For scalar return types, the return value is placed in RAX. Returning
+larger types like structures is done by conceptually changing the
+signature of the function to add a parameter at the beginning of the
+parameter list that is a pointer to a location in which to place the
+return value.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Saved and Clobbered Registers&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;RBP, RBX, and R12–R15 are preserved by the callee. All other registers
+may be modified by the callee, and the caller must preserve a
+register’s value itself (e.g. on the stack) if it wishes to use that
+value later.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>caller vs callee</title>
+      <link>https://daveixiang.github.io/articles/2017_02_02_caller_vs_callee/</link>
+      <pubDate>Thu, 02 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_02_02_caller_vs_callee/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;caller vs callee&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;If routine A calls routine B then routine A is the caller and
+routine B is the callee. i.e. the caller is the routine which is
+calling the callee.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;argument vs parameter&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;When a routine calls another routine, it may pass something to the
+other routine. From the perspective of the caller the thing which is
+passed is an argument. From the perspective of the routine that
+receives the call, i.e. the callee, the thing which is passed is a
+parameter.
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>ASCII Table</title>
+      <link>https://daveixiang.github.io/articles/2017_01_31_ascii_code_table/</link>
+      <pubDate>Tue, 31 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_01_31_ascii_code_table/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;ASCII control characters&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;      Oct   Dec   Hex    Control-key    Control Action
+NUL     0     0     0    ^@    Null character
+SOH     1     1     1    ^A    Start of heading, = console interrupt
+STX     2     2     2    ^B    Start of text, maintenance mode on HP console
+ETX     3     3     3    ^C    End of text
+EOT     4     4     4    ^D    End of transmission, not the same as ETB
+ENQ     5     5     5    ^E    Enquiry, goes with ACK; old HP flow control
+ACK     6     6     6    ^F    Acknowledge, clears ENQ logon hang
+BEL     7     7     7    ^G    Bell, rings the bell
+ BS    10     8     8    ^H    Backspace, works on HP terminals/computers
+ HT    11     9     9    ^I    Horizontal tab, move to next tab stop
+ LF    12    10     a    ^J    Line Feed
+ VT    13    11     b    ^K    Vertical tab
+ FF    14    12     c    ^L    Form Feed, page eject
+ CR    15    13     d    ^M    Carriage Return
+ SO    16    14     e    ^N    Shift Out, alternate character set
+ SI    17    15     f    ^O    Shift In, resume default character set
+DLE    20    16    10    ^P    Data link escape
+DC1    21    17    11    ^Q    XON, with XOFF to pause listings; &amp;amp;quot;okay to send&amp;amp;quot;
+DC2    22    18    12    ^R    Device control 2, block-mode flow control
+DC3    23    19    13    ^S    XOFF, with XON is TERM=18 flow control
+DC4    24    20    14    ^T    Device control 4
+NAK    25    21    15    ^U    Negative acknowledge
+SYN    26    22    16    ^V    Synchronous idle
+ETB    27    23    17    ^W    End transmission block, not the same as EOT
+CAN    30    24    18    ^X    Cancel line, MPE echoes !!!
+ EM    31    25    19    ^Y    End of medium, Control-Y interrupt
+SUB    32    26    1a    ^Z    Substitute
+ESC    33    27    1b    ^[    Escape, next character is not echoed
+ FS    34    28    1c    ^\    File separator
+ GS    35    29    1d    ^]    Group separator
+ RS    36    30    1e    ^^    Record separator, block-mode terminator
+ US    37    31    1f    ^_    Unit separator
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;ASCII printable characters&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;Char  Oct   Dec   Hex    Description
+SP     40    32    20    Space
+!      41    33    21    Exclamation mark
+&amp;quot;      42    34    22    Quotation mark (&amp;amp;amp;quot; in HTML)
+#      43    35    23    Cross hatch (number sign)
+$      44    36    24    Dollar sign
+%      45    37    25    Percent sign
+&amp;amp;      46    38    26    Ampersand
+&#39;      47    39    27    Closing single quote (apostrophe)
+(      50    40    28    Opening parentheses
+)      51    41    29    Closing parentheses
+*      52    42    2a    Asterisk (star, multiply)
++      53    43    2b    Plus
+,      54    44    2c    Comma
+-      55    45    2d    Hypen, dash, minus
+.      56    46    2e    Period
+/      57    47    2f    Slant (forward slash, divide)
+0      60    48    30    Zero        
+1      61    49    31    One
+2      62    50    32    Two
+3      63    51    33    Three
+4      64    52    34    Four
+5      65    53    35    Five
+6      66    54    36    Six
+7      67    55    37    Seven
+8      70    56    38    Eight
+9      71    57    39    Nine
+:      72    58    3a    Colon
+;      73    59    3b    Semicolon
+&amp;lt;      74    60    3c    Less than sign (&amp;amp;amp;lt; in HTML)
+=      75    61    3d    Equals sign
+&amp;gt;      76    62    3e    Greater than sign (&amp;amp;amp;gt; in HTML)
+?      77    63    3f    Question mark
+@     100    64    40    At-sign
+A     101    65    41    Uppercase A
+B     102    66    42    Uppercase B
+C     103    67    43    Uppercase C
+D     104    68    44    Uppercase D
+E     105    69    45    Uppercase E
+F     106    70    46    Uppercase F
+G     107    71    47    Uppercase G
+H     110    72    48    Uppercase H
+I     111    73    49    Uppercase I
+J     112    74    4a    Uppercase J
+K     113    75    4b    Uppercase K
+L     114    76    4c    Uppercase L
+M     115    77    4d    Uppercase M
+N     116    78    4e    Uppercase N
+O     117    79    4f    Uppercase O
+P     120    80    50    Uppercase P
+Q     121    81    51    Uppercase Q
+R     122    82    52    Uppercase R
+S     123    83    53    Uppercase S
+T     124    84    54    Uppercase T
+U     125    85    55    Uppercase U
+V     126    86    56    Uppercase V
+W     127    87    57    Uppercase W
+X     130    88    58    Uppercase X
+Y     131    89    59    Uppercase Y
+Z     132    90    5a    Uppercase Z
+[     133    91    5b    Opening square bracket
+\     134    92    5c    Reverse slant (Backslash)
+]     135    93    5d    Closing square bracket
+^     136    94    5e    Caret (Circumflex)
+_     137    95    5f    Underscore
+`     140    96    60    Opening single quote
+a     141    97    61    Lowercase a
+b     142    98    62    Lowercase b
+c     143    99    63    Lowercase c
+d     144   100    64    Lowercase d
+e     145   101    65    Lowercase e
+f     146   102    66    Lowercase f
+g     147   103    67    Lowercase g
+h     150   104    68    Lowercase h
+i     151   105    69    Lowercase i
+j     152   106    6a    Lowercase j
+k     153   107    6b    Lowercase k
+l     154   108    6c    Lowercase l
+m     155   109    6d    Lowercase m
+n     156   110    6e    Lowercase n
+o     157   111    6f    Lowercase o
+p     160   112    70    Lowercase p
+q     161   113    71    Lowercase q
+r     162   114    72    Lowercase r
+s     163   115    73    Lowercase s
+t     164   116    74    Lowercase t
+u     165   117    75    Lowercase u
+v     166   118    76    Lowercase v
+w     167   119    77    Lowercase w
+x     170   120    78    Lowercase x
+y     171   121    79    Lowercase y
+z     172   122    7a    Lowercase z
+{     173   123    7b    Opening curly brace
+|     174   124    7c    Vertical line
+}     175   125    7d    Closing curly brace
+~     176   126    7e    Tilde (approximate)
+DEL   177   127    7f    Delete (rubout), cross-hatch box
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>C &amp; C&#43;&#43; link order</title>
+      <link>https://daveixiang.github.io/articles/2016_09_07_c_cpp_link_order/</link>
+      <pubDate>Wed, 07 Sep 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2016_09_07_c_cpp_link_order/</guid>
+      <description>&lt;p&gt;If any [static] library A depends on symbols defined in library B,
+then library A should appear first in the list supplied to the
+linker.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;+- prog.o -----+   +- libA.a -----+   +- libB.a -----+   
+|   U funcA  --|---|-&amp;gt; T funcA    |   |              |    U : undefined/used
+|              |   |   U funcB  --|---|-&amp;gt; T funcB    |    T : defined
+|   T main     |   |              |   |              |   
++--------------+   +--------------+   +--------------+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;gcc prog.o libA.a libB.a -o prog.x
+       \___^  \___^
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Symbol versions and dependencies</title>
+      <link>https://daveixiang.github.io/articles/2016_05_03_symbol_versions_and_dependencies/</link>
+      <pubDate>Tue, 03 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2016_05_03_symbol_versions_and_dependencies/</guid>
+      <description>&lt;p&gt;The documentation on ld&amp;rsquo;s symbol versioning syntax is a little bit
+vague on &amp;ldquo;dependencies&amp;rdquo;, which it talks about but doesn&amp;rsquo;t give many
+details on.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s construct a small example.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;foo.c&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+
+#ifndef VERSION_2
+void foo(int f) {
+     printf(&amp;quot;version 1 called\n&amp;quot;);
+}
+
+#else
+void foo_v1(int f) {
+     printf(&amp;quot;version 1 called\n&amp;quot;);
+}
+__asm__(&amp;quot;.symver foo_v1,foo@VERSION_1&amp;quot;);
+
+void foo_v2(int f) {
+     printf(&amp;quot;version 2 called\n&amp;quot;);
+}
+/* i.e. foo_v2 is really foo@VERSION_2
+ * @@ means this is the default version
+ */
+__asm__(&amp;quot;.symver foo_v2,foo@@VERSION_2&amp;quot;);
+
+#endif
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;1.ver&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;VERSION_1 {
+      global:
+      foo;
+      local:
+      *;
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;2.ver&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;VERSION_1 {
+      local:
+      *;
+};
+
+VERSION_2 {
+      foo;
+} VERSION_1;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;main.c&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+
+void foo(int);
+
+int main(void) {
+    foo(100);
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Makefile&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-makefile&#34;&gt;all: v1 v2
+
+libfoo.so.1 : foo.c
+	gcc -shared -fPIC -o libfoo.so.1 -Wl,--soname=&#39;libfoo.so.1&#39; -Wl,--version-script=1.ver foo.c
+
+libfoo.so.2 : foo.c
+	gcc -shared -fPIC -DVERSION_2 -o libfoo.so.2 -Wl,--soname=&#39;libfoo.so.2&#39; -Wl,--version-script=2.ver foo.c
+
+v1: main.c libfoo.so.1
+    ln -sf libfoo.so.1 libfoo.so
+    gcc -Wall -o v1 -lfoo -L. -Wl,-rpath=. main.c
+
+v2: main.c libfoo.so.2
+    ln -sf libfoo.so.2 libfoo.so
+    gcc -Wall -o v2 -lfoo -L. -Wl,-rpath=. main.c
+
+.PHONY: clean
+clean:
+    rm -f libfoo* v1 v2
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
       <title>C declaration Right-Left rule</title>
       <link>https://daveixiang.github.io/articles/2016_04_27_c_declaration_right_left_rule/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>

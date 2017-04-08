@@ -196,6 +196,251 @@ mkdir -p $GOPATH/var/lib/influxdb
     </item>
     
     <item>
+      <title>Compile static docker without docker in docker</title>
+      <link>https://daveixiang.github.io/articles/2017_01_16_compile_static_docker_without_docker_in_docker/</link>
+      <pubDate>Mon, 16 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_01_16_compile_static_docker_without_docker_in_docker/</guid>
+      <description>
+
+&lt;h1 id=&#34;install-dependencies&#34;&gt;Install dependencies&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Install xfs btrfs packages&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;emerge --ask sys-fs/btrfs-progs sys-fs/xfsprogs
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Install device mapper&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export LVM2_VERSION=2.02.103 
+mkdir -p /usr/local/src/lvm2 &amp;amp;&amp;amp;
+curl -fsSL &amp;quot;https://mirrors.kernel.org/sourceware/lvm2/LVM2.${LVM2_VERSION}.tgz&amp;quot; | tar -xzC /usr/local/src/lvm2 --strip-components=1
+
+cd /usr/local/src/lvm2 \
+        &amp;amp;&amp;amp; ./configure \
+                --build=&amp;quot;$(gcc -print-multiarch)&amp;quot; \
+                --enable-static_link \
+        &amp;amp;&amp;amp; make device-mapper \
+        &amp;amp;&amp;amp; make install_device-mapper
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;compile-runc-binary&#34;&gt;Compile runc binary&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;get the runc source code&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir -p /go/src/github.com/opencontainers/
+
+cd /go/src/github.com/opencontainers/
+
+git clone https://github.com/opencontainers/runc.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Compile static runc binary&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd runc
+
+git checkout v1.0.0-rc2
+
+make static
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Install runc&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir -p /go/bin
+
+cp runc /go/bin/docker-runc
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;compile-containerd-binary&#34;&gt;Compile containerd binary&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;get the containerd source code&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir -p /go/src/github.com/docker/
+
+cd /go/src/github.com/docker/
+
+git clone https://github.com/docker/containerd.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Compile static containerd binary&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd containerd
+
+git checkout v0.2.5
+
+export GOPATH=/go
+
+make static
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Install containerd&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cp bin/containerd /go/bin/docker-containerd
+
+cp bin/containerd-shim /go/bin/docker-containerd-shim
+
+cp bin/ctr /go/bin/docker-ctr
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;compile-docker-binary&#34;&gt;Compile docker binary&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Get the docker source code&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd /go/src/github.com/docker/
+
+git clone https://github.com/docker/docker.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Compile static docker binary&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd docker
+
+git checkout v1.12.6
+
+export GOPATH=/go
+export AUTO_GOPATH=1
+
+hack/make.sh binary
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Install docker binary&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cp bundles/latest/binary-client/docker /go/bin/docker
+
+cp bundles/latest/binary-daemon/dockerd /go/bin/dockerd
+
+cp bundles/latest/binary-daemon/docker-proxy /go/bin/docker-proxy
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;check-the-build-result&#34;&gt;Check the build result&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Start docker daemon&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;dockerd --log-level=error
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and the output is:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;WARN[0000] containerd: low RLIMIT_NOFILE changing to max  current=1024 max=4096
+ERRO[0001] devmapper: Udev sync is not supported. This will lead to data loss and unexpected behavior. Install a dynamic binary to use devicemapper or select a different storage driver. For more information, see https://docs.docker.com/engine/reference/commandline/daemon/#daemon-storage-driver-option
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Checkout docker info&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;docker info
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;the client and daemon info:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;Containers: 0
+ Running: 0
+ Paused: 0
+ Stopped: 0
+Images: 0
+Server Version: 1.12.6
+Storage Driver: overlay
+ Backing Filesystem: xfs
+Logging Driver: json-file
+Cgroup Driver: cgroupfs
+Plugins:
+ Volume: local
+ Network: host bridge null overlay
+Swarm: inactive
+Runtimes: runc
+Default Runtime: runc
+Security Options: apparmor
+Kernel Version: 4.4.39-gentoo
+Operating System: Gentoo/Linux
+OSType: linux
+Architecture: x86_64
+CPUs: 4
+Total Memory: 7.796 GiB
+Name: meta
+ID: ZZOZ:GWOT:4LCM:5P7V:F2JW:2S3F:LTLM:H5N4:TX5W:DOR3:BVM6:XYZO
+Docker Root Dir: /var/lib/docker
+Debug Mode (client): false
+Debug Mode (server): false
+Registry: https://index.docker.io/v1/
+WARNING: No swap limit support
+Insecure Registries:
+ 127.0.0.0/8
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;pull &lt;em&gt;hello-world&lt;/em&gt; image&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;docker pull hello-world
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and the output is:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;Using default tag: latest
+latest: Pulling from library/hello-world
+c04b14da8d14: Pull complete 
+Digest: sha256:0256e8a36e2070f7bf2d0b0763dbabdd67798512411de4cdcf9431a1feb60fd9
+Status: Downloaded newer image for hello-world:latest
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;run &lt;em&gt;hello-world&lt;/em&gt; container&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;docker run hello-world
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;the output is:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the &amp;quot;hello-world&amp;quot; image from the Docker Hub.
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker Hub account:
+ https://hub.docker.com
+
+For more examples and ideas, visit:
+ https://docs.docker.com/engine/userguide/
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Compile Golang from source code</title>
       <link>https://daveixiang.github.io/articles/2017_01_22_compile_golang_from_source_code/</link>
       <pubDate>Thu, 12 Jan 2017 00:00:00 +0000</pubDate>

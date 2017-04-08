@@ -257,6 +257,95 @@ virsh net-autostart $BRNAME
     </item>
     
     <item>
+      <title>Using OpenvSwitch to build minimal linux networking hack environment</title>
+      <link>https://daveixiang.github.io/articles/2017_02_25_using_openvswitch_to_build_minimal_linux_networking_hack_env/</link>
+      <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_02_25_using_openvswitch_to_build_minimal_linux_networking_hack_env/</guid>
+      <description>
+
+&lt;h2 id=&#34;prepare-two-minimal-vms&#34;&gt;Prepare two minimal vms&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir -p vm01 vm02
+
+cp -a  Image initramfs  vm01
+
+cp -a  Image initramfs  vm02
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;create-openvswitch-bridge-and-two-tap-devices-for-vm&#34;&gt;Create Openvswitch bridge and two tap devices for vm&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ip tuntap add name tap1 mode tap
+ip tuntap add name tap2 mode tap
+
+ip link set tap1 up
+ip link set tap2 up
+
+ovs-vsctl add-br br0
+
+ovs-vsctl add-port br0 tap1
+
+ovs-vsctl add-port br0 tap2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;start-the-two-vms-and-config-network&#34;&gt;Start the two vms and config network&lt;/h2&gt;
+
+&lt;h3 id=&#34;configure-vm01&#34;&gt;configure vm01&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;start vm01&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd vm01
+
+qemu-system-x86_64  -nographic \
+-kernel ./bzImage -initrd ./initramfs \
+-append  &amp;quot;console=ttyS0 quiet&amp;quot; \
+-netdev tap,id=net1,ifname=tap1,script=no,downscript=no  \
+-device e1000,netdev=net1,mac=&#39;9e:11:24:5c:35:89&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;configure vm01 network&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ip link set eth0 up
+ip addr add 192.168.0.1/24 dev eth0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;configure-vm02&#34;&gt;configure vm02&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;start vm02&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd vm02
+
+qemu-system-x86_64  -nographic \
+-kernel ./bzImage -initrd ./initramfs \
+-append  &amp;quot;console=ttyS0 quiet&amp;quot; \
+-netdev tap,id=net2,ifname=tap2,script=no,downscript=no  \
+-device e1000,netdev=net2,mac=&#39;66:5f:30:f4:24:be&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;configure vm02 network&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ip link set eth0 up
+ip addr add 192.168.0.2/24 dev eth0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;test-the-vms-network-connection&#34;&gt;Test the vms network connection&lt;/h2&gt;
+
+&lt;p&gt;vm01 ping vm02&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ping 192.168.0.2
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Compile OpenvSwitch 2.5.x LST from source code</title>
       <link>https://daveixiang.github.io/articles/2017_01_14_compile_openvswitch_2_6_x_from_source_code/</link>
       <pubDate>Sat, 14 Jan 2017 00:00:00 +0000</pubDate>
@@ -322,6 +411,44 @@ modprobe libcrc32c
 &lt;h2 id=&#34;start-ovs-switchd&#34;&gt;Start ovs-switchd&lt;/h2&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/src/ovs/sbin/ovs-vswitchd --pidfile --detach --log-file
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Configure KVM using OpenvSwitch</title>
+      <link>https://daveixiang.github.io/articles/2016_07_08_configure_kvm_using_openvswitch/</link>
+      <pubDate>Fri, 08 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2016_07_08_configure_kvm_using_openvswitch/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;Add bridge ovsbr to Open vSwitch&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ovs-vsctl add-br ovsbr
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Create &lt;em&gt;ovsbr.xml&lt;/em&gt; for libvirtd&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;network&amp;gt;
+  &amp;lt;name&amp;gt;ovsbr&amp;lt;/name&amp;gt;
+  &amp;lt;forward mode=&#39;bridge&#39;/&amp;gt;
+  &amp;lt;bridge name=&#39;ovsbr&#39;/&amp;gt;
+  &amp;lt;virtualport type=&#39;openvswitch&#39;/&amp;gt;
+&amp;lt;/network&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Configure KVM using OVS&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;virsh net-define ovsbr.xml
+
+virsh net-start ovsbr
+
+virsh net-autostart ovsbr
 &lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>

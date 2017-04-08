@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Compile static nginx // 項 思 偉 (Davei) ~ Aal Izz Well!</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta property="og:title" content="Compile static nginx" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content="https://daveixiang.github.io/articles/2017_01_12_compile_static_nginx/" />
+
+
+    <link href="" rel="alternate" type="application/rss+xml" title="項 思 偉 (Davei) ~ Aal Izz Well!" />
+    <link rel="shortcut icon" href="https://daveixiang.github.io/favicon.png">
+
+    <link href="https://daveixiang.github.io/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="https://daveixiang.github.io/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://daveixiang.github.io/css/style.css">
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+    <meta name="generator" content="Hugo 0.19" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="https://daveixiang.github.io/">項 思 偉 (Davei) ~ Aal Izz Well!</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="https://daveixiang.github.io/xin">0x00 xin</a>
+                
+                <a class="main-nav-link" href="https://daveixiang.github.io/tags/">0x01 Tags</a>
+                
+                <a class="main-nav-link" href="https://daveixiang.github.io/categories/">0x02 Categories</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">Compile static nginx</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="https://daveixiang.github.io/articles/2017_01_12_compile_static_nginx/" class="article-date">
+                <time datetime='2017-01-12T00:00:00.000&#43;00:00' itemprop="datePublished">2017-01-12</time>
+            </a>
+            
+            
+            <div class="post-categories">
+                <div class="article-category">
+                    
+                    
+                    <a class="article-category-link" href="https://daveixiang.github.io//categories/nginx">nginx</a>
+                    
+                </div>
+            </div>
+            
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            
+
+<h1 id="get-nginx-source-code-from-officall-website">Get nginx source code from officall website</h1>
+
+<pre><code class="language-bash">wget http://nginx.org/download/nginx-1.10.2.tar.gz
+</code></pre>
+
+<h1 id="untar-it-to-specific-directory">Untar it to specific directory</h1>
+
+<pre><code class="language-bash">tar zxf nginx-1.10.2.tar.gz -C /src
+</code></pre>
+
+<h1 id="go-to-the-src-and-execute-configure">Go to the <em>/src</em>, and execute <em>./configure</em></h1>
+
+<pre><code class="language-bash">cd /src/nginx-1.10.2
+
+./configure --prefix=/src/nginx/ \
+--with-cc-opt=&quot;-static -static-libgcc&quot; \
+--with-ld-opt=&quot;-static&quot;
+</code></pre>
+
+<h1 id="build-it-with-make-nproc">Build it with <em>make -$(nproc)</em></h1>
+
+<h2 id="error-output">Error output</h2>
+
+<p>But get the error:</p>
+
+<pre><code class="language-txt">/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/../../../../lib64/libpcre.a(libpcre_la-pcre_jit_compile.o): In function `sljit_generate_code':
+(.text+0x79f): undefined reference to `pthread_mutex_lock'
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/../../../../lib64/libpcre.a(libpcre_la-pcre_jit_compile.o): In function `sljit_generate_code':
+(.text+0x894): undefined reference to `pthread_mutex_unlock'
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/../../../../lib64/libpcre.a(libpcre_la-pcre_jit_compile.o): In function `sljit_generate_code':
+(.text+0xc0f): undefined reference to `pthread_mutex_unlock'
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/../../../../lib64/libpcre.a(libpcre_la-pcre_jit_compile.o): In function `sljit_generate_code':
+(.text+0xc5f): undefined reference to `pthread_mutex_unlock'
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/../../../../lib64/libpcre.a(libpcre_la-pcre_jit_compile.o): In function `sljit_free_exec':
+(.text+0xc8a): undefined reference to `pthread_mutex_lock'
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/../../../../lib64/libpcre.a(libpcre_la-pcre_jit_compile.o): In function `pcre_jit_free_unused_memory':
+(.text+0x28467): undefined reference to `pthread_mutex_lock'
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/../../../../lib64/libpcre.a(libpcre_la-pcre_jit_compile.o): In function `sljit_free_exec':
+(.text+0xcf0): undefined reference to `pthread_mutex_unlock'
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/../../../../lib64/libpcre.a(libpcre_la-pcre_jit_compile.o): In function `pcre_jit_free_unused_memory':
+(.text+0x284d7): undefined reference to `pthread_mutex_unlock'
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libgcc_eh.a(unwind-dw2-fde-dip.o): In function `__register_frame_info_bases':
+(.text+0x16e7): undefined reference to `pthread_mutex_lock'
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libgcc_eh.a(unwind-dw2-fde-dip.o): In function `__register_frame_info':
+(.text+0x1782): undefined reference to `pthread_mutex_lock'
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libgcc_eh.a(unwind-dw2-fde-dip.o): In function `__register_frame':
+(.text+0x1824): undefined reference to `pthread_mutex_lock'
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libgcc_eh.a(unwind-dw2-fde-dip.o): In function `__register_frame_info_table_bases':
+(.text+0x18ab): undefined reference to `pthread_mutex_lock'
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libgcc_eh.a(unwind-dw2-fde-dip.o): In function `__deregister_frame_info_bases':
+(.text+0x194e): undefined reference to `pthread_mutex_lock'
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libgcc_eh.a(unwind-dw2-fde-dip.o): In function `__deregister_frame_info_bases':
+(.text+0x19e8): undefined reference to `pthread_mutex_unlock'
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libgcc_eh.a(unwind-dw2-fde-dip.o): In function `_Unwind_Find_FDE':
+(.text+0x1ab6): undefined reference to `pthread_mutex_lock'
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libgcc_eh.a(unwind-dw2-fde-dip.o): In function `_Unwind_Find_FDE':
+(.text+0x1b06): undefined reference to `pthread_mutex_unlock'
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libgcc_eh.a(unwind-dw2-fde-dip.o): In function `_Unwind_Find_FDE':
+(.text+0x1bf0): undefined reference to `pthread_mutex_unlock'
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libgcc_eh.a(unwind-dw2-fde-dip.o): In function `__register_frame_info_bases':
+(.text+0x1706): undefined reference to `pthread_mutex_unlock'
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libgcc_eh.a(unwind-dw2-fde-dip.o): In function `__register_frame_info':
+(.text+0x17a1): undefined reference to `pthread_mutex_unlock'
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libgcc_eh.a(unwind-dw2-fde-dip.o): In function `__register_frame':
+(.text+0x1848): undefined reference to `pthread_mutex_unlock'
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/libgcc_eh.a(unwind-dw2-fde-dip.o):(.text+0x18ca): more undefined references to `pthread_mutex_unlock' follow
+collect2: error: ld returned 1 exit status
+objs/Makefile:222: recipe for target 'objs/nginx' failed
+make[1]: *** [objs/nginx] Error 1
+make[1]: Leaving directory '/src/nginx-1.10.2'
+Makefile:8: recipe for target 'build' failed
+make: *** [build] Error 2
+</code></pre>
+
+<p>After analyzing the output, we got common <em>undefined reference</em> error. But actually the system have the <em>pthread</em> library installed. The real cause is the <em>link order</em>.</p>
+
+<h2 id="solution-change-the-objs-makefile-to-adjust-the-link-order">Solution - change the objs/Makefile to adjust the link order</h2>
+
+<p>Get the following line in the file:</p>
+
+<pre><code class="language-makefile">	-static -ldl -lpthread -lcrypt -lpcre -lcrypto -lcrypto -lz
+</code></pre>
+
+<p>and change it to:</p>
+
+<pre><code class="language-makefile">	-static -ldl -lcrypt -lpcre -lcrypto -lcrypto -lz -lpthread
+</code></pre>
+
+<p>The reason is that function <em>sljit_generate_code</em> in <em>pcre</em> library need <em>pthread</em> library to resolve undfined symbol <em>pthread_mutex_unlock</em>.</p>
+
+<h2 id="build-again">Build again:</h2>
+
+<pre><code class="language-bash">make -j$(nproc)
+</code></pre>
+
+<p>and the right result:</p>
+
+<pre><code class="language-text">-static -ldl -lcrypt -lpcre -lcrypto -lcrypto -lz -lpthread
+objs/src/core/nginx.o: In function `ngx_load_module':
+/src/nginx-1.10.2/src/core/nginx.c:1475: warning: Using 'dlopen' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+objs/src/os/unix/ngx_process_cycle.o: In function `ngx_worker_process_init':
+/src/nginx-1.10.2/src/os/unix/ngx_process_cycle.c:838: warning: Using 'initgroups' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+objs/src/core/nginx.o: In function `ngx_set_user':
+/src/nginx-1.10.2/src/core/nginx.c:1181: warning: Using 'getgrnam' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+/src/nginx-1.10.2/src/core/nginx.c:1169: warning: Using 'getpwnam' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+objs/src/core/ngx_inet.o: In function `ngx_inet_resolve_host':
+/src/nginx-1.10.2/src/core/ngx_inet.c:1120: warning: Using 'gethostbyname' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+make[1]: Leaving directory '/src/nginx-1.10.2'
+</code></pre>
+
+<h1 id="run-the-server-and-check-the-result">Run the server and check the result</h1>
+
+<pre><code class="language-bash">make install
+
+/src/nginx/sbin/nginx
+</code></pre>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>The link order actually is a big problem we should consider during developing C/C++ project, which we may ignore!</p>
+
+        </div>
+
+        
+        <footer class="article-footer">
+            <ul class="article-tag-list">
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/nginx">nginx
+                    </a>
+                </li>
+                
+            </ul>
+        </footer>
+        
+    </div>
+    <nav id="article-nav">
+    
+    <a href="https://daveixiang.github.io/articles/2017_01_22_compile_golang_from_source_code/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            Compile Golang from source code
+        </div>
+    </a>
+    
+    
+    <a href="https://daveixiang.github.io/articles/2017_01_01_xiu_xin_shi_de/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">修心十德&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+</article>
+
+        
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 項 思 偉 (Davei) ~ Aal Izz Well!&nbsp;
+            Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos">Minos</a>
+        </div>
+    </div>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+</div>
+</body>
+</html>

@@ -512,5 +512,420 @@ dev      init     lib64    mnt      root     sys
 </description>
     </item>
     
+    <item>
+      <title>Using OpenvSwitch to build minimal linux networking hack environment</title>
+      <link>https://daveixiang.github.io/articles/2017_02_25_using_openvswitch_to_build_minimal_linux_networking_hack_env/</link>
+      <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_02_25_using_openvswitch_to_build_minimal_linux_networking_hack_env/</guid>
+      <description>
+
+&lt;h2 id=&#34;prepare-two-minimal-vms&#34;&gt;Prepare two minimal vms&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir -p vm01 vm02
+
+cp -a  Image initramfs  vm01
+
+cp -a  Image initramfs  vm02
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;create-openvswitch-bridge-and-two-tap-devices-for-vm&#34;&gt;Create Openvswitch bridge and two tap devices for vm&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ip tuntap add name tap1 mode tap
+ip tuntap add name tap2 mode tap
+
+ip link set tap1 up
+ip link set tap2 up
+
+ovs-vsctl add-br br0
+
+ovs-vsctl add-port br0 tap1
+
+ovs-vsctl add-port br0 tap2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;start-the-two-vms-and-config-network&#34;&gt;Start the two vms and config network&lt;/h2&gt;
+
+&lt;h3 id=&#34;configure-vm01&#34;&gt;configure vm01&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;start vm01&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd vm01
+
+qemu-system-x86_64  -nographic \
+-kernel ./bzImage -initrd ./initramfs \
+-append  &amp;quot;console=ttyS0 quiet&amp;quot; \
+-netdev tap,id=net1,ifname=tap1,script=no,downscript=no  \
+-device e1000,netdev=net1,mac=&#39;9e:11:24:5c:35:89&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;configure vm01 network&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ip link set eth0 up
+ip addr add 192.168.0.1/24 dev eth0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;configure-vm02&#34;&gt;configure vm02&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;start vm02&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd vm02
+
+qemu-system-x86_64  -nographic \
+-kernel ./bzImage -initrd ./initramfs \
+-append  &amp;quot;console=ttyS0 quiet&amp;quot; \
+-netdev tap,id=net2,ifname=tap2,script=no,downscript=no  \
+-device e1000,netdev=net2,mac=&#39;66:5f:30:f4:24:be&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;configure vm02 network&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ip link set eth0 up
+ip addr add 192.168.0.2/24 dev eth0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;test-the-vms-network-connection&#34;&gt;Test the vms network connection&lt;/h2&gt;
+
+&lt;p&gt;vm01 ping vm02&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ping 192.168.0.2
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>What is a system call (Linux)</title>
+      <link>https://daveixiang.github.io/articles/2017_02_02_what_is_a_system_call_linux/</link>
+      <pubDate>Thu, 02 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_02_02_what_is_a_system_call_linux/</guid>
+      <description>
+
+&lt;p&gt;An application program makes a system call to get the operating
+system to perform a service for it, like reading from a file.&lt;/p&gt;
+
+&lt;h1 id=&#34;system-calls-in-32-bit-linux&#34;&gt;System Calls in 32-bit Linux&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;To make a system call in &lt;strong&gt;32-bit&lt;/strong&gt; Linux, place the system call number
+in eax, then its arguments, in order, in &lt;strong&gt;ebx&lt;/strong&gt;, &lt;strong&gt;ecx&lt;/strong&gt;, &lt;strong&gt;edx&lt;/strong&gt;,
+&lt;strong&gt;esi&lt;/strong&gt;, &lt;strong&gt;edi&lt;/strong&gt;, and &lt;strong&gt;ebp&lt;/strong&gt;, then invoke &lt;strong&gt;int 0x80&lt;/strong&gt;.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Some system calls return information, usually in &lt;strong&gt;eax&lt;/strong&gt;.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;All registers are saved across the system call.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-asm&#34;&gt;.section .data
+mesg:
+    .asciz &amp;quot;Hello World\n&amp;quot;
+mesg_len = . - mesg
+
+.section .text
+.global _start
+_start:                         # ELF entry point
+    mov $4, %eax                # sys_write
+    mov $1, %ebx                # STDOUT
+    mov $mesg, %ecx             # buffer address
+    mov $mesg_len, %edx         # buffer length
+    int $0x80
+
+    mov $1, %eax                # sys_exit
+    mov $0, %ebx                # error code
+    int $0x80
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;system-calls-in-64-bit-linux&#34;&gt;System Calls in 64-bit Linux&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;To make a system call in &lt;strong&gt;64-bit&lt;/strong&gt; Linux, place the system call
+number in &lt;strong&gt;rax&lt;/strong&gt;, then its arguments, in order, in &lt;strong&gt;rdi&lt;/strong&gt;,
+&lt;strong&gt;rsi&lt;/strong&gt;, &lt;strong&gt;rdx&lt;/strong&gt;, &lt;strong&gt;r10&lt;/strong&gt;, &lt;strong&gt;r8&lt;/strong&gt;, and &lt;strong&gt;r9&lt;/strong&gt;, then invoke syscall.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Some system calls return information, usually in &lt;strong&gt;rax&lt;/strong&gt;.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The system call destroys &lt;strong&gt;rcx&lt;/strong&gt; and &lt;strong&gt;r11&lt;/strong&gt; but others registers
+are saved across the system call.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;code 01&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-assembly&#34;&gt;.section .data
+mesg:
+    .asciz &amp;quot;Hello World\n&amp;quot;
+mesg_len = . - mesg
+
+.section .text
+.global _start
+_start:                         # ELF entry point
+    mov $1, %rax                # sys_write
+    mov $1, %rdi                # STDOUT
+    mov $mesg, %rsi             # buffer address
+    mov $mesg_len, %rdx         # buffer length
+    syscall
+    mov %rax, %rbx
+
+    mov $60, %rax               # sys_exit
+    mov %rbx, %rdi              # 0
+    syscall
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;code 02&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-asm&#34;&gt;.data
+_hello:
+  .asciz &amp;quot;hello world\n&amp;quot;
+
+.text
+.globl _main
+_main:
+  subq $8, %rsp
+
+  movb $0, %al
+  leaq _hello(%rip), %rdi
+  call _printf
+
+  movq $0, %rdi
+  call _exit
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Add Module to the Linux Kernel Source</title>
+      <link>https://daveixiang.github.io/articles/2016_04_21_add_module_to_the_linux_kernel_source/</link>
+      <pubDate>Thu, 21 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2016_04_21_add_module_to_the_linux_kernel_source/</guid>
+      <description>
+
+&lt;h1 id=&#34;create-module-directory&#34;&gt;Create module directory&lt;/h1&gt;
+
+&lt;p&gt;Create a directory &lt;em&gt;skm&lt;/em&gt; inside &lt;em&gt;drivers&lt;/em&gt; (which is in the Linux
+source code) for your module and put source code(skm.c) into it. It
+will looks like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;{LINUX_SRC_PATH}/drivers/skm/skm.c
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and the source code file skm.c appears like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;linux/module.h&amp;gt;
+#include &amp;lt;linux/version.h&amp;gt;
+#include &amp;lt;linux/kernel.h&amp;gt;
+
+static int __init skm_init(void)
+{
+        printk(KERN_INFO &amp;quot;Hello Kernel Space!\n&amp;quot;);
+
+        return 0;
+}
+
+static void __exit skm_exit(void)
+{
+        printk(KERN_INFO &amp;quot;Bye Kernel Space!\n&amp;quot;);
+}
+
+module_init(skm_init);
+module_exit(skm_exit);
+
+MODULE_LICENSE(&amp;quot;GPL&amp;quot;);
+MODULE_AUTHOR(&amp;quot;Xiang Davei&amp;quot;);
+MODULE_DESCRIPTION(&amp;quot;Simple Kernel Module&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;create-makefile-file&#34;&gt;Create &lt;em&gt;Makefile&lt;/em&gt; file&lt;/h1&gt;
+
+&lt;p&gt;Create one &lt;em&gt;Makefile&lt;/em&gt; inside &lt;em&gt;skm&lt;/em&gt; and add &lt;em&gt;obj-$(CONFG_SKM) += skm.o&lt;/em&gt;
+to it. This will appears like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-makefile&#34;&gt;obj-$(CONFIG_SKM) += skm.o
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;create-kconfig-file&#34;&gt;Create &lt;em&gt;Kconfig&lt;/em&gt; file&lt;/h1&gt;
+
+&lt;p&gt;Create one &lt;em&gt;Kconfig&lt;/em&gt; inside &lt;em&gt;skm&lt;/em&gt; , then put the content as the
+following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;config SKM
+        tristate &amp;quot;simple kernel module&amp;quot;
+        default y
+        help
+          simple kernel module
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;into it. And it will looks like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;{LINUX_SRC_PATH}/drivers/skm/Kconfig
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;edit-makefile-and-kconfig-in-linux-src-path-drivers&#34;&gt;Edit &lt;em&gt;Makefile&lt;/em&gt; and &lt;em&gt;Kconfig&lt;/em&gt; in &lt;em&gt;{LINUX_SRC_PATH}/drivers/&lt;/em&gt;&lt;/h1&gt;
+
+&lt;p&gt;In the &lt;em&gt;Makefile&lt;/em&gt; add below in last line&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-makefile&#34;&gt;obj-y += skm/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-makefile&#34;&gt;obj-$(CONFIG_SKM) += skm/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In Kconfig file add below in last line&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;source &amp;quot;drivers/my_drvr/Kconfig&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;compile-the-source-code-with-module-just-added&#34;&gt;Compile the source code with module just added&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Use &lt;em&gt;make menuconfig&lt;/em&gt; to choice the module just added&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=i386 CROSS_COMPILE=i686-none-linux- menuconfig
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and the output looks like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;Device Drivers  ---&amp;gt;
+    &amp;lt;M&amp;gt; simple kernel module
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Use &lt;em&gt;make -j$(nproc)&lt;/em&gt; to compile the kernel&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make ARCH=i386 CROSS_COMPILE=i686-none-linux- -j$(nproc)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Use &lt;em&gt;make modules_install&lt;/em&gt; to install the kernel modules&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make modules_install INSTALL_MOD_PATH=${MODULES_PATH}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;test&#34;&gt;Test&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;load the &lt;em&gt;skm&lt;/em&gt; into the kernel&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;modprobe skm
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;get the module information&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;modinfo skm
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;unload the module from the kernel&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;modprobe -r skm
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Linux Hello World Module</title>
+      <link>https://daveixiang.github.io/articles/2016_04_20_linux_helloworld_module/</link>
+      <pubDate>Wed, 20 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2016_04_20_linux_helloworld_module/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;Source Code&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;linux/module.h&amp;gt;
+#include &amp;lt;linux/init.h&amp;gt;
+#include &amp;lt;linux/kernel.h&amp;gt;
+#include &amp;lt;linux/sched.h&amp;gt;
+
+static __init int hwm_init(void)
+{
+        /* do_this() */
+        /* do_that() */
+        /* do_something_else() */
+
+        printk(KERN_INFO &amp;quot;hwm module being loaded\n&amp;quot;);
+        return 0;
+}
+
+static __exit void hwm_exit(void)
+{
+        /* undo_something_else() */
+        /* undo_that() */
+        /* undo_this() */
+
+        printk(KERN_INFO &amp;quot;hwm module being unloaded\n&amp;quot;);
+}
+
+module_init(hwm_init);
+module_exit(hwm_exit);
+
+MODULE_AUTHOR(&amp;quot;davei&amp;quot;);
+MODULE_LICENSE(&amp;quot;GPL&amp;quot;);
+MODULE_DESCRIPTION(&amp;quot;Hello World Module&amp;quot;);
+MODULE_INFO(flavor, &amp;quot;Linux&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Makefile&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-makefile&#34;&gt;obj-m := hwm.o
+
+ifeq ($(KERNELRELEASE),)  
+
+KERNELDIR ?= /lib/modules/$(shell uname -r)/build 
+PWD := $(shell pwd)  
+
+all:
+        $(MAKE) -C $(KERNELDIR) M=$(PWD) modules  
+clean:
+        $(MAKE) -C $(KERNELDIR) M=$(PWD) clean
+else  
+
+$(info Building with KERNELRELEASE = ${KERNELRELEASE})  
+
+endif
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Module Information&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Execute the command to get the module information:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;modinfo hwm.ko
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;the output is:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;filename:       /root/modules/hwm/hwm.ko
+flavor:         Linux
+description:    Hello World Module
+license:        GPL
+author:         davei
+srcversion:     CF3FE4016436A4A53352A88
+depends:        
+vermagic:       4.1.15 SMP mod_unload modversions
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
   </channel>
 </rss>

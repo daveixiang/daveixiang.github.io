@@ -372,5 +372,73 @@ wrap_cmd &amp;quot;15.gcc-final-02_build&amp;quot; \
 </description>
     </item>
     
+    <item>
+      <title>GCC inline assembly hello world example</title>
+      <link>https://daveixiang.github.io/articles/2017_02_17_gcc_inline_assembly_hello_world_example/</link>
+      <pubDate>Fri, 17 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_02_17_gcc_inline_assembly_hello_world_example/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;x86 example&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+
+int main(int argc, char *argv[])
+{
+        char *str = &amp;quot;Hello World\n&amp;quot;;
+        long len = strlen(str);
+        int ret = 0;
+/*
+ * ssize_t write(int fd, const void *buf, size_t count);
+ *
+ */
+        __asm__(&amp;quot;movl $1, %%eax\n\t&amp;quot;    // write syscall
+                &amp;quot;movl $1, %%ebx\n\t&amp;quot;    // fd   
+                &amp;quot;movl %1, %%ecx\n\t&amp;quot;    // buf
+                &amp;quot;movl %2, %%edx\n\t&amp;quot;    // count
+                &amp;quot;syscall\n\t&amp;quot;
+                &amp;quot;movl %%eax, %0&amp;quot;        // return result to ret
+                : &amp;quot;+m&amp;quot;(ret)
+                : &amp;quot;g&amp;quot;(str), &amp;quot;g&amp;quot;(len));
+        printf(&amp;quot;ret %d\n&amp;quot;, ret);
+
+        return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;x86-64 example&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+
+int main(int argc, char *argv[])
+{
+        char *str = &amp;quot;Hello World\n&amp;quot;;
+        long len = strlen(str);
+        int ret = 0;
+/*
+ * ssize_t write(int fd, const void *buf, size_t count);
+ *
+ */
+        __asm__(&amp;quot;movq $1, %%rax\n\t&amp;quot;    // write syscall
+                &amp;quot;movq $1, %%rdi\n\t&amp;quot;    // fd   
+                &amp;quot;movq %1, %%rsi\n\t&amp;quot;    // buf
+                &amp;quot;movl %2, %%edx\n\t&amp;quot;    // count
+                &amp;quot;syscall\n\t&amp;quot;
+                &amp;quot;movq %%rax, %0&amp;quot;        // return result to ret
+                : &amp;quot;+m&amp;quot;(ret)
+                : &amp;quot;g&amp;quot;(str), &amp;quot;g&amp;quot;(len));
+        printf(&amp;quot;ret %d\n&amp;quot;, ret);
+
+        return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
   </channel>
 </rss>
