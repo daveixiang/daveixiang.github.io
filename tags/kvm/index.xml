@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Kvm on 項 思 偉 (Davei) ~ Aal Izz Well!</title>
+    <title>Kvm on 項 思 偉 ~ Aal Izz Well!</title>
     <link>https://daveixiang.github.io/tags/kvm/index.xml</link>
-    <description>Recent content in Kvm on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
+    <description>Recent content in Kvm on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <atom:link href="https://daveixiang.github.io/tags/kvm/index.xml" rel="self" type="application/rss+xml" />
@@ -203,44 +203,6 @@ cat /sys/module/kvm_intel/parameters/nested
 
 &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;cpu mode=&#39;host-passthrough&#39;&amp;gt;
 &amp;lt;/cpu&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Configure KVM using OpenvSwitch</title>
-      <link>https://daveixiang.github.io/articles/2016_07_08_configure_kvm_using_openvswitch/</link>
-      <pubDate>Fri, 08 Jul 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://daveixiang.github.io/articles/2016_07_08_configure_kvm_using_openvswitch/</guid>
-      <description>&lt;ul&gt;
-&lt;li&gt;Add bridge ovsbr to Open vSwitch&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ovs-vsctl add-br ovsbr
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Create &lt;em&gt;ovsbr.xml&lt;/em&gt; for libvirtd&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;network&amp;gt;
-  &amp;lt;name&amp;gt;ovsbr&amp;lt;/name&amp;gt;
-  &amp;lt;forward mode=&#39;bridge&#39;/&amp;gt;
-  &amp;lt;bridge name=&#39;ovsbr&#39;/&amp;gt;
-  &amp;lt;virtualport type=&#39;openvswitch&#39;/&amp;gt;
-&amp;lt;/network&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Configure KVM using OVS&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;virsh net-define ovsbr.xml
-
-virsh net-start ovsbr
-
-virsh net-autostart ovsbr
 &lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>

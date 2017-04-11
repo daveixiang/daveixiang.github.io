@@ -1,13 +1,75 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Articles on 項 思 偉 (Davei) ~ Aal Izz Well!</title>
+    <title>Articles on 項 思 偉 ~ Aal Izz Well!</title>
     <link>https://daveixiang.github.io/articles/index.xml</link>
-    <description>Recent content in Articles on 項 思 偉 (Davei) ~ Aal Izz Well!</description>
+    <description>Recent content in Articles on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 07 Apr 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 11 Apr 2017 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://daveixiang.github.io/articles/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>emacs gdb gui customize default layout</title>
+      <link>https://daveixiang.github.io/articles/2017_04_11_emacs_gdb_gui_customize_default_layout/</link>
+      <pubDate>Tue, 11 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_04_11_emacs_gdb_gui_customize_default_layout/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;elisp code&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-elisp&#34;&gt;(defadvice gdb-setup-windows (after my-setup-gdb-windows activate)
+  (gdb-get-buffer-create &#39;gdb-stack-buffer)
+  (set-window-dedicated-p (selected-window) nil)
+  (switch-to-buffer gud-comint-buffer)
+  (delete-other-windows)
+  (let ((win0 (selected-window))
+        (win1 (split-window nil nil &#39;left))
+        (win2 (split-window-below (/ (* (window-height) 1) 2)))
+        )
+
+    (select-window win2)
+    (gdb-set-window-buffer (if gdb-show-threads-by-default
+			       (gdb-threads-buffer-name)
+			     (gdb-breakpoints-buffer-name)))
+    (split-window nil (/ (* (window-height) 1) 2))
+
+    (other-window 1)
+    (gdb-set-window-buffer (gdb-stack-buffer-name))
+
+    (select-window win1)
+    (set-window-buffer
+     win1
+     (if gud-last-last-frame
+         (gud-find-file (car gud-last-last-frame))
+       (if gdb-main-file
+           (gud-find-file gdb-main-file)
+         ;; Put buffer list in window if we
+         ;; can&#39;t find a source file.
+         (list-buffers-noselect))))
+
+    (setq gdb-source-window (selected-window))
+    (split-window nil (/ (* (window-height) 1) 2))
+
+    (other-window 1)
+    (gdb-set-window-buffer (gdb-get-buffer-create &#39;gdb-disassembly-buffer t))
+    (split-window nil (/ (* (window-height) 1) 2))
+
+    (other-window 1)
+    (gdb-set-window-buffer (gdb-get-buffer-create &#39;gdb-inferior-io))
+
+    (select-window win0)
+    ))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;layout&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://daveixiang.github.io/img/gdb-gui-custom.png&#34; alt=&#34;gui layout&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>go tool: no such tool &#39;6g&#39;</title>
@@ -1269,35 +1331,6 @@ mkdir -p $GOPATH/var/lib/influxdb
 [retention] 2017/03/13 19:42:25 Starting retention policy enforcement service with check interval of 30m0s
 [monitor] 2017/03/13 19:42:25 Storing statistics in database &#39;_internal&#39; retention policy &#39;monitor&#39;, at interval 10s
 [run] 2017/03/13 19:42:25 Listening for signals
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Clone git repository only some directories</title>
-      <link>https://daveixiang.github.io/articles/2017_03_06_clone_git_repository_only_some_directories/</link>
-      <pubDate>Mon, 06 Mar 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://daveixiang.github.io/articles/2017_03_06_clone_git_repository_only_some_directories/</guid>
-      <description>&lt;ul&gt;
-&lt;li&gt;First, do:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git clone --depth 1 [repo-root] [local_dir]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Then:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd [local_dir]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;And lastly:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git filter-branch --prune-empty --subdirectory-filter [repo-subdir] HEAD
 &lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
