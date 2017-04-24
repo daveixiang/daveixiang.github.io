@@ -86,15 +86,6 @@
         <div class="article-entry" itemprop="articleBody">
             
 
-<h2 id="prepare-two-minimal-vms">Prepare two minimal vms</h2>
-
-<pre><code class="language-bash">mkdir -p vm01 vm02
-
-cp -a  Image initramfs  vm01
-
-cp -a  Image initramfs  vm02
-</code></pre>
-
 <h2 id="create-openvswitch-bridge-and-two-tap-devices-for-vm">Create Openvswitch bridge and two tap devices for vm</h2>
 
 <pre><code class="language-bash">ip tuntap add name tap1 mode tap
@@ -118,9 +109,7 @@ ovs-vsctl add-port br0 tap2
 <li>start vm01</li>
 </ul>
 
-<pre><code class="language-bash">cd vm01
-
-qemu-system-x86_64  -nographic \
+<pre><code class="language-bash">qemu-system-x86_64  -nographic \
 -kernel ./bzImage -initrd ./initramfs \
 -append  &quot;console=ttyS0 quiet&quot; \
 -netdev tap,id=net1,ifname=tap1,script=no,downscript=no  \
@@ -141,9 +130,7 @@ ip addr add 192.168.0.1/24 dev eth0
 <li>start vm02</li>
 </ul>
 
-<pre><code class="language-bash">cd vm02
-
-qemu-system-x86_64  -nographic \
+<pre><code class="language-bash">qemu-system-x86_64  -nographic \
 -kernel ./bzImage -initrd ./initramfs \
 -append  &quot;console=ttyS0 quiet&quot; \
 -netdev tap,id=net2,ifname=tap2,script=no,downscript=no  \

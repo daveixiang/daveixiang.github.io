@@ -16,15 +16,6 @@
       <guid>https://daveixiang.github.io/articles/2017_02_25_using_openvswitch_to_build_minimal_linux_networking_hack_env/</guid>
       <description>
 
-&lt;h2 id=&#34;prepare-two-minimal-vms&#34;&gt;Prepare two minimal vms&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir -p vm01 vm02
-
-cp -a  Image initramfs  vm01
-
-cp -a  Image initramfs  vm02
-&lt;/code&gt;&lt;/pre&gt;
-
 &lt;h2 id=&#34;create-openvswitch-bridge-and-two-tap-devices-for-vm&#34;&gt;Create Openvswitch bridge and two tap devices for vm&lt;/h2&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ip tuntap add name tap1 mode tap
@@ -48,9 +39,7 @@ ovs-vsctl add-port br0 tap2
 &lt;li&gt;start vm01&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd vm01
-
-qemu-system-x86_64  -nographic \
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;qemu-system-x86_64  -nographic \
 -kernel ./bzImage -initrd ./initramfs \
 -append  &amp;quot;console=ttyS0 quiet&amp;quot; \
 -netdev tap,id=net1,ifname=tap1,script=no,downscript=no  \
@@ -71,9 +60,7 @@ ip addr add 192.168.0.1/24 dev eth0
 &lt;li&gt;start vm02&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd vm02
-
-qemu-system-x86_64  -nographic \
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;qemu-system-x86_64  -nographic \
 -kernel ./bzImage -initrd ./initramfs \
 -append  &amp;quot;console=ttyS0 quiet&amp;quot; \
 -netdev tap,id=net2,ifname=tap2,script=no,downscript=no  \
