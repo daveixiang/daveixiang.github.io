@@ -6,8 +6,432 @@
     <description>Recent content in Articles on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 11 Apr 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 25 Apr 2017 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://daveixiang.github.io/articles/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>linux pci device driver using mmio demo</title>
+      <link>https://daveixiang.github.io/articles/2017_04_25_linux_pci_device_driver_using_mmio_demo/</link>
+      <pubDate>Tue, 25 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_04_25_linux_pci_device_driver_using_mmio_demo/</guid>
+      <description>
+
+&lt;p&gt;The pci driver is written to drive the qemu pci-helloworld device&lt;/p&gt;
+
+&lt;h1 id=&#34;pci-helloworld-driver-source-code&#34;&gt;&lt;em&gt;pci-helloworld&lt;/em&gt; driver source code&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;the driver code &lt;em&gt;pci-helloworld&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;linux/init.h&amp;gt;
+#include &amp;lt;linux/kernel.h&amp;gt;
+#include &amp;lt;linux/module.h&amp;gt;
+#include &amp;lt;linux/pci.h&amp;gt;
+#include &amp;lt;linux/printk.h&amp;gt;
+#include &amp;lt;linux/proc_fs.h&amp;gt;
+#include &amp;lt;linux/seq_file.h&amp;gt;
+
+MODULE_LICENSE(&amp;quot;GPL&amp;quot;);
+
+static struct pci_dev *_pdev;
+static void __iomem *_mmio;
+
+static const struct pci_device_id pcidevtbl[] = {
+
+        { 0x6688, 0x0001, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+        { } /* terminate */
+
+};
+
+void pci_helloworld_reset_pointer(void __iomem *mmio)
+{
+        iowrite8(1, mmio + 1);
+}
+
+void pci_helloworld_set_buf_len(void __iomem *mmio, uint8_t len)
+{
+        iowrite8(len, mmio + 2);
+}
+
+void pci_helloworld_write_char(void __iomem *mmio, char c)
+{
+        iowrite8(c, mmio + 0);
+}
+
+static int pci_helloworld_show(struct seq_file *m, void *v) {
+        int i, len;
+        char *buf;
+
+        if (!_mmio) {
+                pr_emerg(&amp;quot;pci_iomap failed!\n&amp;quot;);
+                return -ENODEV;
+        }
+
+        pci_helloworld_reset_pointer(_mmio);
+
+        len = ioread8(_mmio + 1);
+        if (len) {
+                buf = kmalloc(len + 1, GFP_KERNEL);
+                if (!buf)
+                        return -ENOMEM;
+        } else {
+                buf = &amp;quot;&amp;quot;;
+        }
+
+        for (i = 0; i &amp;lt; len; i++)
+                buf[i] = ioread8(_mmio);
+
+        seq_printf(m, &amp;quot;%s&amp;quot;, buf);
+
+        return 0;
+}
+
+static int pci_helloworld_open(struct inode *inode, struct file *file) {
+        return single_open(file, pci_helloworld_show, NULL);
+}
+
+ssize_t pci_helloworld_write (struct file *file, const char __user *buf, size_t len,
+                        loff_t *l)
+{
+        int i = 0;
+
+        if (!_mmio) {
+                pr_emerg(&amp;quot;failed to pci_iomap\n&amp;quot;);
+                return 0;
+        }
+
+        pci_helloworld_reset_pointer(_mmio);
+        pci_helloworld_set_buf_len(_mmio, len + 1);
+
+        for(i = 0; i &amp;lt; len; i ++)
+                pci_helloworld_write_char(_mmio, buf[i]);
+
+        return i;
+}
+
+static const struct file_operations proc_fops = {
+        .owner = THIS_MODULE,
+        .open = pci_helloworld_open,
+        .read = seq_read,
+        .write = pci_helloworld_write,
+        .llseek = seq_lseek,
+        .release = single_release,
+};
+
+static int pci_helloworld_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+{
+        void __iomem *mmio;
+        char *buf;
+        int len, i;
+        struct proc_dir_entry *proc_entry;
+
+        pr_debug(&amp;quot;probed pci dev, trying read.\n&amp;quot;);
+
+        mmio = pci_iomap(pdev, 0, 0);
+        if (!mmio) {
+                pr_emerg(&amp;quot;failed to iomap!\n&amp;quot;);
+                return -ENODEV;
+        }
+
+        len = ioread8(mmio + 1);
+        pr_info(&amp;quot;length of string: %d bytes\n&amp;quot;, len);
+
+        buf = kmalloc(len + 1, GFP_KERNEL);
+        if (!buf) {
+                pr_err(&amp;quot;no memory...\n&amp;quot;);
+                return -ENOMEM;
+        }
+
+        for (i = 0; i &amp;lt; len; i++)
+                buf[i] = ioread8(mmio);
+
+        pr_info(&amp;quot;read this string: %s&amp;quot;, buf);
+
+        proc_entry = proc_create(&amp;quot;helloworld&amp;quot;, 0755, NULL, &amp;amp;proc_fops);
+
+        _mmio = mmio;
+        _pdev = pdev;
+        return 0;
+}
+
+static void pci_helloworld_remove(struct pci_dev *pdev) {
+        pr_debug(&amp;quot;unloaded device\n&amp;quot;);
+}
+
+static struct pci_driver helloworld_pci_driver = {
+        .name = &amp;quot;PCI-Hello-World driver&amp;quot;,
+        .id_table = pcidevtbl,
+        .probe = pci_helloworld_probe,
+        .remove = pci_helloworld_remove,
+
+};
+
+static int __init pci_helloworld_init(void)
+{
+        int rc;
+        pr_debug(&amp;quot;pci device driver online.\n&amp;quot;);
+
+        rc = pci_register_driver(&amp;amp;helloworld_pci_driver);
+        if (rc) {
+                pr_err(&amp;quot;failed to register driver.\n&amp;quot;);
+                return rc;
+        }
+
+        return 0;
+}
+
+static void __exit pci_helloworld_exit(void)
+{
+        pr_debug(&amp;quot;driver unloaded :-(\n&amp;quot;);
+        return;
+}
+
+module_init(pci_helloworld_init);
+module_exit(pci_helloworld_exit);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;the makefile&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-makefile&#34;&gt;obj-m := pci-helloworld.o
+
+ifeq ($(KERNELRELEASE),)  
+
+KERNELDIR ?= /lib/modules/$(shell uname -r)/build 
+PWD := $(shell pwd)  
+
+all:
+        $(MAKE) -C $(KERNELDIR) M=$(PWD) modules  
+clean:
+        $(MAKE) -C $(KERNELDIR) M=$(PWD) clean
+else  
+
+$(info Building with KERNELRELEASE = ${KERNELRELEASE})  
+
+endif
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;load-the-module-and-test&#34;&gt;Load the module and test&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Load the module&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;insmod pci-helloworld.ko
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Test the module&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat /proc/helloworld # Hello, world!
+
+echo &amp;quot;davei&amp;quot; &amp;gt; /proc/hellworld
+
+cat /proc/helloworld # davei
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>qemu pci device demo</title>
+      <link>https://daveixiang.github.io/articles/2017_04_25_qemu_pci_device_demo/</link>
+      <pubDate>Tue, 25 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_04_25_qemu_pci_device_demo/</guid>
+      <description>
+
+&lt;h2 id=&#34;add-the-device-source-code-qemu-src-hw-misc-pci-helloworld-c&#34;&gt;Add the device source code &lt;em&gt;{QEMU_SRC}/hw/misc/pci-helloworld.c&lt;/em&gt;&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;quot;qemu/osdep.h&amp;quot;
+#include &amp;quot;hw/hw.h&amp;quot;
+#include &amp;quot;hw/pci/pci.h&amp;quot;
+#include &amp;quot;qemu/event_notifier.h&amp;quot;
+
+typedef struct PCIHelloWorldDevState {
+    PCIDevice parent_obj;
+
+    int pos;
+    char *buf;
+    int buflen;
+
+    MemoryRegion mmio;
+} PCIHelloWorldDevState;
+
+#define TYPE_PCI_HELLOWORLD_DEV &amp;quot;pci-helloworld&amp;quot;
+
+#define PCI_HELLOWORLD_DEV(obj) \
+    OBJECT_CHECK(PCIHelloWorldDevState, (obj), TYPE_PCI_HELLOWORLD_DEV)
+
+static uint64_t
+pci_helloworld_dev_mmio_read(void *opaque, hwaddr addr, unsigned size)
+{
+    PCIHelloWorldDevState *d = opaque;
+
+    if (addr == 0)
+        return d-&amp;gt;buf[d-&amp;gt;pos ++];
+    else
+        return d-&amp;gt;buflen;
+}
+
+static void
+pci_helloworld_dev_mmio_write(void *opaque, hwaddr addr, uint64_t val,
+                       unsigned size)
+{
+
+   PCIHelloWorldDevState *d = opaque;
+
+   switch(addr) {
+       case 0:
+           /* write byte */
+           if (!d-&amp;gt;buf)
+               break;
+           if (d-&amp;gt;pos &amp;gt;= d-&amp;gt;buflen)
+               break;
+           d-&amp;gt;buf[d-&amp;gt;pos ++] = (uint8_t)val;
+           break;
+       case 1:
+           /* reset pos */
+           d-&amp;gt;pos = 0;
+           break;
+       case 2:
+           /* set buffer length */
+           d-&amp;gt;buflen = val + 1;
+           g_free(d-&amp;gt;buf);
+           d-&amp;gt;buf = g_malloc(d-&amp;gt;buflen);
+           break;
+   }
+
+   return;
+}
+
+static const MemoryRegionOps pci_helloworld_dev_mmio_ops = {
+    .read = pci_helloworld_dev_mmio_read,
+    .write = pci_helloworld_dev_mmio_write,
+    .endianness = DEVICE_LITTLE_ENDIAN,
+    .impl = {
+        .min_access_size = 1,
+        .max_access_size = 1,
+    },
+};
+
+static int
+pci_helloworld_dev_init(PCIDevice *pci_dev)
+{
+    PCIHelloWorldDevState *d = PCI_HELLOWORLD_DEV(pci_dev);
+    uint8_t *pci_conf;
+
+    pci_conf = pci_dev-&amp;gt;config;
+
+    pci_conf[PCI_INTERRUPT_PIN] = 0; /* no interrupt pin */
+
+    memory_region_init_io(&amp;amp;d-&amp;gt;mmio, OBJECT(d), &amp;amp;pci_helloworld_dev_mmio_ops, d,
+                          &amp;quot;pci-helloworld-dev-mmio&amp;quot;, 128);
+    pci_register_bar(pci_dev, 0, PCI_BASE_ADDRESS_SPACE_MEMORY, &amp;amp;d-&amp;gt;mmio);
+
+    d-&amp;gt;pos = 0;
+    d-&amp;gt;buf = g_malloc(14);
+    memcpy(d-&amp;gt;buf, &amp;quot;Hello, world!\n&amp;quot;, 14);
+    d-&amp;gt;buflen = 14;
+    printf(&amp;quot;Loaded helloworld pci\n&amp;quot;);
+
+    return 0;
+}
+
+static void
+pci_helloworld_dev_uninit(PCIDevice *dev)
+{
+    //PCIHelloWorldDevState *d = PCI_HELLOWORLD_DEV(dev);
+    printf(&amp;quot;unloaded helloworld pci\n&amp;quot;);
+}
+
+static void
+qdev_pci_helloworld_dev_reset(DeviceState *dev)
+{
+    //PCIHelloWorldDevState *d = PCI_HELLOWORLD_DEV(dev);
+}
+
+static void
+pci_helloworld_dev_class_init(ObjectClass *klass, void *data)
+{
+    DeviceClass *dc = DEVICE_CLASS(klass);
+    PCIDeviceClass *k = PCI_DEVICE_CLASS(klass);
+
+    k-&amp;gt;init = pci_helloworld_dev_init;
+    k-&amp;gt;exit = pci_helloworld_dev_uninit;
+    k-&amp;gt;vendor_id = 0x6688;
+    k-&amp;gt;device_id = 0x0001;
+    k-&amp;gt;revision = 0x00;
+    k-&amp;gt;class_id = PCI_CLASS_OTHERS;
+    dc-&amp;gt;desc = &amp;quot;HelloWorld PCI&amp;quot;;
+    set_bit(DEVICE_CATEGORY_MISC, dc-&amp;gt;categories);
+    dc-&amp;gt;reset = qdev_pci_helloworld_dev_reset;
+}
+
+static const TypeInfo pci_helloworld_info = {
+    .name          = TYPE_PCI_HELLOWORLD_DEV,
+    .parent        = TYPE_PCI_DEVICE,
+    .instance_size = sizeof(PCIHelloWorldDevState),
+    .class_init    = pci_helloworld_dev_class_init,
+};
+
+static void pci_helloworld_register_types(void)
+{
+    type_register_static(&amp;amp;pci_helloworld_info);
+}
+
+type_init(pci_helloworld_register_types)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;add-the-following-line-to-qemu-src-hw-misc-makefile-objs&#34;&gt;Add the following line to &lt;em&gt;{QEMU_SRC}/hw/misc/Makefile.objs&lt;/em&gt;&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-makefile&#34;&gt;ifeq ($(CONFIG_PCI), y)
+obj-y += pci-helloworld.o
+endif
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;recompile-the-qemu-source-code-and-check-the-result&#34;&gt;Recompile the qemu source code and check the result&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;get the device list&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;x86_64-softmmu/qemu-system-x86_64 -device ? 2&amp;gt;&amp;amp;1 | grep hello
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and we get the following result:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;name &amp;quot;pci-helloworld&amp;quot;, bus PCI, desc &amp;quot;HelloWorld PCI&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;startup vm&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;x86_64-softmmu/qemu-system-x86_64  -kernel ./bzImage -initrd ./initramfs -nographic -append  &amp;quot;console=ttyS0 quiet&amp;quot;  -device pci-helloworld
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;use &lt;code&gt;lspci&lt;/code&gt; to get pci info:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;Loaded helloworld pci
+[    0.869296] kvm: no hardware support
+
+Please press Enter to activate this console.  
+/ # lspci
+00:00.0 Class 0600: 8086:1237
+00:01.0 Class 0601: 8086:7000
+00:01.1 Class 0101: 8086:7010
+00:01.3 Class 0680: 8086:7113
+00:02.0 Class 0300: 1234:1111
+00:03.0 Class 0200: 8086:100e
+00:04.0 Class 00ff: 6688:0001
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>emacs gdb gui customize default layout</title>
@@ -1034,303 +1458,6 @@ virsh net-autostart $BRNAME
 &lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;/proc/mounts
 
 /etc/mtab
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Install Openstack from source code - glance (mitaka)</title>
-      <link>https://daveixiang.github.io/articles/2017_03_21_openstack_from_source_code_mitaka_02_glance/</link>
-      <pubDate>Tue, 21 Mar 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://daveixiang.github.io/articles/2017_03_21_openstack_from_source_code_mitaka_02_glance/</guid>
-      <description>
-
-&lt;h2 id=&#34;create-image-service-database&#34;&gt;Create image service database&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export GLANCE_DBPASS=openstack
-export MYSQL_PASS=openstack
-
-mysql -uroot -p$MYSQL_PASS &amp;lt;&amp;lt;EOF
-CREATE DATABASE glance;
-GRANT ALL PRIVILEGES ON glance.* TO &#39;glance&#39;@&#39;localhost&#39; \
-  IDENTIFIED BY &#39;$GLANCE_DBPASS&#39;;
-GRANT ALL PRIVILEGES ON glance.* TO &#39;glance&#39;@&#39;%&#39; \
-  IDENTIFIED BY &#39;$GLANCE_DBPASS&#39;;
-EOF
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;create-the-image-service-credentials-andapi-endpoints&#34;&gt;Create the image service credentials andAPI endpoints&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;openstack user create --domain default --password openstack glance
-openstack role add --project service --user glance admin
-
-openstack service create --name glance --description &amp;quot;OpenStack Image&amp;quot; image
-openstack endpoint create --region RegionOne image public http://controller:9292
-openstack endpoint create --region RegionOne image internal http://controller:9292
-openstack endpoint create --region RegionOne image admin http://controller:9292
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;install-glance-dependences&#34;&gt;Install glance dependences&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum install $(cat openstack-glance-deps.log | cut -d, -f1 | tr -s &#39;\n&#39;  &#39; &#39;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;git-clone-source-code-from-github&#34;&gt;Git clone source code from github&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git clone https://github.com/openstack/glance
-
-cd /src/openstack/glance
-
-git checkout stable/mitaka
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;build-glance-source-code&#34;&gt;Build glance source code&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd /src/openstack/glance
-
-python setup.py build
-
-cp -aR etc/* /etc/glance
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;make-glance-configuration&#34;&gt;Make glance configuration&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;glance-api.conf&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sed -i -E -e &#39;/^#.+?$/d&#39; -e &#39;/^$/d&#39; /etc/glance/glance-api.conf
-ini-config --set /etc/glance/glance-api.conf database connection &#39;postgresql://glance:openstack@controller/glance&#39;
-ini-config --set /etc/glance/glance-api.conf keystone_authtoken auth_uri http://controller:5000
-ini-config --set /etc/glance/glance-api.conf keystone_authtoken auth_url http://controller:35357
-ini-config --set /etc/glance/glance-api.conf keystone_authtoken auth_type password
-ini-config --set /etc/glance/glance-api.conf keystone_authtoken project_domain_name default
-ini-config --set /etc/glance/glance-api.conf keystone_authtoken user_domain_name default
-ini-config --set /etc/glance/glance-api.conf keystone_authtoken project_name service
-ini-config --set /etc/glance/glance-api.conf keystone_authtoken username glance
-ini-config --set /etc/glance/glance-api.conf keystone_authtoken password openstack
-ini-config --set /etc/glance/glance-api.conf paste_deploy flavor keystone
-ini-config --set /etc/glance/glance-api.conf glance_store stores file
-ini-config --set /etc/glance/glance-api.conf glance_store default_store file
-ini-config --set /etc/glance/glance-api.conf glance_store filesystem_store_datadir &#39;/var/lib/glance/images/&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;glance-registery.conf&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sed -i -E -e &#39;/^#.+?$/d&#39; -e &#39;/^$/d&#39; /etc/glance/glance-registry.conf
-ini-config --set /etc/glance/glance-registry.conf database connection &#39;postgresql://glance:openstack@controller/glance&#39;
-ini-config --set /etc/glance/glance-registry.conf keystone_authtoken auth_uri http://controller:5000
-ini-config --set /etc/glance/glance-registry.conf keystone_authtoken auth_url http://controller:35357
-ini-config --set /etc/glance/glance-registry.conf keystone_authtoken auth_type password
-ini-config --set /etc/glance/glance-registry.conf keystone_authtoken project_domain_name default
-ini-config --set /etc/glance/glance-registry.conf keystone_authtoken user_domain_name default
-ini-config --set /etc/glance/glance-registry.conf keystone_authtoken project_name service
-ini-config --set /etc/glance/glance-registry.conf keystone_authtoken username glance
-ini-config --set /etc/glance/glance-registry.conf keystone_authtoken password openstack
-ini-config --set /etc/glance/glance-registry.conf paste_deploy flavor keystone
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;create-glance-manage-glance-api-and-glance-registery-command&#34;&gt;Create &lt;em&gt;glance-manage&lt;/em&gt;, &lt;em&gt;glance-api&lt;/em&gt; and &lt;em&gt;glance-registery&lt;/em&gt; command&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;glance-manage&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat &amp;gt; glance/cmd/glance-manage &amp;lt;&amp;lt;EOF
-#!/bin/python
-import sys
-from glance.cmd.manage import main
-if __name__ == &amp;quot;__main__&amp;quot;:
-    sys.exit(main())
-EOF
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;glance-api&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat &amp;gt; glance/cmd/glance-api &amp;lt;&amp;lt;EOF
-#!/bin/python
-import sys
-from glance.cmd.api import main
-if __name__ == &amp;quot;__main__&amp;quot;:
-    sys.exit(main())
-EOF
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;glance-registery&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat &amp;gt; glance/cmd/glance-registry &amp;lt;&amp;lt;EOF
-#!/bin/python
-import sys
-from glance.cmd.registry import main
-if __name__ == &amp;quot;__main__&amp;quot;:
-    sys.exit(main())
-EOF
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;populate-the-image-service-database-and-the-services&#34;&gt;Populate the Image service database and the services&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;populate the image service database&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;python glance/cmd/glance-manage db_sync
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;start the image services&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;python glance/cmd/glance-api --config-file=/etc/glance/glance-api.conf --config-file=/etc/glance/glance-api-paste.ini
-
-python glance/cmd/glance-registry --config-file=/etc/glance/glance-registry.conf --config-file=/etc/glance/glance-registry-paste.ini
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Compile influxdb 0.11.1 from source code</title>
-      <link>https://daveixiang.github.io/articles/2017_03_13_compile_influxdb_0.11.1_from_source_code/</link>
-      <pubDate>Mon, 13 Mar 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://daveixiang.github.io/articles/2017_03_13_compile_influxdb_0.11.1_from_source_code/</guid>
-      <description>
-
-&lt;h2 id=&#34;prepare-essential-directories-and-environment-variables&#34;&gt;Prepare essential directories and environment variables&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export GOPATH=/src/influxdb/
-
-mkdir -p $GOPATH/src/github.com/influxdata/
-
-cd $GOPATH/src/github.com/influxdata/
-
-export PATH=$GOPATH/bin:$PATH
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;installing-gdm&#34;&gt;Installing GDM&lt;/h2&gt;
-
-&lt;p&gt;InfluxDB uses gdm to manage dependencies. Install it by running the following:&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;go get github.com/sparrc/gdm
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h2 id=&#34;extract-source-code&#34;&gt;Extract source code&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;tar zxf ~/Downloads/influxdb-0.11.1.tar.gz
-
-ln -sf influxdb-0.11.1/ influxdb
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;installing-influxdb-dependencies&#34;&gt;Installing InfluxDB dependencies&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd influxdb
-
-gdm restore
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;build-and-install-the-binaries&#34;&gt;Build and install the binaries&lt;/h2&gt;
-
-&lt;p&gt;Run the following command:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;go clean ./...
-
-go install ./...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;and wait for a comment, the binaries will be installed to &lt;strong&gt;$GOPATH/bin&lt;/strong&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ls -l $GOPATH/bin
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;the output like the following:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;total 72624
--rwxr-xr-x 1 davei davei  7822896 Mar 13 19:22 gdm
--rwxr-xr-x 1 davei davei 10680057 Mar 13 19:26 influx
--rwxr-xr-x 1 davei davei 17539115 Mar 13 19:26 influxd
--rwxr-xr-x 1 davei davei  8591810 Mar 13 19:26 influx_inspect
--rwxr-xr-x 1 davei davei  6094083 Mar 13 19:26 influx_stress
--rwxr-xr-x 1 davei davei 11930449 Mar 13 19:26 influx_tsm
--rwxr-xr-x 1 davei davei  5911435 Mar 13 19:26 stress_test_server
--rwxr-xr-x 1 davei davei  3467812 Mar 13 19:26 test_client
--rwxr-xr-x 1 davei davei  2312705 Mar 13 19:26 urlgen
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;test-the-influxdb-binaries-just-built&#34;&gt;Test the InfluxDB binaries just built&lt;/h2&gt;
-
-&lt;p&gt;generate default influxdb configuration file and data directory&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir -p $GOPATH/etc
-
-cd $GOPATH
-
-bin/influxd config &amp;gt; etc/influxd.conf
-
-mkdir -p $GOPATH/var/lib/influxdb
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;specific bind address and data directory&lt;/p&gt;
-
-&lt;p&gt;start the InfluxDB server&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin/influxd -config  etc/influxd.conf
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;the output like the following:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;
- 8888888           .d888 888                   8888888b.  888888b.
-   888            d88P&amp;quot;  888                   888  &amp;quot;Y88b 888  &amp;quot;88b
-   888            888    888                   888    888 888  .88P
-   888   88888b.  888888 888 888  888 888  888 888    888 8888888K.
-   888   888 &amp;quot;88b 888    888 888  888  Y8bd8P&#39; 888    888 888  &amp;quot;Y88b
-   888   888  888 888    888 888  888   X88K   888    888 888    888
-   888   888  888 888    888 Y88b 888 .d8&amp;quot;&amp;quot;8b. 888  .d88P 888   d88P
- 8888888 888  888 888    888  &amp;quot;Y88888 888  888 8888888P&amp;quot;  8888888P&amp;quot;
-
-2017/03/13 19:42:23 InfluxDB starting, version unknown, branch unknown, commit unknown
-2017/03/13 19:42:23 Go version go1.7.5, GOMAXPROCS set to 4
-2017/03/13 19:42:23 Using configuration at: etc/influxd.conf
-[meta] 2017/03/13 19:42:23 Starting meta service
-[meta] 2017/03/13 19:42:23 Listening on HTTP: 127.0.0.1:8091
-[metastore] 2017/03/13 19:42:23 Using data dir: /src/influxdb/var/lib/influxdb/meta
-[metastore] 2017/03/13 19:42:23 Node at localhost:8088 [Follower]
-[metastore] 2017/03/13 19:42:25 Node at localhost:8088 [Leader]. peers=[localhost:8088]
-[store] 2017/03/13 19:42:25 Using data dir: /src/influxdb/var/lib/influxdb/data
-[tsm1wal] 2017/03/13 19:42:25 tsm1 WAL starting with 10485760 segment size
-[tsm1wal] 2017/03/13 19:42:25 tsm1 WAL writing to /src/influxdb/var/lib/influxdb/wal/_internal/monitor/1
-[cacheloader] 2017/03/13 19:42:25 reading file /src/influxdb/var/lib/influxdb/wal/_internal/monitor/1/_00001.wal, size 25887
-[cacheloader] 2017/03/13 19:42:25 reading file /src/influxdb/var/lib/influxdb/wal/_internal/monitor/1/_00002.wal, size 9629
-[cacheloader] 2017/03/13 19:42:25 reading file /src/influxdb/var/lib/influxdb/wal/_internal/monitor/1/_00003.wal, size 0
-[handoff] 2017/03/13 19:42:25 Starting hinted handoff service
-[monitor] 2017/03/13 19:42:25 &#39;hh&#39; registered for diagnostics monitoring
-[handoff] 2017/03/13 19:42:25 Using data dir: /src/influxdb/var/lib/influxdb/hh
-[subscriber] 2017/03/13 19:42:25 opened service
-[monitor] 2017/03/13 19:42:25 Starting monitor system
-[monitor] 2017/03/13 19:42:25 &#39;build&#39; registered for diagnostics monitoring
-[monitor] 2017/03/13 19:42:25 &#39;runtime&#39; registered for diagnostics monitoring
-[monitor] 2017/03/13 19:42:25 &#39;network&#39; registered for diagnostics monitoring
-[monitor] 2017/03/13 19:42:25 &#39;system&#39; registered for diagnostics monitoring
-[cluster] 2017/03/13 19:42:25 Starting cluster service
-[shard-precreation] 2017/03/13 19:42:25 Starting precreation service with check interval of 10m0s, advance period of 30m0s
-[snapshot] 2017/03/13 19:42:25 Starting snapshot service
-[copier] 2017/03/13 19:42:25 Starting copier service
-[admin] 2017/03/13 19:42:25 Starting admin service
-[admin] 2017/03/13 19:42:25 Listening on HTTP: 127.0.0.1:8083
-[continuous_querier] 2017/03/13 19:42:25 Starting continuous query service
-[httpd] 2017/03/13 19:42:25 Starting HTTP service
-[httpd] 2017/03/13 19:42:25 Authentication enabled: false
-[httpd] 2017/03/13 19:42:25 Listening on HTTP: 127.0.0.1:8086
-[retention] 2017/03/13 19:42:25 Starting retention policy enforcement service with check interval of 30m0s
-[monitor] 2017/03/13 19:42:25 Storing statistics in database &#39;_internal&#39; retention policy &#39;monitor&#39;, at interval 10s
-[run] 2017/03/13 19:42:25 Listening for signals
 &lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>

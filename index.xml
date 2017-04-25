@@ -6,8 +6,432 @@
     <description>Recent content on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 11 Apr 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 25 Apr 2017 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://daveixiang.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>linux pci device driver using mmio demo</title>
+      <link>https://daveixiang.github.io/articles/2017_04_25_linux_pci_device_driver_using_mmio_demo/</link>
+      <pubDate>Tue, 25 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_04_25_linux_pci_device_driver_using_mmio_demo/</guid>
+      <description>
+
+&lt;p&gt;The pci driver is written to drive the qemu pci-helloworld device&lt;/p&gt;
+
+&lt;h1 id=&#34;pci-helloworld-driver-source-code&#34;&gt;&lt;em&gt;pci-helloworld&lt;/em&gt; driver source code&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;the driver code &lt;em&gt;pci-helloworld&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;linux/init.h&amp;gt;
+#include &amp;lt;linux/kernel.h&amp;gt;
+#include &amp;lt;linux/module.h&amp;gt;
+#include &amp;lt;linux/pci.h&amp;gt;
+#include &amp;lt;linux/printk.h&amp;gt;
+#include &amp;lt;linux/proc_fs.h&amp;gt;
+#include &amp;lt;linux/seq_file.h&amp;gt;
+
+MODULE_LICENSE(&amp;quot;GPL&amp;quot;);
+
+static struct pci_dev *_pdev;
+static void __iomem *_mmio;
+
+static const struct pci_device_id pcidevtbl[] = {
+
+        { 0x6688, 0x0001, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+        { } /* terminate */
+
+};
+
+void pci_helloworld_reset_pointer(void __iomem *mmio)
+{
+        iowrite8(1, mmio + 1);
+}
+
+void pci_helloworld_set_buf_len(void __iomem *mmio, uint8_t len)
+{
+        iowrite8(len, mmio + 2);
+}
+
+void pci_helloworld_write_char(void __iomem *mmio, char c)
+{
+        iowrite8(c, mmio + 0);
+}
+
+static int pci_helloworld_show(struct seq_file *m, void *v) {
+        int i, len;
+        char *buf;
+
+        if (!_mmio) {
+                pr_emerg(&amp;quot;pci_iomap failed!\n&amp;quot;);
+                return -ENODEV;
+        }
+
+        pci_helloworld_reset_pointer(_mmio);
+
+        len = ioread8(_mmio + 1);
+        if (len) {
+                buf = kmalloc(len + 1, GFP_KERNEL);
+                if (!buf)
+                        return -ENOMEM;
+        } else {
+                buf = &amp;quot;&amp;quot;;
+        }
+
+        for (i = 0; i &amp;lt; len; i++)
+                buf[i] = ioread8(_mmio);
+
+        seq_printf(m, &amp;quot;%s&amp;quot;, buf);
+
+        return 0;
+}
+
+static int pci_helloworld_open(struct inode *inode, struct file *file) {
+        return single_open(file, pci_helloworld_show, NULL);
+}
+
+ssize_t pci_helloworld_write (struct file *file, const char __user *buf, size_t len,
+                        loff_t *l)
+{
+        int i = 0;
+
+        if (!_mmio) {
+                pr_emerg(&amp;quot;failed to pci_iomap\n&amp;quot;);
+                return 0;
+        }
+
+        pci_helloworld_reset_pointer(_mmio);
+        pci_helloworld_set_buf_len(_mmio, len + 1);
+
+        for(i = 0; i &amp;lt; len; i ++)
+                pci_helloworld_write_char(_mmio, buf[i]);
+
+        return i;
+}
+
+static const struct file_operations proc_fops = {
+        .owner = THIS_MODULE,
+        .open = pci_helloworld_open,
+        .read = seq_read,
+        .write = pci_helloworld_write,
+        .llseek = seq_lseek,
+        .release = single_release,
+};
+
+static int pci_helloworld_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+{
+        void __iomem *mmio;
+        char *buf;
+        int len, i;
+        struct proc_dir_entry *proc_entry;
+
+        pr_debug(&amp;quot;probed pci dev, trying read.\n&amp;quot;);
+
+        mmio = pci_iomap(pdev, 0, 0);
+        if (!mmio) {
+                pr_emerg(&amp;quot;failed to iomap!\n&amp;quot;);
+                return -ENODEV;
+        }
+
+        len = ioread8(mmio + 1);
+        pr_info(&amp;quot;length of string: %d bytes\n&amp;quot;, len);
+
+        buf = kmalloc(len + 1, GFP_KERNEL);
+        if (!buf) {
+                pr_err(&amp;quot;no memory...\n&amp;quot;);
+                return -ENOMEM;
+        }
+
+        for (i = 0; i &amp;lt; len; i++)
+                buf[i] = ioread8(mmio);
+
+        pr_info(&amp;quot;read this string: %s&amp;quot;, buf);
+
+        proc_entry = proc_create(&amp;quot;helloworld&amp;quot;, 0755, NULL, &amp;amp;proc_fops);
+
+        _mmio = mmio;
+        _pdev = pdev;
+        return 0;
+}
+
+static void pci_helloworld_remove(struct pci_dev *pdev) {
+        pr_debug(&amp;quot;unloaded device\n&amp;quot;);
+}
+
+static struct pci_driver helloworld_pci_driver = {
+        .name = &amp;quot;PCI-Hello-World driver&amp;quot;,
+        .id_table = pcidevtbl,
+        .probe = pci_helloworld_probe,
+        .remove = pci_helloworld_remove,
+
+};
+
+static int __init pci_helloworld_init(void)
+{
+        int rc;
+        pr_debug(&amp;quot;pci device driver online.\n&amp;quot;);
+
+        rc = pci_register_driver(&amp;amp;helloworld_pci_driver);
+        if (rc) {
+                pr_err(&amp;quot;failed to register driver.\n&amp;quot;);
+                return rc;
+        }
+
+        return 0;
+}
+
+static void __exit pci_helloworld_exit(void)
+{
+        pr_debug(&amp;quot;driver unloaded :-(\n&amp;quot;);
+        return;
+}
+
+module_init(pci_helloworld_init);
+module_exit(pci_helloworld_exit);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;the makefile&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-makefile&#34;&gt;obj-m := pci-helloworld.o
+
+ifeq ($(KERNELRELEASE),)  
+
+KERNELDIR ?= /lib/modules/$(shell uname -r)/build 
+PWD := $(shell pwd)  
+
+all:
+        $(MAKE) -C $(KERNELDIR) M=$(PWD) modules  
+clean:
+        $(MAKE) -C $(KERNELDIR) M=$(PWD) clean
+else  
+
+$(info Building with KERNELRELEASE = ${KERNELRELEASE})  
+
+endif
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;load-the-module-and-test&#34;&gt;Load the module and test&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Load the module&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;insmod pci-helloworld.ko
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Test the module&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat /proc/helloworld # Hello, world!
+
+echo &amp;quot;davei&amp;quot; &amp;gt; /proc/hellworld
+
+cat /proc/helloworld # davei
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>qemu pci device demo</title>
+      <link>https://daveixiang.github.io/articles/2017_04_25_qemu_pci_device_demo/</link>
+      <pubDate>Tue, 25 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_04_25_qemu_pci_device_demo/</guid>
+      <description>
+
+&lt;h2 id=&#34;add-the-device-source-code-qemu-src-hw-misc-pci-helloworld-c&#34;&gt;Add the device source code &lt;em&gt;{QEMU_SRC}/hw/misc/pci-helloworld.c&lt;/em&gt;&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;quot;qemu/osdep.h&amp;quot;
+#include &amp;quot;hw/hw.h&amp;quot;
+#include &amp;quot;hw/pci/pci.h&amp;quot;
+#include &amp;quot;qemu/event_notifier.h&amp;quot;
+
+typedef struct PCIHelloWorldDevState {
+    PCIDevice parent_obj;
+
+    int pos;
+    char *buf;
+    int buflen;
+
+    MemoryRegion mmio;
+} PCIHelloWorldDevState;
+
+#define TYPE_PCI_HELLOWORLD_DEV &amp;quot;pci-helloworld&amp;quot;
+
+#define PCI_HELLOWORLD_DEV(obj) \
+    OBJECT_CHECK(PCIHelloWorldDevState, (obj), TYPE_PCI_HELLOWORLD_DEV)
+
+static uint64_t
+pci_helloworld_dev_mmio_read(void *opaque, hwaddr addr, unsigned size)
+{
+    PCIHelloWorldDevState *d = opaque;
+
+    if (addr == 0)
+        return d-&amp;gt;buf[d-&amp;gt;pos ++];
+    else
+        return d-&amp;gt;buflen;
+}
+
+static void
+pci_helloworld_dev_mmio_write(void *opaque, hwaddr addr, uint64_t val,
+                       unsigned size)
+{
+
+   PCIHelloWorldDevState *d = opaque;
+
+   switch(addr) {
+       case 0:
+           /* write byte */
+           if (!d-&amp;gt;buf)
+               break;
+           if (d-&amp;gt;pos &amp;gt;= d-&amp;gt;buflen)
+               break;
+           d-&amp;gt;buf[d-&amp;gt;pos ++] = (uint8_t)val;
+           break;
+       case 1:
+           /* reset pos */
+           d-&amp;gt;pos = 0;
+           break;
+       case 2:
+           /* set buffer length */
+           d-&amp;gt;buflen = val + 1;
+           g_free(d-&amp;gt;buf);
+           d-&amp;gt;buf = g_malloc(d-&amp;gt;buflen);
+           break;
+   }
+
+   return;
+}
+
+static const MemoryRegionOps pci_helloworld_dev_mmio_ops = {
+    .read = pci_helloworld_dev_mmio_read,
+    .write = pci_helloworld_dev_mmio_write,
+    .endianness = DEVICE_LITTLE_ENDIAN,
+    .impl = {
+        .min_access_size = 1,
+        .max_access_size = 1,
+    },
+};
+
+static int
+pci_helloworld_dev_init(PCIDevice *pci_dev)
+{
+    PCIHelloWorldDevState *d = PCI_HELLOWORLD_DEV(pci_dev);
+    uint8_t *pci_conf;
+
+    pci_conf = pci_dev-&amp;gt;config;
+
+    pci_conf[PCI_INTERRUPT_PIN] = 0; /* no interrupt pin */
+
+    memory_region_init_io(&amp;amp;d-&amp;gt;mmio, OBJECT(d), &amp;amp;pci_helloworld_dev_mmio_ops, d,
+                          &amp;quot;pci-helloworld-dev-mmio&amp;quot;, 128);
+    pci_register_bar(pci_dev, 0, PCI_BASE_ADDRESS_SPACE_MEMORY, &amp;amp;d-&amp;gt;mmio);
+
+    d-&amp;gt;pos = 0;
+    d-&amp;gt;buf = g_malloc(14);
+    memcpy(d-&amp;gt;buf, &amp;quot;Hello, world!\n&amp;quot;, 14);
+    d-&amp;gt;buflen = 14;
+    printf(&amp;quot;Loaded helloworld pci\n&amp;quot;);
+
+    return 0;
+}
+
+static void
+pci_helloworld_dev_uninit(PCIDevice *dev)
+{
+    //PCIHelloWorldDevState *d = PCI_HELLOWORLD_DEV(dev);
+    printf(&amp;quot;unloaded helloworld pci\n&amp;quot;);
+}
+
+static void
+qdev_pci_helloworld_dev_reset(DeviceState *dev)
+{
+    //PCIHelloWorldDevState *d = PCI_HELLOWORLD_DEV(dev);
+}
+
+static void
+pci_helloworld_dev_class_init(ObjectClass *klass, void *data)
+{
+    DeviceClass *dc = DEVICE_CLASS(klass);
+    PCIDeviceClass *k = PCI_DEVICE_CLASS(klass);
+
+    k-&amp;gt;init = pci_helloworld_dev_init;
+    k-&amp;gt;exit = pci_helloworld_dev_uninit;
+    k-&amp;gt;vendor_id = 0x6688;
+    k-&amp;gt;device_id = 0x0001;
+    k-&amp;gt;revision = 0x00;
+    k-&amp;gt;class_id = PCI_CLASS_OTHERS;
+    dc-&amp;gt;desc = &amp;quot;HelloWorld PCI&amp;quot;;
+    set_bit(DEVICE_CATEGORY_MISC, dc-&amp;gt;categories);
+    dc-&amp;gt;reset = qdev_pci_helloworld_dev_reset;
+}
+
+static const TypeInfo pci_helloworld_info = {
+    .name          = TYPE_PCI_HELLOWORLD_DEV,
+    .parent        = TYPE_PCI_DEVICE,
+    .instance_size = sizeof(PCIHelloWorldDevState),
+    .class_init    = pci_helloworld_dev_class_init,
+};
+
+static void pci_helloworld_register_types(void)
+{
+    type_register_static(&amp;amp;pci_helloworld_info);
+}
+
+type_init(pci_helloworld_register_types)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;add-the-following-line-to-qemu-src-hw-misc-makefile-objs&#34;&gt;Add the following line to &lt;em&gt;{QEMU_SRC}/hw/misc/Makefile.objs&lt;/em&gt;&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-makefile&#34;&gt;ifeq ($(CONFIG_PCI), y)
+obj-y += pci-helloworld.o
+endif
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;recompile-the-qemu-source-code-and-check-the-result&#34;&gt;Recompile the qemu source code and check the result&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;get the device list&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;x86_64-softmmu/qemu-system-x86_64 -device ? 2&amp;gt;&amp;amp;1 | grep hello
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and we get the following result:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;name &amp;quot;pci-helloworld&amp;quot;, bus PCI, desc &amp;quot;HelloWorld PCI&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;startup vm&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;x86_64-softmmu/qemu-system-x86_64  -kernel ./bzImage -initrd ./initramfs -nographic -append  &amp;quot;console=ttyS0 quiet&amp;quot;  -device pci-helloworld
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;use &lt;code&gt;lspci&lt;/code&gt; to get pci info:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;Loaded helloworld pci
+[    0.869296] kvm: no hardware support
+
+Please press Enter to activate this console.  
+/ # lspci
+00:00.0 Class 0600: 8086:1237
+00:01.0 Class 0601: 8086:7000
+00:01.1 Class 0101: 8086:7010
+00:01.3 Class 0680: 8086:7113
+00:02.0 Class 0300: 1234:1111
+00:03.0 Class 0200: 8086:100e
+00:04.0 Class 00ff: 6688:0001
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>emacs gdb gui customize default layout</title>
@@ -1035,598 +1459,6 @@ virsh net-autostart $BRNAME
 
 /etc/mtab
 &lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Install Openstack from source code - glance (mitaka)</title>
-      <link>https://daveixiang.github.io/articles/2017_03_21_openstack_from_source_code_mitaka_02_glance/</link>
-      <pubDate>Tue, 21 Mar 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://daveixiang.github.io/articles/2017_03_21_openstack_from_source_code_mitaka_02_glance/</guid>
-      <description>
-
-&lt;h2 id=&#34;create-image-service-database&#34;&gt;Create image service database&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export GLANCE_DBPASS=openstack
-export MYSQL_PASS=openstack
-
-mysql -uroot -p$MYSQL_PASS &amp;lt;&amp;lt;EOF
-CREATE DATABASE glance;
-GRANT ALL PRIVILEGES ON glance.* TO &#39;glance&#39;@&#39;localhost&#39; \
-  IDENTIFIED BY &#39;$GLANCE_DBPASS&#39;;
-GRANT ALL PRIVILEGES ON glance.* TO &#39;glance&#39;@&#39;%&#39; \
-  IDENTIFIED BY &#39;$GLANCE_DBPASS&#39;;
-EOF
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;create-the-image-service-credentials-andapi-endpoints&#34;&gt;Create the image service credentials andAPI endpoints&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;openstack user create --domain default --password openstack glance
-openstack role add --project service --user glance admin
-
-openstack service create --name glance --description &amp;quot;OpenStack Image&amp;quot; image
-openstack endpoint create --region RegionOne image public http://controller:9292
-openstack endpoint create --region RegionOne image internal http://controller:9292
-openstack endpoint create --region RegionOne image admin http://controller:9292
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;install-glance-dependences&#34;&gt;Install glance dependences&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum install $(cat openstack-glance-deps.log | cut -d, -f1 | tr -s &#39;\n&#39;  &#39; &#39;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;git-clone-source-code-from-github&#34;&gt;Git clone source code from github&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git clone https://github.com/openstack/glance
-
-cd /src/openstack/glance
-
-git checkout stable/mitaka
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;build-glance-source-code&#34;&gt;Build glance source code&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd /src/openstack/glance
-
-python setup.py build
-
-cp -aR etc/* /etc/glance
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;make-glance-configuration&#34;&gt;Make glance configuration&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;glance-api.conf&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sed -i -E -e &#39;/^#.+?$/d&#39; -e &#39;/^$/d&#39; /etc/glance/glance-api.conf
-ini-config --set /etc/glance/glance-api.conf database connection &#39;postgresql://glance:openstack@controller/glance&#39;
-ini-config --set /etc/glance/glance-api.conf keystone_authtoken auth_uri http://controller:5000
-ini-config --set /etc/glance/glance-api.conf keystone_authtoken auth_url http://controller:35357
-ini-config --set /etc/glance/glance-api.conf keystone_authtoken auth_type password
-ini-config --set /etc/glance/glance-api.conf keystone_authtoken project_domain_name default
-ini-config --set /etc/glance/glance-api.conf keystone_authtoken user_domain_name default
-ini-config --set /etc/glance/glance-api.conf keystone_authtoken project_name service
-ini-config --set /etc/glance/glance-api.conf keystone_authtoken username glance
-ini-config --set /etc/glance/glance-api.conf keystone_authtoken password openstack
-ini-config --set /etc/glance/glance-api.conf paste_deploy flavor keystone
-ini-config --set /etc/glance/glance-api.conf glance_store stores file
-ini-config --set /etc/glance/glance-api.conf glance_store default_store file
-ini-config --set /etc/glance/glance-api.conf glance_store filesystem_store_datadir &#39;/var/lib/glance/images/&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;glance-registery.conf&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sed -i -E -e &#39;/^#.+?$/d&#39; -e &#39;/^$/d&#39; /etc/glance/glance-registry.conf
-ini-config --set /etc/glance/glance-registry.conf database connection &#39;postgresql://glance:openstack@controller/glance&#39;
-ini-config --set /etc/glance/glance-registry.conf keystone_authtoken auth_uri http://controller:5000
-ini-config --set /etc/glance/glance-registry.conf keystone_authtoken auth_url http://controller:35357
-ini-config --set /etc/glance/glance-registry.conf keystone_authtoken auth_type password
-ini-config --set /etc/glance/glance-registry.conf keystone_authtoken project_domain_name default
-ini-config --set /etc/glance/glance-registry.conf keystone_authtoken user_domain_name default
-ini-config --set /etc/glance/glance-registry.conf keystone_authtoken project_name service
-ini-config --set /etc/glance/glance-registry.conf keystone_authtoken username glance
-ini-config --set /etc/glance/glance-registry.conf keystone_authtoken password openstack
-ini-config --set /etc/glance/glance-registry.conf paste_deploy flavor keystone
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;create-glance-manage-glance-api-and-glance-registery-command&#34;&gt;Create &lt;em&gt;glance-manage&lt;/em&gt;, &lt;em&gt;glance-api&lt;/em&gt; and &lt;em&gt;glance-registery&lt;/em&gt; command&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;glance-manage&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat &amp;gt; glance/cmd/glance-manage &amp;lt;&amp;lt;EOF
-#!/bin/python
-import sys
-from glance.cmd.manage import main
-if __name__ == &amp;quot;__main__&amp;quot;:
-    sys.exit(main())
-EOF
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;glance-api&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat &amp;gt; glance/cmd/glance-api &amp;lt;&amp;lt;EOF
-#!/bin/python
-import sys
-from glance.cmd.api import main
-if __name__ == &amp;quot;__main__&amp;quot;:
-    sys.exit(main())
-EOF
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;glance-registery&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat &amp;gt; glance/cmd/glance-registry &amp;lt;&amp;lt;EOF
-#!/bin/python
-import sys
-from glance.cmd.registry import main
-if __name__ == &amp;quot;__main__&amp;quot;:
-    sys.exit(main())
-EOF
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;populate-the-image-service-database-and-the-services&#34;&gt;Populate the Image service database and the services&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;populate the image service database&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;python glance/cmd/glance-manage db_sync
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;start the image services&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;python glance/cmd/glance-api --config-file=/etc/glance/glance-api.conf --config-file=/etc/glance/glance-api-paste.ini
-
-python glance/cmd/glance-registry --config-file=/etc/glance/glance-registry.conf --config-file=/etc/glance/glance-registry-paste.ini
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>般若波羅蜜多心經</title>
-      <link>https://daveixiang.github.io/xin/</link>
-      <pubDate>Tue, 21 Mar 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://daveixiang.github.io/xin/</guid>
-      <description>&lt;table style=&#34;font-family: 华文楷体&#34;&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;咒&lt;/td&gt;
-&lt;td&gt;苦&lt;/td&gt;
-&lt;td&gt;大&lt;/td&gt;
-&lt;td&gt;三&lt;/td&gt;
-&lt;td&gt;佛&lt;/td&gt;
-&lt;td&gt;有&lt;/td&gt;
-&lt;td&gt;般&lt;/td&gt;
-&lt;td&gt;道&lt;/td&gt;
-&lt;td&gt;明&lt;/td&gt;
-&lt;td&gt;法&lt;/td&gt;
-&lt;td&gt;想&lt;/td&gt;
-&lt;td&gt;不&lt;/td&gt;
-&lt;td&gt;亦&lt;/td&gt;
-&lt;td&gt;空&lt;/td&gt;
-&lt;td&gt;五&lt;/td&gt;
-&lt;td&gt;觀&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;曰&lt;/td&gt;
-&lt;td&gt;真&lt;/td&gt;
-&lt;td&gt;明&lt;/td&gt;
-&lt;td&gt;菩&lt;/td&gt;
-&lt;td&gt;依&lt;/td&gt;
-&lt;td&gt;恐&lt;/td&gt;
-&lt;td&gt;若&lt;/td&gt;
-&lt;td&gt;無&lt;/td&gt;
-&lt;td&gt;盡&lt;/td&gt;
-&lt;td&gt;無&lt;/td&gt;
-&lt;td&gt;行&lt;/td&gt;
-&lt;td&gt;垢&lt;/td&gt;
-&lt;td&gt;復&lt;/td&gt;
-&lt;td&gt;不&lt;/td&gt;
-&lt;td&gt;蘊&lt;/td&gt;
-&lt;td&gt;自&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;波&lt;/td&gt;
-&lt;td&gt;揭&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;實&lt;/td&gt;
-&lt;td&gt;咒&lt;/td&gt;
-&lt;td&gt;提&lt;/td&gt;
-&lt;td&gt;般&lt;/td&gt;
-&lt;td&gt;怖&lt;/td&gt;
-&lt;td&gt;波&lt;/td&gt;
-&lt;td&gt;智&lt;/td&gt;
-&lt;td&gt;乃&lt;/td&gt;
-&lt;td&gt;眼&lt;/td&gt;
-&lt;td&gt;識&lt;/td&gt;
-&lt;td&gt;不&lt;/td&gt;
-&lt;td&gt;如&lt;/td&gt;
-&lt;td&gt;異&lt;/td&gt;
-&lt;td&gt;皆&lt;/td&gt;
-&lt;td&gt;在&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;羅&lt;/td&gt;
-&lt;td&gt;諦&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;不&lt;/td&gt;
-&lt;td&gt;是&lt;/td&gt;
-&lt;td&gt;故&lt;/td&gt;
-&lt;td&gt;若&lt;/td&gt;
-&lt;td&gt;遠&lt;/td&gt;
-&lt;td&gt;羅&lt;/td&gt;
-&lt;td&gt;亦&lt;/td&gt;
-&lt;td&gt;至&lt;/td&gt;
-&lt;td&gt;界&lt;/td&gt;
-&lt;td&gt;無&lt;/td&gt;
-&lt;td&gt;淨&lt;/td&gt;
-&lt;td&gt;是&lt;/td&gt;
-&lt;td&gt;色&lt;/td&gt;
-&lt;td&gt;空&lt;/td&gt;
-&lt;td&gt;菩&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;/tr
-
-&lt;tr&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;僧&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;虛&lt;/td&gt;
-&lt;td&gt;無&lt;/td&gt;
-&lt;td&gt;知&lt;/td&gt;
-&lt;td&gt;波&lt;/td&gt;
-&lt;td&gt;離&lt;/td&gt;
-&lt;td&gt;密&lt;/td&gt;
-&lt;td&gt;無&lt;/td&gt;
-&lt;td&gt;無&lt;/td&gt;
-&lt;td&gt;乃&lt;/td&gt;
-&lt;td&gt;眼&lt;/td&gt;
-&lt;td&gt;不&lt;/td&gt;
-&lt;td&gt;舍&lt;/td&gt;
-&lt;td&gt;色&lt;/td&gt;
-&lt;td&gt;度&lt;/td&gt;
-&lt;td&gt;薩&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;般&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;揭&lt;/td&gt;
-&lt;td&gt;揭&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;故&lt;/td&gt;
-&lt;td&gt;上&lt;/td&gt;
-&lt;td&gt;般&lt;/td&gt;
-&lt;td&gt;羅&lt;/td&gt;
-&lt;td&gt;顛&lt;/td&gt;
-&lt;td&gt;多&lt;/td&gt;
-&lt;td&gt;得&lt;/td&gt;
-&lt;td&gt;老&lt;/td&gt;
-&lt;td&gt;至&lt;/td&gt;
-&lt;td&gt;耳&lt;/td&gt;
-&lt;td&gt;增&lt;/td&gt;
-&lt;td&gt;利&lt;/td&gt;
-&lt;td&gt;即&lt;/td&gt;
-&lt;td&gt;一&lt;/td&gt;
-&lt;td&gt;行&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;若&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;諦&lt;/td&gt;
-&lt;td&gt;諦&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;說&lt;/td&gt;
-&lt;td&gt;咒&lt;/td&gt;
-&lt;td&gt;若&lt;/td&gt;
-&lt;td&gt;密&lt;/td&gt;
-&lt;td&gt;倒&lt;/td&gt;
-&lt;td&gt;故&lt;/td&gt;
-&lt;td&gt;以&lt;/td&gt;
-&lt;td&gt;死&lt;/td&gt;
-&lt;td&gt;無&lt;/td&gt;
-&lt;td&gt;鼻&lt;/td&gt;
-&lt;td&gt;不&lt;/td&gt;
-&lt;td&gt;子&lt;/td&gt;
-&lt;td&gt;是&lt;/td&gt;
-&lt;td&gt;切&lt;/td&gt;
-&lt;td&gt;深&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;波&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;般&lt;/td&gt;
-&lt;td&gt;是&lt;/td&gt;
-&lt;td&gt;波&lt;/td&gt;
-&lt;td&gt;多&lt;/td&gt;
-&lt;td&gt;夢&lt;/td&gt;
-&lt;td&gt;心&lt;/td&gt;
-&lt;td&gt;無&lt;/td&gt;
-&lt;td&gt;亦&lt;/td&gt;
-&lt;td&gt;意&lt;/td&gt;
-&lt;td&gt;舌&lt;/td&gt;
-&lt;td&gt;減&lt;/td&gt;
-&lt;td&gt;是&lt;/td&gt;
-&lt;td&gt;空&lt;/td&gt;
-&lt;td&gt;苦&lt;/td&gt;
-&lt;td&gt;般&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;羅&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;菩&lt;/td&gt;
-&lt;td&gt;波&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;若&lt;/td&gt;
-&lt;td&gt;無&lt;/td&gt;
-&lt;td&gt;羅&lt;/td&gt;
-&lt;td&gt;故&lt;/td&gt;
-&lt;td&gt;想&lt;/td&gt;
-&lt;td&gt;無&lt;/td&gt;
-&lt;td&gt;所&lt;/td&gt;
-&lt;td&gt;無&lt;/td&gt;
-&lt;td&gt;識&lt;/td&gt;
-&lt;td&gt;身&lt;/td&gt;
-&lt;td&gt;是&lt;/td&gt;
-&lt;td&gt;諸&lt;/td&gt;
-&lt;td&gt;空&lt;/td&gt;
-&lt;td&gt;厄&lt;/td&gt;
-&lt;td&gt;若&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;密&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;提&lt;/td&gt;
-&lt;td&gt;羅&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;波&lt;/td&gt;
-&lt;td&gt;等&lt;/td&gt;
-&lt;td&gt;密&lt;/td&gt;
-&lt;td&gt;得&lt;/td&gt;
-&lt;td&gt;究&lt;/td&gt;
-&lt;td&gt;罣&lt;/td&gt;
-&lt;td&gt;得&lt;/td&gt;
-&lt;td&gt;老&lt;/td&gt;
-&lt;td&gt;界&lt;/td&gt;
-&lt;td&gt;意&lt;/td&gt;
-&lt;td&gt;故&lt;/td&gt;
-&lt;td&gt;法&lt;/td&gt;
-&lt;td&gt;即&lt;/td&gt;
-&lt;td&gt;舍&lt;/td&gt;
-&lt;td&gt;波&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;多&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;薩&lt;/td&gt;
-&lt;td&gt;揭&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;羅&lt;/td&gt;
-&lt;td&gt;等&lt;/td&gt;
-&lt;td&gt;多&lt;/td&gt;
-&lt;td&gt;阿&lt;/td&gt;
-&lt;td&gt;竟&lt;/td&gt;
-&lt;td&gt;礙&lt;/td&gt;
-&lt;td&gt;故&lt;/td&gt;
-&lt;td&gt;死&lt;/td&gt;
-&lt;td&gt;無&lt;/td&gt;
-&lt;td&gt;無&lt;/td&gt;
-&lt;td&gt;空&lt;/td&gt;
-&lt;td&gt;空&lt;/td&gt;
-&lt;td&gt;是&lt;/td&gt;
-&lt;td&gt;利&lt;/td&gt;
-&lt;td&gt;羅&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;心&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;項&lt;/td&gt;
-&lt;td&gt;婆&lt;/td&gt;
-&lt;td&gt;諦&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;密&lt;/td&gt;
-&lt;td&gt;咒&lt;/td&gt;
-&lt;td&gt;是&lt;/td&gt;
-&lt;td&gt;耨&lt;/td&gt;
-&lt;td&gt;涅&lt;/td&gt;
-&lt;td&gt;無&lt;/td&gt;
-&lt;td&gt;菩&lt;/td&gt;
-&lt;td&gt;盡&lt;/td&gt;
-&lt;td&gt;無&lt;/td&gt;
-&lt;td&gt;色&lt;/td&gt;
-&lt;td&gt;中&lt;/td&gt;
-&lt;td&gt;相&lt;/td&gt;
-&lt;td&gt;色&lt;/td&gt;
-&lt;td&gt;子&lt;/td&gt;
-&lt;td&gt;密&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;經&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;思&lt;/td&gt;
-&lt;td&gt;訶&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;多&lt;/td&gt;
-&lt;td&gt;能&lt;/td&gt;
-&lt;td&gt;大&lt;/td&gt;
-&lt;td&gt;多&lt;/td&gt;
-&lt;td&gt;槃&lt;/td&gt;
-&lt;td&gt;罣&lt;/td&gt;
-&lt;td&gt;提&lt;/td&gt;
-&lt;td&gt;無&lt;/td&gt;
-&lt;td&gt;明&lt;/td&gt;
-&lt;td&gt;聲&lt;/td&gt;
-&lt;td&gt;無&lt;/td&gt;
-&lt;td&gt;不&lt;/td&gt;
-&lt;td&gt;受&lt;/td&gt;
-&lt;td&gt;色&lt;/td&gt;
-&lt;td&gt;多&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;偉&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;咒&lt;/td&gt;
-&lt;td&gt;除&lt;/td&gt;
-&lt;td&gt;神&lt;/td&gt;
-&lt;td&gt;羅&lt;/td&gt;
-&lt;td&gt;三&lt;/td&gt;
-&lt;td&gt;礙&lt;/td&gt;
-&lt;td&gt;薩&lt;/td&gt;
-&lt;td&gt;苦&lt;/td&gt;
-&lt;td&gt;亦&lt;/td&gt;
-&lt;td&gt;香&lt;/td&gt;
-&lt;td&gt;色&lt;/td&gt;
-&lt;td&gt;生&lt;/td&gt;
-&lt;td&gt;想&lt;/td&gt;
-&lt;td&gt;不&lt;/td&gt;
-&lt;td&gt;時&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;即&lt;/td&gt;
-&lt;td&gt;一&lt;/td&gt;
-&lt;td&gt;咒&lt;/td&gt;
-&lt;td&gt;三&lt;/td&gt;
-&lt;td&gt;世&lt;/td&gt;
-&lt;td&gt;故&lt;/td&gt;
-&lt;td&gt;埵&lt;/td&gt;
-&lt;td&gt;集&lt;/td&gt;
-&lt;td&gt;無&lt;/td&gt;
-&lt;td&gt;味&lt;/td&gt;
-&lt;td&gt;無&lt;/td&gt;
-&lt;td&gt;不&lt;/td&gt;
-&lt;td&gt;行&lt;/td&gt;
-&lt;td&gt;異&lt;/td&gt;
-&lt;td&gt;照&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;編&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;說&lt;/td&gt;
-&lt;td&gt;切&lt;/td&gt;
-&lt;td&gt;是&lt;/td&gt;
-&lt;td&gt;藐&lt;/td&gt;
-&lt;td&gt;諸&lt;/td&gt;
-&lt;td&gt;無&lt;/td&gt;
-&lt;td&gt;依&lt;/td&gt;
-&lt;td&gt;滅&lt;/td&gt;
-&lt;td&gt;無&lt;/td&gt;
-&lt;td&gt;觸&lt;/td&gt;
-&lt;td&gt;受&lt;/td&gt;
-&lt;td&gt;滅&lt;/td&gt;
-&lt;td&gt;識&lt;/td&gt;
-&lt;td&gt;空&lt;/td&gt;
-&lt;td&gt;見&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;輯&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td&gt;&amp;nbsp;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
 </description>
     </item>
     

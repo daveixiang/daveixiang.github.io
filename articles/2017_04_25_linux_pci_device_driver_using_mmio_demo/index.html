@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>linux pci device driver using mmio demo // 項 思 偉 ~ Aal Izz Well!</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta property="og:title" content="linux pci device driver using mmio demo" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content="https://daveixiang.github.io/articles/2017_04_25_linux_pci_device_driver_using_mmio_demo/" />
+
+
+    <link href="" rel="alternate" type="application/rss+xml" title="項 思 偉 ~ Aal Izz Well!" />
+    <link rel="shortcut icon" href="https://daveixiang.github.io/favicon.png">
+
+    <link href="https://daveixiang.github.io/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="https://daveixiang.github.io/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://daveixiang.github.io/css/style.css">
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+    <meta name="generator" content="Hugo 0.19" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="https://daveixiang.github.io/">項 思 偉 ~ Aal Izz Well!</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="https://daveixiang.github.io/xin">0x00 xin</a>
+                
+                <a class="main-nav-link" href="https://daveixiang.github.io/tags/">0x01 Tags</a>
+                
+                <a class="main-nav-link" href="https://daveixiang.github.io/categories/">0x02 Categories</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">linux pci device driver using mmio demo</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="https://daveixiang.github.io/articles/2017_04_25_linux_pci_device_driver_using_mmio_demo/" class="article-date">
+                <time datetime='2017-04-25T00:00:00.000&#43;00:00' itemprop="datePublished">2017-04-25</time>
+            </a>
+            
+            
+            <div class="post-categories">
+                <div class="article-category">
+                    
+                    
+                    <a class="article-category-link" href="https://daveixiang.github.io//categories/qemu">qemu</a>
+                    
+                </div>
+            </div>
+            
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            
+
+<p>The pci driver is written to drive the qemu pci-helloworld device</p>
+
+<h1 id="pci-helloworld-driver-source-code"><em>pci-helloworld</em> driver source code</h1>
+
+<ul>
+<li>the driver code <em>pci-helloworld</em></li>
+</ul>
+
+<pre><code class="language-c">#include &lt;linux/init.h&gt;
+#include &lt;linux/kernel.h&gt;
+#include &lt;linux/module.h&gt;
+#include &lt;linux/pci.h&gt;
+#include &lt;linux/printk.h&gt;
+#include &lt;linux/proc_fs.h&gt;
+#include &lt;linux/seq_file.h&gt;
+
+MODULE_LICENSE(&quot;GPL&quot;);
+
+static struct pci_dev *_pdev;
+static void __iomem *_mmio;
+
+static const struct pci_device_id pcidevtbl[] = {
+
+        { 0x6688, 0x0001, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+        { } /* terminate */
+
+};
+
+void pci_helloworld_reset_pointer(void __iomem *mmio)
+{
+        iowrite8(1, mmio + 1);
+}
+
+void pci_helloworld_set_buf_len(void __iomem *mmio, uint8_t len)
+{
+        iowrite8(len, mmio + 2);
+}
+
+void pci_helloworld_write_char(void __iomem *mmio, char c)
+{
+        iowrite8(c, mmio + 0);
+}
+
+static int pci_helloworld_show(struct seq_file *m, void *v) {
+        int i, len;
+        char *buf;
+
+        if (!_mmio) {
+                pr_emerg(&quot;pci_iomap failed!\n&quot;);
+                return -ENODEV;
+        }
+
+        pci_helloworld_reset_pointer(_mmio);
+
+        len = ioread8(_mmio + 1);
+        if (len) {
+                buf = kmalloc(len + 1, GFP_KERNEL);
+                if (!buf)
+                        return -ENOMEM;
+        } else {
+                buf = &quot;&quot;;
+        }
+
+        for (i = 0; i &lt; len; i++)
+                buf[i] = ioread8(_mmio);
+
+        seq_printf(m, &quot;%s&quot;, buf);
+
+        return 0;
+}
+
+static int pci_helloworld_open(struct inode *inode, struct file *file) {
+        return single_open(file, pci_helloworld_show, NULL);
+}
+
+ssize_t pci_helloworld_write (struct file *file, const char __user *buf, size_t len,
+                        loff_t *l)
+{
+        int i = 0;
+
+        if (!_mmio) {
+                pr_emerg(&quot;failed to pci_iomap\n&quot;);
+                return 0;
+        }
+
+        pci_helloworld_reset_pointer(_mmio);
+        pci_helloworld_set_buf_len(_mmio, len + 1);
+
+        for(i = 0; i &lt; len; i ++)
+                pci_helloworld_write_char(_mmio, buf[i]);
+
+        return i;
+}
+
+static const struct file_operations proc_fops = {
+        .owner = THIS_MODULE,
+        .open = pci_helloworld_open,
+        .read = seq_read,
+        .write = pci_helloworld_write,
+        .llseek = seq_lseek,
+        .release = single_release,
+};
+
+static int pci_helloworld_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+{
+        void __iomem *mmio;
+        char *buf;
+        int len, i;
+        struct proc_dir_entry *proc_entry;
+
+        pr_debug(&quot;probed pci dev, trying read.\n&quot;);
+
+        mmio = pci_iomap(pdev, 0, 0);
+        if (!mmio) {
+                pr_emerg(&quot;failed to iomap!\n&quot;);
+                return -ENODEV;
+        }
+
+        len = ioread8(mmio + 1);
+        pr_info(&quot;length of string: %d bytes\n&quot;, len);
+
+        buf = kmalloc(len + 1, GFP_KERNEL);
+        if (!buf) {
+                pr_err(&quot;no memory...\n&quot;);
+                return -ENOMEM;
+        }
+
+        for (i = 0; i &lt; len; i++)
+                buf[i] = ioread8(mmio);
+
+        pr_info(&quot;read this string: %s&quot;, buf);
+
+        proc_entry = proc_create(&quot;helloworld&quot;, 0755, NULL, &amp;proc_fops);
+
+        _mmio = mmio;
+        _pdev = pdev;
+        return 0;
+}
+
+static void pci_helloworld_remove(struct pci_dev *pdev) {
+        pr_debug(&quot;unloaded device\n&quot;);
+}
+
+static struct pci_driver helloworld_pci_driver = {
+        .name = &quot;PCI-Hello-World driver&quot;,
+        .id_table = pcidevtbl,
+        .probe = pci_helloworld_probe,
+        .remove = pci_helloworld_remove,
+
+};
+
+static int __init pci_helloworld_init(void)
+{
+        int rc;
+        pr_debug(&quot;pci device driver online.\n&quot;);
+
+        rc = pci_register_driver(&amp;helloworld_pci_driver);
+        if (rc) {
+                pr_err(&quot;failed to register driver.\n&quot;);
+                return rc;
+        }
+
+        return 0;
+}
+
+static void __exit pci_helloworld_exit(void)
+{
+        pr_debug(&quot;driver unloaded :-(\n&quot;);
+        return;
+}
+
+module_init(pci_helloworld_init);
+module_exit(pci_helloworld_exit);
+</code></pre>
+
+<ul>
+<li>the makefile</li>
+</ul>
+
+<pre><code class="language-makefile">obj-m := pci-helloworld.o
+
+ifeq ($(KERNELRELEASE),)  
+
+KERNELDIR ?= /lib/modules/$(shell uname -r)/build 
+PWD := $(shell pwd)  
+
+all:
+        $(MAKE) -C $(KERNELDIR) M=$(PWD) modules  
+clean:
+        $(MAKE) -C $(KERNELDIR) M=$(PWD) clean
+else  
+
+$(info Building with KERNELRELEASE = ${KERNELRELEASE})  
+
+endif
+</code></pre>
+
+<h1 id="load-the-module-and-test">Load the module and test</h1>
+
+<ul>
+<li>Load the module</li>
+</ul>
+
+<pre><code class="language-bash">insmod pci-helloworld.ko
+</code></pre>
+
+<ul>
+<li>Test the module</li>
+</ul>
+
+<pre><code class="language-bash">cat /proc/helloworld # Hello, world!
+
+echo &quot;davei&quot; &gt; /proc/hellworld
+
+cat /proc/helloworld # davei
+</code></pre>
+
+        </div>
+
+        
+        <footer class="article-footer">
+            <ul class="article-tag-list">
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/qemu">qemu
+                    </a>
+                </li>
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/linux">linux
+                    </a>
+                </li>
+                
+            </ul>
+        </footer>
+        
+    </div>
+    <nav id="article-nav">
+    
+    
+    <a href="https://daveixiang.github.io/articles/2017_04_25_qemu_pci_device_demo/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">qemu pci device demo&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+</article>
+
+        
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 項 思 偉 ~ Aal Izz Well!&nbsp;
+            Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos">Minos</a>
+        </div>
+    </div>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+</div>
+</body>
+</html>
