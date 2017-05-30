@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>sheepdog add pthread name // 項 思 偉 ~ Aal Izz Well!</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta property="og:title" content="sheepdog add pthread name" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content="https://daveixiang.github.io/articles/2017_05_10_sheepdog_add_pthread_name/" />
+
+
+    <link href="" rel="alternate" type="application/rss+xml" title="項 思 偉 ~ Aal Izz Well!" />
+    <link rel="shortcut icon" href="https://daveixiang.github.io/favicon.png">
+
+    <link href="https://daveixiang.github.io/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="https://daveixiang.github.io/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://daveixiang.github.io/css/style.css">
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+    <meta name="generator" content="Hugo 0.22-DEV" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="https://daveixiang.github.io/">項 思 偉 ~ Aal Izz Well!</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="https://daveixiang.github.io/xin">0x00 xin</a>
+                
+                <a class="main-nav-link" href="https://daveixiang.github.io/tags/">0x01 Tags</a>
+                
+                <a class="main-nav-link" href="https://daveixiang.github.io/categories/">0x02 Categories</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">sheepdog add pthread name</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="https://daveixiang.github.io/articles/2017_05_10_sheepdog_add_pthread_name/" class="article-date">
+                <time datetime='2017-05-10T00:00:00.000&#43;00:00' itemprop="datePublished">2017-05-10</time>
+            </a>
+            
+            
+            <div class="post-categories">
+                <div class="article-category">
+                    
+                    
+                    <a class="article-category-link" href="https://daveixiang.github.io//categories/sheepdog">sheepdog</a>
+                    
+                </div>
+            </div>
+            
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            <p>Because sheepdog is multi-thread program. So I think it&rsquo;s better to add pthread name for convenient.</p>
+
+<pre><code class="language-txt">diff --git a/lib/work.c b/lib/work.c
+index 75b0807..3b40bf8 100644
+--- a/lib/work.c
++++ b/lib/work.c
+@@ -260,11 +260,21 @@ static int create_worker_threads(struct wq_info *wi, size_t nr_threads)
+        int ret;
+
+        while (wi-&gt;nr_threads &lt; nr_threads) {
++               char thdname[16];
+                ret = pthread_create(&amp;thread, NULL, worker_routine, wi);
+                if (ret != 0) {
+                        sd_err(&quot;failed to create worker thread: %m&quot;);
+                        return -1;
+                }
++
++
++               snprintf(thdname, 16, &quot;%s:%zu&quot;, wi-&gt;name, wi-&gt;nr_threads);
++
++               ret = pthread_setname_np(thread, thdname);
++               if (ret != 0) {
++                       sd_err(&quot;failed to set  worker thread name : %m&quot;);
++               }
++
+                wi-&gt;nr_threads++;
+                sd_debug(&quot;create thread %s %zu&quot;, wi-&gt;name, wi-&gt;nr_threads);
+        }
+
+</code></pre>
+
+<p>When debug the sheepdog, it&rsquo;s easy to get the logic process worker where we stay.</p>
+
+<pre><code class="language-txt">(gdb) info thread
+  Id   Target Id         Frame
+  21   Thread 0x7fffe0fd4700 (LWP 29583) &quot;rw:3&quot; 0x00007ffff7bcc6d5 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  20   Thread 0x7fffe17d5700 (LWP 29582) &quot;rw:2&quot; 0x00007ffff7bcc6d5 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  19   Thread 0x7fffe27d8700 (LWP 29581) &quot;rw:1&quot; 0x00007ffff7bcc6d5 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  16   Thread 0x7fffe2fd9700 (LWP 29578) &quot;sockfd_grow:0&quot; 0x00007ffff7bcc6d5 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  15   Thread 0x7fffe37da700 (LWP 29577) &quot;util:0&quot; 0x00007ffff7bcc6d5 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  14   Thread 0x7fffe3fdb700 (LWP 29576) &quot;async_req:0&quot; 0x00007ffff7bcc6d5 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  13   Thread 0x7fffe47dc700 (LWP 29575) &quot;md:0&quot; 0x00007ffff7bcc6d5 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+* 12   Thread 0x7fffe4fdd700 (LWP 29574) &quot;block:0&quot; cluster_new_vdi (req=0x7fffd40008c0) at ops.c:79
+  11   Thread 0x7fffe57de700 (LWP 29573) &quot;deletion:0&quot; 0x00007ffff7bcc6d5 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  10   Thread 0x7fffe5fdf700 (LWP 29572) &quot;rw:0&quot; 0x00007ffff7bcc6d5 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  9    Thread 0x7fffe67e0700 (LWP 29571) &quot;remove_peer:0&quot; 0x00007ffff7bcc6d5 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  8    Thread 0x7fffe6fe1700 (LWP 29570) &quot;remove:0&quot; 0x00007ffff7bcc6d5 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  7    Thread 0x7fffe77e2700 (LWP 29569) &quot;gway_fwd:0&quot; 0x00007ffff7bcc6d5 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  6    Thread 0x7fffe7fe3700 (LWP 29568) &quot;reclaim:0&quot; 0x00007ffff7bcc6d5 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  5    Thread 0x7fffe87e4700 (LWP 29567) &quot;peer:0&quot; 0x00007ffff7bcc6d5 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  4    Thread 0x7fffe8fe5700 (LWP 29566) &quot;io:0&quot; 0x00007ffff7bcc6d5 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  3    Thread 0x7fffe97e6700 (LWP 29565) &quot;gway:0&quot; 0x00007ffff7bcc6d5 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  2    Thread 0x7fffe9fe7700 (LWP 29564) &quot;net:0&quot; 0x00007ffff7bcc6d5 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+  1    Thread 0x7ffff7ff0fc0 (LWP 29559) &quot;sheep&quot; 0x00007ffff73edd13 in epoll_wait () from /lib64/libc.so.6
+</code></pre>
+
+        </div>
+
+        
+        <footer class="article-footer">
+            <ul class="article-tag-list">
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/sheepdog">sheepdog
+                    </a>
+                </li>
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/qemu">qemu
+                    </a>
+                </li>
+                
+            </ul>
+        </footer>
+        
+    </div>
+    <nav id="article-nav">
+    
+    <a href="https://daveixiang.github.io/articles/2017_05_27_linux_how_to_bind_ip_that_does_not_exist/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            Linux: How to bind IP that doesn&#39;t exist
+        </div>
+    </a>
+    
+    
+    <a href="https://daveixiang.github.io/articles/2017_05_03_ceph_monmap_change_or_rebuild/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">ceph tip: change or rebuild ceph monitor map&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+</article>
+
+        
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 項 思 偉 ~ Aal Izz Well!&nbsp;
+            Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos">Minos</a>
+        </div>
+    </div>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+</div>
+</body>
+</html>

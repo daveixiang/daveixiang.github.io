@@ -2,11 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linker on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>https://daveixiang.github.io/tags/linker/index.xml</link>
+    <link>https://daveixiang.github.io/tags/linker/</link>
     <description>Recent content in Linker on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <atom:link href="https://daveixiang.github.io/tags/linker/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 07 Sep 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://daveixiang.github.io/tags/linker/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>C &amp; C&#43;&#43; link order</title>
@@ -14,21 +17,8 @@
       <pubDate>Wed, 07 Sep 2016 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2016_09_07_c_cpp_link_order/</guid>
-      <description>&lt;p&gt;If any [static] library A depends on symbols defined in library B,
-then library A should appear first in the list supplied to the
-linker.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;+- prog.o -----+   +- libA.a -----+   +- libB.a -----+   
-|   U funcA  --|---|-&amp;gt; T funcA    |   |              |    U : undefined/used
-|              |   |   U funcB  --|---|-&amp;gt; T funcB    |    T : defined
-|   T main     |   |              |   |              |   
-+--------------+   +--------------+   +--------------+
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;gcc prog.o libA.a libB.a -o prog.x
-       \___^  \___^
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>If any [static] library A depends on symbols defined in library B, then library A should appear first in the list supplied to the linker.
++- prog.o -----+ +- libA.a -----+ +- libB.a -----+ | U funcA --|---|-&amp;gt; T funcA | | | U : undefined/used | | | U funcB --|---|-&amp;gt; T funcB | T : defined | T main | | | | | +--------------+ +--------------+ +--------------+  gcc prog.</description>
     </item>
     
   </channel>

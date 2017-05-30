@@ -2,11 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Network on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>https://daveixiang.github.io/tags/network/index.xml</link>
+    <link>https://daveixiang.github.io/tags/network/</link>
     <description>Recent content in Network on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <atom:link href="https://daveixiang.github.io/tags/network/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 25 Feb 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://daveixiang.github.io/tags/network/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Using OpenvSwitch to build minimal linux networking hack environment</title>
@@ -14,74 +17,7 @@
       <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2017_02_25_using_openvswitch_to_build_minimal_linux_networking_hack_env/</guid>
-      <description>
-
-&lt;h2 id=&#34;create-openvswitch-bridge-and-two-tap-devices-for-vm&#34;&gt;Create Openvswitch bridge and two tap devices for vm&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ip tuntap add name tap1 mode tap
-ip tuntap add name tap2 mode tap
-
-ip link set tap1 up
-ip link set tap2 up
-
-ovs-vsctl add-br br0
-
-ovs-vsctl add-port br0 tap1
-
-ovs-vsctl add-port br0 tap2
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;start-the-two-vms-and-config-network&#34;&gt;Start the two vms and config network&lt;/h2&gt;
-
-&lt;h3 id=&#34;configure-vm01&#34;&gt;configure vm01&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;start vm01&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;qemu-system-x86_64  -nographic \
--kernel ./bzImage -initrd ./initramfs \
--append  &amp;quot;console=ttyS0 quiet&amp;quot; \
--netdev tap,id=net1,ifname=tap1,script=no,downscript=no  \
--device e1000,netdev=net1,mac=&#39;9e:11:24:5c:35:89&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;configure vm01 network&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ip link set eth0 up
-ip addr add 192.168.0.1/24 dev eth0
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;configure-vm02&#34;&gt;configure vm02&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;start vm02&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;qemu-system-x86_64  -nographic \
--kernel ./bzImage -initrd ./initramfs \
--append  &amp;quot;console=ttyS0 quiet&amp;quot; \
--netdev tap,id=net2,ifname=tap2,script=no,downscript=no  \
--device e1000,netdev=net2,mac=&#39;66:5f:30:f4:24:be&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;configure vm02 network&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ip link set eth0 up
-ip addr add 192.168.0.2/24 dev eth0
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;test-the-vms-network-connection&#34;&gt;Test the vms network connection&lt;/h2&gt;
-
-&lt;p&gt;vm01 ping vm02&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ping 192.168.0.2
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>Create Openvswitch bridge and two tap devices for vm ip tuntap add name tap1 mode tap ip tuntap add name tap2 mode tap ip link set tap1 up ip link set tap2 up ovs-vsctl add-br br0 ovs-vsctl add-port br0 tap1 ovs-vsctl add-port br0 tap2  Start the two vms and config network configure vm01  start vm01  qemu-system-x86_64 -nographic \ -kernel ./bzImage -initrd ./initramfs \ -append &amp;quot;console=ttyS0 quiet&amp;quot; \ -netdev tap,id=net1,ifname=tap1,script=no,downscript=no \ -device e1000,netdev=net1,mac=&#39;9e:11:24:5c:35:89&#39;   configure vm01 network  ip link set eth0 up ip addr add 192.</description>
     </item>
     
     <item>
@@ -90,34 +26,8 @@ ip addr add 192.168.0.2/24 dev eth0
       <pubDate>Mon, 11 Jul 2016 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2016_07_11_managing_tuntap_virtual_interfaces/</guid>
-      <description>&lt;p&gt;TAP devices, in contrast, work at the Ethernet level or layer two and
-therefore behave very much like a real network adaptor. Since they are
-running at layer two they can transport any layer three protocol and
-aren’t limited to point-to-point connections. TAP devices can be part
-of a bridge and are commonly used in virtualization systems to provide
-virtual network adaptors to multiple guest machines.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Create tuntap virtual interfaces&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ip tuntap add name ${tap_name} mode tap
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Delete tuntap virtual interfaces&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ip tuntap del name ${tap_name} mode tap
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Create Veth Pairs&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ip link add ${point} type veth peer name ${other_point}
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>TAP devices, in contrast, work at the Ethernet level or layer two and therefore behave very much like a real network adaptor. Since they are running at layer two they can transport any layer three protocol and aren’t limited to point-to-point connections. TAP devices can be part of a bridge and are commonly used in virtualization systems to provide virtual network adaptors to multiple guest machines.
+ Create tuntap virtual interfaces  ip tuntap add name ${tap_name} mode tap   Delete tuntap virtual interfaces  ip tuntap del name ${tap_name} mode tap   Create Veth Pairs  ip link add ${point} type veth peer name ${other_point}  </description>
     </item>
     
   </channel>

@@ -30,7 +30,7 @@
     <meta name="keywords" content="">
     <meta name="author" content="">
 
-    <meta name="generator" content="Hugo 0.19" />
+    <meta name="generator" content="Hugo 0.22-DEV" />
 </head>
 
 
@@ -96,8 +96,8 @@
 <pre><code class="language-txt">TARTMODE='auto'
 BOOTPROTO='static'
 OVS_BRIDGE='yes'
-OVS_BRIDGE_PORT_DEVICE='eth1'
-IPADDR='10.0.100.254/24'
+OVS_BRIDGE_PORT_DEVICE='eth0'
+IPADDR='xxx.xxx.xxx.xxx/yy'
 BROADCAST=''
 ETHTOOL_OPTIONS=''
 MTU=''
@@ -111,7 +111,7 @@ STARTMODE='auto'
 <li>ifcfg-eth0</li>
 </ul>
 
-<pre><code class="language-bash">cat /etc/sysconfig/network/ifcfg-eth1
+<pre><code class="language-bash">cat /etc/sysconfig/network/ifcfg-eth0
 </code></pre>
 
 <p>and the output is</p>

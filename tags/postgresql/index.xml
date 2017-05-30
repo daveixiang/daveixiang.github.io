@@ -2,11 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Postgresql on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>https://daveixiang.github.io/tags/postgresql/index.xml</link>
+    <link>https://daveixiang.github.io/tags/postgresql/</link>
     <description>Recent content in Postgresql on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <atom:link href="https://daveixiang.github.io/tags/postgresql/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 01 Mar 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://daveixiang.github.io/tags/postgresql/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Build PostgreSQL with debug info</title>
@@ -14,37 +17,7 @@
       <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2017_03_01_build_postgresql_with_debug/</guid>
-      <description>
-
-&lt;h3 id=&#34;add-postgres-user&#34;&gt;Add &lt;em&gt;postgres&lt;/em&gt; user&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;useradd -m -b /src/ postgres
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;configure-postgresql&#34;&gt;Configure PostgreSQL&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./configure --prefix=/src/postgres \
---without-tcl \
---without-gssapi \
---without-pam \
---without-bsd-auth \
---without-ldap \
---without-bonjour \
---without-selinux \
---without-systemd \
---with-uuid=ossp \
---with-libxml \
---with-libxslt \
-CFLAGS=&#39; &#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;build-and-install&#34;&gt;Build and install&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make -j$(nproc)
-
-su postgres -c &#39;make install&#39;
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description> Add postgres user useradd -m -b /src/ postgres  Configure PostgreSQL ./configure --prefix=/src/postgres \ --without-tcl \ --without-gssapi \ --without-pam \ --without-bsd-auth \ --without-ldap \ --without-bonjour \ --without-selinux \ --without-systemd \ --with-uuid=ossp \ --with-libxml \ --with-libxslt \ CFLAGS=&#39; &#39;  Build and install make -j$(nproc) su postgres -c &#39;make install&#39;  </description>
     </item>
     
     <item>
@@ -53,61 +26,9 @@ su postgres -c &#39;make install&#39;
       <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2017_03_01_using_postgresql_as_openstack_backend_db/</guid>
-      <description>
-
-&lt;h2 id=&#34;install-postgresql-and-psycopg2&#34;&gt;Install &lt;em&gt;PostgreSQL&lt;/em&gt; and &lt;em&gt;psycopg2&lt;/em&gt;&lt;/h2&gt;
-
-&lt;p&gt;&lt;em&gt;psycopg2&lt;/em&gt; provides the Python interface to PostgreSQL&lt;/p&gt;
-
-&lt;h2 id=&#34;change-openstack-services-configuration-connection-information&#34;&gt;Change openstack services configuration connection information&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;connection = postgresql://&amp;lt;user&amp;gt;:&amp;lt;password&amp;gt;@&amp;lt;host&amp;gt;/&amp;lt;db&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;login-postgresql-create-roles-and-databases&#34;&gt;Login PostgreSQL create roles and databases&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;keystone
-```txt
-CREATE USER keystone WITH PASSWORD &amp;lsquo;openstack&amp;rsquo;;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;CREATE DATABASE keystone;
-GRANT ALL PRIVILEGES ON DATABASE &amp;ldquo;keystone&amp;rdquo; to keystone;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;
-* glance
-
-```sql
-CREATE USER glance WITH PASSWORD &#39;openstack&#39;;
-
-CREATE DATABASE glance;
-GRANT ALL PRIVILEGES ON DATABASE &amp;quot;glance&amp;quot; to glance;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;nova&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE USER nova WITH PASSWORD &#39;openstack&#39;;
-
-CREATE DATABASE nova;
-GRANT ALL PRIVILEGES ON DATABASE &amp;quot;nova&amp;quot; to nova;
-
-CREATE DATABASE &amp;quot;nova_api&amp;quot;;
-GRANT ALL PRIVILEGES ON DATABASE &amp;quot;nova_api&amp;quot; to nova;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;neutron&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE USER neutron WITH PASSWORD &#39;openstack&#39;;
-
-CREATE DATABASE neutron;
-GRANT ALL PRIVILEGES ON DATABASE &amp;quot;neutron&amp;quot; to neutron;
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description> Install PostgreSQL and psycopg2 psycopg2 provides the Python interface to PostgreSQL
+Change openstack services configuration connection information connection = postgresql://&amp;lt;user&amp;gt;:&amp;lt;password&amp;gt;@&amp;lt;host&amp;gt;/&amp;lt;db&amp;gt;  Login PostgreSQL create roles and databases  keystone ```txt CREATE USER keystone WITH PASSWORD &amp;lsquo;openstack&amp;rsquo;;  CREATE DATABASE keystone; GRANT ALL PRIVILEGES ON DATABASE &amp;ldquo;keystone&amp;rdquo; to keystone;
+ * glance ```sql CREATE USER glance WITH PASSWORD &#39;openstack&#39;; CREATE DATABASE glance; GRANT ALL PRIVILEGES ON DATABASE &amp;quot;glance&amp;quot; to glance;   nova  CREATE USER nova WITH PASSWORD &#39;openstack&#39;; CREATE DATABASE nova; GRANT ALL PRIVILEGES ON DATABASE &amp;quot;nova&amp;quot; to nova; CREATE DATABASE &amp;quot;nova_api&amp;quot;; GRANT ALL PRIVILEGES ON DATABASE &amp;quot;nova_api&amp;quot; to nova;   neutron  CREATE USER neutron WITH PASSWORD &#39;openstack&#39;; CREATE DATABASE neutron; GRANT ALL PRIVILEGES ON DATABASE &amp;quot;neutron&amp;quot; to neutron;  </description>
     </item>
     
   </channel>

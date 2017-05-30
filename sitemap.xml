@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://daveixiang.github.io/articles/2017_05_27_linux_how_to_bind_ip_that_does_not_exist/</loc>
+    <lastmod>2017-05-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://daveixiang.github.io/articles/2017_05_10_sheepdog_add_pthread_name/</loc>
+    <lastmod>2017-05-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://daveixiang.github.io/articles/2017_05_03_ceph_monmap_change_or_rebuild/</loc>
+    <lastmod>2017-05-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://daveixiang.github.io/articles/2017_05_02_ceph_warn_too_few_pgs_per_osd/</loc>
+    <lastmod>2017-05-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://daveixiang.github.io/articles/2017_04_29_sata_on_qemu/</loc>
+    <lastmod>2017-04-29T00:00:00+00:00</lastmod>
+  </url>
   
   <url>
     <loc>https://daveixiang.github.io/articles/2017_04_25_linux_pci_device_driver_using_mmio_demo/</loc>
@@ -147,7 +173,7 @@
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_02_08_KVM_OOM_case/</loc>
+    <loc>https://daveixiang.github.io/articles/2017_02_08_kvm_oom_case/</loc>
     <lastmod>2017-02-08T00:00:00+00:00</lastmod>
   </url>
   
@@ -278,7 +304,7 @@
   
   <url>
     <loc>https://daveixiang.github.io/articles/</loc>
-    <lastmod>2017-04-25T00:00:00+00:00</lastmod>
+    <lastmod>2017-05-27T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -302,6 +328,18 @@
   <url>
     <loc>https://daveixiang.github.io/tags/centos/</loc>
     <lastmod>2017-03-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://daveixiang.github.io/tags/ceph/</loc>
+    <lastmod>2017-05-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://daveixiang.github.io/categories/ceph/</loc>
+    <lastmod>2017-05-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -390,6 +428,18 @@
   </url>
   
   <url>
+    <loc>https://daveixiang.github.io/tags/haproxy/</loc>
+    <lastmod>2017-05-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://daveixiang.github.io/tags/keepalived/</loc>
+    <lastmod>2017-05-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://daveixiang.github.io/tags/kernel/</loc>
     <lastmod>2017-04-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -433,7 +483,7 @@
   
   <url>
     <loc>https://daveixiang.github.io/tags/linux/</loc>
-    <lastmod>2017-04-25T00:00:00+00:00</lastmod>
+    <lastmod>2017-05-27T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -505,13 +555,13 @@
   
   <url>
     <loc>https://daveixiang.github.io/tags/qemu/</loc>
-    <lastmod>2017-04-25T00:00:00+00:00</lastmod>
+    <lastmod>2017-05-10T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://daveixiang.github.io/categories/qemu/</loc>
-    <lastmod>2017-04-25T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-29T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -540,6 +590,18 @@
   </url>
   
   <url>
+    <loc>https://daveixiang.github.io/tags/sheepdog/</loc>
+    <lastmod>2017-05-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://daveixiang.github.io/categories/sheepdog/</loc>
+    <lastmod>2017-05-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://daveixiang.github.io/tags/syscall/</loc>
     <lastmod>2017-02-02T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -547,6 +609,7 @@
   
   <url>
     <loc>https://daveixiang.github.io/tags/</loc>
+    <lastmod>2017-02-17T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -558,7 +621,7 @@
   
   <url>
     <loc>https://daveixiang.github.io/categories/tips/</loc>
-    <lastmod>2017-03-22T00:00:00+00:00</lastmod>
+    <lastmod>2017-05-27T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -588,7 +651,7 @@
   
   <url>
     <loc>https://daveixiang.github.io/</loc>
-    <lastmod>2017-04-25T00:00:00+00:00</lastmod>
+    <lastmod>2017-05-27T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

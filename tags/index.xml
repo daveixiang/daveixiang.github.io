@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on 項 思 偉 ~ Aal Izz Well!</title>
+    <link>https://daveixiang.github.io/tags/</link>
+    <description>Recent content in Tags on 項 思 偉 ~ Aal Izz Well!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 17 Feb 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://daveixiang.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Asm</title>
+      <link>https://daveixiang.github.io/tags/asm/</link>
+      <pubDate>Fri, 17 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/asm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Busybox</title>
+      <link>https://daveixiang.github.io/tags/busybox/</link>
+      <pubDate>Sat, 01 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/busybox/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Centos</title>
+      <link>https://daveixiang.github.io/tags/centos/</link>
+      <pubDate>Tue, 21 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/centos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ceph</title>
+      <link>https://daveixiang.github.io/tags/ceph/</link>
+      <pubDate>Wed, 03 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/ceph/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Clan</title>
+      <link>https://daveixiang.github.io/tags/clan/</link>
+      <pubDate>Sat, 01 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/clan/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Database</title>
+      <link>https://daveixiang.github.io/tags/database/</link>
+      <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/database/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>https://daveixiang.github.io/tags/docker/</link>
+      <pubDate>Mon, 16 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Emacs</title>
+      <link>https://daveixiang.github.io/tags/emacs/</link>
+      <pubDate>Tue, 11 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/emacs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Filesystem</title>
+      <link>https://daveixiang.github.io/tags/filesystem/</link>
+      <pubDate>Wed, 22 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/filesystem/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Gcc</title>
+      <link>https://daveixiang.github.io/tags/gcc/</link>
+      <pubDate>Sat, 01 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/gcc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Gdb</title>
+      <link>https://daveixiang.github.io/tags/gdb/</link>
+      <pubDate>Tue, 11 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/gdb/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Git</title>
+      <link>https://daveixiang.github.io/tags/git/</link>
+      <pubDate>Mon, 06 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/git/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Golang</title>
+      <link>https://daveixiang.github.io/tags/golang/</link>
+      <pubDate>Fri, 07 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Haproxy</title>
+      <link>https://daveixiang.github.io/tags/haproxy/</link>
+      <pubDate>Sat, 27 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/haproxy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Keepalived</title>
+      <link>https://daveixiang.github.io/tags/keepalived/</link>
+      <pubDate>Sat, 27 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/keepalived/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kernel</title>
+      <link>https://daveixiang.github.io/tags/kernel/</link>
+      <pubDate>Sat, 01 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/kernel/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kvm</title>
+      <link>https://daveixiang.github.io/tags/kvm/</link>
+      <pubDate>Wed, 08 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/kvm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Libvirt</title>
+      <link>https://daveixiang.github.io/tags/libvirt/</link>
+      <pubDate>Thu, 23 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/libvirt/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linker</title>
+      <link>https://daveixiang.github.io/tags/linker/</link>
+      <pubDate>Wed, 07 Sep 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/linker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>https://daveixiang.github.io/tags/linux/</link>
+      <pubDate>Sat, 27 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Network</title>
+      <link>https://daveixiang.github.io/tags/network/</link>
+      <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/network/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Nginx</title>
+      <link>https://daveixiang.github.io/tags/nginx/</link>
+      <pubDate>Thu, 12 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/nginx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Oom</title>
+      <link>https://daveixiang.github.io/tags/oom/</link>
+      <pubDate>Wed, 08 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/oom/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Openstack</title>
+      <link>https://daveixiang.github.io/tags/openstack/</link>
+      <pubDate>Tue, 21 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/openstack/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Opensuse</title>
+      <link>https://daveixiang.github.io/tags/opensuse/</link>
+      <pubDate>Thu, 06 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/opensuse/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Openvswitch</title>
+      <link>https://daveixiang.github.io/tags/openvswitch/</link>
+      <pubDate>Thu, 06 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/openvswitch/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Postgresql</title>
+      <link>https://daveixiang.github.io/tags/postgresql/</link>
+      <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/postgresql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Qemu</title>
+      <link>https://daveixiang.github.io/tags/qemu/</link>
+      <pubDate>Wed, 10 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/qemu/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Qemu Ga</title>
+      <link>https://daveixiang.github.io/tags/qemu-ga/</link>
+      <pubDate>Wed, 05 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/qemu-ga/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Qmp</title>
+      <link>https://daveixiang.github.io/tags/qmp/</link>
+      <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/qmp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Runc</title>
+      <link>https://daveixiang.github.io/tags/runc/</link>
+      <pubDate>Mon, 16 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/runc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Shared Library</title>
+      <link>https://daveixiang.github.io/tags/shared-library/</link>
+      <pubDate>Sat, 02 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/shared-library/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Sheepdog</title>
+      <link>https://daveixiang.github.io/tags/sheepdog/</link>
+      <pubDate>Wed, 10 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/sheepdog/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Syscall</title>
+      <link>https://daveixiang.github.io/tags/syscall/</link>
+      <pubDate>Thu, 02 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/syscall/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tips</title>
+      <link>https://daveixiang.github.io/tags/tips/</link>
+      <pubDate>Fri, 07 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/tips/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tmux</title>
+      <link>https://daveixiang.github.io/tags/tmux/</link>
+      <pubDate>Sun, 10 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/tmux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tsdb</title>
+      <link>https://daveixiang.github.io/tags/tsdb/</link>
+      <pubDate>Mon, 13 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/tsdb/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Zypper</title>
+      <link>https://daveixiang.github.io/tags/zypper/</link>
+      <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/zypper/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

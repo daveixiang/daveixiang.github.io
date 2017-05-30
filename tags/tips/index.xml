@@ -2,11 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tips on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>https://daveixiang.github.io/tags/tips/index.xml</link>
+    <link>https://daveixiang.github.io/tags/tips/</link>
     <description>Recent content in Tips on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <atom:link href="https://daveixiang.github.io/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 07 Apr 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://daveixiang.github.io/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>go tool: no such tool &#39;6g&#39;</title>
@@ -14,21 +17,7 @@
       <pubDate>Fri, 07 Apr 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2017_04_07_go_tool_no_such_tool_6g/</guid>
-      <description>&lt;ul&gt;
-&lt;li&gt;Problem&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;davei@davei:/tmp&amp;gt; go tool 6g test.go
-go tool: no such tool &amp;quot;6g&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Solution&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;6g were renamed to &amp;quot;compile&amp;quot; since Go 1.5. So use &amp;quot;compile&amp;quot; instead.
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description> Problem  davei@davei:/tmp&amp;gt; go tool 6g test.go go tool: no such tool &amp;quot;6g&amp;quot;   Solution  6g were renamed to &amp;quot;compile&amp;quot; since Go 1.5. So use &amp;quot;compile&amp;quot; instead.  </description>
     </item>
     
     <item>
@@ -37,21 +26,7 @@ go tool: no such tool &amp;quot;6g&amp;quot;
       <pubDate>Fri, 07 Apr 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2017_04_07_go_tool_no_such_tool_6l/</guid>
-      <description>&lt;ul&gt;
-&lt;li&gt;Problem&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;davei@davei:/tmp&amp;gt; go tool 6l test.o
-go tool: no such tool &amp;quot;6l&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Solution&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;6l and friends were renamed to &amp;quot;link&amp;quot; since Go 1.5. So use &amp;quot;link&amp;quot; instead.
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description> Problem  davei@davei:/tmp&amp;gt; go tool 6l test.o go tool: no such tool &amp;quot;6l&amp;quot;   Solution  6l and friends were renamed to &amp;quot;link&amp;quot; since Go 1.5. So use &amp;quot;link&amp;quot; instead.  </description>
     </item>
     
     <item>
@@ -60,25 +35,7 @@ go tool: no such tool &amp;quot;6l&amp;quot;
       <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2017_03_31_opensuse_add_repos/</guid>
-      <description>&lt;ul&gt;
-&lt;li&gt;Remove previous repos&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;zypper repos | grep Yes | cut -f3 -d &#39;|&#39; | sed -e &amp;quot;s/ //&amp;quot; | awk &#39;{print &amp;quot;zypper rr &amp;quot; $1}&#39; | bash
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Add the repos and refresh&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/oss/ openSUSE-leap-42.2-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/non-oss/ openSUSE-leap-42.2-Non-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/oss openSUSE-leap-42.2-Update-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/non-oss/ openSUSE-leap-42.2-Update-Non-Oss
-
-zypper refresh
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description> Remove previous repos  zypper repos | grep Yes | cut -f3 -d &#39;|&#39; | sed -e &amp;quot;s/ //&amp;quot; | awk &#39;{print &amp;quot;zypper rr &amp;quot; $1}&#39; | bash   Add the repos and refresh  zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/oss/ openSUSE-leap-42.2-Oss zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/non-oss/ openSUSE-leap-42.2-Non-Oss zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/oss openSUSE-leap-42.2-Update-Oss zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/non-oss/ openSUSE-leap-42.2-Update-Non-Oss zypper refresh  </description>
     </item>
     
     <item>
@@ -87,213 +44,7 @@ zypper refresh
       <pubDate>Thu, 30 Mar 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2017_03_30_notation_meaning_in_top_out/</guid>
-      <description>&lt;ul&gt;
-&lt;li&gt;PID — Process Id&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The task’s unique process ID, which periodically wraps, though
-never restarting at zero.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;PPID — Parent Process Pid&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The process ID of a task’s parent.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;RUSER — Real User Name&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The real user name of the task’s owner.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;UID — User Id&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The effective user ID of the task’s owner.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;USER — User Name&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The effective user name of the task’s owner.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;GROUP — Group Name&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The effective group name of the task’s owner.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;TTY — Controlling Tty&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The name of the controlling terminal. This is usually the
-device (serial port, pty, etc.) from which the process was
-started, and which it uses for input or output. However, a
-task need not be associated with a terminal, in which case
-you’ll see ‘?’ displayed.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;PR — Priority&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The priority of the task.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;NI — Nice value&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The nice value of the task. A negative nice value means higher
-priority, whereas a positive nice value means lower priority.
-Zero in this field simply means priority will not be adjusted
-in determining a task’s dispatchability.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;P — Last used CPU (SMP)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;A number representing the last used processor. In a true SMP
-environment this will likely change frequently since the kernel
-intentionally uses weak affinity. Also, the very act of
-running top may break this weak affinity and cause more
-processes to change CPUs more often (because of the extra
-demand for cpu time).
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;%CPU — CPU usage&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The task’s share of the elapsed CPU time since the last screen
-update, expressed as a percentage of total CPU time. In a true
-SMP environment, if ‘Irix mode’ is Off, top will operate in
-‘Solaris mode’ where a task’s cpu usage will be divided by the
-total number of CPUs. You toggle ‘Irix/Solaris’ modes with the
-‘I’ interactive command.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;TIME — CPU Time&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;Total CPU time the task has used since it started. When
-‘Cumulative mode’ is On, each process is listed with the cpu
-time that it and its dead children has used. You toggle
-‘Cumulative mode’ with ‘S’, which is a command-line option and
-an interactive command. See the ‘S’ interactive command for
-additional information regarding this mode.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;TIME+ — CPU Time, hundredths&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The same as ‘TIME’, but reflecting more granularity through
-hundredths of a second.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;%MEM — Memory usage (RES)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;A task’s currently used share of available physical memory.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;VIRT — Virtual Image (kb)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The total amount of virtual memory used by the task. It
-includes all code, data and shared libraries plus pages that
-have been swapped out and pages that have been mapped but not
-used.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;SWAP — Swapped size (kb)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;Memory that is not resident but is present in a task. This is
-memory that has been swapped out but could include additional
-non-resident memory. This column is calculated by subtracting
-physical memory from virtual memory.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;RES — Resident size (kb)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The non-swapped physical memory a task has used.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;CODE — Code size (kb)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The amount of virtual memory devoted to executable code, also
-known as the ‘text resident set’ size or TRS.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;DATA — Data+Stack size (kb)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The amount of virtual memory devoted to other than executable
-code, also known as the ‘data resident set’ size or DRS.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;SHR — Shared Mem size (kb)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The amount of shared memory used by a task. It simply reflects
-memory that could be potentially shared with other processes.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;nFLT — Page Fault count&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The number of major page faults that have occurred for a task.
-A page fault occurs when a process attempts to read from or
-write to a virtual page that is not currently present in its
-address space. A major page fault is when backing storage
-access (such as a disk) is involved in making that page
-available.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;nDRT — Dirty Pages count&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The number of pages that have been modified since they were
-last written to disk. Dirty pages must be written to disk
-before the corresponding physical memory location can be used
-for some other virtual page.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;S — Process Status&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;The status of the task which can be one of:
-‘D’ = uninterruptible sleep
-‘R’ = running
-‘S’ = sleeping
-‘T’ = traced or stopped
-‘Z’ = zombie
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>PID — Process Id  The task’s unique process ID, which periodically wraps, though never restarting at zero.   PPID — Parent Process Pid  The process ID of a task’s parent.   RUSER — Real User Name  The real user name of the task’s owner.   UID — User Id  The effective user ID of the task’s owner.   USER — User Name  The effective user name of the task’s owner.</description>
     </item>
     
     <item>
@@ -302,27 +53,7 @@ for some other virtual page.
       <pubDate>Mon, 06 Mar 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2017_03_06_clone_git_repository_only_some_directories/</guid>
-      <description>&lt;ul&gt;
-&lt;li&gt;First, do:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git clone --depth 1 [repo-root] [local_dir]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Then:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd [local_dir]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;And lastly:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git filter-branch --prune-empty --subdirectory-filter [repo-subdir] HEAD
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description> First, do:  git clone --depth 1 [repo-root] [local_dir]   Then:  cd [local_dir]   And lastly:  git filter-branch --prune-empty --subdirectory-filter [repo-subdir] HEAD  </description>
     </item>
     
     <item>
@@ -331,34 +62,8 @@ for some other virtual page.
       <pubDate>Sat, 03 Sep 2016 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2016_09_03_nested_kvm/</guid>
-      <description>&lt;ul&gt;
-&lt;li&gt;Enable the setting for Nested KVM&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat &amp;lt;&amp;lt;EOF &amp;gt; /etc/modprobe.d/kvm-nested.conf
-options kvm_intel nested=1
-EOF
-
-modprobe -r kvm_intel
-
-modprobe kvm_intel
-
-cat /sys/module/kvm_intel/parameters/nested
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Edit the configuration of a virtual machine you&amp;rsquo;d want to set nested&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;virsh edit {DOMAIN_NAME}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;and add the following setting to the vm configuration:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;cpu mode=&#39;host-passthrough&#39;&amp;gt;
-&amp;lt;/cpu&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description> Enable the setting for Nested KVM  cat &amp;lt;&amp;lt;EOF &amp;gt; /etc/modprobe.d/kvm-nested.conf options kvm_intel nested=1 EOF modprobe -r kvm_intel modprobe kvm_intel cat /sys/module/kvm_intel/parameters/nested   Edit the configuration of a virtual machine you&amp;rsquo;d want to set nested  virsh edit {DOMAIN_NAME}  and add the following setting to the vm configuration:
+&amp;lt;cpu mode=&#39;host-passthrough&#39;&amp;gt; &amp;lt;/cpu&amp;gt;  </description>
     </item>
     
     <item>
@@ -367,32 +72,8 @@ cat /sys/module/kvm_intel/parameters/nested
       <pubDate>Sun, 10 Apr 2016 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2016_04_10_reloading_tmux_config/</guid>
-      <description>&lt;p&gt;If you have made changes to your tmux configuration file in the
-&lt;em&gt;~/.tmux.conf&lt;/em&gt; file, it shouldn’t be necessary to start the server up
-again from scratch with kill-server. Instead, you can prompt the
-current tmux session to reload the configuration with the source-file
-command.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Method 1&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;This can be done either from within tmux, by pressing &lt;em&gt;Ctrl+B&lt;/em&gt; and then
-&lt;em&gt;:&lt;/em&gt; to bring up a command prompt, and typing:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-vim&#34;&gt;:source-file ~/.tmux.conf
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Method 2&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;tmux source-file ~/.tmux.conf
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This should apply your changes to the running tmux server without
-affecting the sessions or windows within them.&lt;/p&gt;
-</description>
+      <description>If you have made changes to your tmux configuration file in the ~/.tmux.conf file, it shouldn’t be necessary to start the server up again from scratch with kill-server. Instead, you can prompt the current tmux session to reload the configuration with the source-file command.
+ Method 1  This can be done either from within tmux, by pressing Ctrl+B and then : to bring up a command prompt, and typing:</description>
     </item>
     
   </channel>

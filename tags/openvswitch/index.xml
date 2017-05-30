@@ -2,11 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Openvswitch on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>https://daveixiang.github.io/tags/openvswitch/index.xml</link>
+    <link>https://daveixiang.github.io/tags/openvswitch/</link>
     <description>Recent content in Openvswitch on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <atom:link href="https://daveixiang.github.io/tags/openvswitch/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 06 Apr 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://daveixiang.github.io/tags/openvswitch/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Configure OpenSuse Leap OpenvSwitch bridge autostart on boot</title>
@@ -14,42 +17,9 @@
       <pubDate>Thu, 06 Apr 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2017_04_06_configure_opensuse_leap_openvswitch_bridge_autostart_on_boot/</guid>
-      <description>&lt;ul&gt;
-&lt;li&gt;ifcfg-br0&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat /etc/sysconfig/network/ifcfg-br0
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;and the output is&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;TARTMODE=&#39;auto&#39;
-BOOTPROTO=&#39;static&#39;
-OVS_BRIDGE=&#39;yes&#39;
-OVS_BRIDGE_PORT_DEVICE=&#39;eth1&#39;
-IPADDR=&#39;10.0.100.254/24&#39;
-BROADCAST=&#39;&#39;
-ETHTOOL_OPTIONS=&#39;&#39;
-MTU=&#39;&#39;
-NAME=&#39;&#39;
-NETWORK=&#39;&#39;
-REMOTE_IPADDR=&#39;&#39;
-STARTMODE=&#39;auto&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;ifcfg-eth0&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat /etc/sysconfig/network/ifcfg-eth1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;and the output is&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;STARTMODE=&#39;auto&#39;
-BOOTPROTO=&#39;none&#39;
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description> ifcfg-br0  cat /etc/sysconfig/network/ifcfg-br0  and the output is
+TARTMODE=&#39;auto&#39; BOOTPROTO=&#39;static&#39; OVS_BRIDGE=&#39;yes&#39; OVS_BRIDGE_PORT_DEVICE=&#39;eth0&#39; IPADDR=&#39;xxx.xxx.xxx.xxx/yy&#39; BROADCAST=&#39;&#39; ETHTOOL_OPTIONS=&#39;&#39; MTU=&#39;&#39; NAME=&#39;&#39; NETWORK=&#39;&#39; REMOTE_IPADDR=&#39;&#39; STARTMODE=&#39;auto&#39;   ifcfg-eth0  cat /etc/sysconfig/network/ifcfg-eth0  and the output is
+STARTMODE=&#39;auto&#39; BOOTPROTO=&#39;none&#39;  </description>
     </item>
     
     <item>
@@ -58,169 +28,7 @@ BOOTPROTO=&#39;none&#39;
       <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2017_03_31_netlink_hello_world_example/</guid>
-      <description>
-
-&lt;h2 id=&#34;demo-kernel-code&#34;&gt;demo kernel code&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;em&gt;hello_nl_kern.c&lt;/em&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;linux/module.h&amp;gt;
-#include &amp;lt;net/sock.h&amp;gt;
-#include &amp;lt;linux/netlink.h&amp;gt;
-#include &amp;lt;linux/skbuff.h&amp;gt;
-
-#define NETLINK_USER 31
-
-struct sock *nl_sk = NULL;
-
-static void hello_nl_recv_msg(struct sk_buff *skb)
-{
-        struct nlmsghdr *nlh;
-        int pid;
-        struct sk_buff *skb_out;
-        int msg_size;
-        char *msg = &amp;quot;Hello from kernel&amp;quot;;
-        int res;
-        printk(KERN_INFO &amp;quot;Entering: %s\n&amp;quot;, __FUNCTION__);
-
-        msg_size = strlen(msg);
-        nlh = (struct nlmsghdr *)skb-&amp;gt;data;
-        printk(KERN_INFO &amp;quot;Netlink received msg payload: %s\n&amp;quot;,(char*)nlmsg_data(nlh));
-        pid = nlh-&amp;gt;nlmsg_pid;
-
-        skb_out = nlmsg_new(msg_size,0);
-        if (!skb_out)
-        {
-                printk(KERN_ERR &amp;quot;Failed to allocate new skb\n&amp;quot;);
-                return;
-        }
-
-        nlh = nlmsg_put(skb_out, 0, 0, NLMSG_DONE, msg_size, 0);
-        NETLINK_CB(skb_out).dst_group = 0;
-        strncpy(nlmsg_data(nlh), msg,msg_size);
-
-        res = nlmsg_unicast(nl_sk, skb_out, pid);
-        if (res &amp;lt; 0)
-                printk(KERN_INFO &amp;quot;Error while sending bak to user\n&amp;quot;);
-}
-
-static int __init hello_init(void)
-{
-        struct netlink_kernel_cfg cfg = {
-                .input = hello_nl_recv_msg,
-        };
-
-        printk(&amp;quot;Entering: %s\n&amp;quot;, __FUNCTION__);
-
-        nl_sk = netlink_kernel_create(&amp;amp;init_net, NETLINK_USER, &amp;amp;cfg);
-
-        if (!nl_sk)
-        {
-                printk(KERN_ALERT &amp;quot;Error creating socket.\n&amp;quot;);
-                return -10;
-        }
-
-        return 0;
-}
-
-static void __exit hello_exit(void)
-{
-        printk(KERN_INFO &amp;quot;exiting hello module\n&amp;quot;);
-        netlink_kernel_release(nl_sk);
-}
-
-module_init(hello_init);
-module_exit(hello_exit);
-
-MODULE_LICENSE(&amp;quot;GPL&amp;quot;);
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;em&gt;makefile&lt;/em&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-makefile&#34;&gt;obj-m := hello_nl_kern.o
-
-KERNEL_SOURCE := /lib/modules/$(shell uname -r)/build
-
-PWD := $(shell pwd)
-
-all:
-        make -C $(KERNEL_SOURCE) SUBDIRS=${PWD} modules
-clean:
-        make -C $(KERNEL_SOURCE) SUBDIRS=${PWD} clean
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;demo-user-code&#34;&gt;demo user code&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;em&gt;hello_nl_user.c&lt;/em&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;sys/socket.h&amp;gt;
-#include &amp;lt;linux/netlink.h&amp;gt;
-#include &amp;lt;stdlib.h&amp;gt;
-#include &amp;lt;string.h&amp;gt;
-#include &amp;lt;stdio.h&amp;gt;
-
-#define NETLINK_USER 31
-
-#define MAX_PAYLOAD 1024 /* maximum payload size*/
-
-struct sockaddr_nl src_addr, dest_addr;
-struct nlmsghdr *nlh = NULL;
-struct iovec iov;
-int sock_fd;
-struct msghdr msg;
-
-int main(int argc, char *argv[])
-{
-        sock_fd = socket(PF_NETLINK, SOCK_RAW, NETLINK_USER);
-        if (sock_fd &amp;lt; 0)
-                return -1;
-
-        memset(&amp;amp;src_addr, 0, sizeof(src_addr));
-        src_addr.nl_family = AF_NETLINK;
-        src_addr.nl_pid = getpid();
-
-        bind(sock_fd, (struct sockaddr*)&amp;amp;src_addr, sizeof(src_addr));
-
-        memset(&amp;amp;dest_addr, 0, sizeof(dest_addr));
-        dest_addr.nl_family = AF_NETLINK;
-        dest_addr.nl_pid = 0; /* For Linux Kernel */
-        dest_addr.nl_groups = 0; /* unicast */
-
-        nlh = (struct nlmsghdr *)malloc(NLMSG_SPACE(MAX_PAYLOAD));
-        memset(nlh, 0, NLMSG_SPACE(MAX_PAYLOAD));
-        nlh-&amp;gt;nlmsg_len = NLMSG_SPACE(MAX_PAYLOAD);
-        nlh-&amp;gt;nlmsg_pid = getpid();
-        nlh-&amp;gt;nlmsg_flags = 0;
-
-        strcpy(NLMSG_DATA(nlh), &amp;quot;Hello&amp;quot;);
-
-        iov.iov_base = (void *)nlh;
-        iov.iov_len = nlh-&amp;gt;nlmsg_len;
-        msg.msg_name = (void *)&amp;amp;dest_addr;
-        msg.msg_namelen = sizeof(dest_addr);
-        msg.msg_iov = &amp;amp;iov;
-        msg.msg_iovlen = 1;
-
-        /* Sending message to kernel */
-        sendmsg(sock_fd,&amp;amp;msg,0);
-        printf(&amp;quot;Waiting for message from kernel\n&amp;quot;);
-
-        /* Read message from kernel */
-        recvmsg(sock_fd, &amp;amp;msg, 0);
-        printf(&amp;quot;Received message payload: %s\n&amp;quot;, (char *)NLMSG_DATA(nlh));
-        close(sock_fd);
-
-        return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>demo kernel code  hello_nl_kern.c  #include &amp;lt;linux/module.h&amp;gt; #include &amp;lt;net/sock.h&amp;gt; #include &amp;lt;linux/netlink.h&amp;gt; #include &amp;lt;linux/skbuff.h&amp;gt; #define NETLINK_USER 31 struct sock *nl_sk = NULL; static void hello_nl_recv_msg(struct sk_buff *skb) { struct nlmsghdr *nlh; int pid; struct sk_buff *skb_out; int msg_size; char *msg = &amp;quot;Hello from kernel&amp;quot;; int res; printk(KERN_INFO &amp;quot;Entering: %s\n&amp;quot;, __FUNCTION__); msg_size = strlen(msg); nlh = (struct nlmsghdr *)skb-&amp;gt;data; printk(KERN_INFO &amp;quot;Netlink received msg payload: %s\n&amp;quot;,(char*)nlmsg_data(nlh)); pid = nlh-&amp;gt;nlmsg_pid; skb_out = nlmsg_new(msg_size,0); if (!</description>
     </item>
     
     <item>
@@ -229,31 +37,7 @@ int main(int argc, char *argv[])
       <pubDate>Thu, 23 Mar 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2017_03_23_configure_libvirt_with_openvswitch_bridge/</guid>
-      <description>
-
-&lt;h1 id=&#34;create-openvswitch-bridge&#34;&gt;Create OpenvSwitch bridge&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ovs-vsctl add-br br0
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;configure-libvirt-with-br0-just-created&#34;&gt;Configure libvirt with &lt;em&gt;br0&lt;/em&gt; just created&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;BRNAME=br0
-
-cat &amp;gt; /tmp/libvirt-net.xml &amp;lt;&amp;lt;EOF
-&amp;lt;network&amp;gt;
-  &amp;lt;name&amp;gt;${BRNAME}&amp;lt;/name&amp;gt;
-  &amp;lt;forward mode=&#39;bridge&#39;/&amp;gt;
-  &amp;lt;bridge name=&#39;${BRNAME}&#39;/&amp;gt;
-  &amp;lt;virtualport type=&#39;openvswitch&#39;/&amp;gt;
-&amp;lt;/network&amp;gt;
-EOF
-
-virsh net-define /tmp/libvirt-net.xml
-virsh net-start $BRNAME
-virsh net-autostart $BRNAME
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description> Create OpenvSwitch bridge ovs-vsctl add-br br0  Configure libvirt with br0 just created BRNAME=br0 cat &amp;gt; /tmp/libvirt-net.xml &amp;lt;&amp;lt;EOF &amp;lt;network&amp;gt; &amp;lt;name&amp;gt;${BRNAME}&amp;lt;/name&amp;gt; &amp;lt;forward mode=&#39;bridge&#39;/&amp;gt; &amp;lt;bridge name=&#39;${BRNAME}&#39;/&amp;gt; &amp;lt;virtualport type=&#39;openvswitch&#39;/&amp;gt; &amp;lt;/network&amp;gt; EOF virsh net-define /tmp/libvirt-net.xml virsh net-start $BRNAME virsh net-autostart $BRNAME  </description>
     </item>
     
     <item>
@@ -262,74 +46,7 @@ virsh net-autostart $BRNAME
       <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2017_02_25_using_openvswitch_to_build_minimal_linux_networking_hack_env/</guid>
-      <description>
-
-&lt;h2 id=&#34;create-openvswitch-bridge-and-two-tap-devices-for-vm&#34;&gt;Create Openvswitch bridge and two tap devices for vm&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ip tuntap add name tap1 mode tap
-ip tuntap add name tap2 mode tap
-
-ip link set tap1 up
-ip link set tap2 up
-
-ovs-vsctl add-br br0
-
-ovs-vsctl add-port br0 tap1
-
-ovs-vsctl add-port br0 tap2
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;start-the-two-vms-and-config-network&#34;&gt;Start the two vms and config network&lt;/h2&gt;
-
-&lt;h3 id=&#34;configure-vm01&#34;&gt;configure vm01&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;start vm01&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;qemu-system-x86_64  -nographic \
--kernel ./bzImage -initrd ./initramfs \
--append  &amp;quot;console=ttyS0 quiet&amp;quot; \
--netdev tap,id=net1,ifname=tap1,script=no,downscript=no  \
--device e1000,netdev=net1,mac=&#39;9e:11:24:5c:35:89&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;configure vm01 network&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ip link set eth0 up
-ip addr add 192.168.0.1/24 dev eth0
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;configure-vm02&#34;&gt;configure vm02&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;start vm02&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;qemu-system-x86_64  -nographic \
--kernel ./bzImage -initrd ./initramfs \
--append  &amp;quot;console=ttyS0 quiet&amp;quot; \
--netdev tap,id=net2,ifname=tap2,script=no,downscript=no  \
--device e1000,netdev=net2,mac=&#39;66:5f:30:f4:24:be&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;configure vm02 network&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ip link set eth0 up
-ip addr add 192.168.0.2/24 dev eth0
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;test-the-vms-network-connection&#34;&gt;Test the vms network connection&lt;/h2&gt;
-
-&lt;p&gt;vm01 ping vm02&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ping 192.168.0.2
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>Create Openvswitch bridge and two tap devices for vm ip tuntap add name tap1 mode tap ip tuntap add name tap2 mode tap ip link set tap1 up ip link set tap2 up ovs-vsctl add-br br0 ovs-vsctl add-port br0 tap1 ovs-vsctl add-port br0 tap2  Start the two vms and config network configure vm01  start vm01  qemu-system-x86_64 -nographic \ -kernel ./bzImage -initrd ./initramfs \ -append &amp;quot;console=ttyS0 quiet&amp;quot; \ -netdev tap,id=net1,ifname=tap1,script=no,downscript=no \ -device e1000,netdev=net1,mac=&#39;9e:11:24:5c:35:89&#39;   configure vm01 network  ip link set eth0 up ip addr add 192.</description>
     </item>
     
     <item>
@@ -338,68 +55,9 @@ ip addr add 192.168.0.2/24 dev eth0
       <pubDate>Sat, 14 Jan 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2017_01_14_compile_openvswitch_2_6_x_from_source_code/</guid>
-      <description>
-
-&lt;h1 id=&#34;install-compile-dependencies&#34;&gt;Install compile dependencies&lt;/h1&gt;
-
-&lt;h1 id=&#34;configure-and-compile-the-source-code&#34;&gt;Configure and compile the source code&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./configure --with-linux=/lib/modules/$(uname -r)/build --prefix=/src/ovs
-
-make -j$(nproc)
-
-make install &amp;amp;&amp;amp; make modules_install
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;load-openvswitch-module&#34;&gt;Load OpenvSwitch module&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;modprobe gre
-modprobe openvswitch
-modprobe libcrc32c
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;configure-ovsdb&#34;&gt;Configure ovsdb&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/src/ovs/bin/ovsdb-tool create /src/ovs/etc/openvswitch/conf.db /src/ovs/share/openvswitch/vswitch.ovsschema
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;start-ovs&#34;&gt;Start OVS&lt;/h1&gt;
-
-&lt;h2 id=&#34;start-ovsdb-server&#34;&gt;Start ovsdb-server&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;without ssl&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/src/ovs/sbin/ovsdb-server --remote=punix:/src/ovs/var/run/openvswitch/db.sock \
---remote=db:Open_vSwitch,Open_vSwitch,manager_options \
---pidfile --detach --log-file
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;with ssl&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/src/ovs/sbin/ovsdb-server --remote=punix:/src/ovs/var/run/openvswitch/db.sock \
---remote=db:Open_vSwitch,Open_vSwitch,manager_options \
---private-key=db:Open_vSwitch,SSL,private_key \
---certificate=db:Open_vSwitch,SSL,certificate \
---bootstrap-ca-cert=db:Open_vSwitch,SSL,ca_cert \
---pidfile --detach --log-file
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;View /src/ovs/var/log/openvswitch/ovsdb-server.log to get server status&lt;/p&gt;
-
-&lt;h2 id=&#34;init-ovs&#34;&gt;Init OVS&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/src/ovs/bin/ovs-vsctl --no-wait init
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;View /src/ovs/var/log/openvswitch/ovs-vswitchd.log to get ovs-switchd status&lt;/p&gt;
-
-&lt;h2 id=&#34;start-ovs-switchd&#34;&gt;Start ovs-switchd&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/src/ovs/sbin/ovs-vswitchd --pidfile --detach --log-file
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>Install compile dependencies Configure and compile the source code ./configure --with-linux=/lib/modules/$(uname -r)/build --prefix=/src/ovs make -j$(nproc) make install &amp;amp;&amp;amp; make modules_install  Load OpenvSwitch module modprobe gre modprobe openvswitch modprobe libcrc32c  Configure ovsdb /src/ovs/bin/ovsdb-tool create /src/ovs/etc/openvswitch/conf.db /src/ovs/share/openvswitch/vswitch.ovsschema  Start OVS Start ovsdb-server  without ssl
+/src/ovs/sbin/ovsdb-server --remote=punix:/src/ovs/var/run/openvswitch/db.sock \ --remote=db:Open_vSwitch,Open_vSwitch,manager_options \ --pidfile --detach --log-file  with ssl
+/src/ovs/sbin/ovsdb-server --remote=punix:/src/ovs/var/run/openvswitch/db.sock \ --remote=db:Open_vSwitch,Open_vSwitch,manager_options \ --private-key=db:Open_vSwitch,SSL,private_key \ --certificate=db:Open_vSwitch,SSL,certificate \ --bootstrap-ca-cert=db:Open_vSwitch,SSL,ca_cert \ --pidfile --detach --log-file   View /src/ovs/var/log/openvswitch/ovsdb-server.</description>
     </item>
     
   </channel>

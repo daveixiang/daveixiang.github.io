@@ -2,11 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Virtualization on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>https://daveixiang.github.io/categories/virtualization/index.xml</link>
+    <link>https://daveixiang.github.io/categories/virtualization/</link>
     <description>Recent content in Virtualization on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <atom:link href="https://daveixiang.github.io/categories/virtualization/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 05 Apr 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://daveixiang.github.io/categories/virtualization/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Compiling qemu guest agent msi package for windows</title>
@@ -14,36 +17,12 @@
       <pubDate>Wed, 05 Apr 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</guid>
-      <description>
-
-&lt;h2 id=&#34;install-dependencies&#34;&gt;Install dependencies&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;mingw cross compilation toolchain&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;msitool&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;flex bison glib2-devel zlib-devel&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;configure-and-build-qemu-ga-msi-package&#34;&gt;configure and build qemu-ga msi package&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./configure --cross-prefix=x86_64-w64-mingw32-  \
---enable-guest-agent \
---enable-guest-agent-msi
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;and&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;make msi
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;After a while, get the msi package:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;[root@localhost qemu-2.8.1]# ls -l *msi
--rw-r--r-- 1 root root 1711104 Apr  5 11:09 qemu-ga-x86_64.msi
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description> Install dependencies  mingw cross compilation toolchain
+ msitool
+ flex bison glib2-devel zlib-devel
+  configure and build qemu-ga msi package ./configure --cross-prefix=x86_64-w64-mingw32- \ --enable-guest-agent \ --enable-guest-agent-msi  and
+make msi  After a while, get the msi package:
+[root@localhost qemu-2.8.1]# ls -l *msi -rw-r--r-- 1 root root 1711104 Apr 5 11:09 qemu-ga-x86_64.msi  </description>
     </item>
     
     <item>
@@ -52,224 +31,18 @@
       <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2017_03_01_using_postgresql_as_openstack_backend_db/</guid>
-      <description>
-
-&lt;h2 id=&#34;install-postgresql-and-psycopg2&#34;&gt;Install &lt;em&gt;PostgreSQL&lt;/em&gt; and &lt;em&gt;psycopg2&lt;/em&gt;&lt;/h2&gt;
-
-&lt;p&gt;&lt;em&gt;psycopg2&lt;/em&gt; provides the Python interface to PostgreSQL&lt;/p&gt;
-
-&lt;h2 id=&#34;change-openstack-services-configuration-connection-information&#34;&gt;Change openstack services configuration connection information&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;connection = postgresql://&amp;lt;user&amp;gt;:&amp;lt;password&amp;gt;@&amp;lt;host&amp;gt;/&amp;lt;db&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;login-postgresql-create-roles-and-databases&#34;&gt;Login PostgreSQL create roles and databases&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;keystone
-```txt
-CREATE USER keystone WITH PASSWORD &amp;lsquo;openstack&amp;rsquo;;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;CREATE DATABASE keystone;
-GRANT ALL PRIVILEGES ON DATABASE &amp;ldquo;keystone&amp;rdquo; to keystone;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;
-* glance
-
-```sql
-CREATE USER glance WITH PASSWORD &#39;openstack&#39;;
-
-CREATE DATABASE glance;
-GRANT ALL PRIVILEGES ON DATABASE &amp;quot;glance&amp;quot; to glance;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;nova&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE USER nova WITH PASSWORD &#39;openstack&#39;;
-
-CREATE DATABASE nova;
-GRANT ALL PRIVILEGES ON DATABASE &amp;quot;nova&amp;quot; to nova;
-
-CREATE DATABASE &amp;quot;nova_api&amp;quot;;
-GRANT ALL PRIVILEGES ON DATABASE &amp;quot;nova_api&amp;quot; to nova;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;neutron&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE USER neutron WITH PASSWORD &#39;openstack&#39;;
-
-CREATE DATABASE neutron;
-GRANT ALL PRIVILEGES ON DATABASE &amp;quot;neutron&amp;quot; to neutron;
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description> Install PostgreSQL and psycopg2 psycopg2 provides the Python interface to PostgreSQL
+Change openstack services configuration connection information connection = postgresql://&amp;lt;user&amp;gt;:&amp;lt;password&amp;gt;@&amp;lt;host&amp;gt;/&amp;lt;db&amp;gt;  Login PostgreSQL create roles and databases  keystone ```txt CREATE USER keystone WITH PASSWORD &amp;lsquo;openstack&amp;rsquo;;  CREATE DATABASE keystone; GRANT ALL PRIVILEGES ON DATABASE &amp;ldquo;keystone&amp;rdquo; to keystone;
+ * glance ```sql CREATE USER glance WITH PASSWORD &#39;openstack&#39;; CREATE DATABASE glance; GRANT ALL PRIVILEGES ON DATABASE &amp;quot;glance&amp;quot; to glance;   nova  CREATE USER nova WITH PASSWORD &#39;openstack&#39;; CREATE DATABASE nova; GRANT ALL PRIVILEGES ON DATABASE &amp;quot;nova&amp;quot; to nova; CREATE DATABASE &amp;quot;nova_api&amp;quot;; GRANT ALL PRIVILEGES ON DATABASE &amp;quot;nova_api&amp;quot; to nova;   neutron  CREATE USER neutron WITH PASSWORD &#39;openstack&#39;; CREATE DATABASE neutron; GRANT ALL PRIVILEGES ON DATABASE &amp;quot;neutron&amp;quot; to neutron;  </description>
     </item>
     
     <item>
       <title>内存不够导致KVM OOM</title>
-      <link>https://daveixiang.github.io/articles/2017_02_08_KVM_OOM_case/</link>
+      <link>https://daveixiang.github.io/articles/2017_02_08_kvm_oom_case/</link>
       <pubDate>Wed, 08 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_02_08_KVM_OOM_case/</guid>
-      <description>&lt;ul&gt;
-&lt;li&gt;KVM OOM&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;[451452.773003] [ pid ] uid tgid total_vm rss nr_ptes swapents oom_score_adj name
-[451452.773008] [ 395] 0 395 9240 1094 21 44 0 systemd-journal
-[451452.773010] [ 423] 0 423 29723 151 26 84 0 lvmetad
-[451452.773011] [ 429] 0 429 10897 261 21 109 -1000 systemd-udevd
-[451452.773013] [ 563] 0 563 13854 298 25 89 -1000 auditd
-[451452.773015] [ 585] 997 585 131910 320 55 1795 0 polkitd
-[451452.773016] [ 587] 0 587 6048 261 15 35 0 systemd-logind
-[451452.773017] [ 590] 81 590 6133 229 16 45 -900 dbus-daemon
-[451452.773018] [ 596] 0 596 4792 205 14 35 0 irqbalance
-[451452.773019] [ 604] 996 604 28962 202 26 70 0 chronyd
-[451452.773021] [ 608] 0 608 50303 140 37 113 0 gssproxy
-[451452.773022] [ 634] 0 634 28845 157 11 23 0 ksmtuned
-[451452.773023] [ 651] 0 651 10838 29 21 131 0 monitor
-[451452.773024] [ 652] 0 652 10932 316 22 197 0 ovsdb-server
-[451452.773025] [ 708] 0 708 11781 106 23 94 0 monitor
-[451452.773026] [ 711] 0 711 104086 12963 53 0 0 ovs-vswitchd
-[451452.773027] [ 1004] 0 1004 72396 413 41 133 0 rsyslogd
-[451452.773028] [ 1007] 0 1007 138287 594 89 3087 0 tuned
-[451452.773030] [ 1049] 0 1049 20617 95 42 193 -1000 sshd
-[451452.773031] [ 1075] 0 1075 27509 165 11 29 0 agetty
-[451452.773032] [ 1637] 0 1637 22409 229 43 258 0 master
-[451452.773033] [ 1668] 89 1668 22479 465 43 262 0 qmgr
-[451452.773034] [ 5574] 0 5574 74152 471 62 284 -900 virtlogd
-[451452.773035] [ 5585] 107 5585 2301147 36294 695 239350 0 qemu-kvm
-[451452.773036] [ 5586] 0 5586 4444 223 13 27 0 systemd-machine
-[451452.773038] [ 5612] 107 5612 1310112 756316 1952 154981 0 qemu-kvm
-[451452.773040] [20262] 0 20262 5114 77 14 55 0 nginx
-[451452.773041] [20263] 99 20263 5223 251 15 55 0 nginx
-[451452.773057] [21999] 0 21999 337110 4650 161 2518 0 libvirtd
-[451452.773058] [15319] 107 15319 2339541 1568424 3415 88466 0 qemu-kvm
-[451452.773060] [24795] 107 24795 2415262 1225954 2744 67490 0 qemu-kvm
-[451452.773061] [ 5979] 0 5979 31556 343 19 0 0 crond
-[451452.773062] [ 6051] 1000 6051 565 28 5 0 0 ETMDaemon
-[451452.773063] [ 6057] 1000 6057 1077 563 6 0 0 vod_httpserver
-[451452.773064] [ 6813] 89 6813 22435 684 43 0 0 pickup
-[451452.773098] [ 6825] 0 6825 36424 912 73 0 0 sshd
-[451452.773099] [ 6828] 0 6828 28879 306 13 0 0 bash
-[451452.773100] [ 6849] 0 6849 46882 411 46 0 0 su
-[451452.773101] [ 6850] 1000 6850 28879 324 13 0 0 bash
-[451452.773103] [ 7371] 1000 7371 8372 3717 19 0 0 EmbedThunderMan
-[451452.773104] [ 7644] 107 7644 1229016 1030910 2230 58 0 qemu-kvm
-[451452.773106] [ 7707] 0 7707 26974 136 10 0 0 sleep
-[451452.773107] Out of memory: Kill process 15319 (qemu-kvm) score 363 or sacrifice child
-[451452.773263] Killed process 15319 (qemu-kvm) total-vm:9358164kB, anon-rss:6271848kB, file-rss:1824kB, shmem-rss:24kB
-[451452.778118] CPU 2/KVM invoked oom-killer: gfp_mask=0xd0, order=0, oom_score_adj=0
-[451452.778121] CPU 2/KVM cpuset=vcpu2 mems_allowed=0
-[451452.778123] CPU: 0 PID: 5628 Comm: CPU 2/KVM Not tainted 3.10.0-514.2.2.el7.x86_64 #1
-[451452.778124] Hardware name: MSI MS-7984/Z170 KRAIT GAMING (MS-7984), BIOS B.70 02/24/2016
-[451452.778125] ffff8801821abec0 00000000ed5b1643 ffff880444607830 ffffffff816861cc
-[451452.778127] ffff8804446078c0 ffffffff81681177 ffff88045aed3800 ffff880444607990
-[451452.778129] ffff8804598c8a60 ffff8804446078e8 ffff8804446078b0 0000000000000000
-[451452.778130] Call Trace:
-[451452.778135]  [&amp;lt;ffffffff816861cc&amp;gt;] dump_stack+0x19/0x1b
-[451452.778137]  [&amp;lt;ffffffff81681177&amp;gt;] dump_header+0x8e/0x225
-[451452.778140]  [&amp;lt;ffffffff8118476e&amp;gt;] oom_kill_process+0x24e/0x3c0
-[451452.778141]  [&amp;lt;ffffffff8118420d&amp;gt;] ? oom_unkillable_task+0xcd/0x120
-[451452.778143]  [&amp;lt;ffffffff811842b6&amp;gt;] ? find_lock_task_mm+0x56/0xc0
-[451452.778145]  [&amp;lt;ffffffff81184fa6&amp;gt;] out_of_memory+0x4b6/0x4f0
-[451452.778147]  [&amp;lt;ffffffff81681c80&amp;gt;] __alloc_pages_slowpath+0x5d7/0x725
-[451452.778149]  [&amp;lt;ffffffff8118b0b5&amp;gt;] __alloc_pages_nodemask+0x405/0x420
-[451452.778151]  [&amp;lt;ffffffff811cf26a&amp;gt;] alloc_pages_current+0xaa/0x170
-[451452.778152]  [&amp;lt;ffffffff811859de&amp;gt;] __get_free_pages+0xe/0x50
-[451452.778168]  [&amp;lt;ffffffffa0693dd9&amp;gt;] mmu_topup_memory_caches+0x79/0x120 [kvm]
-[451452.778175]  [&amp;lt;ffffffffa069b4fd&amp;gt;] tdp_page_fault+0x4d/0x220 [kvm]
-[451452.778183]  [&amp;lt;ffffffffa0692e44&amp;gt;] kvm_mmu_page_fault+0x24/0x140 [kvm]
-[451452.778186]  [&amp;lt;ffffffffa0938bb6&amp;gt;] handle_ept_violation+0x96/0x170 [kvm_intel]
-[451452.778189]  [&amp;lt;ffffffffa0942119&amp;gt;] vmx_handle_exit+0x299/0xbe0 [kvm_intel]
-[451452.778196]  [&amp;lt;ffffffffa068695b&amp;gt;] vcpu_enter_guest+0x3bb/0x1100 [kvm]
-[451452.778203]  [&amp;lt;ffffffffa068ea3d&amp;gt;] kvm_arch_vcpu_ioctl_run+0xcd/0x450 [kvm]
-[451452.778208]  [&amp;lt;ffffffffa0673a31&amp;gt;] kvm_vcpu_ioctl+0x2b1/0x640 [kvm]
-[451452.778211]  [&amp;lt;ffffffff810f7bd2&amp;gt;] ? do_futex+0x122/0x5b0
-[451452.778213]  [&amp;lt;ffffffff81212035&amp;gt;] do_vfs_ioctl+0x2d5/0x4b0
-[451452.778215]  [&amp;lt;ffffffff81691cb1&amp;gt;] ? __do_page_fault+0x171/0x450
-[451452.778221]  [&amp;lt;ffffffffa067d14c&amp;gt;] ? kvm_on_user_return+0x6c/0x80 [kvm]
-[451452.778227]  [&amp;lt;ffffffffa067d154&amp;gt;] ? kvm_on_user_return+0x74/0x80 [kvm]
-[451452.778229]  [&amp;lt;ffffffff812122b1&amp;gt;] SyS_ioctl+0xa1/0xc0
-[451452.778235]  [&amp;lt;ffffffff816967c9&amp;gt;] system_call_fastpath+0x16/0x1b
-[451452.778236] Mem-Info:
-[451452.778238] active_anon:2951002 inactive_anon:854110 isolated_anon:0
- active_file:30 inactive_file:53 isolated_file:0
- unevictable:12969 dirty:2 writeback:0 unstable:0
- slab_reclaimable:38630 slab_unreclaimable:65953
- mapped:3197 shmem:968 pagetables:12225 bounce:0
- free:35050 free_pcp:110 free_cma:0
-[451452.778240] Node 0 DMA free:15896kB min:64kB low:80kB high:96kB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB isolated(anon):0kB isolated(file):0kB present:15980kB managed:15896kB mlocked:0kB dirty:0kB writeback:0kB mapped:0kB shmem:0kB slab_reclaimable:0kB slab_unreclaimable:0kB kernel_stack:0kB pagetables:0kB unstable:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB writeback_tmp:0kB pages_scanned:0 all_unreclaimable? yes
-[451452.778243] lowmem_reserve[]: 0 1954 15761 15761
-[451452.778245] Node 0 DMA32 free:64300kB min:8372kB low:10464kB high:12556kB active_anon:896060kB inactive_anon:965416kB active_file:12kB inactive_file:204kB unevictable:6044kB isolated(anon):0kB isolated(file):0kB present:2247872kB managed:2003132kB mlocked:6044kB dirty:0kB writeback:0kB mapped:1848kB shmem:144kB slab_reclaimable:16136kB slab_unreclaimable:27572kB kernel_stack:1344kB pagetables:3416kB unstable:0kB bounce:0kB free_pcp:40kB local_pcp:36kB free_cma:0kB writeback_tmp:0kB pages_scanned:0 all_unreclaimable? no
-[451452.778248] lowmem_reserve[]: 0 0 13806 13806
-[451452.778249] Node 0 Normal free:60004kB min:59144kB low:73928kB high:88716kB active_anon:10907948kB inactive_anon:2451024kB active_file:108kB inactive_file:8kB unevictable:45832kB isolated(anon):0kB isolated(file):0kB present:14401536kB managed:14137948kB mlocked:45832kB dirty:8kB writeback:0kB mapped:10940kB shmem:3728kB slab_reclaimable:138384kB slab_unreclaimable:236240kB kernel_stack:4000kB pagetables:45484kB unstable:0kB bounce:0kB free_pcp:400kB local_pcp:96kB free_cma:0kB writeback_tmp:0kB pages_scanned:203 all_unreclaimable? yes
-[451452.778252] lowmem_reserve[]: 0 0 0 0
-[451452.778253] Node 0 DMA: 0*4kB 1*8kB (U) 1*16kB (U) 0*32kB 2*64kB (U) 1*128kB (U) 1*256kB (U) 0*512kB 1*1024kB (U) 1*2048kB (M) 3*4096kB (M) = 15896kB
-[451452.778259] Node 0 DMA32: 496*4kB (UEM) 345*8kB (UEM) 408*16kB (UE) 216*32kB (UEM) 202*64kB (UEM) 102*128kB (UE) 37*256kB (UE) 19*512kB (UE) 1*1024kB (M) 0*2048kB 0*4096kB = 64392kB
-[451452.778265] Node 0 Normal: 3100*4kB (UEM) 2859*8kB (UE) 1356*16kB (UEM) 93*32kB (UE) 0*64kB 0*128kB 0*256kB 0*512kB 0*1024kB 0*2048kB 0*4096kB = 59944kB
-[451452.778270] Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=1048576kB
-[451452.778271] Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=2048kB
-[451452.778272] 36732 total pagecache pages
-[451452.778272] 33203 pages in swap cache
-[451452.778273] Swap cache stats: add 753570, delete 720367, find 278546/292738
-[451452.778274] Free swap  = 0kB
-[451452.778274] Total swap = 2097148kB
-[451452.778275] 4166347 pages RAM
-[451452.778275] 0 pages HighMem/MovableOnly
-[451452.778276] 127103 pages reserved
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;libvirt&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;case 01&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;error: Failed to start domain stack-src
-error: internal error: process exited while connecting to monitor: pit.lost_tick_policy=discard -no-hpet -no-shutdown -global PIIX4_PM.disable_s3=1 -global PIIX4_PM.disable_s4=1 -boot strict=on -device ich9-usb-ehci1,id=usb,bus=pci.0,addr=0x6.0x7 -device ich9-usb-uhci1,masterbus=usb.0,firstport=0,bus=pci.0,multifunction=on,addr=0x6 -device ich9-usb-uhci2,masterbus=usb.0,firstport=2,bus=pci.0,addr=0x6.0x1 -device ich9-usb-uhci3,masterbus=usb.0,firstport=4,bus=pci.0,addr=0x6.0x2 -device virtio-serial-pci,id=virtio-serial0,bus=pci.0,addr=0x5 -drive file=/var/lib/libvirt/images/stack-src.qcow2,format=qcow2,if=none,id=drive-virtio-disk0 -device virtio-blk-pci,scsi=off,bus=pci.0,addr=0x7,drive=drive-virtio-disk0,id=virtio-disk0,bootindex=1 -netdev tap,fd=33,id=hostnet0,vhost=on,vhostfd=35 -device virtio-net-pci,netdev=hostnet0,id=net0,mac=52:54:00:78:10:dc,bus=pci.0,addr=0x3 -chardev pty,id=charserial0 -device isa-serial,chardev=charserial0,id=serial0 -device usb-tablet,id=input0,bus=usb.0,port=1 -spice port=5904,addr=0.0.0.0,disable-t
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;case 02&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;error: Failed to start domain stack-src
-error: internal error: process exited while connecting to monitor: warning: host doesn&#39;t support requested feature: CPUID.01H:EDX.ds [bit 21]
-warning: host doesn&#39;t support requested feature: CPUID.01H:EDX.acpi [bit 22]
-warning: host doesn&#39;t support requested feature: CPUID.01H:EDX.ht [bit 28]
-warning: host doesn&#39;t support requested feature: CPUID.01H:EDX.tm [bit 29]
-warning: host doesn&#39;t support requested feature: CPUID.01H:EDX.pbe [bit 31]
-warning: host doesn&#39;t support requested feature: CPUID.01H:ECX.dtes64 [bit 2]
-warning: host doesn&#39;t support requested feature: CPUID.01H:ECX.monitor [bit 3]
-warning: host doesn&#39;t support requested feature: CPUID.01H:ECX.ds_cpl [bit 4]
-warning: host doesn&#39;t support requested feature: CPUID.01H:ECX.smx [bit 6]
-warning: host doesn&#39;t support requested feature: CPUID.01H:ECX.est [bit 7]
-warning: host doesn&#39;t support requested feature: CPUID.01H:ECX.tm2 [bit 8]
-warning: host doesn&#39;t support requested feature: CPUID.01H:ECX.xtpr [bit 14]
-warning: host doesn&#39;t support requested feature: CPUID.01H:ECX.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;case 03&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;error: Failed to start domain stack-src
-error: internal error: qemu unexpectedly closed the monitor: warning: host doesn&#39;t support requested feature: CPUID.01H:EDX.ds [bit 21]
-warning: host doesn&#39;t support requested feature: CPUID.01H:EDX.acpi [bit 22]
-warning: host doesn&#39;t support requested feature: CPUID.01H:EDX.ht [bit 28]
-warning: host doesn&#39;t support requested feature: CPUID.01H:EDX.tm [bit 29]
-warning: host doesn&#39;t support requested feature: CPUID.01H:EDX.pbe [bit 31]
-warning: host doesn&#39;t support requested feature: CPUID.01H:ECX.dtes64 [bit 2]
-warning: host doesn&#39;t support requested feature: CPUID.01H:ECX.monitor [bit 3]
-warning: host doesn&#39;t support requested feature: CPUID.01H:ECX.ds_cpl [bit 4]
-warning: host doesn&#39;t support requested feature: CPUID.01H:ECX.smx [bit 6]
-warning: host doesn&#39;t support requested feature: CPUID.01H:ECX.est [bit 7]
-warning: host doesn&#39;t support requested feature: CPUID.01H:ECX.tm2 [bit 8]
-warning: host doesn&#39;t support requested feature: CPUID.01H:ECX.xtpr [bit 14]
-warning: host doesn&#39;t support requested feature: CPUID.01H:ECX.pdcm [
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <guid>https://daveixiang.github.io/articles/2017_02_08_kvm_oom_case/</guid>
+      <description>KVM OOM  [451452.773003] [ pid ] uid tgid total_vm rss nr_ptes swapents oom_score_adj name [451452.773008] [ 395] 0 395 9240 1094 21 44 0 systemd-journal [451452.773010] [ 423] 0 423 29723 151 26 84 0 lvmetad [451452.773011] [ 429] 0 429 10897 261 21 109 -1000 systemd-udevd [451452.773013] [ 563] 0 563 13854 298 25 89 -1000 auditd [451452.773015] [ 585] 997 585 131910 320 55 1795 0 polkitd [451452.</description>
     </item>
     
     <item>
@@ -278,243 +51,7 @@ warning: host doesn&#39;t support requested feature: CPUID.01H:ECX.pdcm [
       <pubDate>Mon, 16 Jan 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2017_01_16_compile_static_docker_without_docker_in_docker/</guid>
-      <description>
-
-&lt;h1 id=&#34;install-dependencies&#34;&gt;Install dependencies&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Install xfs btrfs packages&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;emerge --ask sys-fs/btrfs-progs sys-fs/xfsprogs
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Install device mapper&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export LVM2_VERSION=2.02.103 
-mkdir -p /usr/local/src/lvm2 &amp;amp;&amp;amp;
-curl -fsSL &amp;quot;https://mirrors.kernel.org/sourceware/lvm2/LVM2.${LVM2_VERSION}.tgz&amp;quot; | tar -xzC /usr/local/src/lvm2 --strip-components=1
-
-cd /usr/local/src/lvm2 \
-        &amp;amp;&amp;amp; ./configure \
-                --build=&amp;quot;$(gcc -print-multiarch)&amp;quot; \
-                --enable-static_link \
-        &amp;amp;&amp;amp; make device-mapper \
-        &amp;amp;&amp;amp; make install_device-mapper
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;compile-runc-binary&#34;&gt;Compile runc binary&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;get the runc source code&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir -p /go/src/github.com/opencontainers/
-
-cd /go/src/github.com/opencontainers/
-
-git clone https://github.com/opencontainers/runc.git
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Compile static runc binary&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd runc
-
-git checkout v1.0.0-rc2
-
-make static
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Install runc&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir -p /go/bin
-
-cp runc /go/bin/docker-runc
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;compile-containerd-binary&#34;&gt;Compile containerd binary&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;get the containerd source code&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir -p /go/src/github.com/docker/
-
-cd /go/src/github.com/docker/
-
-git clone https://github.com/docker/containerd.git
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Compile static containerd binary&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd containerd
-
-git checkout v0.2.5
-
-export GOPATH=/go
-
-make static
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Install containerd&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cp bin/containerd /go/bin/docker-containerd
-
-cp bin/containerd-shim /go/bin/docker-containerd-shim
-
-cp bin/ctr /go/bin/docker-ctr
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;compile-docker-binary&#34;&gt;Compile docker binary&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Get the docker source code&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd /go/src/github.com/docker/
-
-git clone https://github.com/docker/docker.git
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Compile static docker binary&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd docker
-
-git checkout v1.12.6
-
-export GOPATH=/go
-export AUTO_GOPATH=1
-
-hack/make.sh binary
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Install docker binary&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cp bundles/latest/binary-client/docker /go/bin/docker
-
-cp bundles/latest/binary-daemon/dockerd /go/bin/dockerd
-
-cp bundles/latest/binary-daemon/docker-proxy /go/bin/docker-proxy
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;check-the-build-result&#34;&gt;Check the build result&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Start docker daemon&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;dockerd --log-level=error
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;and the output is:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;WARN[0000] containerd: low RLIMIT_NOFILE changing to max  current=1024 max=4096
-ERRO[0001] devmapper: Udev sync is not supported. This will lead to data loss and unexpected behavior. Install a dynamic binary to use devicemapper or select a different storage driver. For more information, see https://docs.docker.com/engine/reference/commandline/daemon/#daemon-storage-driver-option
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Checkout docker info&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;docker info
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;the client and daemon info:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;Containers: 0
- Running: 0
- Paused: 0
- Stopped: 0
-Images: 0
-Server Version: 1.12.6
-Storage Driver: overlay
- Backing Filesystem: xfs
-Logging Driver: json-file
-Cgroup Driver: cgroupfs
-Plugins:
- Volume: local
- Network: host bridge null overlay
-Swarm: inactive
-Runtimes: runc
-Default Runtime: runc
-Security Options: apparmor
-Kernel Version: 4.4.39-gentoo
-Operating System: Gentoo/Linux
-OSType: linux
-Architecture: x86_64
-CPUs: 4
-Total Memory: 7.796 GiB
-Name: meta
-ID: ZZOZ:GWOT:4LCM:5P7V:F2JW:2S3F:LTLM:H5N4:TX5W:DOR3:BVM6:XYZO
-Docker Root Dir: /var/lib/docker
-Debug Mode (client): false
-Debug Mode (server): false
-Registry: https://index.docker.io/v1/
-WARNING: No swap limit support
-Insecure Registries:
- 127.0.0.0/8
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;pull &lt;em&gt;hello-world&lt;/em&gt; image&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;docker pull hello-world
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;and the output is:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;Using default tag: latest
-latest: Pulling from library/hello-world
-c04b14da8d14: Pull complete 
-Digest: sha256:0256e8a36e2070f7bf2d0b0763dbabdd67798512411de4cdcf9431a1feb60fd9
-Status: Downloaded newer image for hello-world:latest
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;run &lt;em&gt;hello-world&lt;/em&gt; container&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;docker run hello-world
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;the output is:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;Hello from Docker!
-This message shows that your installation appears to be working correctly.
-
-To generate this message, Docker took the following steps:
- 1. The Docker client contacted the Docker daemon.
- 2. The Docker daemon pulled the &amp;quot;hello-world&amp;quot; image from the Docker Hub.
- 3. The Docker daemon created a new container from that image which runs the
-    executable that produces the output you are currently reading.
- 4. The Docker daemon streamed that output to the Docker client, which sent it
-    to your terminal.
-
-To try something more ambitious, you can run an Ubuntu container with:
- $ docker run -it ubuntu bash
-
-Share images, automate workflows, and more with a free Docker Hub account:
- https://hub.docker.com
-
-For more examples and ideas, visit:
- https://docs.docker.com/engine/userguide/
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>Install dependencies  Install xfs btrfs packages  emerge --ask sys-fs/btrfs-progs sys-fs/xfsprogs   Install device mapper  export LVM2_VERSION=2.02.103 mkdir -p /usr/local/src/lvm2 &amp;amp;&amp;amp; curl -fsSL &amp;quot;https://mirrors.kernel.org/sourceware/lvm2/LVM2.${LVM2_VERSION}.tgz&amp;quot; | tar -xzC /usr/local/src/lvm2 --strip-components=1 cd /usr/local/src/lvm2 \ &amp;amp;&amp;amp; ./configure \ --build=&amp;quot;$(gcc -print-multiarch)&amp;quot; \ --enable-static_link \ &amp;amp;&amp;amp; make device-mapper \ &amp;amp;&amp;amp; make install_device-mapper  Compile runc binary  get the runc source code  mkdir -p /go/src/github.com/opencontainers/ cd /go/src/github.com/opencontainers/ git clone https://github.com/opencontainers/runc.git   Compile static runc binary  cd runc git checkout v1.</description>
     </item>
     
     <item>
@@ -523,68 +60,9 @@ For more examples and ideas, visit:
       <pubDate>Sat, 14 Jan 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2017_01_14_compile_openvswitch_2_6_x_from_source_code/</guid>
-      <description>
-
-&lt;h1 id=&#34;install-compile-dependencies&#34;&gt;Install compile dependencies&lt;/h1&gt;
-
-&lt;h1 id=&#34;configure-and-compile-the-source-code&#34;&gt;Configure and compile the source code&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./configure --with-linux=/lib/modules/$(uname -r)/build --prefix=/src/ovs
-
-make -j$(nproc)
-
-make install &amp;amp;&amp;amp; make modules_install
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;load-openvswitch-module&#34;&gt;Load OpenvSwitch module&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;modprobe gre
-modprobe openvswitch
-modprobe libcrc32c
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;configure-ovsdb&#34;&gt;Configure ovsdb&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/src/ovs/bin/ovsdb-tool create /src/ovs/etc/openvswitch/conf.db /src/ovs/share/openvswitch/vswitch.ovsschema
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;start-ovs&#34;&gt;Start OVS&lt;/h1&gt;
-
-&lt;h2 id=&#34;start-ovsdb-server&#34;&gt;Start ovsdb-server&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;without ssl&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/src/ovs/sbin/ovsdb-server --remote=punix:/src/ovs/var/run/openvswitch/db.sock \
---remote=db:Open_vSwitch,Open_vSwitch,manager_options \
---pidfile --detach --log-file
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;with ssl&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/src/ovs/sbin/ovsdb-server --remote=punix:/src/ovs/var/run/openvswitch/db.sock \
---remote=db:Open_vSwitch,Open_vSwitch,manager_options \
---private-key=db:Open_vSwitch,SSL,private_key \
---certificate=db:Open_vSwitch,SSL,certificate \
---bootstrap-ca-cert=db:Open_vSwitch,SSL,ca_cert \
---pidfile --detach --log-file
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;View /src/ovs/var/log/openvswitch/ovsdb-server.log to get server status&lt;/p&gt;
-
-&lt;h2 id=&#34;init-ovs&#34;&gt;Init OVS&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/src/ovs/bin/ovs-vsctl --no-wait init
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;View /src/ovs/var/log/openvswitch/ovs-vswitchd.log to get ovs-switchd status&lt;/p&gt;
-
-&lt;h2 id=&#34;start-ovs-switchd&#34;&gt;Start ovs-switchd&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/src/ovs/sbin/ovs-vswitchd --pidfile --detach --log-file
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>Install compile dependencies Configure and compile the source code ./configure --with-linux=/lib/modules/$(uname -r)/build --prefix=/src/ovs make -j$(nproc) make install &amp;amp;&amp;amp; make modules_install  Load OpenvSwitch module modprobe gre modprobe openvswitch modprobe libcrc32c  Configure ovsdb /src/ovs/bin/ovsdb-tool create /src/ovs/etc/openvswitch/conf.db /src/ovs/share/openvswitch/vswitch.ovsschema  Start OVS Start ovsdb-server  without ssl
+/src/ovs/sbin/ovsdb-server --remote=punix:/src/ovs/var/run/openvswitch/db.sock \ --remote=db:Open_vSwitch,Open_vSwitch,manager_options \ --pidfile --detach --log-file  with ssl
+/src/ovs/sbin/ovsdb-server --remote=punix:/src/ovs/var/run/openvswitch/db.sock \ --remote=db:Open_vSwitch,Open_vSwitch,manager_options \ --private-key=db:Open_vSwitch,SSL,private_key \ --certificate=db:Open_vSwitch,SSL,certificate \ --bootstrap-ca-cert=db:Open_vSwitch,SSL,ca_cert \ --pidfile --detach --log-file   View /src/ovs/var/log/openvswitch/ovsdb-server.</description>
     </item>
     
     <item>
@@ -593,34 +71,8 @@ modprobe libcrc32c
       <pubDate>Sat, 03 Sep 2016 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2016_09_03_nested_kvm/</guid>
-      <description>&lt;ul&gt;
-&lt;li&gt;Enable the setting for Nested KVM&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat &amp;lt;&amp;lt;EOF &amp;gt; /etc/modprobe.d/kvm-nested.conf
-options kvm_intel nested=1
-EOF
-
-modprobe -r kvm_intel
-
-modprobe kvm_intel
-
-cat /sys/module/kvm_intel/parameters/nested
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Edit the configuration of a virtual machine you&amp;rsquo;d want to set nested&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;virsh edit {DOMAIN_NAME}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;and add the following setting to the vm configuration:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;cpu mode=&#39;host-passthrough&#39;&amp;gt;
-&amp;lt;/cpu&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description> Enable the setting for Nested KVM  cat &amp;lt;&amp;lt;EOF &amp;gt; /etc/modprobe.d/kvm-nested.conf options kvm_intel nested=1 EOF modprobe -r kvm_intel modprobe kvm_intel cat /sys/module/kvm_intel/parameters/nested   Edit the configuration of a virtual machine you&amp;rsquo;d want to set nested  virsh edit {DOMAIN_NAME}  and add the following setting to the vm configuration:
+&amp;lt;cpu mode=&#39;host-passthrough&#39;&amp;gt; &amp;lt;/cpu&amp;gt;  </description>
     </item>
     
     <item>
@@ -629,34 +81,8 @@ cat /sys/module/kvm_intel/parameters/nested
       <pubDate>Mon, 11 Jul 2016 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2016_07_11_managing_tuntap_virtual_interfaces/</guid>
-      <description>&lt;p&gt;TAP devices, in contrast, work at the Ethernet level or layer two and
-therefore behave very much like a real network adaptor. Since they are
-running at layer two they can transport any layer three protocol and
-aren’t limited to point-to-point connections. TAP devices can be part
-of a bridge and are commonly used in virtualization systems to provide
-virtual network adaptors to multiple guest machines.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Create tuntap virtual interfaces&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ip tuntap add name ${tap_name} mode tap
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Delete tuntap virtual interfaces&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ip tuntap del name ${tap_name} mode tap
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Create Veth Pairs&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ip link add ${point} type veth peer name ${other_point}
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>TAP devices, in contrast, work at the Ethernet level or layer two and therefore behave very much like a real network adaptor. Since they are running at layer two they can transport any layer three protocol and aren’t limited to point-to-point connections. TAP devices can be part of a bridge and are commonly used in virtualization systems to provide virtual network adaptors to multiple guest machines.
+ Create tuntap virtual interfaces  ip tuntap add name ${tap_name} mode tap   Delete tuntap virtual interfaces  ip tuntap del name ${tap_name} mode tap   Create Veth Pairs  ip link add ${point} type veth peer name ${other_point}  </description>
     </item>
     
   </channel>

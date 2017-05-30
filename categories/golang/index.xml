@@ -2,11 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Golang on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>https://daveixiang.github.io/categories/golang/index.xml</link>
+    <link>https://daveixiang.github.io/categories/golang/</link>
     <description>Recent content in Golang on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <atom:link href="https://daveixiang.github.io/categories/golang/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 07 Apr 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://daveixiang.github.io/categories/golang/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>go tool: no such tool &#39;6g&#39;</title>
@@ -14,21 +17,7 @@
       <pubDate>Fri, 07 Apr 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2017_04_07_go_tool_no_such_tool_6g/</guid>
-      <description>&lt;ul&gt;
-&lt;li&gt;Problem&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;davei@davei:/tmp&amp;gt; go tool 6g test.go
-go tool: no such tool &amp;quot;6g&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Solution&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;6g were renamed to &amp;quot;compile&amp;quot; since Go 1.5. So use &amp;quot;compile&amp;quot; instead.
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description> Problem  davei@davei:/tmp&amp;gt; go tool 6g test.go go tool: no such tool &amp;quot;6g&amp;quot;   Solution  6g were renamed to &amp;quot;compile&amp;quot; since Go 1.5. So use &amp;quot;compile&amp;quot; instead.  </description>
     </item>
     
     <item>
@@ -37,21 +26,7 @@ go tool: no such tool &amp;quot;6g&amp;quot;
       <pubDate>Fri, 07 Apr 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2017_04_07_go_tool_no_such_tool_6l/</guid>
-      <description>&lt;ul&gt;
-&lt;li&gt;Problem&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;davei@davei:/tmp&amp;gt; go tool 6l test.o
-go tool: no such tool &amp;quot;6l&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Solution&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;6l and friends were renamed to &amp;quot;link&amp;quot; since Go 1.5. So use &amp;quot;link&amp;quot; instead.
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description> Problem  davei@davei:/tmp&amp;gt; go tool 6l test.o go tool: no such tool &amp;quot;6l&amp;quot;   Solution  6l and friends were renamed to &amp;quot;link&amp;quot; since Go 1.5. So use &amp;quot;link&amp;quot; instead.  </description>
     </item>
     
     <item>
@@ -60,140 +35,8 @@ go tool: no such tool &amp;quot;6l&amp;quot;
       <pubDate>Thu, 12 Jan 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2017_01_22_compile_golang_from_source_code/</guid>
-      <description>
-
-&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
-
-&lt;p&gt;Go is a nice language started by Google. A nice advantage is that it
-compiles to native code and the binary does not have additional
-dependencies. Performance and low resource usage are focused on, even
-though I personally don&amp;rsquo;t like the gargabe collection based memory
-cleanup.&lt;/p&gt;
-
-&lt;h1 id=&#34;installation&#34;&gt;Installation&lt;/h1&gt;
-
-&lt;h2 id=&#34;first-start-with-go-1-4&#34;&gt;First start with Go 1.4&lt;/h2&gt;
-
-&lt;p&gt;Since Go version 1.5 you need Go itself to compile it. So we first
-start with Go 1.4:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Download &lt;a href=&#34;https://storage.googleapis.com/golang/go1.4.3.src.tar.gz&#34;&gt;go1.4.3.src.tar.gz&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Untar it to &lt;em&gt;/go/go1.4/&lt;/em&gt; directory:&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;tar zxf go1.4.3.src.tar.gz -C /go
-
-cd /go
-
-mv go go1.4
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Build Go 1.4 with:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd /go/go1.4/src
-
-./make.bash
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;After some minutes you have a working Go 1.4 installation.&lt;/p&gt;
-
-&lt;p&gt;If get the following error:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;cannot load DWARF output from $WORK/os/user/_obj//_cgo_.o: decoding dwarf section info at offset 0x4: unsupported version 0
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Using Go 1.4 to bootstrap a later version, disable cgo with:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;env CGO_ENABLED=0 ./make.bash
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;compile-the-current-version-go1-7-5&#34;&gt;Compile the current version (go1.7.5)&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Download &lt;a href=&#34;https://storage.googleapis.com/golang/go1.7.5.src.tar.gz&#34;&gt;go1.7.5.src.tar.gz&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Untar it to &lt;em&gt;/go/go1.6&lt;/em&gt; directory:&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;tar zxf go1.7.5.src.tar.gz -C /go
-
-cd /go
-
-mv go go1.7
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Tell Go where to find the Go compiler to bootstrap with:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export GOROOT_BOOTSTRAP=/go/go1.4
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Now build Go 1.7:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd /go/go1.7/src
-
-./make.bash
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;After some more minutes, we finally have working Go 1.7 installation.&lt;/p&gt;
-
-&lt;h2 id=&#34;set-up-environment-variables-for-convenience&#34;&gt;Set up environment variables for convenience&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Set the root of the Go installation:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export GOROOT=/go/go1.7
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Tell go where to store additional packages downloaded with &amp;ldquo;go get&amp;rdquo;:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export GOPATH=&amp;lt;path/to/addons&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;And finally add the bin directory to your PATH:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export PATH=$PATH:$GOROOT/bin
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;test-the-golang-compiler&#34;&gt;Test the Golang compiler&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Create a file &amp;ldquo;hello.go&amp;rdquo; with content&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;package main
-import &amp;quot;fmt&amp;quot;
-func main() {
-        fmt.Println(&amp;quot;Hello World&amp;quot;)
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Compile the sample code:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;go build hello.go
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Run with:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./hello
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>Introduction Go is a nice language started by Google. A nice advantage is that it compiles to native code and the binary does not have additional dependencies. Performance and low resource usage are focused on, even though I personally don&amp;rsquo;t like the gargabe collection based memory cleanup.
+Installation First start with Go 1.4 Since Go version 1.5 you need Go itself to compile it. So we first start with Go 1.</description>
     </item>
     
   </channel>

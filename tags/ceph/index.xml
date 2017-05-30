@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ceph on 項 思 偉 ~ Aal Izz Well!</title>
+    <link>https://daveixiang.github.io/tags/ceph/</link>
+    <description>Recent content in Ceph on 項 思 偉 ~ Aal Izz Well!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 03 May 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://daveixiang.github.io/tags/ceph/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ceph tip: change or rebuild ceph monitor map</title>
+      <link>https://daveixiang.github.io/articles/2017_05_03_ceph_monmap_change_or_rebuild/</link>
+      <pubDate>Wed, 03 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_05_03_ceph_monmap_change_or_rebuild/</guid>
+      <description>We can change or rebuild a new set of monitor servers by manipulating the monmap
+ First get current monmap whithout any changes:  [root@ceph1 ~]# ceph mon getmap -o /tmp/old-monmap got monmap epoch 3 [root@ceph1 ~]# monmaptool --print /tmp/old-monmap monmaptool: monmap file /tmp/old-monmap epoch 3 fsid a15c0477-280d-41c0-baae-c2bbd75759b5 last_changed 2017-05-02 18:40:48.986171 created 2017-05-02 17:40:16.236472 0: 10.0.100.241:6789/0 mon.ceph1 1: 10.0.100.242:6789/0 mon.ceph2 2: 10.0.100.243:6789/0 mon.ceph3   Now create a new one, just be sure to use the same fsid as the current monmap:  monmaptool --create --fsid a15c0477-280d-41c0-baae-c2bbd75759b5 \ --add ceph1 10.</description>
+    </item>
+    
+    <item>
+      <title>ceph warn: too few PGs per OSD</title>
+      <link>https://daveixiang.github.io/articles/2017_05_02_ceph_warn_too_few_pgs_per_osd/</link>
+      <pubDate>Tue, 02 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_05_02_ceph_warn_too_few_pgs_per_osd/</guid>
+      <description>If ceph cluster starts to complain in ceph -s with below error
+cluster a15c0477-280d-41c0-baae-c2bbd75759b5 health HEALTH_WARN too few PGs per OSD (7 &amp;lt; min 30) monmap e3: 3 mons at {ceph1=10.0.100.241:6789/0,ceph2=10.0.100.242:6789/0,ceph3=10.0.100.243:6789/0} election epoch 8, quorum 0,1,2 ceph1,ceph2,ceph3 osdmap e46: 9 osds: 9 up, 9 in flags sortbitwise,require_jewel_osds pgmap v91: 64 pgs, 1 pools, 0 bytes data, 0 objects 46376 MB used, 9149 GB / 9194 GB avail 64 active+clean  Then it is necessary to increase number of PG/PGP for pool in question</description>
+    </item>
+    
+  </channel>
+</rss>
