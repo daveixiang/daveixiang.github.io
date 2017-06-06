@@ -85,16 +85,16 @@
         </div>
         <div class="article-entry" itemprop="articleBody">
             <ul>
-<li>Get the openflows of <em>br-int</em>
-<code>c
-ovs-ofctl dump-flows   br-int | \
+<li>Get the openflows of <em>br-int</em></li>
+</ul>
+
+<pre><code class="language-bash">ovs-ofctl dump-flows   br-int | \
 sed -E -e '1d' \
 -e 's/(hard_age|idle_age)=[0-9]*?, //g' \
 -e 's/ actions/, actions/g' \
 -e 's/, /\t/g' | \
 awk '{print $3&quot;\t&quot;$6&quot;\t&quot;$7}' | sort -k1,1 -k2,2rV | column -t
-</code></li>
-</ul>
+</code></pre>
 
 <p>and the output is:</p>
 
