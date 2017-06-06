@@ -6,10 +6,49 @@
     <description>Recent content in Articles on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 27 May 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 06 Jun 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://daveixiang.github.io/articles/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Format ovs-ofctl dump-flows output</title>
+      <link>https://daveixiang.github.io/articles/2017_06_06_format_ovs_ofctl_dump_flows_output/</link>
+      <pubDate>Tue, 06 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_06_06_format_ovs_ofctl_dump_flows_output/</guid>
+      <description>Get the openflows of br-int c ovs-ofctl dump-flows br-int | \ sed -E -e &#39;1d&#39; \ -e &#39;s/(hard_age|idle_age)=[0-9]*?, //g&#39; \ -e &#39;s/ actions/, actions/g&#39; \ -e &#39;s/, /\t/g&#39; | \ awk &#39;{print $3&amp;quot;\t&amp;quot;$6&amp;quot;\t&amp;quot;$7}&#39; | sort -k1,1 -k2,2rV | column -t   and the output is:
+table=0 priority=10,icmp6,in_port=10,icmp_type=136 actions=resubmit(,24) table=0 priority=10,icmp6,in_port=2,icmp_type=136 actions=resubmit(,24) table=0 priority=10,arp,in_port=10 actions=resubmit(,24) table=0 priority=10,arp,in_port=2 actions=resubmit(,24) table=0 priority=9,in_port=10 actions=resubmit(,25) table=0 priority=9,in_port=2 actions=resubmit(,25) table=0 priority=4,in_port=21,dl_src=fa:16:3f:94:12:48 actions=resubmit(,2) table=0 priority=4,in_port=21,dl_src=fa:16:3f:75:2c:e8 actions=resubmit(,2) table=0 priority=4,in_port=1,dl_src=fa:16:3f:94:12:48 actions=resubmit(,2) table=0 priority=4,in_port=1,dl_src=fa:16:3f:75:2c:e8 actions=resubmit(,2) table=0 priority=3,in_port=1,dl_vlan=1075 actions=mod_vlan_vid:1,NORMAL table=0 priority=3,in_port=1,dl_vlan=1022 actions=mod_vlan_vid:5,NORMAL table=0 priority=2,in_port=21 actions=drop table=0 priority=2,in_port=1 actions=drop table=0 priority=1 actions=NORMAL table=0 priority=0 actions=NORMAL table=1 priority=1 actions=drop table=2 priority=4,dl_vlan=1075,dl_dst=fa:16:3e:c3:3d:00 actions=strip_vlan,mod_dl_src:fa:16:3e:f7:8a:d4,output:2 table=2 priority=4,dl_vlan=1022,dl_dst=fa:16:3e:2f:0a:ff actions=strip_vlan,mod_dl_src:fa:16:3e:a3:75:2a,output:10 table=2 priority=1 actions=drop table=23 priority=0 actions=drop table=24 priority=2,icmp6,in_port=10,icmp_type=136,nd_target=fe80::f816:3eff:fe2f:aff actions=NORMAL table=24 priority=2,icmp6,in_port=2,icmp_type=136,nd_target=fe80::f816:3eff:fec3:3d00 actions=NORMAL table=24 priority=2,arp,in_port=10,arp_spa=10.</description>
+    </item>
+    
+    <item>
+      <title>Clang print self</title>
+      <link>https://daveixiang.github.io/articles/2017_06_05_clang_print_self/</link>
+      <pubDate>Mon, 05 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_06_05_clang_print_self/</guid>
+      <description>print-self.c  #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; extern char * _binary_print_self_c_start; int main() { printf(&amp;quot;%s&amp;quot;, (char *)&amp;amp;_binary_print_self_c_start); }  and generate print-self.bin
+objcopy -I binary -O elf64-x86-64 -B i386:x86-64 print-self.c print-self.bin   print-self.bin  readelf --sym print-self.bin  and the symbols is like:
+Symbol table &#39;.symtab&#39; contains 5 entries: Num: Value Size Type Bind Vis Ndx Name 0: 0000000000000000 0 NOTYPE LOCAL DEFAULT UND 1: 0000000000000000 0 SECTION LOCAL DEFAULT 1 2: 0000000000000000 0 NOTYPE GLOBAL DEFAULT 1 _binary_print_self_c_star 3: 000000000000009b 0 NOTYPE GLOBAL DEFAULT 1 _binary_print_self_c_end 4: 000000000000009b 0 NOTYPE GLOBAL DEFAULT ABS _binary_print_self_c_size   print-self  gcc -o print-self print-self.</description>
+    </item>
+    
+    <item>
+      <title>LSI MegaRaid Monitor Linux</title>
+      <link>https://daveixiang.github.io/articles/2017_06_02_lsi_megaraid_monitor_linux/</link>
+      <pubDate>Fri, 02 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_06_02_lsi_megaraid_monitor_linux/</guid>
+      <description> Installl MegaCLI tools  unzip 8.07.10_MegaCLI_Linux.zip cd 8.07.10_MegaCLI_Linux rpm2cpio MegaCli-8.07.10-1.noarch.rpm | cpio -idmv cd opt &amp;amp;&amp;amp; mv MegaRAID /opt /opt/MegaRAID/MegaCli/MegaCli64 -AdpAllInfo -aALL   Command reference  MegaCli64 -adpCount MegaCli64 -AdpGetTime –aALL MegaCli64 -AdpAllInfo -aAll MegaCli64 -LDInfo -LALL -aAll MegaCli64 -PDList -aAll MegaCli64 -AdpBbuCmd -GetBbuStatus -aALL MegaCli64 -AdpBbuCmd -GetBbuCapacityInfo -aALL MegaCli64 -AdpBbuCmd -GetBbuDesignInfo -aALL MegaCli64 -AdpBbuCmd -GetBbuProperties -aALL MegaCli64 -cfgdsply -aALL  </description>
+    </item>
+    
+    <item>
+      <title>OpenStack RESTful API example(Mitaka)</title>
+      <link>https://daveixiang.github.io/articles/2017_05_30_openstack_restful_api_example_mitaka/</link>
+      <pubDate>Tue, 30 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_05_30_openstack_restful_api_example_mitaka/</guid>
+      <description> token-request.json file { &amp;quot;auth&amp;quot;: { &amp;quot;identity&amp;quot;: { &amp;quot;methods&amp;quot;: [ &amp;quot;password&amp;quot; ], &amp;quot;password&amp;quot;: { &amp;quot;user&amp;quot;: { &amp;quot;domain&amp;quot;: { &amp;quot;name&amp;quot;: &amp;quot;Default&amp;quot; }, &amp;quot;name&amp;quot;: &amp;quot;admin&amp;quot;, &amp;quot;password&amp;quot;: &amp;quot;openstack&amp;quot; } } }, &amp;quot;scope&amp;quot;: { &amp;quot;project&amp;quot;: { &amp;quot;domain&amp;quot;: { &amp;quot;name&amp;quot;: &amp;quot;Default&amp;quot; }, &amp;quot;name&amp;quot;: &amp;quot;admin&amp;quot; } } } }  get the token export TOKEN=`curl -si -d @token-request.json -H &amp;quot;Content-type: application/json&amp;quot; \ http://localhost:35357/v3/auth/tokens | awk &#39;/X-Subject-Token/ {print $2}&#39;`  </description>
+    </item>
     
     <item>
       <title>Linux: How to bind IP that doesn&#39;t exist</title>

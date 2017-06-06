@@ -6,10 +6,21 @@
     <description>Recent content in Clan on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 01 Apr 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 05 Jun 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://daveixiang.github.io/categories/clan/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Clang print self</title>
+      <link>https://daveixiang.github.io/articles/2017_06_05_clang_print_self/</link>
+      <pubDate>Mon, 05 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_06_05_clang_print_self/</guid>
+      <description>print-self.c  #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; extern char * _binary_print_self_c_start; int main() { printf(&amp;quot;%s&amp;quot;, (char *)&amp;amp;_binary_print_self_c_start); }  and generate print-self.bin
+objcopy -I binary -O elf64-x86-64 -B i386:x86-64 print-self.c print-self.bin   print-self.bin  readelf --sym print-self.bin  and the symbols is like:
+Symbol table &#39;.symtab&#39; contains 5 entries: Num: Value Size Type Bind Vis Ndx Name 0: 0000000000000000 0 NOTYPE LOCAL DEFAULT UND 1: 0000000000000000 0 SECTION LOCAL DEFAULT 1 2: 0000000000000000 0 NOTYPE GLOBAL DEFAULT 1 _binary_print_self_c_star 3: 000000000000009b 0 NOTYPE GLOBAL DEFAULT 1 _binary_print_self_c_end 4: 000000000000009b 0 NOTYPE GLOBAL DEFAULT ABS _binary_print_self_c_size   print-self  gcc -o print-self print-self.</description>
+    </item>
     
     <item>
       <title>Build Cross GCC Toolchain (TARGET:x86_64)</title>

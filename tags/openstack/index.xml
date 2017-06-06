@@ -6,10 +6,19 @@
     <description>Recent content in Openstack on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 21 Mar 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 30 May 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://daveixiang.github.io/tags/openstack/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>OpenStack RESTful API example(Mitaka)</title>
+      <link>https://daveixiang.github.io/articles/2017_05_30_openstack_restful_api_example_mitaka/</link>
+      <pubDate>Tue, 30 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_05_30_openstack_restful_api_example_mitaka/</guid>
+      <description> token-request.json file { &amp;quot;auth&amp;quot;: { &amp;quot;identity&amp;quot;: { &amp;quot;methods&amp;quot;: [ &amp;quot;password&amp;quot; ], &amp;quot;password&amp;quot;: { &amp;quot;user&amp;quot;: { &amp;quot;domain&amp;quot;: { &amp;quot;name&amp;quot;: &amp;quot;Default&amp;quot; }, &amp;quot;name&amp;quot;: &amp;quot;admin&amp;quot;, &amp;quot;password&amp;quot;: &amp;quot;openstack&amp;quot; } } }, &amp;quot;scope&amp;quot;: { &amp;quot;project&amp;quot;: { &amp;quot;domain&amp;quot;: { &amp;quot;name&amp;quot;: &amp;quot;Default&amp;quot; }, &amp;quot;name&amp;quot;: &amp;quot;admin&amp;quot; } } } }  get the token export TOKEN=`curl -si -d @token-request.json -H &amp;quot;Content-type: application/json&amp;quot; \ http://localhost:35357/v3/auth/tokens | awk &#39;/X-Subject-Token/ {print $2}&#39;`  </description>
+    </item>
     
     <item>
       <title>Install Openstack from source code - glance (mitaka)</title>
