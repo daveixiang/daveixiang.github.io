@@ -150,11 +150,12 @@
 ROOTFS=rootfs
 BUSYBOX=$(find busybox* -maxdepth 0 -type d)
 SYSROOT=$(x86_64-linux-gnu-gcc --print-sysroot)
+GLIBC_VERSION=$(ldd --version | head -1 | cut -d' ' -f4)
 DYNAMIC_LIB_PATH_32=${SYSROOT}/lib
 DYNAMIC_LIB_PATH_64=${SYSROOT}/lib64
 
 rm -rf $ROOTFS
-mkdir -p ${ROOTFS}/{proc,sys,dev,etc,etc/init.d,lib,lib64,mnt}
+mkdir -p ${ROOTFS}/{proc,sys,dev,etc,etc/init.d,lib,lib64,mnt,tmp,go}
 
 cat &gt; $ROOTFS/etc/init.d/rcS &lt;&lt;EOF
 #!/bin/sh
@@ -178,11 +179,19 @@ chmod +x $ROOTFS/etc/inittab
 
 cp -rP ${BUSYBOX}/_install/* ${ROOTFS}
 
-cp -rP ${DYNAMIC_LIB_PATH_64}/libc-2.25.so ${ROOTFS}/lib64/
+cp -rP ${DYNAMIC_LIB_PATH_64}/libc-${GLIBC_VERSION}.so ${ROOTFS}/lib64/
 cp -rP ${DYNAMIC_LIB_PATH_64}/libc.so.6 ${ROOTFS}/lib64/
-cp -rP ${DYNAMIC_LIB_PATH_64}/libm-2.25.so ${ROOTFS}/lib64/
+
+cp -rP ${DYNAMIC_LIB_PATH_64}/libm-${GLIBC_VERSION}.so ${ROOTFS}/lib64/
 cp -rP ${DYNAMIC_LIB_PATH_64}/libm.so.6 ${ROOTFS}/lib64/
-cp -rP ${DYNAMIC_LIB_PATH_64}/ld-2.25.so ${ROOTFS}/lib64/
+
+cp -rP ${DYNAMIC_LIB_PATH_64}/librt-${GLIBC_VERSION}.so ${ROOTFS}/lib64/
+cp -rP ${DYNAMIC_LIB_PATH_64}/librt.so.1 ${ROOTFS}/lib64/
+
+cp -rP ${DYNAMIC_LIB_PATH_64}/libpthread-${GLIBC_VERSION}.so ${ROOTFS}/lib64/
+cp -rP ${DYNAMIC_LIB_PATH_64}/libpthread.so.0 ${ROOTFS}/lib64/
+
+cp -rP ${DYNAMIC_LIB_PATH_64}/ld-${GLIBC_VERSION}.so ${ROOTFS}/lib64/
 cp -rP ${DYNAMIC_LIB_PATH_64}/ld-linux-x86-64.so.2 ${ROOTFS}/lib64/
 
 cd ${ROOTFS}

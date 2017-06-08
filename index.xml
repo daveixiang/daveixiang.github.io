@@ -435,14 +435,14 @@ System Calls in 32-bit Linux  To make a system call in 32-bit Linux, place the s
     </item>
     
     <item>
-      <title>Compile OpenvSwitch 2.5.x LST from source code</title>
-      <link>https://daveixiang.github.io/articles/2017_01_14_compile_openvswitch_2_6_x_from_source_code/</link>
+      <title>Compile OpenvSwitch 2.5.x LTS from source code</title>
+      <link>https://daveixiang.github.io/articles/2017_01_14_compile_openvswitch_2_5_x_lts_from_source_code/</link>
       <pubDate>Sat, 14 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_01_14_compile_openvswitch_2_6_x_from_source_code/</guid>
-      <description>Install compile dependencies Configure and compile the source code ./configure --with-linux=/lib/modules/$(uname -r)/build --prefix=/src/ovs make -j$(nproc) make install &amp;amp;&amp;amp; make modules_install  Load OpenvSwitch module modprobe gre modprobe openvswitch modprobe libcrc32c  Configure ovsdb /src/ovs/bin/ovsdb-tool create /src/ovs/etc/openvswitch/conf.db /src/ovs/share/openvswitch/vswitch.ovsschema  Start OVS Start ovsdb-server  without ssl
-/src/ovs/sbin/ovsdb-server --remote=punix:/src/ovs/var/run/openvswitch/db.sock \ --remote=db:Open_vSwitch,Open_vSwitch,manager_options \ --pidfile --detach --log-file  with ssl
-/src/ovs/sbin/ovsdb-server --remote=punix:/src/ovs/var/run/openvswitch/db.sock \ --remote=db:Open_vSwitch,Open_vSwitch,manager_options \ --private-key=db:Open_vSwitch,SSL,private_key \ --certificate=db:Open_vSwitch,SSL,certificate \ --bootstrap-ca-cert=db:Open_vSwitch,SSL,ca_cert \ --pidfile --detach --log-file   View /src/ovs/var/log/openvswitch/ovsdb-server.</description>
+      <guid>https://daveixiang.github.io/articles/2017_01_14_compile_openvswitch_2_5_x_lts_from_source_code/</guid>
+      <description>Install compile dependencies Configure and compile the source code ./configure --with-linux=/lib/modules/$(uname -r)/build --prefix=/go/ovs make -j$(nproc) make install &amp;amp;&amp;amp; make modules_install  Load OpenvSwitch module modprobe gre modprobe openvswitch modprobe libcrc32c  Configure ovsdb /go/ovs/bin/ovsdb-tool create /go/ovs/etc/openvswitch/conf.db /go/ovs/share/openvswitch/vswitch.ovsschema  Start OVS Start ovsdb-server  without ssl
+/go/ovs/sbin/ovsdb-server --remote=punix:/go/ovs/var/run/openvswitch/db.sock \ --remote=db:Open_vSwitch,Open_vSwitch,manager_options \ --pidfile --detach --log-file  with ssl
+/go/ovs/sbin/ovsdb-server --remote=punix:/go/ovs/var/run/openvswitch/db.sock \ --remote=db:Open_vSwitch,Open_vSwitch,manager_options \ --private-key=db:Open_vSwitch,SSL,private_key \ --certificate=db:Open_vSwitch,SSL,certificate \ --bootstrap-ca-cert=db:Open_vSwitch,SSL,ca_cert \ --pidfile --detach --log-file   View /go/ovs/var/log/openvswitch/ovsdb-server.</description>
     </item>
     
     <item>

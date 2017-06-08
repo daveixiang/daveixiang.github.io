@@ -2,14 +2,14 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Compile Golang from source code // 項 思 偉 ~ Aal Izz Well!</title>
+    <title>Compile OpenvSwitch 2.5.x LTS from source code // 項 思 偉 ~ Aal Izz Well!</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta property="og:title" content="Compile Golang from source code" />
+    <meta property="og:title" content="Compile OpenvSwitch 2.5.x LTS from source code" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="en_US" />
-<meta property="og:url" content="https://daveixiang.github.io/articles/2017_01_22_compile_golang_from_source_code/" />
+<meta property="og:url" content="https://daveixiang.github.io/articles/2017_01_14_compile_openvswitch_2_5_x_lts_from_source_code/" />
 
 
     <link href="" rel="alternate" type="application/rss+xml" title="項 思 偉 ~ Aal Izz Well!" />
@@ -63,12 +63,12 @@
     <div class="article-inner">
         
         <header class="article-header">
-            <h1 class="article-title" itemprop="name">Compile Golang from source code</h1>
+            <h1 class="article-title" itemprop="name">Compile OpenvSwitch 2.5.x LTS from source code</h1>
         </header>
         
         <div class="article-meta">
-            <a href="https://daveixiang.github.io/articles/2017_01_22_compile_golang_from_source_code/" class="article-date">
-                <time datetime='2017-01-12T00:00:00.000&#43;00:00' itemprop="datePublished">2017-01-12</time>
+            <a href="https://daveixiang.github.io/articles/2017_01_14_compile_openvswitch_2_5_x_lts_from_source_code/" class="article-date">
+                <time datetime='2017-01-14T00:00:00.000&#43;00:00' itemprop="datePublished">2017-01-14</time>
             </a>
             
             
@@ -76,7 +76,7 @@
                 <div class="article-category">
                     
                     
-                    <a class="article-category-link" href="https://daveixiang.github.io//categories/golang">golang</a>
+                    <a class="article-category-link" href="https://daveixiang.github.io//categories/virtualization">virtualization</a>
                     
                 </div>
             </div>
@@ -86,136 +86,64 @@
         <div class="article-entry" itemprop="articleBody">
             
 
-<h1 id="introduction">Introduction</h1>
+<h1 id="install-compile-dependencies">Install compile dependencies</h1>
 
-<p>Go is a nice language started by Google. A nice advantage is that it
-compiles to native code and the binary does not have additional
-dependencies. Performance and low resource usage are focused on, even
-though I personally don&rsquo;t like the gargabe collection based memory
-cleanup.</p>
+<h1 id="configure-and-compile-the-source-code">Configure and compile the source code</h1>
 
-<h1 id="installation">Installation</h1>
+<pre><code class="language-bash">./configure --with-linux=/lib/modules/$(uname -r)/build --prefix=/go/ovs
 
-<h2 id="first-start-with-go-1-4">First start with Go 1.4</h2>
+make -j$(nproc)
 
-<p>Since Go version 1.5 you need Go itself to compile it. So we first
-start with Go 1.4:</p>
+make install &amp;&amp; make modules_install
+</code></pre>
+
+<h1 id="load-openvswitch-module">Load OpenvSwitch module</h1>
+
+<pre><code class="language-bash">modprobe gre
+modprobe openvswitch
+modprobe libcrc32c
+</code></pre>
+
+<h1 id="configure-ovsdb">Configure ovsdb</h1>
+
+<pre><code class="language-bash">/go/ovs/bin/ovsdb-tool create /go/ovs/etc/openvswitch/conf.db /go/ovs/share/openvswitch/vswitch.ovsschema
+</code></pre>
+
+<h1 id="start-ovs">Start OVS</h1>
+
+<h2 id="start-ovsdb-server">Start ovsdb-server</h2>
 
 <ul>
-<li><p>Download <a href="https://storage.googleapis.com/golang/go1.4.3.src.tar.gz">go1.4.3.src.tar.gz</a></p></li>
+<li><p>without ssl</p>
 
-<li><p>Untar it to <em>/go/go1.4/</em> directory:</p></li>
+<pre><code class="language-bash">/go/ovs/sbin/ovsdb-server --remote=punix:/go/ovs/var/run/openvswitch/db.sock \
+--remote=db:Open_vSwitch,Open_vSwitch,manager_options \
+--pidfile --detach --log-file
+</code></pre></li>
+
+<li><p>with ssl</p>
+
+<pre><code class="language-bash">/go/ovs/sbin/ovsdb-server --remote=punix:/go/ovs/var/run/openvswitch/db.sock \
+--remote=db:Open_vSwitch,Open_vSwitch,manager_options \
+--private-key=db:Open_vSwitch,SSL,private_key \
+--certificate=db:Open_vSwitch,SSL,certificate \
+--bootstrap-ca-cert=db:Open_vSwitch,SSL,ca_cert \
+--pidfile --detach --log-file
+</code></pre></li>
 </ul>
 
-<pre><code class="language-bash">tar zxf go1.4.3.src.tar.gz -C /go
+<p>View /go/ovs/var/log/openvswitch/ovsdb-server.log to get server status</p>
 
-cd /go
+<h2 id="init-ovs">Init OVS</h2>
 
-mv go go1.4
+<pre><code class="language-bash">/go/ovs/bin/ovs-vsctl --no-wait init
 </code></pre>
 
-<ul>
-<li>Build Go 1.4 with:</li>
-</ul>
+<p>View /go/ovs/var/log/openvswitch/ovs-vswitchd.log to get ovs-switchd status</p>
 
-<pre><code class="language-bash">cd /go/go1.4/src
+<h2 id="start-ovs-switchd">Start ovs-switchd</h2>
 
-./make.bash
-</code></pre>
-
-<p>After some minutes you have a working Go 1.4 installation.</p>
-
-<p>If get the following error:</p>
-
-<pre><code class="language-txt">cannot load DWARF output from $WORK/os/user/_obj//_cgo_.o: decoding dwarf section info at offset 0x4: unsupported version 0
-</code></pre>
-
-<p>Using Go 1.4 to bootstrap a later version, disable cgo with:</p>
-
-<pre><code class="language-bash">env CGO_ENABLED=0 ./make.bash
-</code></pre>
-
-<h2 id="compile-the-current-version-go1-7-5">Compile the current version (go1.7.5)</h2>
-
-<ul>
-<li><p>Download <a href="https://storage.googleapis.com/golang/go1.7.5.src.tar.gz">go1.7.5.src.tar.gz</a></p></li>
-
-<li><p>Untar it to <em>/go/go1.6</em> directory:</p></li>
-</ul>
-
-<pre><code class="language-bash">tar zxf go1.7.5.src.tar.gz -C /go
-
-cd /go
-
-mv go go1.7
-</code></pre>
-
-<ul>
-<li>Tell Go where to find the Go compiler to bootstrap with:</li>
-</ul>
-
-<pre><code class="language-bash">export GOROOT_BOOTSTRAP=/go/go1.4
-</code></pre>
-
-<ul>
-<li>Now build Go 1.7:</li>
-</ul>
-
-<pre><code class="language-bash">cd /go/go1.7/src
-
-./make.bash
-</code></pre>
-
-<p>After some more minutes, we finally have working Go 1.7 installation.</p>
-
-<h2 id="set-up-environment-variables-for-convenience">Set up environment variables for convenience</h2>
-
-<ul>
-<li>Set the root of the Go installation:</li>
-</ul>
-
-<pre><code class="language-bash">export GOROOT=/go/go1.7
-</code></pre>
-
-<ul>
-<li>Tell go where to store additional packages downloaded with &ldquo;go get&rdquo;:</li>
-</ul>
-
-<pre><code class="language-bash">export GOPATH=&lt;path/to/addons&gt;
-</code></pre>
-
-<ul>
-<li>And finally add the bin directory to your PATH:</li>
-</ul>
-
-<pre><code class="language-bash">export PATH=$PATH:$GOROOT/bin
-</code></pre>
-
-<h1 id="test-the-golang-compiler">Test the Golang compiler</h1>
-
-<ul>
-<li>Create a file &ldquo;hello.go&rdquo; with content</li>
-</ul>
-
-<pre><code class="language-go">package main
-import &quot;fmt&quot;
-func main() {
-        fmt.Println(&quot;Hello World&quot;)
-}
-</code></pre>
-
-<ul>
-<li>Compile the sample code:</li>
-</ul>
-
-<pre><code class="language-bash">go build hello.go
-</code></pre>
-
-<ul>
-<li>Run with:</li>
-</ul>
-
-<pre><code class="language-bash">./hello
+<pre><code class="language-bash">/go/ovs/sbin/ovs-vswitchd --pidfile --detach --log-file
 </code></pre>
 
         </div>
@@ -225,7 +153,7 @@ func main() {
             <ul class="article-tag-list">
                 
                 <li class="article-tag-list-item">
-                    <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/golang">golang
+                    <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/openvswitch">openvswitch
                     </a>
                 </li>
                 
@@ -235,15 +163,15 @@ func main() {
     </div>
     <nav id="article-nav">
     
-    <a href="https://daveixiang.github.io/articles/2017_01_14_compile_openvswitch_2_5_x_lts_from_source_code/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="https://daveixiang.github.io/articles/2017_01_16_compile_static_docker_without_docker_in_docker/" id="article-nav-newer" class="article-nav-link-wrap">
         <div class="article-nav-title"><span>&lt;</span>&nbsp;
-            Compile OpenvSwitch 2.5.x LTS from source code
+            Compile static docker without docker in docker
         </div>
     </a>
     
     
-    <a href="https://daveixiang.github.io/articles/2017_01_12_compile_static_nginx/" id="article-nav-older" class="article-nav-link-wrap">
-        <div class="article-nav-title">Compile static nginx&nbsp;<span>&gt;</span></div>
+    <a href="https://daveixiang.github.io/articles/2017_01_22_compile_golang_from_source_code/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Compile Golang from source code&nbsp;<span>&gt;</span></div>
     </a>
     
 </nav>
