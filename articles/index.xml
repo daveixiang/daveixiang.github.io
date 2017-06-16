@@ -294,32 +294,12 @@ go clean ./... go install ./...  and wait for a comment, the binaries will be in
     </item>
     
     <item>
-      <title>Build PostgreSQL with debug info</title>
-      <link>https://daveixiang.github.io/articles/2017_03_01_build_postgresql_with_debug/</link>
-      <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://daveixiang.github.io/articles/2017_03_01_build_postgresql_with_debug/</guid>
-      <description> Add postgres user useradd -m -b /go/ postgres  Configure PostgreSQL ./configure --prefix=/go/postgres \ --without-tcl \ --without-gssapi \ --without-pam \ --without-bsd-auth \ --without-ldap \ --without-bonjour \ --without-selinux \ --without-systemd \ --with-uuid=ossp \ --with-libxml \ --with-libxslt \ CFLAGS=&#39; &#39;  Build and install make -j$(nproc) su postgres -c &#39;make install&#39;  </description>
-    </item>
-    
-    <item>
       <title>Install Openstack from source code dependences (mitaka)</title>
       <link>https://daveixiang.github.io/articles/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</link>
       <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</guid>
       <description>#!/bin/bash function gen_pkg_deps() { [ -z &amp;quot;$@&amp;quot; ] &amp;amp;&amp;amp; exit 0; yum install --assumeno &amp;quot;$@&amp;quot; | \ sed -n &#39;/Installing for dependencies:/,/Transaction Summary/p&#39; | \ sed -e &#39;/^=.*?$/d&#39; \ -e &#39;/Installing:/d&#39; \ -e &#39;/Installing for dependencies:/d&#39; \ -e &#39;/Transaction Summary/d&#39; \ -e &#39;/Updating/d&#39; \ -e &#39;/^$/d&#39; | \ awk &#39;BEGIN {n=1;arr[0]=0} { if (NF != 6) { for (i=n; i&amp;lt;=n+NF-1;i++) arr[i] = $(i-n+1) n+=NF; if (n == 7) { printf &amp;quot;%s,%s,%s,%s\n&amp;quot;, arr[1], arr[2], arr[3], arr[4] for (i=1; i&amp;lt;n;i++) del arr[i] n=1 } } else { printf &amp;quot;%s,%s,%s,%s\n&amp;quot;, $1, $2, $3, $4 } }&#39; | sort | grep -v -E -e &#39;glance|keystone|nova|neutron|swift|cinder|ceilometer&#39;\ &amp;gt; &amp;quot;$@&amp;quot;-deps.</description>
-    </item>
-    
-    <item>
-      <title>Using PostgreSQL as Openstack backend database</title>
-      <link>https://daveixiang.github.io/articles/2017_03_01_using_postgresql_as_openstack_backend_db/</link>
-      <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://daveixiang.github.io/articles/2017_03_01_using_postgresql_as_openstack_backend_db/</guid>
-      <description> Install PostgreSQL and psycopg2 psycopg2 provides the Python interface to PostgreSQL
-Change openstack services configuration connection information connection = postgresql://&amp;lt;user&amp;gt;:&amp;lt;password&amp;gt;@&amp;lt;host&amp;gt;/&amp;lt;db&amp;gt;  Login PostgreSQL create roles and databases  keystone ```txt CREATE USER keystone WITH PASSWORD &amp;lsquo;openstack&amp;rsquo;;  CREATE DATABASE keystone; GRANT ALL PRIVILEGES ON DATABASE &amp;ldquo;keystone&amp;rdquo; to keystone;
- * glance ```sql CREATE USER glance WITH PASSWORD &#39;openstack&#39;; CREATE DATABASE glance; GRANT ALL PRIVILEGES ON DATABASE &amp;quot;glance&amp;quot; to glance;   nova  CREATE USER nova WITH PASSWORD &#39;openstack&#39;; CREATE DATABASE nova; GRANT ALL PRIVILEGES ON DATABASE &amp;quot;nova&amp;quot; to nova; CREATE DATABASE &amp;quot;nova_api&amp;quot;; GRANT ALL PRIVILEGES ON DATABASE &amp;quot;nova_api&amp;quot; to nova;   neutron  CREATE USER neutron WITH PASSWORD &#39;openstack&#39;; CREATE DATABASE neutron; GRANT ALL PRIVILEGES ON DATABASE &amp;quot;neutron&amp;quot; to neutron;  </description>
     </item>
     
     <item>

@@ -57,15 +57,6 @@
     </item>
     
     <item>
-      <title>Database</title>
-      <link>https://daveixiang.github.io/tags/database/</link>
-      <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://daveixiang.github.io/tags/database/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Docker</title>
       <link>https://daveixiang.github.io/tags/docker/</link>
       <pubDate>Mon, 16 Jan 2017 00:00:00 +0000</pubDate>
@@ -269,15 +260,6 @@
       <pubDate>Fri, 16 Jun 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/tags/openvswitch/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Postgresql</title>
-      <link>https://daveixiang.github.io/tags/postgresql/</link>
-      <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://daveixiang.github.io/tags/postgresql/</guid>
       <description></description>
     </item>
     

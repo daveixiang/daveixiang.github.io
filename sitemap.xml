@@ -153,17 +153,7 @@
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_03_01_build_postgresql_with_debug/</loc>
-    <lastmod>2017-03-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://daveixiang.github.io/articles/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</loc>
-    <lastmod>2017-03-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://daveixiang.github.io/articles/2017_03_01_using_postgresql_as_openstack_backend_db/</loc>
     <lastmod>2017-03-01T00:00:00+00:00</lastmod>
   </url>
   
@@ -381,12 +371,6 @@
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/database/</loc>
-    <lastmod>2017-03-01T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://daveixiang.github.io/categories/database/</loc>
     <lastmod>2017-03-13T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -587,12 +571,6 @@
   <url>
     <loc>https://daveixiang.github.io/categories/openvswitch/</loc>
     <lastmod>2017-06-16T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://daveixiang.github.io/tags/postgresql/</loc>
-    <lastmod>2017-03-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
