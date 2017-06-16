@@ -6,10 +6,19 @@
     <description>Recent content on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 06 Jun 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 16 Jun 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://daveixiang.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Gentoo install openvswitch</title>
+      <link>https://daveixiang.github.io/articles/2017_06_16_gentoo_install_openvswitch/</link>
+      <pubDate>Fri, 16 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_06_16_gentoo_install_openvswitch/</guid>
+      <description>Install net-misc/openvswitch emerge --ask --quiet-build net-misc/openvswitch  Create openvswitch database file ovsdb-tool create /var/lib/openvswitch/conf.db /usr/share/openvswitch/vswitch.ovsschema  Startup and enable the daemons rc-update add ovsdb-server default /etc/init.d/ovsdb-server start rc-update add ovs-vswitchd default /etc/init.d/ovs-vswitchd start  Setup auto-configure during system boot  configure eth0  cat &amp;gt; /etc/conf.d/net.eth0 &amp;lt;&amp;lt;EOF config_eth0=&amp;quot;null&amp;quot; EOF ln -sf /etc/init.d/net.lo /etc/init.d/net.eth0 rc-update add net.eth0 /etc/init.d/net.eth0 start   configure br0  cat &amp;gt; /etc/conf.d/net.br0 &amp;lt;&amp;lt;EOF config_br0=&amp;quot;10.0.100.73 netmask 255.</description>
+    </item>
     
     <item>
       <title>Format ovs-ofctl dump-flows output</title>
@@ -299,7 +308,7 @@ go clean ./... go install ./...  and wait for a comment, the binaries will be in
       <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2017_03_01_build_postgresql_with_debug/</guid>
-      <description> Add postgres user useradd -m -b /src/ postgres  Configure PostgreSQL ./configure --prefix=/src/postgres \ --without-tcl \ --without-gssapi \ --without-pam \ --without-bsd-auth \ --without-ldap \ --without-bonjour \ --without-selinux \ --without-systemd \ --with-uuid=ossp \ --with-libxml \ --with-libxslt \ CFLAGS=&#39; &#39;  Build and install make -j$(nproc) su postgres -c &#39;make install&#39;  </description>
+      <description> Add postgres user useradd -m -b /go/ postgres  Configure PostgreSQL ./configure --prefix=/go/postgres \ --without-tcl \ --without-gssapi \ --without-pam \ --without-bsd-auth \ --without-ldap \ --without-bonjour \ --without-selinux \ --without-systemd \ --with-uuid=ossp \ --with-libxml \ --with-libxslt \ CFLAGS=&#39; &#39;  Build and install make -j$(nproc) su postgres -c &#39;make install&#39;  </description>
     </item>
     
     <item>

@@ -2,14 +2,14 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Build PostgreSQL with debug info // 項 思 偉 ~ Aal Izz Well!</title>
+    <title>Gentoo install openvswitch // 項 思 偉 ~ Aal Izz Well!</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta property="og:title" content="Build PostgreSQL with debug info" />
+    <meta property="og:title" content="Gentoo install openvswitch" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="en_US" />
-<meta property="og:url" content="https://daveixiang.github.io/articles/2017_03_01_build_postgresql_with_debug/" />
+<meta property="og:url" content="https://daveixiang.github.io/articles/2017_06_16_gentoo_install_openvswitch/" />
 
 
     <link href="" rel="alternate" type="application/rss+xml" title="項 思 偉 ~ Aal Izz Well!" />
@@ -63,12 +63,12 @@
     <div class="article-inner">
         
         <header class="article-header">
-            <h1 class="article-title" itemprop="name">Build PostgreSQL with debug info</h1>
+            <h1 class="article-title" itemprop="name">Gentoo install openvswitch</h1>
         </header>
         
         <div class="article-meta">
-            <a href="https://daveixiang.github.io/articles/2017_03_01_build_postgresql_with_debug/" class="article-date">
-                <time datetime='2017-03-01T00:00:00.000&#43;00:00' itemprop="datePublished">2017-03-01</time>
+            <a href="https://daveixiang.github.io/articles/2017_06_16_gentoo_install_openvswitch/" class="article-date">
+                <time datetime='2017-06-16T00:00:00.000&#43;00:00' itemprop="datePublished">2017-06-16</time>
             </a>
             
             
@@ -76,7 +76,7 @@
                 <div class="article-category">
                     
                     
-                    <a class="article-category-link" href="https://daveixiang.github.io//categories/database">database</a>
+                    <a class="article-category-link" href="https://daveixiang.github.io//categories/openvswitch">openvswitch</a>
                     
                 </div>
             </div>
@@ -86,33 +86,86 @@
         <div class="article-entry" itemprop="articleBody">
             
 
-<h3 id="add-postgres-user">Add <em>postgres</em> user</h3>
+<h1 id="install-net-misc-openvswitch">Install net-misc/openvswitch</h1>
 
-<pre><code class="language-bash">useradd -m -b /go/ postgres
+<pre><code class="language-bash">emerge --ask --quiet-build net-misc/openvswitch
 </code></pre>
 
-<h3 id="configure-postgresql">Configure PostgreSQL</h3>
+<h1 id="create-openvswitch-database-file">Create openvswitch database file</h1>
 
-<pre><code class="language-bash">./configure --prefix=/go/postgres \
---without-tcl \
---without-gssapi \
---without-pam \
---without-bsd-auth \
---without-ldap \
---without-bonjour \
---without-selinux \
---without-systemd \
---with-uuid=ossp \
---with-libxml \
---with-libxslt \
-CFLAGS=' '
+<pre><code class="language-bash">ovsdb-tool create /var/lib/openvswitch/conf.db /usr/share/openvswitch/vswitch.ovsschema
 </code></pre>
 
-<h3 id="build-and-install">Build and install</h3>
+<h1 id="startup-and-enable-the-daemons">Startup and enable the daemons</h1>
 
-<pre><code class="language-bash">make -j$(nproc)
+<pre><code class="language-bash">rc-update add ovsdb-server default
+/etc/init.d/ovsdb-server start
 
-su postgres -c 'make install'
+rc-update add ovs-vswitchd default
+/etc/init.d/ovs-vswitchd start
+</code></pre>
+
+<h1 id="setup-auto-configure-during-system-boot">Setup auto-configure during system boot</h1>
+
+<ul>
+<li>configure eth0</li>
+</ul>
+
+<pre><code class="language-bash">cat &gt; /etc/conf.d/net.eth0 &lt;&lt;EOF
+config_eth0=&quot;null&quot;
+EOF
+
+ln -sf /etc/init.d/net.lo /etc/init.d/net.eth0
+
+rc-update add net.eth0
+
+/etc/init.d/net.eth0 start
+</code></pre>
+
+<ul>
+<li>configure br0</li>
+</ul>
+
+<pre><code class="language-bash">cat &gt; /etc/conf.d/net.br0 &lt;&lt;EOF
+config_br0=&quot;10.0.100.73 netmask 255.255.255.0&quot;
+routes_br0=&quot;default via 10.0.100.1&quot;
+dns_servers_br0=&quot;223.5.5.5 223.6.6.6&quot;
+EOF
+
+ln -sf /etc/init.d/net.lo /etc/init.d/net.br0
+
+rc-update add net.br0
+
+/etc/init.d/net.br0 start
+</code></pre>
+
+<ul>
+<li>configure openvswitch</li>
+</ul>
+
+<pre><code class="language-bash">cat &gt; /etc/init.d/virt-net.br0  &lt;&lt;EOF
+#!/sbin/openrc-run
+
+depend() {
+        need ovs-vswitchd
+        before net.eth0 net.br0
+}
+
+start() {
+        ebegin &quot;Enabling virtual switch ports&quot;
+                ovs-vsctl --may-exist add-br br0
+                ovs-vsctl --may-exist add-port br0 eth0
+                ovs-ofctl mod-port br0 br0 up
+                ovs-ofctl mod-port br0 eth0 up
+        eend \$?
+}
+EOF
+
+chmod 755 /etc/init.d/virt-net.br0
+
+rc-update add virt-net.br0 default
+
+/etc/init.d/virt-net.br0 start
 </code></pre>
 
         </div>
@@ -122,12 +175,12 @@ su postgres -c 'make install'
             <ul class="article-tag-list">
                 
                 <li class="article-tag-list-item">
-                    <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/postgresql">postgresql
+                    <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/openvswitch">openvswitch
                     </a>
                 </li>
                 
                 <li class="article-tag-list-item">
-                    <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/database">database
+                    <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/gentoo">gentoo
                     </a>
                 </li>
                 
@@ -137,15 +190,9 @@ su postgres -c 'make install'
     </div>
     <nav id="article-nav">
     
-    <a href="https://daveixiang.github.io/articles/2017_03_04_openstack_from_source_code_mitaka_01_keystone/" id="article-nav-newer" class="article-nav-link-wrap">
-        <div class="article-nav-title"><span>&lt;</span>&nbsp;
-            Install Openstack from source code - keystone (mitaka)
-        </div>
-    </a>
     
-    
-    <a href="https://daveixiang.github.io/articles/2017_03_01_openstack_from_source_code_mitaka_00_dependences/" id="article-nav-older" class="article-nav-link-wrap">
-        <div class="article-nav-title">Install Openstack from source code dependences (mitaka)&nbsp;<span>&gt;</span></div>
+    <a href="https://daveixiang.github.io/articles/2017_06_06_format_ovs_ofctl_dump_flows_output/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Format ovs-ofctl dump-flows output&nbsp;<span>&gt;</span></div>
     </a>
     
 </nav>

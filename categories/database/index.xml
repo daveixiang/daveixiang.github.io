@@ -28,7 +28,7 @@ go clean ./... go install ./...  and wait for a comment, the binaries will be in
       <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2017_03_01_build_postgresql_with_debug/</guid>
-      <description> Add postgres user useradd -m -b /src/ postgres  Configure PostgreSQL ./configure --prefix=/src/postgres \ --without-tcl \ --without-gssapi \ --without-pam \ --without-bsd-auth \ --without-ldap \ --without-bonjour \ --without-selinux \ --without-systemd \ --with-uuid=ossp \ --with-libxml \ --with-libxslt \ CFLAGS=&#39; &#39;  Build and install make -j$(nproc) su postgres -c &#39;make install&#39;  </description>
+      <description> Add postgres user useradd -m -b /go/ postgres  Configure PostgreSQL ./configure --prefix=/go/postgres \ --without-tcl \ --without-gssapi \ --without-pam \ --without-bsd-auth \ --without-ldap \ --without-bonjour \ --without-selinux \ --without-systemd \ --with-uuid=ossp \ --with-libxml \ --with-libxslt \ CFLAGS=&#39; &#39;  Build and install make -j$(nproc) su postgres -c &#39;make install&#39;  </description>
     </item>
     
   </channel>

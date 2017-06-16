@@ -111,6 +111,15 @@
     </item>
     
     <item>
+      <title>Gentoo</title>
+      <link>https://daveixiang.github.io/tags/gentoo/</link>
+      <pubDate>Fri, 16 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/tags/gentoo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Git</title>
       <link>https://daveixiang.github.io/tags/git/</link>
       <pubDate>Mon, 06 Mar 2017 00:00:00 +0000</pubDate>
@@ -257,7 +266,7 @@
     <item>
       <title>Openvswitch</title>
       <link>https://daveixiang.github.io/tags/openvswitch/</link>
-      <pubDate>Tue, 06 Jun 2017 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 16 Jun 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/tags/openvswitch/</guid>
       <description></description>

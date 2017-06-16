@@ -2,17 +2,17 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Build PostgreSQL with debug info // 項 思 偉 ~ Aal Izz Well!</title>
+    <title>Gentoo // 項 思 偉 ~ Aal Izz Well!</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta property="og:title" content="Build PostgreSQL with debug info" />
+    <meta property="og:title" content="Gentoo" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="en_US" />
-<meta property="og:url" content="https://daveixiang.github.io/articles/2017_03_01_build_postgresql_with_debug/" />
+<meta property="og:url" content="https://daveixiang.github.io/tags/gentoo/" />
 
 
-    <link href="" rel="alternate" type="application/rss+xml" title="項 思 偉 ~ Aal Izz Well!" />
+    <link href="https://daveixiang.github.io/tags/gentoo/index.xml" rel="alternate" type="application/rss+xml" title="項 思 偉 ~ Aal Izz Well!" />
     <link rel="shortcut icon" href="https://daveixiang.github.io/favicon.png">
 
     <link href="https://daveixiang.github.io/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
@@ -32,7 +32,6 @@
 
     <meta name="generator" content="Hugo 0.22-DEV" />
 </head>
-
 
 <body>
 <div id="container">
@@ -59,99 +58,28 @@
 </header>
 
     <section id="main" class="outer">
-        <article class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-        <header class="article-header">
-            <h1 class="article-title" itemprop="name">Build PostgreSQL with debug info</h1>
-        </header>
-        
-        <div class="article-meta">
-            <a href="https://daveixiang.github.io/articles/2017_03_01_build_postgresql_with_debug/" class="article-date">
-                <time datetime='2017-03-01T00:00:00.000&#43;00:00' itemprop="datePublished">2017-03-01</time>
-            </a>
-            
-            
-            <div class="post-categories">
-                <div class="article-category">
-                    
-                    
-                    <a class="article-category-link" href="https://daveixiang.github.io//categories/database">database</a>
-                    
-                </div>
+        <section class="archives-wrap">
+            <div class="archive-tag-wrap">
+                <span class="archive-tag">#Gentoo</span>
             </div>
-            
-            
-        </div>
-        <div class="article-entry" itemprop="articleBody">
-            
-
-<h3 id="add-postgres-user">Add <em>postgres</em> user</h3>
-
-<pre><code class="language-bash">useradd -m -b /go/ postgres
-</code></pre>
-
-<h3 id="configure-postgresql">Configure PostgreSQL</h3>
-
-<pre><code class="language-bash">./configure --prefix=/go/postgres \
---without-tcl \
---without-gssapi \
---without-pam \
---without-bsd-auth \
---without-ldap \
---without-bonjour \
---without-selinux \
---without-systemd \
---with-uuid=ossp \
---with-libxml \
---with-libxslt \
-CFLAGS=' '
-</code></pre>
-
-<h3 id="build-and-install">Build and install</h3>
-
-<pre><code class="language-bash">make -j$(nproc)
-
-su postgres -c 'make install'
-</code></pre>
-
-        </div>
-
-        
-        <footer class="article-footer">
-            <ul class="article-tag-list">
+            <div class="archives">
                 
-                <li class="article-tag-list-item">
-                    <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/postgresql">postgresql
-                    </a>
-                </li>
-                
-                <li class="article-tag-list-item">
-                    <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/database">database
-                    </a>
-                </li>
-                
-            </ul>
-        </footer>
-        
+                <article class="archive-article archive-type-post">
+    <div class="archive-article-inner">
+        <header class="archive-article-header">
+            <a href="https://daveixiang.github.io/articles/2017_06_16_gentoo_install_openvswitch/" class="archive-article-date">
+                <time datetime='2017-06-16T00:00:00.000&#43;00:00' itemprop="datePublished">2017 Jun 16</time>
+            </a>
+            <h1 itemprop="name">
+                <a class="archive-article-title" href="https://daveixiang.github.io/articles/2017_06_16_gentoo_install_openvswitch/">Gentoo install openvswitch</a>
+            </h1>
+        </header>
     </div>
-    <nav id="article-nav">
-    
-    <a href="https://daveixiang.github.io/articles/2017_03_04_openstack_from_source_code_mitaka_01_keystone/" id="article-nav-newer" class="article-nav-link-wrap">
-        <div class="article-nav-title"><span>&lt;</span>&nbsp;
-            Install Openstack from source code - keystone (mitaka)
-        </div>
-    </a>
-    
-    
-    <a href="https://daveixiang.github.io/articles/2017_03_01_openstack_from_source_code_mitaka_00_dependences/" id="article-nav-older" class="article-nav-link-wrap">
-        <div class="article-nav-title">Install Openstack from source code dependences (mitaka)&nbsp;<span>&gt;</span></div>
-    </a>
-    
-</nav>
 </article>
-
+                
+            </div></section>
         
+
     </section>
     <footer id="footer">
     <div class="outer">
