@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Qemu Ga on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>http://daveixiang.github.io/tags/qemu-ga/</link>
+    <link>https://daveixiang.github.io/tags/qemu-ga/</link>
     <description>Recent content in Qemu Ga on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 05 Apr 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://daveixiang.github.io/tags/qemu-ga/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://daveixiang.github.io/tags/qemu-ga/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Compiling qemu guest agent msi package for windows</title>
-      <link>http://daveixiang.github.io/articles/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</link>
+      <link>https://daveixiang.github.io/articles/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</link>
       <pubDate>Wed, 05 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</guid>
       <description> Install dependencies  mingw cross compilation toolchain
  msitool
  flex bison glib2-devel zlib-devel

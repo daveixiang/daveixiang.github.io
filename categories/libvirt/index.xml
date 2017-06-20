@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Libvirt on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>http://daveixiang.github.io/categories/libvirt/</link>
+    <link>https://daveixiang.github.io/categories/libvirt/</link>
     <description>Recent content in Libvirt on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 23 Mar 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://daveixiang.github.io/categories/libvirt/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://daveixiang.github.io/categories/libvirt/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Configure libvirt with openvswitch bridge</title>
-      <link>http://daveixiang.github.io/articles/2017_03_23_configure_libvirt_with_openvswitch_bridge/</link>
+      <link>https://daveixiang.github.io/articles/2017_03_23_configure_libvirt_with_openvswitch_bridge/</link>
       <pubDate>Thu, 23 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_03_23_configure_libvirt_with_openvswitch_bridge/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_03_23_configure_libvirt_with_openvswitch_bridge/</guid>
       <description> Create OpenvSwitch bridge ovs-vsctl add-br br0  Configure libvirt with br0 just created BRNAME=br0 cat &amp;gt; /tmp/libvirt-net.xml &amp;lt;&amp;lt;EOF &amp;lt;network&amp;gt; &amp;lt;name&amp;gt;${BRNAME}&amp;lt;/name&amp;gt; &amp;lt;forward mode=&#39;bridge&#39;/&amp;gt; &amp;lt;bridge name=&#39;${BRNAME}&#39;/&amp;gt; &amp;lt;virtualport type=&#39;openvswitch&#39;/&amp;gt; &amp;lt;/network&amp;gt; EOF virsh net-define /tmp/libvirt-net.xml virsh net-start $BRNAME virsh net-autostart $BRNAME  </description>
     </item>
     

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Database on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>http://daveixiang.github.io/categories/database/</link>
+    <link>https://daveixiang.github.io/categories/database/</link>
     <description>Recent content in Database on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 13 Mar 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://daveixiang.github.io/categories/database/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://daveixiang.github.io/categories/database/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Compile influxdb 0.11.1 from source code</title>
-      <link>http://daveixiang.github.io/articles/2017_03_13_compile_influxdb_0.11.1_from_source_code/</link>
+      <link>https://daveixiang.github.io/articles/2017_03_13_compile_influxdb_0.11.1_from_source_code/</link>
       <pubDate>Mon, 13 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_03_13_compile_influxdb_0.11.1_from_source_code/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_03_13_compile_influxdb_0.11.1_from_source_code/</guid>
       <description>Prepare essential directories and environment variables export GOPATH=/src/influxdb/ mkdir -p $GOPATH/src/github.com/influxdata/ cd $GOPATH/src/github.com/influxdata/ export PATH=$GOPATH/bin:$PATH  Installing GDM InfluxDB uses gdm to manage dependencies. Install it by running the following:
 go get github.com/sparrc/gdm Extract source code tar zxf ~/Downloads/influxdb-0.11.1.tar.gz ln -sf influxdb-0.11.1/ influxdb  Installing InfluxDB dependencies cd influxdb gdm restore  Build and install the binaries Run the following command:
 go clean ./... go install ./...  and wait for a comment, the binaries will be installed to $GOPATH/bin:</description>

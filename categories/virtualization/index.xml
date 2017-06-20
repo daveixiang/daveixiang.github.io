@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Virtualization on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>http://daveixiang.github.io/categories/virtualization/</link>
+    <link>https://daveixiang.github.io/categories/virtualization/</link>
     <description>Recent content in Virtualization on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 05 Apr 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://daveixiang.github.io/categories/virtualization/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://daveixiang.github.io/categories/virtualization/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Compiling qemu guest agent msi package for windows</title>
-      <link>http://daveixiang.github.io/articles/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</link>
+      <link>https://daveixiang.github.io/articles/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</link>
       <pubDate>Wed, 05 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</guid>
       <description> Install dependencies  mingw cross compilation toolchain
  msitool
  flex bison glib2-devel zlib-devel
@@ -27,28 +27,28 @@ make msi  After a while, get the msi package:
     
     <item>
       <title>内存不够导致KVM OOM</title>
-      <link>http://daveixiang.github.io/articles/2017_02_08_kvm_oom_case/</link>
+      <link>https://daveixiang.github.io/articles/2017_02_08_kvm_oom_case/</link>
       <pubDate>Wed, 08 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_02_08_kvm_oom_case/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_02_08_kvm_oom_case/</guid>
       <description>KVM OOM  [451452.773003] [ pid ] uid tgid total_vm rss nr_ptes swapents oom_score_adj name [451452.773008] [ 395] 0 395 9240 1094 21 44 0 systemd-journal [451452.773010] [ 423] 0 423 29723 151 26 84 0 lvmetad [451452.773011] [ 429] 0 429 10897 261 21 109 -1000 systemd-udevd [451452.773013] [ 563] 0 563 13854 298 25 89 -1000 auditd [451452.773015] [ 585] 997 585 131910 320 55 1795 0 polkitd [451452.</description>
     </item>
     
     <item>
       <title>Compile static docker without docker in docker</title>
-      <link>http://daveixiang.github.io/articles/2017_01_16_compile_static_docker_without_docker_in_docker/</link>
+      <link>https://daveixiang.github.io/articles/2017_01_16_compile_static_docker_without_docker_in_docker/</link>
       <pubDate>Mon, 16 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_01_16_compile_static_docker_without_docker_in_docker/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_01_16_compile_static_docker_without_docker_in_docker/</guid>
       <description>Install dependencies  Install xfs btrfs packages  emerge --ask sys-fs/btrfs-progs sys-fs/xfsprogs   Install device mapper  export LVM2_VERSION=2.02.103 mkdir -p /usr/local/src/lvm2 &amp;amp;&amp;amp; curl -fsSL &amp;quot;https://mirrors.kernel.org/sourceware/lvm2/LVM2.${LVM2_VERSION}.tgz&amp;quot; | tar -xzC /usr/local/src/lvm2 --strip-components=1 cd /usr/local/src/lvm2 \ &amp;amp;&amp;amp; ./configure \ --build=&amp;quot;$(gcc -print-multiarch)&amp;quot; \ --enable-static_link \ &amp;amp;&amp;amp; make device-mapper \ &amp;amp;&amp;amp; make install_device-mapper  Compile runc binary  get the runc source code  mkdir -p /go/src/github.com/opencontainers/ cd /go/src/github.com/opencontainers/ git clone https://github.com/opencontainers/runc.git   Compile static runc binary  cd runc git checkout v1.</description>
     </item>
     
     <item>
       <title>Compile OpenvSwitch 2.5.x LTS from source code</title>
-      <link>http://daveixiang.github.io/articles/2017_01_14_compile_openvswitch_2_5_x_lts_from_source_code/</link>
+      <link>https://daveixiang.github.io/articles/2017_01_14_compile_openvswitch_2_5_x_lts_from_source_code/</link>
       <pubDate>Sat, 14 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_01_14_compile_openvswitch_2_5_x_lts_from_source_code/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_01_14_compile_openvswitch_2_5_x_lts_from_source_code/</guid>
       <description>Install compile dependencies Configure and compile the source code ./configure --with-linux=/lib/modules/$(uname -r)/build --prefix=/go/ovs make -j$(nproc) make install &amp;amp;&amp;amp; make modules_install  Load OpenvSwitch module modprobe gre modprobe openvswitch modprobe libcrc32c  Configure ovsdb /go/ovs/bin/ovsdb-tool create /go/ovs/etc/openvswitch/conf.db /go/ovs/share/openvswitch/vswitch.ovsschema  Start OVS Start ovsdb-server  without ssl
 /go/ovs/sbin/ovsdb-server --remote=punix:/go/ovs/var/run/openvswitch/db.sock \ --remote=db:Open_vSwitch,Open_vSwitch,manager_options \ --pidfile --detach --log-file  with ssl
 /go/ovs/sbin/ovsdb-server --remote=punix:/go/ovs/var/run/openvswitch/db.sock \ --remote=db:Open_vSwitch,Open_vSwitch,manager_options \ --private-key=db:Open_vSwitch,SSL,private_key \ --certificate=db:Open_vSwitch,SSL,certificate \ --bootstrap-ca-cert=db:Open_vSwitch,SSL,ca_cert \ --pidfile --detach --log-file   View /go/ovs/var/log/openvswitch/ovsdb-server.</description>
@@ -56,20 +56,20 @@ make msi  After a while, get the msi package:
     
     <item>
       <title>Nested KVM</title>
-      <link>http://daveixiang.github.io/articles/2016_09_03_nested_kvm/</link>
+      <link>https://daveixiang.github.io/articles/2016_09_03_nested_kvm/</link>
       <pubDate>Sat, 03 Sep 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2016_09_03_nested_kvm/</guid>
+      <guid>https://daveixiang.github.io/articles/2016_09_03_nested_kvm/</guid>
       <description> Enable the setting for Nested KVM  cat &amp;lt;&amp;lt;EOF &amp;gt; /etc/modprobe.d/kvm-nested.conf options kvm_intel nested=1 EOF modprobe -r kvm_intel modprobe kvm_intel cat /sys/module/kvm_intel/parameters/nested   Edit the configuration of a virtual machine you&amp;rsquo;d want to set nested  virsh edit {DOMAIN_NAME}  and add the following setting to the vm configuration:
 &amp;lt;cpu mode=&#39;host-passthrough&#39;&amp;gt; &amp;lt;/cpu&amp;gt;  </description>
     </item>
     
     <item>
       <title>Managing Tuntap Virtual Interfaces</title>
-      <link>http://daveixiang.github.io/articles/2016_07_11_managing_tuntap_virtual_interfaces/</link>
+      <link>https://daveixiang.github.io/articles/2016_07_11_managing_tuntap_virtual_interfaces/</link>
       <pubDate>Mon, 11 Jul 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2016_07_11_managing_tuntap_virtual_interfaces/</guid>
+      <guid>https://daveixiang.github.io/articles/2016_07_11_managing_tuntap_virtual_interfaces/</guid>
       <description>TAP devices, in contrast, work at the Ethernet level or layer two and therefore behave very much like a real network adaptor. Since they are running at layer two they can transport any layer three protocol and aren’t limited to point-to-point connections. TAP devices can be part of a bridge and are commonly used in virtualization systems to provide virtual network adaptors to multiple guest machines.
  Create tuntap virtual interfaces  ip tuntap add name ${tap_name} mode tap   Delete tuntap virtual interfaces  ip tuntap del name ${tap_name} mode tap   Create Veth Pairs  ip link add ${point} type veth peer name ${other_point}  </description>
     </item>

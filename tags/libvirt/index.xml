@@ -2,39 +2,39 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Libvirt on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>http://daveixiang.github.io/tags/libvirt/</link>
+    <link>https://daveixiang.github.io/tags/libvirt/</link>
     <description>Recent content in Libvirt on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 23 Mar 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://daveixiang.github.io/tags/libvirt/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://daveixiang.github.io/tags/libvirt/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Configure libvirt with openvswitch bridge</title>
-      <link>http://daveixiang.github.io/articles/2017_03_23_configure_libvirt_with_openvswitch_bridge/</link>
+      <link>https://daveixiang.github.io/articles/2017_03_23_configure_libvirt_with_openvswitch_bridge/</link>
       <pubDate>Thu, 23 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_03_23_configure_libvirt_with_openvswitch_bridge/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_03_23_configure_libvirt_with_openvswitch_bridge/</guid>
       <description> Create OpenvSwitch bridge ovs-vsctl add-br br0  Configure libvirt with br0 just created BRNAME=br0 cat &amp;gt; /tmp/libvirt-net.xml &amp;lt;&amp;lt;EOF &amp;lt;network&amp;gt; &amp;lt;name&amp;gt;${BRNAME}&amp;lt;/name&amp;gt; &amp;lt;forward mode=&#39;bridge&#39;/&amp;gt; &amp;lt;bridge name=&#39;${BRNAME}&#39;/&amp;gt; &amp;lt;virtualport type=&#39;openvswitch&#39;/&amp;gt; &amp;lt;/network&amp;gt; EOF virsh net-define /tmp/libvirt-net.xml virsh net-start $BRNAME virsh net-autostart $BRNAME  </description>
     </item>
     
     <item>
       <title>内存不够导致KVM OOM</title>
-      <link>http://daveixiang.github.io/articles/2017_02_08_kvm_oom_case/</link>
+      <link>https://daveixiang.github.io/articles/2017_02_08_kvm_oom_case/</link>
       <pubDate>Wed, 08 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_02_08_kvm_oom_case/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_02_08_kvm_oom_case/</guid>
       <description>KVM OOM  [451452.773003] [ pid ] uid tgid total_vm rss nr_ptes swapents oom_score_adj name [451452.773008] [ 395] 0 395 9240 1094 21 44 0 systemd-journal [451452.773010] [ 423] 0 423 29723 151 26 84 0 lvmetad [451452.773011] [ 429] 0 429 10897 261 21 109 -1000 systemd-udevd [451452.773013] [ 563] 0 563 13854 298 25 89 -1000 auditd [451452.773015] [ 585] 997 585 131910 320 55 1795 0 polkitd [451452.</description>
     </item>
     
     <item>
       <title>Nested KVM</title>
-      <link>http://daveixiang.github.io/articles/2016_09_03_nested_kvm/</link>
+      <link>https://daveixiang.github.io/articles/2016_09_03_nested_kvm/</link>
       <pubDate>Sat, 03 Sep 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2016_09_03_nested_kvm/</guid>
+      <guid>https://daveixiang.github.io/articles/2016_09_03_nested_kvm/</guid>
       <description> Enable the setting for Nested KVM  cat &amp;lt;&amp;lt;EOF &amp;gt; /etc/modprobe.d/kvm-nested.conf options kvm_intel nested=1 EOF modprobe -r kvm_intel modprobe kvm_intel cat /sys/module/kvm_intel/parameters/nested   Edit the configuration of a virtual machine you&amp;rsquo;d want to set nested  virsh edit {DOMAIN_NAME}  and add the following setting to the vm configuration:
 &amp;lt;cpu mode=&#39;host-passthrough&#39;&amp;gt; &amp;lt;/cpu&amp;gt;  </description>
     </item>

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Qemu on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>http://daveixiang.github.io/categories/qemu/</link>
+    <link>https://daveixiang.github.io/categories/qemu/</link>
     <description>Recent content in Qemu on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 29 Apr 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://daveixiang.github.io/categories/qemu/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://daveixiang.github.io/categories/qemu/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>SATA on QEMU</title>
-      <link>http://daveixiang.github.io/articles/2017_04_29_sata_on_qemu/</link>
+      <link>https://daveixiang.github.io/articles/2017_04_29_sata_on_qemu/</link>
       <pubDate>Sat, 29 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_04_29_sata_on_qemu/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_04_29_sata_on_qemu/</guid>
       <description>By default, QEMU emulates an IDE interface for attached storage devices.
 If need a SATA AHCI controller, there is a way to emulate a SATA controller, by creating seperate devices and attaching your drive to it:
 [..] -drive file=[YOUR IMAGE],if=none,id=[AN IMAGE ID] \ -device ich9-ahci,id=ahci \ -device ide-drive,drive=[AN IMAGE ID],bus=ahci.0 \ [..]  Sure enough, ich9-ahci is an Intel controller, which supports SATA.</description>
@@ -24,29 +24,29 @@ If need a SATA AHCI controller, there is a way to emulate a SATA controller, by 
     
     <item>
       <title>linux pci device driver using mmio demo</title>
-      <link>http://daveixiang.github.io/articles/2017_04_25_linux_pci_device_driver_using_mmio_demo/</link>
+      <link>https://daveixiang.github.io/articles/2017_04_25_linux_pci_device_driver_using_mmio_demo/</link>
       <pubDate>Tue, 25 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_04_25_linux_pci_device_driver_using_mmio_demo/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_04_25_linux_pci_device_driver_using_mmio_demo/</guid>
       <description>The pci driver is written to drive the qemu pci-helloworld device
 pci-helloworld driver source code  the driver code pci-helloworld  #include &amp;lt;linux/init.h&amp;gt; #include &amp;lt;linux/kernel.h&amp;gt; #include &amp;lt;linux/module.h&amp;gt; #include &amp;lt;linux/pci.h&amp;gt; #include &amp;lt;linux/printk.h&amp;gt; #include &amp;lt;linux/proc_fs.h&amp;gt; #include &amp;lt;linux/seq_file.h&amp;gt; MODULE_LICENSE(&amp;quot;GPL&amp;quot;); static struct pci_dev *_pdev; static void __iomem *_mmio; static const struct pci_device_id pcidevtbl[] = { { 0x6688, 0x0001, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 }, { } /* terminate */ }; void pci_helloworld_reset_pointer(void __iomem *mmio) { iowrite8(1, mmio + 1); } void pci_helloworld_set_buf_len(void __iomem *mmio, uint8_t len) { iowrite8(len, mmio + 2); } void pci_helloworld_write_char(void __iomem *mmio, char c) { iowrite8(c, mmio + 0); } static int pci_helloworld_show(struct seq_file *m, void *v) { int i, len; char *buf; if (!</description>
     </item>
     
     <item>
       <title>qemu pci device demo</title>
-      <link>http://daveixiang.github.io/articles/2017_04_25_qemu_pci_device_demo/</link>
+      <link>https://daveixiang.github.io/articles/2017_04_25_qemu_pci_device_demo/</link>
       <pubDate>Tue, 25 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_04_25_qemu_pci_device_demo/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_04_25_qemu_pci_device_demo/</guid>
       <description>Add the device source code {QEMU_SRC}/hw/misc/pci-helloworld.c #include &amp;quot;qemu/osdep.h&amp;quot; #include &amp;quot;hw/hw.h&amp;quot; #include &amp;quot;hw/pci/pci.h&amp;quot; #include &amp;quot;qemu/event_notifier.h&amp;quot; typedef struct PCIHelloWorldDevState { PCIDevice parent_obj; int pos; char *buf; int buflen; MemoryRegion mmio; } PCIHelloWorldDevState; #define TYPE_PCI_HELLOWORLD_DEV &amp;quot;pci-helloworld&amp;quot; #define PCI_HELLOWORLD_DEV(obj) \ OBJECT_CHECK(PCIHelloWorldDevState, (obj), TYPE_PCI_HELLOWORLD_DEV) static uint64_t pci_helloworld_dev_mmio_read(void *opaque, hwaddr addr, unsigned size) { PCIHelloWorldDevState *d = opaque; if (addr == 0) return d-&amp;gt;buf[d-&amp;gt;pos ++]; else return d-&amp;gt;buflen; } static void pci_helloworld_dev_mmio_write(void *opaque, hwaddr addr, uint64_t val, unsigned size) { PCIHelloWorldDevState *d = opaque; switch(addr) { case 0: /* write byte */ if (!</description>
     </item>
     
     <item>
       <title>Multiple ways to access QEMU Machine Protocol (QMP)</title>
-      <link>http://daveixiang.github.io/articles/2017_02_28_multiple_ways_to_access_qmp/</link>
+      <link>https://daveixiang.github.io/articles/2017_02_28_multiple_ways_to_access_qmp/</link>
       <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_02_28_multiple_ways_to_access_qmp/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_02_28_multiple_ways_to_access_qmp/</guid>
       <description>QMP (QEMU Machine Protocol) is quiet useful. QMP allows applications to communicate withh a running QEMU&amp;rsquo;s instance. There ae a few different ways to access the QEMU monitor to query the guest&amp;rsquo;s information, modify the guest state using the QMP commands.
 Access QMP via libvirt’s qemu-monitor-command virsh qemu-monitor-command ${domain-name} --pretty &#39;{&amp;quot;execute&amp;quot;:&amp;quot;query-kvm&amp;quot;}&#39;  QMP via tcp socket  launch an qemu instance:  qemu-system-x86_64 --enable-kvm -drive if=virtio,format=qcow2,index=0,file=cirros-0.3.5-x86_64-disk.img --qmp tcp:127.0.0.1:12345,server  and the output in the terminal like:</description>
     </item>

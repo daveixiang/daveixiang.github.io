@@ -2,49 +2,49 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>項 思 偉 ~ Aal Izz Well!</title>
-    <link>http://daveixiang.github.io/</link>
+    <link>https://daveixiang.github.io/</link>
     <description>Recent content on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 20 Jun 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://daveixiang.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://daveixiang.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Some useful OVS commands</title>
-      <link>http://daveixiang.github.io/articles/2017_06_20_some_useful_ovs_commands/</link>
+      <link>https://daveixiang.github.io/articles/2017_06_20_some_useful_ovs_commands/</link>
       <pubDate>Tue, 20 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_06_20_some_useful_ovs_commands/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_06_20_some_useful_ovs_commands/</guid>
       <description>   OpenvSwitch Action     ovs-appctl fdb/show {bridge} Show MAC address table   ovs-appctl fdb/flush {bridge} Clear MAC address table   ovs-ofctl dump-ports-desc {bridge} Show port numbers   ovs-vsctl show Show OVS configuration   ovs-ofctl dump-flows {bridge} Show packet forwarding rules   ovsdb-tool show-log -m View command history   ovs-appctl ofproto/trace {bridge} in_port={ofport} Simulate packet flow    </description>
     </item>
     
     <item>
       <title>Gentoo install openvswitch</title>
-      <link>http://daveixiang.github.io/articles/2017_06_16_gentoo_install_openvswitch/</link>
+      <link>https://daveixiang.github.io/articles/2017_06_16_gentoo_install_openvswitch/</link>
       <pubDate>Fri, 16 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_06_16_gentoo_install_openvswitch/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_06_16_gentoo_install_openvswitch/</guid>
       <description>Install net-misc/openvswitch emerge --ask --quiet-build net-misc/openvswitch  Create openvswitch database file ovsdb-tool create /var/lib/openvswitch/conf.db /usr/share/openvswitch/vswitch.ovsschema  Startup and enable the daemons rc-update add ovsdb-server default /etc/init.d/ovsdb-server start rc-update add ovs-vswitchd default /etc/init.d/ovs-vswitchd start  Setup auto-configure during system boot  configure eth0  cat &amp;gt; /etc/conf.d/net.eth0 &amp;lt;&amp;lt;EOF config_eth0=&amp;quot;null&amp;quot; EOF ln -sf /etc/init.d/net.lo /etc/init.d/net.eth0 rc-update add net.eth0 /etc/init.d/net.eth0 start   configure br0  cat &amp;gt; /etc/conf.d/net.br0 &amp;lt;&amp;lt;EOF config_br0=&amp;quot;10.0.100.73 netmask 255.</description>
     </item>
     
     <item>
       <title>Format ovs-ofctl dump-flows output</title>
-      <link>http://daveixiang.github.io/articles/2017_06_06_format_ovs_ofctl_dump_flows_output/</link>
+      <link>https://daveixiang.github.io/articles/2017_06_06_format_ovs_ofctl_dump_flows_output/</link>
       <pubDate>Tue, 06 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_06_06_format_ovs_ofctl_dump_flows_output/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_06_06_format_ovs_ofctl_dump_flows_output/</guid>
       <description>Get the openflows of br-int  ovs-ofctl dump-flows br-int | \ sed -E -e &#39;1d&#39; \ -e &#39;s/(hard_age|idle_age)=[0-9]*?, //g&#39; \ -e &#39;s/ actions/, actions/g&#39; \ -e &#39;s/, /\t/g&#39; | \ awk &#39;{print $3&amp;quot;\t&amp;quot;$6&amp;quot;\t&amp;quot;$7}&#39; | sort -k1,1 -k2,2rV | column -t  and the output is:
 table=0 priority=10,icmp6,in_port=10,icmp_type=136 actions=resubmit(,24) table=0 priority=10,icmp6,in_port=2,icmp_type=136 actions=resubmit(,24) table=0 priority=10,arp,in_port=10 actions=resubmit(,24) table=0 priority=10,arp,in_port=2 actions=resubmit(,24) table=0 priority=9,in_port=10 actions=resubmit(,25) table=0 priority=9,in_port=2 actions=resubmit(,25) table=0 priority=4,in_port=21,dl_src=fa:16:3f:94:12:48 actions=resubmit(,2) table=0 priority=4,in_port=21,dl_src=fa:16:3f:75:2c:e8 actions=resubmit(,2) table=0 priority=4,in_port=1,dl_src=fa:16:3f:94:12:48 actions=resubmit(,2) table=0 priority=4,in_port=1,dl_src=fa:16:3f:75:2c:e8 actions=resubmit(,2) table=0 priority=3,in_port=1,dl_vlan=1075 actions=mod_vlan_vid:1,NORMAL table=0 priority=3,in_port=1,dl_vlan=1022 actions=mod_vlan_vid:5,NORMAL table=0 priority=2,in_port=21 actions=drop table=0 priority=2,in_port=1 actions=drop table=0 priority=1 actions=NORMAL table=0 priority=0 actions=NORMAL table=1 priority=1 actions=drop table=2 priority=4,dl_vlan=1075,dl_dst=fa:16:3e:c3:3d:00 actions=strip_vlan,mod_dl_src:fa:16:3e:f7:8a:d4,output:2 table=2 priority=4,dl_vlan=1022,dl_dst=fa:16:3e:2f:0a:ff actions=strip_vlan,mod_dl_src:fa:16:3e:a3:75:2a,output:10 table=2 priority=1 actions=drop table=23 priority=0 actions=drop table=24 priority=2,icmp6,in_port=10,icmp_type=136,nd_target=fe80::f816:3eff:fe2f:aff actions=NORMAL table=24 priority=2,icmp6,in_port=2,icmp_type=136,nd_target=fe80::f816:3eff:fec3:3d00 actions=NORMAL table=24 priority=2,arp,in_port=10,arp_spa=10.</description>
     </item>
     
     <item>
       <title>Clang print self</title>
-      <link>http://daveixiang.github.io/articles/2017_06_05_clang_print_self/</link>
+      <link>https://daveixiang.github.io/articles/2017_06_05_clang_print_self/</link>
       <pubDate>Mon, 05 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_06_05_clang_print_self/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_06_05_clang_print_self/</guid>
       <description>print-self.c  #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; extern char * _binary_print_self_c_start; int main() { printf(&amp;quot;%s&amp;quot;, (char *)&amp;amp;_binary_print_self_c_start); }  and generate print-self.bin
 objcopy -I binary -O elf64-x86-64 -B i386:x86-64 print-self.c print-self.bin   print-self.bin  readelf --sym print-self.bin  and the symbols is like:
 Symbol table &#39;.symtab&#39; contains 5 entries: Num: Value Size Type Bind Vis Ndx Name 0: 0000000000000000 0 NOTYPE LOCAL DEFAULT UND 1: 0000000000000000 0 SECTION LOCAL DEFAULT 1 2: 0000000000000000 0 NOTYPE GLOBAL DEFAULT 1 _binary_print_self_c_star 3: 000000000000009b 0 NOTYPE GLOBAL DEFAULT 1 _binary_print_self_c_end 4: 000000000000009b 0 NOTYPE GLOBAL DEFAULT ABS _binary_print_self_c_size   print-self  gcc -o print-self print-self.</description>
@@ -52,28 +52,28 @@ Symbol table &#39;.symtab&#39; contains 5 entries: Num: Value Size Type Bind Vis
     
     <item>
       <title>LSI MegaRaid Monitor Linux</title>
-      <link>http://daveixiang.github.io/articles/2017_06_02_lsi_megaraid_monitor_linux/</link>
+      <link>https://daveixiang.github.io/articles/2017_06_02_lsi_megaraid_monitor_linux/</link>
       <pubDate>Fri, 02 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_06_02_lsi_megaraid_monitor_linux/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_06_02_lsi_megaraid_monitor_linux/</guid>
       <description> Installl MegaCLI tools  unzip 8.07.10_MegaCLI_Linux.zip cd 8.07.10_MegaCLI_Linux rpm2cpio MegaCli-8.07.10-1.noarch.rpm | cpio -idmv cd opt &amp;amp;&amp;amp; mv MegaRAID /opt /opt/MegaRAID/MegaCli/MegaCli64 -AdpAllInfo -aALL   Command reference  MegaCli64 -adpCount MegaCli64 -AdpGetTime –aALL MegaCli64 -AdpAllInfo -aAll MegaCli64 -LDInfo -LALL -aAll MegaCli64 -PDList -aAll MegaCli64 -AdpBbuCmd -GetBbuStatus -aALL MegaCli64 -AdpBbuCmd -GetBbuCapacityInfo -aALL MegaCli64 -AdpBbuCmd -GetBbuDesignInfo -aALL MegaCli64 -AdpBbuCmd -GetBbuProperties -aALL MegaCli64 -cfgdsply -aALL  </description>
     </item>
     
     <item>
       <title>OpenStack RESTful API example(Mitaka)</title>
-      <link>http://daveixiang.github.io/articles/2017_05_30_openstack_restful_api_example_mitaka/</link>
+      <link>https://daveixiang.github.io/articles/2017_05_30_openstack_restful_api_example_mitaka/</link>
       <pubDate>Tue, 30 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_05_30_openstack_restful_api_example_mitaka/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_05_30_openstack_restful_api_example_mitaka/</guid>
       <description> token-request.json file { &amp;quot;auth&amp;quot;: { &amp;quot;identity&amp;quot;: { &amp;quot;methods&amp;quot;: [ &amp;quot;password&amp;quot; ], &amp;quot;password&amp;quot;: { &amp;quot;user&amp;quot;: { &amp;quot;domain&amp;quot;: { &amp;quot;name&amp;quot;: &amp;quot;Default&amp;quot; }, &amp;quot;name&amp;quot;: &amp;quot;admin&amp;quot;, &amp;quot;password&amp;quot;: &amp;quot;openstack&amp;quot; } } }, &amp;quot;scope&amp;quot;: { &amp;quot;project&amp;quot;: { &amp;quot;domain&amp;quot;: { &amp;quot;name&amp;quot;: &amp;quot;Default&amp;quot; }, &amp;quot;name&amp;quot;: &amp;quot;admin&amp;quot; } } } }  get the token export TOKEN=`curl -si -d @token-request.json -H &amp;quot;Content-type: application/json&amp;quot; \ http://localhost:35357/v3/auth/tokens | awk &#39;/X-Subject-Token/ {print $2}&#39;`  </description>
     </item>
     
     <item>
       <title>Linux: How to bind IP that doesn&#39;t exist</title>
-      <link>http://daveixiang.github.io/articles/2017_05_27_linux_how_to_bind_ip_that_does_not_exist/</link>
+      <link>https://daveixiang.github.io/articles/2017_05_27_linux_how_to_bind_ip_that_does_not_exist/</link>
       <pubDate>Sat, 27 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_05_27_linux_how_to_bind_ip_that_does_not_exist/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_05_27_linux_how_to_bind_ip_that_does_not_exist/</guid>
       <description>This tip is really usefull if you use virtual ips.
 Imagine you are using keepalived + haproxy on your loadbalancers in active/active mode.
 You have 2 virtual IPs one is on the first load balancer and the other is on the second.
@@ -82,40 +82,40 @@ Now in your haproxy.cfg you have to bind these IPs, the probem is that one of th
     
     <item>
       <title>sheepdog add pthread name</title>
-      <link>http://daveixiang.github.io/articles/2017_05_10_sheepdog_add_pthread_name/</link>
+      <link>https://daveixiang.github.io/articles/2017_05_10_sheepdog_add_pthread_name/</link>
       <pubDate>Wed, 10 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_05_10_sheepdog_add_pthread_name/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_05_10_sheepdog_add_pthread_name/</guid>
       <description>Because sheepdog is multi-thread program. So I think it&amp;rsquo;s better to add pthread name for convenient.
 diff --git a/lib/work.c b/lib/work.c index 75b0807..3b40bf8 100644 --- a/lib/work.c +++ b/lib/work.c @@ -260,11 +260,21 @@ static int create_worker_threads(struct wq_info *wi, size_t nr_threads) int ret; while (wi-&amp;gt;nr_threads &amp;lt; nr_threads) { + char thdname[16]; ret = pthread_create(&amp;amp;thread, NULL, worker_routine, wi); if (ret != 0) { sd_err(&amp;quot;failed to create worker thread: %m&amp;quot;); return -1; } + + + snprintf(thdname, 16, &amp;quot;%s:%zu&amp;quot;, wi-&amp;gt;name, wi-&amp;gt;nr_threads); + + ret = pthread_setname_np(thread, thdname); + if (ret !</description>
     </item>
     
     <item>
       <title>ceph tip: change or rebuild ceph monitor map</title>
-      <link>http://daveixiang.github.io/articles/2017_05_03_ceph_monmap_change_or_rebuild/</link>
+      <link>https://daveixiang.github.io/articles/2017_05_03_ceph_monmap_change_or_rebuild/</link>
       <pubDate>Wed, 03 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_05_03_ceph_monmap_change_or_rebuild/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_05_03_ceph_monmap_change_or_rebuild/</guid>
       <description>We can change or rebuild a new set of monitor servers by manipulating the monmap
  First get current monmap whithout any changes:  [root@ceph1 ~]# ceph mon getmap -o /tmp/old-monmap got monmap epoch 3 [root@ceph1 ~]# monmaptool --print /tmp/old-monmap monmaptool: monmap file /tmp/old-monmap epoch 3 fsid a15c0477-280d-41c0-baae-c2bbd75759b5 last_changed 2017-05-02 18:40:48.986171 created 2017-05-02 17:40:16.236472 0: 10.0.100.241:6789/0 mon.ceph1 1: 10.0.100.242:6789/0 mon.ceph2 2: 10.0.100.243:6789/0 mon.ceph3   Now create a new one, just be sure to use the same fsid as the current monmap:  monmaptool --create --fsid a15c0477-280d-41c0-baae-c2bbd75759b5 \ --add ceph1 10.</description>
     </item>
     
     <item>
       <title>ceph warn: too few PGs per OSD</title>
-      <link>http://daveixiang.github.io/articles/2017_05_02_ceph_warn_too_few_pgs_per_osd/</link>
+      <link>https://daveixiang.github.io/articles/2017_05_02_ceph_warn_too_few_pgs_per_osd/</link>
       <pubDate>Tue, 02 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_05_02_ceph_warn_too_few_pgs_per_osd/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_05_02_ceph_warn_too_few_pgs_per_osd/</guid>
       <description>If ceph cluster starts to complain in ceph -s with below error
 cluster a15c0477-280d-41c0-baae-c2bbd75759b5 health HEALTH_WARN too few PGs per OSD (7 &amp;lt; min 30) monmap e3: 3 mons at {ceph1=10.0.100.241:6789/0,ceph2=10.0.100.242:6789/0,ceph3=10.0.100.243:6789/0} election epoch 8, quorum 0,1,2 ceph1,ceph2,ceph3 osdmap e46: 9 osds: 9 up, 9 in flags sortbitwise,require_jewel_osds pgmap v91: 64 pgs, 1 pools, 0 bytes data, 0 objects 46376 MB used, 9149 GB / 9194 GB avail 64 active+clean  Then it is necessary to increase number of PG/PGP for pool in question</description>
     </item>
     
     <item>
       <title>SATA on QEMU</title>
-      <link>http://daveixiang.github.io/articles/2017_04_29_sata_on_qemu/</link>
+      <link>https://daveixiang.github.io/articles/2017_04_29_sata_on_qemu/</link>
       <pubDate>Sat, 29 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_04_29_sata_on_qemu/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_04_29_sata_on_qemu/</guid>
       <description>By default, QEMU emulates an IDE interface for attached storage devices.
 If need a SATA AHCI controller, there is a way to emulate a SATA controller, by creating seperate devices and attaching your drive to it:
 [..] -drive file=[YOUR IMAGE],if=none,id=[AN IMAGE ID] \ -device ich9-ahci,id=ahci \ -device ide-drive,drive=[AN IMAGE ID],bus=ahci.0 \ [..]  Sure enough, ich9-ahci is an Intel controller, which supports SATA.</description>
@@ -123,56 +123,56 @@ If need a SATA AHCI controller, there is a way to emulate a SATA controller, by 
     
     <item>
       <title>linux pci device driver using mmio demo</title>
-      <link>http://daveixiang.github.io/articles/2017_04_25_linux_pci_device_driver_using_mmio_demo/</link>
+      <link>https://daveixiang.github.io/articles/2017_04_25_linux_pci_device_driver_using_mmio_demo/</link>
       <pubDate>Tue, 25 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_04_25_linux_pci_device_driver_using_mmio_demo/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_04_25_linux_pci_device_driver_using_mmio_demo/</guid>
       <description>The pci driver is written to drive the qemu pci-helloworld device
 pci-helloworld driver source code  the driver code pci-helloworld  #include &amp;lt;linux/init.h&amp;gt; #include &amp;lt;linux/kernel.h&amp;gt; #include &amp;lt;linux/module.h&amp;gt; #include &amp;lt;linux/pci.h&amp;gt; #include &amp;lt;linux/printk.h&amp;gt; #include &amp;lt;linux/proc_fs.h&amp;gt; #include &amp;lt;linux/seq_file.h&amp;gt; MODULE_LICENSE(&amp;quot;GPL&amp;quot;); static struct pci_dev *_pdev; static void __iomem *_mmio; static const struct pci_device_id pcidevtbl[] = { { 0x6688, 0x0001, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 }, { } /* terminate */ }; void pci_helloworld_reset_pointer(void __iomem *mmio) { iowrite8(1, mmio + 1); } void pci_helloworld_set_buf_len(void __iomem *mmio, uint8_t len) { iowrite8(len, mmio + 2); } void pci_helloworld_write_char(void __iomem *mmio, char c) { iowrite8(c, mmio + 0); } static int pci_helloworld_show(struct seq_file *m, void *v) { int i, len; char *buf; if (!</description>
     </item>
     
     <item>
       <title>qemu pci device demo</title>
-      <link>http://daveixiang.github.io/articles/2017_04_25_qemu_pci_device_demo/</link>
+      <link>https://daveixiang.github.io/articles/2017_04_25_qemu_pci_device_demo/</link>
       <pubDate>Tue, 25 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_04_25_qemu_pci_device_demo/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_04_25_qemu_pci_device_demo/</guid>
       <description>Add the device source code {QEMU_SRC}/hw/misc/pci-helloworld.c #include &amp;quot;qemu/osdep.h&amp;quot; #include &amp;quot;hw/hw.h&amp;quot; #include &amp;quot;hw/pci/pci.h&amp;quot; #include &amp;quot;qemu/event_notifier.h&amp;quot; typedef struct PCIHelloWorldDevState { PCIDevice parent_obj; int pos; char *buf; int buflen; MemoryRegion mmio; } PCIHelloWorldDevState; #define TYPE_PCI_HELLOWORLD_DEV &amp;quot;pci-helloworld&amp;quot; #define PCI_HELLOWORLD_DEV(obj) \ OBJECT_CHECK(PCIHelloWorldDevState, (obj), TYPE_PCI_HELLOWORLD_DEV) static uint64_t pci_helloworld_dev_mmio_read(void *opaque, hwaddr addr, unsigned size) { PCIHelloWorldDevState *d = opaque; if (addr == 0) return d-&amp;gt;buf[d-&amp;gt;pos ++]; else return d-&amp;gt;buflen; } static void pci_helloworld_dev_mmio_write(void *opaque, hwaddr addr, uint64_t val, unsigned size) { PCIHelloWorldDevState *d = opaque; switch(addr) { case 0: /* write byte */ if (!</description>
     </item>
     
     <item>
       <title>emacs gdb gui customize default layout</title>
-      <link>http://daveixiang.github.io/articles/2017_04_11_emacs_gdb_gui_customize_default_layout/</link>
+      <link>https://daveixiang.github.io/articles/2017_04_11_emacs_gdb_gui_customize_default_layout/</link>
       <pubDate>Tue, 11 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_04_11_emacs_gdb_gui_customize_default_layout/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_04_11_emacs_gdb_gui_customize_default_layout/</guid>
       <description>elisp code  (defadvice gdb-setup-windows (after my-setup-gdb-windows activate) (gdb-get-buffer-create &#39;gdb-stack-buffer) (set-window-dedicated-p (selected-window) nil) (switch-to-buffer gud-comint-buffer) (delete-other-windows) (let ((win0 (selected-window)) (win1 (split-window nil nil &#39;left)) (win2 (split-window-below (/ (* (window-height) 1) 2))) ) (select-window win2) (gdb-set-window-buffer (if gdb-show-threads-by-default (gdb-threads-buffer-name) (gdb-breakpoints-buffer-name))) (split-window nil (/ (* (window-height) 1) 2)) (other-window 1) (gdb-set-window-buffer (gdb-stack-buffer-name)) (select-window win1) (set-window-buffer win1 (if gud-last-last-frame (gud-find-file (car gud-last-last-frame)) (if gdb-main-file (gud-find-file gdb-main-file) ;; Put buffer list in window if we ;; can&#39;t find a source file.</description>
     </item>
     
     <item>
       <title>go tool: no such tool &#39;6g&#39;</title>
-      <link>http://daveixiang.github.io/articles/2017_04_07_go_tool_no_such_tool_6g/</link>
+      <link>https://daveixiang.github.io/articles/2017_04_07_go_tool_no_such_tool_6g/</link>
       <pubDate>Fri, 07 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_04_07_go_tool_no_such_tool_6g/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_04_07_go_tool_no_such_tool_6g/</guid>
       <description> Problem  davei@davei:/tmp&amp;gt; go tool 6g test.go go tool: no such tool &amp;quot;6g&amp;quot;   Solution  6g were renamed to &amp;quot;compile&amp;quot; since Go 1.5. So use &amp;quot;compile&amp;quot; instead.  </description>
     </item>
     
     <item>
       <title>go tool: no such tool &#39;6l&#39;</title>
-      <link>http://daveixiang.github.io/articles/2017_04_07_go_tool_no_such_tool_6l/</link>
+      <link>https://daveixiang.github.io/articles/2017_04_07_go_tool_no_such_tool_6l/</link>
       <pubDate>Fri, 07 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_04_07_go_tool_no_such_tool_6l/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_04_07_go_tool_no_such_tool_6l/</guid>
       <description> Problem  davei@davei:/tmp&amp;gt; go tool 6l test.o go tool: no such tool &amp;quot;6l&amp;quot;   Solution  6l and friends were renamed to &amp;quot;link&amp;quot; since Go 1.5. So use &amp;quot;link&amp;quot; instead.  </description>
     </item>
     
     <item>
       <title>Configure OpenSuse Leap OpenvSwitch bridge autostart on boot</title>
-      <link>http://daveixiang.github.io/articles/2017_04_06_configure_opensuse_leap_openvswitch_bridge_autostart_on_boot/</link>
+      <link>https://daveixiang.github.io/articles/2017_04_06_configure_opensuse_leap_openvswitch_bridge_autostart_on_boot/</link>
       <pubDate>Thu, 06 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_04_06_configure_opensuse_leap_openvswitch_bridge_autostart_on_boot/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_04_06_configure_opensuse_leap_openvswitch_bridge_autostart_on_boot/</guid>
       <description> ifcfg-br0  cat /etc/sysconfig/network/ifcfg-br0  and the output is
 TARTMODE=&#39;auto&#39; BOOTPROTO=&#39;static&#39; OVS_BRIDGE=&#39;yes&#39; OVS_BRIDGE_PORT_DEVICE=&#39;eth0&#39; IPADDR=&#39;xxx.xxx.xxx.xxx/yy&#39; BROADCAST=&#39;&#39; ETHTOOL_OPTIONS=&#39;&#39; MTU=&#39;&#39; NAME=&#39;&#39; NETWORK=&#39;&#39; REMOTE_IPADDR=&#39;&#39; STARTMODE=&#39;auto&#39;   ifcfg-eth0  cat /etc/sysconfig/network/ifcfg-eth0  and the output is
 STARTMODE=&#39;auto&#39; BOOTPROTO=&#39;none&#39;  </description>
@@ -180,10 +180,10 @@ STARTMODE=&#39;auto&#39; BOOTPROTO=&#39;none&#39;  </description>
     
     <item>
       <title>Compiling qemu guest agent msi package for windows</title>
-      <link>http://daveixiang.github.io/articles/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</link>
+      <link>https://daveixiang.github.io/articles/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</link>
       <pubDate>Wed, 05 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</guid>
       <description> Install dependencies  mingw cross compilation toolchain
  msitool
  flex bison glib2-devel zlib-devel
@@ -194,100 +194,100 @@ make msi  After a while, get the msi package:
     
     <item>
       <title>Build Cross GCC Toolchain (TARGET:x86_64)</title>
-      <link>http://daveixiang.github.io/articles/2017_04_01_build_cross_gcc_toolchain_x86_64/</link>
+      <link>https://daveixiang.github.io/articles/2017_04_01_build_cross_gcc_toolchain_x86_64/</link>
       <pubDate>Sat, 01 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_04_01_build_cross_gcc_toolchain_x86_64/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_04_01_build_cross_gcc_toolchain_x86_64/</guid>
       <description>export BASE_DIR=/src/cross/ export LOG_DIR=$BASE_DIR/log export SRC_DIR=$BASE_DIR/src export BUILD_DIR=$BASE_DIR/build export INSTALL_DIR=$BASE_DIR/x86_64 export SYSROOT_DIR=$INSTALL_DIR/sysroot export TARGET_MACH=x86_64-linux-gnu export LINUX_ARCH=x86_64 export BUILD_MACH=$(gcc -dumpmachine) export binutils_version=binutils-2.27 export kernel_version=linux-4.4.51 export gcc_version=gcc-5.4.0 export glibc_version=glibc-2.25 export BINUTILS_SRC=$SRC_DIR/$binutils_version export KERNEL_SRC=$SRC_DIR/$kernel_version export GCC_SRC=$SRC_DIR/$gcc_version export GLIBC_SRC=$SRC_DIR/$glibc_version wrap_cmd() { stage=$1; shift LOGFILE=&amp;quot;$LOG_DIR/$stage.log&amp;quot; rm -rf &amp;quot;$LOGFILE&amp;quot; echo &amp;quot;begin $stage&amp;quot; for cmd in &amp;quot;$@&amp;quot; do echo &amp;quot;begin $cmd&amp;quot; eval &amp;quot;$cmd &amp;gt;&amp;gt; $LOGFILE 2&amp;gt;&amp;amp;1&amp;quot; [ $? -ne 0 ] &amp;amp;&amp;amp; echo &amp;quot;error&amp;quot; &amp;amp;&amp;amp; exit 1 echo &amp;quot;end $cmd&amp;quot; done echo &amp;quot;end $stage&amp;quot; } rm -rf $BUILD_DIR mkdir -p $BUILD_DIR mkdir -p $SRC_DIR $LOG_DIR # wrap_cmd &amp;quot;00.</description>
     </item>
     
     <item>
       <title>Build minimal linux hack env with busybox (Target: x86_64)</title>
-      <link>http://daveixiang.github.io/articles/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</link>
+      <link>https://daveixiang.github.io/articles/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</link>
       <pubDate>Sat, 01 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</guid>
       <description>Build the kernel  Use x86_64 default configuration  make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- defconfig   Simplify x86_64 configuration by cutting unused drivers  make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- menuconfig   Create Image  make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- -j8  Build busybox  Use busybox default configuration  make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- defconfig   Customize configurations  make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- menuconfig  Busybox Settings ---&amp;gt; --- Build Options [*] Build BusyBox as a position independent executable   Create busybox  make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- -j$(nproc)   Install busybox(default path: BUSYBOX/_install)  make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- install  Generate minimal initramfs #!</description>
     </item>
     
     <item>
       <title>Add OpenSuse Leap 42.2 repos</title>
-      <link>http://daveixiang.github.io/articles/2017_03_31_opensuse_add_repos/</link>
+      <link>https://daveixiang.github.io/articles/2017_03_31_opensuse_add_repos/</link>
       <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_03_31_opensuse_add_repos/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_03_31_opensuse_add_repos/</guid>
       <description> Remove previous repos  zypper repos | grep Yes | cut -f3 -d &#39;|&#39; | sed -e &amp;quot;s/ //&amp;quot; | awk &#39;{print &amp;quot;zypper rr &amp;quot; $1}&#39; | bash   Add the repos and refresh  zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/oss/ openSUSE-leap-42.2-Oss zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/non-oss/ openSUSE-leap-42.2-Non-Oss zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/oss openSUSE-leap-42.2-Update-Oss zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/non-oss/ openSUSE-leap-42.2-Update-Non-Oss zypper refresh  </description>
     </item>
     
     <item>
       <title>GCC and Glibc core runtime files</title>
-      <link>http://daveixiang.github.io/articles/2017_03_31_gcc_glibc_core_runtime_files/</link>
+      <link>https://daveixiang.github.io/articles/2017_03_31_gcc_glibc_core_runtime_files/</link>
       <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_03_31_gcc_glibc_core_runtime_files/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_03_31_gcc_glibc_core_runtime_files/</guid>
       <description>Files provided by glibc     file usage     crt0.o Older style of the initial runtime code. No one generates this anymore.   crt1.o Newer style of the initial runtime code. Contains the _start symbol which sets up the env with argc/argv/libc _init/libc _fini before jumping to the libc main. glibc calls this file &amp;lsquo;start.S&amp;rsquo;.   crti.o Defines the function prolog; _init in the .</description>
     </item>
     
     <item>
       <title>Netlink hello world example</title>
-      <link>http://daveixiang.github.io/articles/2017_03_31_netlink_hello_world_example/</link>
+      <link>https://daveixiang.github.io/articles/2017_03_31_netlink_hello_world_example/</link>
       <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_03_31_netlink_hello_world_example/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_03_31_netlink_hello_world_example/</guid>
       <description>demo kernel code  hello_nl_kern.c  #include &amp;lt;linux/module.h&amp;gt; #include &amp;lt;net/sock.h&amp;gt; #include &amp;lt;linux/netlink.h&amp;gt; #include &amp;lt;linux/skbuff.h&amp;gt; #define NETLINK_USER 31 struct sock *nl_sk = NULL; static void hello_nl_recv_msg(struct sk_buff *skb) { struct nlmsghdr *nlh; int pid; struct sk_buff *skb_out; int msg_size; char *msg = &amp;quot;Hello from kernel&amp;quot;; int res; printk(KERN_INFO &amp;quot;Entering: %s\n&amp;quot;, __FUNCTION__); msg_size = strlen(msg); nlh = (struct nlmsghdr *)skb-&amp;gt;data; printk(KERN_INFO &amp;quot;Netlink received msg payload: %s\n&amp;quot;,(char*)nlmsg_data(nlh)); pid = nlh-&amp;gt;nlmsg_pid; skb_out = nlmsg_new(msg_size,0); if (!</description>
     </item>
     
     <item>
       <title>Notation meaning in top out</title>
-      <link>http://daveixiang.github.io/articles/2017_03_30_notation_meaning_in_top_out/</link>
+      <link>https://daveixiang.github.io/articles/2017_03_30_notation_meaning_in_top_out/</link>
       <pubDate>Thu, 30 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_03_30_notation_meaning_in_top_out/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_03_30_notation_meaning_in_top_out/</guid>
       <description>PID — Process Id  The task’s unique process ID, which periodically wraps, though never restarting at zero.   PPID — Parent Process Pid  The process ID of a task’s parent.   RUSER — Real User Name  The real user name of the task’s owner.   UID — User Id  The effective user ID of the task’s owner.   USER — User Name  The effective user name of the task’s owner.</description>
     </item>
     
     <item>
       <title>Configure libvirt with openvswitch bridge</title>
-      <link>http://daveixiang.github.io/articles/2017_03_23_configure_libvirt_with_openvswitch_bridge/</link>
+      <link>https://daveixiang.github.io/articles/2017_03_23_configure_libvirt_with_openvswitch_bridge/</link>
       <pubDate>Thu, 23 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_03_23_configure_libvirt_with_openvswitch_bridge/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_03_23_configure_libvirt_with_openvswitch_bridge/</guid>
       <description> Create OpenvSwitch bridge ovs-vsctl add-br br0  Configure libvirt with br0 just created BRNAME=br0 cat &amp;gt; /tmp/libvirt-net.xml &amp;lt;&amp;lt;EOF &amp;lt;network&amp;gt; &amp;lt;name&amp;gt;${BRNAME}&amp;lt;/name&amp;gt; &amp;lt;forward mode=&#39;bridge&#39;/&amp;gt; &amp;lt;bridge name=&#39;${BRNAME}&#39;/&amp;gt; &amp;lt;virtualport type=&#39;openvswitch&#39;/&amp;gt; &amp;lt;/network&amp;gt; EOF virsh net-define /tmp/libvirt-net.xml virsh net-start $BRNAME virsh net-autostart $BRNAME  </description>
     </item>
     
     <item>
       <title>How to get the complete and exact list of mounted filesystems in Linux?</title>
-      <link>http://daveixiang.github.io/articles/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</link>
+      <link>https://daveixiang.github.io/articles/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</link>
       <pubDate>Wed, 22 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</guid>
       <description>findmnt -lo source,target,fstype,label,options,used -t xfs  SOURCE TARGET FSTYPE LABEL OPTIONS /dev/vda1 / xfs rw,relatime,attr2,inode64,noquota  /proc/mounts /etc/mtab  </description>
     </item>
     
     <item>
       <title>Install Openstack from source code - glance (mitaka)</title>
-      <link>http://daveixiang.github.io/articles/2017_03_21_openstack_from_source_code_mitaka_02_glance/</link>
+      <link>https://daveixiang.github.io/articles/2017_03_21_openstack_from_source_code_mitaka_02_glance/</link>
       <pubDate>Tue, 21 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_03_21_openstack_from_source_code_mitaka_02_glance/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_03_21_openstack_from_source_code_mitaka_02_glance/</guid>
       <description>Create image service database export GLANCE_DBPASS=openstack export MYSQL_PASS=openstack mysql -uroot -p$MYSQL_PASS &amp;lt;&amp;lt;EOF CREATE DATABASE glance; GRANT ALL PRIVILEGES ON glance.* TO &#39;glance&#39;@&#39;localhost&#39; \ IDENTIFIED BY &#39;$GLANCE_DBPASS&#39;; GRANT ALL PRIVILEGES ON glance.* TO &#39;glance&#39;@&#39;%&#39; \ IDENTIFIED BY &#39;$GLANCE_DBPASS&#39;; EOF  Create the image service credentials andAPI endpoints openstack user create --domain default --password openstack glance openstack role add --project service --user glance admin openstack service create --name glance --description &amp;quot;OpenStack Image&amp;quot; image openstack endpoint create --region RegionOne image public http://controller:9292 openstack endpoint create --region RegionOne image internal http://controller:9292 openstack endpoint create --region RegionOne image admin http://controller:9292  Install glance dependences yum install $(cat openstack-glance-deps.</description>
     </item>
     
     <item>
       <title>般若波羅蜜多心經</title>
-      <link>http://daveixiang.github.io/xin/</link>
+      <link>https://daveixiang.github.io/xin/</link>
       <pubDate>Tue, 21 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/xin/</guid>
+      <guid>https://daveixiang.github.io/xin/</guid>
       <description> &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 咒 苦 大 三 佛 有 般 道 明 法 想 不 亦 空 五 觀 &amp;nbsp; &amp;nbsp;   &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 曰 真 明 菩 依 恐 若 無 盡 無 行 垢 復 不 蘊 自 &amp;nbsp; &amp;nbsp;   &amp;nbsp; 波 揭 &amp;nbsp; &amp;nbsp; 實 咒 提 般 怖 波 智 乃 眼 識 不 如 異 皆 在 &amp;nbsp; &amp;nbsp;   &amp;nbsp; 羅 諦 &amp;nbsp; &amp;nbsp; 不 是 故 若 遠 羅 亦 至 界 無 淨 是 色 空 菩 &amp;nbsp; &amp;nbsp; &amp;nbsp; 僧 &amp;nbsp; &amp;nbsp; &amp;nbsp; 虛 無 知 波 離 密 無 無 乃 眼 不 舍 色 度 薩 &amp;nbsp; 般   &amp;nbsp; 揭 揭 &amp;nbsp; &amp;nbsp; 故 上 般 羅 顛 多 得 老 至 耳 增 利 即 一 行 &amp;nbsp; 若   &amp;nbsp; 諦 諦 &amp;nbsp; &amp;nbsp; 說 咒 若 密 倒 故 以 死 無 鼻 不 子 是 切 深 &amp;nbsp; 波   &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 般 是 波 多 夢 心 無 亦 意 舌 減 是 空 苦 般 &amp;nbsp; 羅   &amp;nbsp; 菩 波 &amp;nbsp; &amp;nbsp; 若 無 羅 故 想 無 所 無 識 身 是 諸 空 厄 若 &amp;nbsp; 密   &amp;nbsp; 提 羅 &amp;nbsp; &amp;nbsp; 波 等 密 得 究 罣 得 老 界 意 故 法 即 舍 波 &amp;nbsp; 多   &amp;nbsp; 薩 揭 &amp;nbsp; &amp;nbsp; 羅 等 多 阿 竟 礙 故 死 無 無 空 空 是 利 羅 &amp;nbsp; 心   項 婆 諦 &amp;nbsp; &amp;nbsp; 密 咒 是 耨 涅 無 菩 盡 無 色 中 相 色 子 密 &amp;nbsp; 經   思 訶 &amp;nbsp; &amp;nbsp; &amp;nbsp; 多 能 大 多 槃 罣 提 無 明 聲 無 不 受 色 多 &amp;nbsp; &amp;nbsp;   偉 &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 咒 除 神 羅 三 礙 薩 苦 亦 香 色 生 想 不 時 &amp;nbsp; &amp;nbsp;   &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 即 一 咒 三 世 故 埵 集 無 味 無 不 行 異 照 &amp;nbsp; &amp;nbsp;   編 &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 說 切 是 藐 諸 無 依 滅 無 觸 受 滅 識 空 見 &amp;nbsp; &amp;nbsp;   輯 &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;   </description>
     </item>
     
     <item>
       <title>Compile influxdb 0.11.1 from source code</title>
-      <link>http://daveixiang.github.io/articles/2017_03_13_compile_influxdb_0.11.1_from_source_code/</link>
+      <link>https://daveixiang.github.io/articles/2017_03_13_compile_influxdb_0.11.1_from_source_code/</link>
       <pubDate>Mon, 13 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_03_13_compile_influxdb_0.11.1_from_source_code/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_03_13_compile_influxdb_0.11.1_from_source_code/</guid>
       <description>Prepare essential directories and environment variables export GOPATH=/src/influxdb/ mkdir -p $GOPATH/src/github.com/influxdata/ cd $GOPATH/src/github.com/influxdata/ export PATH=$GOPATH/bin:$PATH  Installing GDM InfluxDB uses gdm to manage dependencies. Install it by running the following:
 go get github.com/sparrc/gdm Extract source code tar zxf ~/Downloads/influxdb-0.11.1.tar.gz ln -sf influxdb-0.11.1/ influxdb  Installing InfluxDB dependencies cd influxdb gdm restore  Build and install the binaries Run the following command:
 go clean ./... go install ./...  and wait for a comment, the binaries will be installed to $GOPATH/bin:</description>
@@ -295,111 +295,111 @@ go clean ./... go install ./...  and wait for a comment, the binaries will be in
     
     <item>
       <title>Clone git repository only some directories</title>
-      <link>http://daveixiang.github.io/articles/2017_03_06_clone_git_repository_only_some_directories/</link>
+      <link>https://daveixiang.github.io/articles/2017_03_06_clone_git_repository_only_some_directories/</link>
       <pubDate>Mon, 06 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_03_06_clone_git_repository_only_some_directories/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_03_06_clone_git_repository_only_some_directories/</guid>
       <description> First, do:  git clone --depth 1 [repo-root] [local_dir]   Then:  cd [local_dir]   And lastly:  git filter-branch --prune-empty --subdirectory-filter [repo-subdir] HEAD  </description>
     </item>
     
     <item>
       <title>Install Openstack from source code - keystone (mitaka)</title>
-      <link>http://daveixiang.github.io/articles/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</link>
+      <link>https://daveixiang.github.io/articles/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</link>
       <pubDate>Sat, 04 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</guid>
       <description>Install keystone dependences yum install $(cat openstack-keystone-deps.log | cut -d, -f1 | tr -s &#39;\n&#39; &#39; &#39;)  Git clone source code from github git clone https://github.com/openstack/keystone cd /src/openstack/keystone git checkout stable/mitaka  Build keystone source code cd /src/openstack/keystone python setup.py build  Make keystone configuration cp -aR etc/* /etc/keystone mv /etc/keystone/keystone.conf.sample /etc/keystone/keystone.conf mv /etc/keystone/logging.conf.sample /etc/keystone/logging.conf mkdir /etc/keystone/fernet-keys/ sed -i -E -e &#39;/^#.+?$/d&#39; -e &#39;/^$/d&#39; /etc/keystone/keystone.conf ini-config --set /etc/keystone/keystone.conf DEFAULT admin_token admintoken ini-config --set /etc/keystone/keystone.</description>
     </item>
     
     <item>
       <title>Install Openstack from source code dependences (mitaka)</title>
-      <link>http://daveixiang.github.io/articles/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</link>
+      <link>https://daveixiang.github.io/articles/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</link>
       <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</guid>
       <description>#!/bin/bash function gen_pkg_deps() { [ -z &amp;quot;$@&amp;quot; ] &amp;amp;&amp;amp; exit 0; yum install --assumeno &amp;quot;$@&amp;quot; | \ sed -n &#39;/Installing for dependencies:/,/Transaction Summary/p&#39; | \ sed -e &#39;/^=.*?$/d&#39; \ -e &#39;/Installing:/d&#39; \ -e &#39;/Installing for dependencies:/d&#39; \ -e &#39;/Transaction Summary/d&#39; \ -e &#39;/Updating/d&#39; \ -e &#39;/^$/d&#39; | \ awk &#39;BEGIN {n=1;arr[0]=0} { if (NF != 6) { for (i=n; i&amp;lt;=n+NF-1;i++) arr[i] = $(i-n+1) n+=NF; if (n == 7) { printf &amp;quot;%s,%s,%s,%s\n&amp;quot;, arr[1], arr[2], arr[3], arr[4] for (i=1; i&amp;lt;n;i++) del arr[i] n=1 } } else { printf &amp;quot;%s,%s,%s,%s\n&amp;quot;, $1, $2, $3, $4 } }&#39; | sort | grep -v -E -e &#39;glance|keystone|nova|neutron|swift|cinder|ceilometer&#39;\ &amp;gt; &amp;quot;$@&amp;quot;-deps.</description>
     </item>
     
     <item>
       <title>Multiple ways to access QEMU Machine Protocol (QMP)</title>
-      <link>http://daveixiang.github.io/articles/2017_02_28_multiple_ways_to_access_qmp/</link>
+      <link>https://daveixiang.github.io/articles/2017_02_28_multiple_ways_to_access_qmp/</link>
       <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_02_28_multiple_ways_to_access_qmp/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_02_28_multiple_ways_to_access_qmp/</guid>
       <description>QMP (QEMU Machine Protocol) is quiet useful. QMP allows applications to communicate withh a running QEMU&amp;rsquo;s instance. There ae a few different ways to access the QEMU monitor to query the guest&amp;rsquo;s information, modify the guest state using the QMP commands.
 Access QMP via libvirt’s qemu-monitor-command virsh qemu-monitor-command ${domain-name} --pretty &#39;{&amp;quot;execute&amp;quot;:&amp;quot;query-kvm&amp;quot;}&#39;  QMP via tcp socket  launch an qemu instance:  qemu-system-x86_64 --enable-kvm -drive if=virtio,format=qcow2,index=0,file=cirros-0.3.5-x86_64-disk.img --qmp tcp:127.0.0.1:12345,server  and the output in the terminal like:</description>
     </item>
     
     <item>
       <title>Build Cross GCC Toolchain (TARGET:arm64)</title>
-      <link>http://daveixiang.github.io/articles/2017_02_25_build_cross_gcc_toolchain_arm64/</link>
+      <link>https://daveixiang.github.io/articles/2017_02_25_build_cross_gcc_toolchain_arm64/</link>
       <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_02_25_build_cross_gcc_toolchain_arm64/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_02_25_build_cross_gcc_toolchain_arm64/</guid>
       <description>export BASE_DIR=/src/cross/ export LOG_DIR=$BASE_DIR/log export SRC_DIR=$BASE_DIR/src export BUILD_DIR=$BASE_DIR/build export INSTALL_DIR=$BASE_DIR/aarch64 export SYSROOT_DIR=$INSTALL_DIR/sysroot export BINUTILS_SRC=$SRC_DIR/binutils-2.27 export KERNEL_SRC=$SRC_DIR/linux-4.4.51 export GCC_SRC=$SRC_DIR/gcc-5.4.0 export GLIBC_SRC=$SRC_DIR/glibc-2.25 export TARGET_MACH=aarch64-linux-gnu export LINUX_ARCH=arm64 export BUILD_MACH=$(gcc -dumpmachine) wrap_cmd() { stage=$1; shift LOGFILE=&amp;quot;$LOG_DIR/$stage.log&amp;quot; rm -rf &amp;quot;$LOGFILE&amp;quot; echo &amp;quot;begin $stage&amp;quot; for cmd in &amp;quot;$@&amp;quot; do echo &amp;quot;begin $cmd&amp;quot; eval &amp;quot;$cmd &amp;gt;&amp;gt; $LOGFILE 2&amp;gt;&amp;amp;1&amp;quot; [ $? -ne 0 ] &amp;amp;&amp;amp; echo &amp;quot;error&amp;quot; &amp;amp;&amp;amp; exit 1 echo &amp;quot;end $cmd&amp;quot; done echo &amp;quot;end $stage&amp;quot; } rm -rf $BUILD_DIR mkdir -p $BUILD_DIR wrap_cmd &amp;quot;01.</description>
     </item>
     
     <item>
       <title>Build minimal linux hack env ith busybox (Target: arm64)</title>
-      <link>http://daveixiang.github.io/articles/2017_02_25_build_minimal_linux_hack_env_with_busybox_arm64/</link>
+      <link>https://daveixiang.github.io/articles/2017_02_25_build_minimal_linux_hack_env_with_busybox_arm64/</link>
       <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_02_25_build_minimal_linux_hack_env_with_busybox_arm64/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_02_25_build_minimal_linux_hack_env_with_busybox_arm64/</guid>
       <description>Build the kernel  Use arm64 default configuration  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- defconfig   Simplify arm64 configuration by cutting unused drivers  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- menuconfig   Create Image  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j8  Build busybox  Use busybox default configuration  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- defconfig   Customize configurations  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- menuconfig  Busybox Settings ---&amp;gt; --- Build Options [*] Build BusyBox as a position independent executable   Create busybox  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j$(nproc)   Install busybox(default path: BUSYBOX/_install)  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- install  Generate minimal initramfs #!</description>
     </item>
     
     <item>
       <title>Install Openstack from source code prepares (mitaka)</title>
-      <link>http://daveixiang.github.io/articles/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</link>
+      <link>https://daveixiang.github.io/articles/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</link>
       <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</guid>
       <description>Disable NetworkManager and enable network systemctl stop NetworkManager.service systemctl disable NetworkManager.service systemctl start network.service systemctl enable network.service  Disable SELinux sed -i &#39;s/SELINUX=enforcing/SELINUX=disabled/g&#39; /etc/selinux/config  Disable Firewalld systemctl stop firewalld systemctl disable firewalld  Disalbe YUM fast mirrors and language features sed -i -E -e &#39;s/enabled=1/enabled=0/&#39; /etc/yum/pluginconf.d/fastestmirror.conf sed -i -E -e &#39;s/enabled=1/enabled=0/&#39; /etc/yum/pluginconf.d/langpacks.conf  Speed up SSH connection sed -i &#39;s/#UseDNS yes/UseDNS no/&#39; /etc/ssh/sshd_config  Install and configure rabbitmq yum -y install rabbitmq-server systemctl start rabbitmq-server systemctl enable rabbitmq-server  rabbitmqctl add_user openstack openstack rabbitmqctl set_user_tags openstack administrator rabbitmqctl set_permissions -p / openstack &amp;quot;.</description>
     </item>
     
     <item>
       <title>Using OpenvSwitch to build minimal linux networking hack environment</title>
-      <link>http://daveixiang.github.io/articles/2017_02_25_using_openvswitch_to_build_minimal_linux_networking_hack_env/</link>
+      <link>https://daveixiang.github.io/articles/2017_02_25_using_openvswitch_to_build_minimal_linux_networking_hack_env/</link>
       <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_02_25_using_openvswitch_to_build_minimal_linux_networking_hack_env/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_02_25_using_openvswitch_to_build_minimal_linux_networking_hack_env/</guid>
       <description>Create Openvswitch bridge and two tap devices for vm ip tuntap add name tap1 mode tap ip tuntap add name tap2 mode tap ip link set tap1 up ip link set tap2 up ovs-vsctl add-br br0 ovs-vsctl add-port br0 tap1 ovs-vsctl add-port br0 tap2  Start the two vms and config network configure vm01  start vm01  qemu-system-x86_64 -nographic \ -kernel ./bzImage -initrd ./initramfs \ -append &amp;quot;console=ttyS0 quiet&amp;quot; \ -netdev tap,id=net1,ifname=tap1,script=no,downscript=no \ -device e1000,netdev=net1,mac=&#39;9e:11:24:5c:35:89&#39;   configure vm01 network  ip link set eth0 up ip addr add 192.</description>
     </item>
     
     <item>
       <title>GCC inline assembly hello world example</title>
-      <link>http://daveixiang.github.io/articles/2017_02_17_gcc_inline_assembly_hello_world_example/</link>
+      <link>https://daveixiang.github.io/articles/2017_02_17_gcc_inline_assembly_hello_world_example/</link>
       <pubDate>Fri, 17 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_02_17_gcc_inline_assembly_hello_world_example/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_02_17_gcc_inline_assembly_hello_world_example/</guid>
       <description>x86 example  #include &amp;lt;string.h&amp;gt; #include &amp;lt;stdio.h&amp;gt; int main(int argc, char *argv[]) { char *str = &amp;quot;Hello World\n&amp;quot;; long len = strlen(str); int ret = 0; /* * ssize_t write(int fd, const void *buf, size_t count); * */ __asm__(&amp;quot;movl $1, %%eax\n\t&amp;quot; // write syscall &amp;quot;movl $1, %%ebx\n\t&amp;quot; // fd &amp;quot;movl %1, %%ecx\n\t&amp;quot; // buf &amp;quot;movl %2, %%edx\n\t&amp;quot; // count &amp;quot;syscall\n\t&amp;quot; &amp;quot;movl %%eax, %0&amp;quot; // return result to ret : &amp;quot;+m&amp;quot;(ret) : &amp;quot;g&amp;quot;(str), &amp;quot;g&amp;quot;(len)); printf(&amp;quot;ret %d\n&amp;quot;, ret); return 0; }   x86-64 example  #include &amp;lt;string.</description>
     </item>
     
     <item>
       <title>内存不够导致KVM OOM</title>
-      <link>http://daveixiang.github.io/articles/2017_02_08_kvm_oom_case/</link>
+      <link>https://daveixiang.github.io/articles/2017_02_08_kvm_oom_case/</link>
       <pubDate>Wed, 08 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_02_08_kvm_oom_case/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_02_08_kvm_oom_case/</guid>
       <description>KVM OOM  [451452.773003] [ pid ] uid tgid total_vm rss nr_ptes swapents oom_score_adj name [451452.773008] [ 395] 0 395 9240 1094 21 44 0 systemd-journal [451452.773010] [ 423] 0 423 29723 151 26 84 0 lvmetad [451452.773011] [ 429] 0 429 10897 261 21 109 -1000 systemd-udevd [451452.773013] [ 563] 0 563 13854 298 25 89 -1000 auditd [451452.773015] [ 585] 997 585 131910 320 55 1795 0 polkitd [451452.</description>
     </item>
     
     <item>
       <title>System V Calling Conversions</title>
-      <link>http://daveixiang.github.io/articles/2017_02_02_system_v_calling_conversions/</link>
+      <link>https://daveixiang.github.io/articles/2017_02_02_system_v_calling_conversions/</link>
       <pubDate>Thu, 02 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_02_02_system_v_calling_conversions/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_02_02_system_v_calling_conversions/</guid>
       <description>System V i386  Parameters  Parameters are passed on the stack, with the first argument at the lowest address on the stack at the time of the call (pushed last, so it&amp;rsquo;s just above the return address on entry to the function). The caller is responsible for popping parameters back off the stack after the call.
  Return Value  For scalar return types, the return value is placed in EAX, or EDX:EAX for 64bit integers.</description>
     </item>
     
     <item>
       <title>What is a system call (Linux)</title>
-      <link>http://daveixiang.github.io/articles/2017_02_02_what_is_a_system_call_linux/</link>
+      <link>https://daveixiang.github.io/articles/2017_02_02_what_is_a_system_call_linux/</link>
       <pubDate>Thu, 02 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_02_02_what_is_a_system_call_linux/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_02_02_what_is_a_system_call_linux/</guid>
       <description>An application program makes a system call to get the operating system to perform a service for it, like reading from a file.
 System Calls in 32-bit Linux  To make a system call in 32-bit Linux, place the system call number in eax, then its arguments, in order, in ebx, ecx, edx, esi, edi, and ebp, then invoke int 0x80.
  Some system calls return information, usually in eax.</description>
@@ -407,37 +407,37 @@ System Calls in 32-bit Linux  To make a system call in 32-bit Linux, place the s
     
     <item>
       <title>caller vs callee</title>
-      <link>http://daveixiang.github.io/articles/2017_02_02_caller_vs_callee/</link>
+      <link>https://daveixiang.github.io/articles/2017_02_02_caller_vs_callee/</link>
       <pubDate>Thu, 02 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_02_02_caller_vs_callee/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_02_02_caller_vs_callee/</guid>
       <description>caller vs callee  If routine A calls routine B then routine A is the caller and routine B is the callee. i.e. the caller is the routine which is calling the callee.   argument vs parameter  When a routine calls another routine, it may pass something to the other routine. From the perspective of the caller the thing which is passed is an argument. From the perspective of the routine that receives the call, i.</description>
     </item>
     
     <item>
       <title>ASCII Table</title>
-      <link>http://daveixiang.github.io/articles/2017_01_31_ascii_code_table/</link>
+      <link>https://daveixiang.github.io/articles/2017_01_31_ascii_code_table/</link>
       <pubDate>Tue, 31 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_01_31_ascii_code_table/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_01_31_ascii_code_table/</guid>
       <description>ASCII control characters  Oct Dec Hex Control-key Control Action NUL 0 0 0 ^@ Null character SOH 1 1 1 ^A Start of heading, = console interrupt STX 2 2 2 ^B Start of text, maintenance mode on HP console ETX 3 3 3 ^C End of text EOT 4 4 4 ^D End of transmission, not the same as ETB ENQ 5 5 5 ^E Enquiry, goes with ACK; old HP flow control ACK 6 6 6 ^F Acknowledge, clears ENQ logon hang BEL 7 7 7 ^G Bell, rings the bell BS 10 8 8 ^H Backspace, works on HP terminals/computers HT 11 9 9 ^I Horizontal tab, move to next tab stop LF 12 10 a ^J Line Feed VT 13 11 b ^K Vertical tab FF 14 12 c ^L Form Feed, page eject CR 15 13 d ^M Carriage Return SO 16 14 e ^N Shift Out, alternate character set SI 17 15 f ^O Shift In, resume default character set DLE 20 16 10 ^P Data link escape DC1 21 17 11 ^Q XON, with XOFF to pause listings; &amp;amp;quot;okay to send&amp;amp;quot; DC2 22 18 12 ^R Device control 2, block-mode flow control DC3 23 19 13 ^S XOFF, with XON is TERM=18 flow control DC4 24 20 14 ^T Device control 4 NAK 25 21 15 ^U Negative acknowledge SYN 26 22 16 ^V Synchronous idle ETB 27 23 17 ^W End transmission block, not the same as EOT CAN 30 24 18 ^X Cancel line, MPE echoes !</description>
     </item>
     
     <item>
       <title>Compile static docker without docker in docker</title>
-      <link>http://daveixiang.github.io/articles/2017_01_16_compile_static_docker_without_docker_in_docker/</link>
+      <link>https://daveixiang.github.io/articles/2017_01_16_compile_static_docker_without_docker_in_docker/</link>
       <pubDate>Mon, 16 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_01_16_compile_static_docker_without_docker_in_docker/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_01_16_compile_static_docker_without_docker_in_docker/</guid>
       <description>Install dependencies  Install xfs btrfs packages  emerge --ask sys-fs/btrfs-progs sys-fs/xfsprogs   Install device mapper  export LVM2_VERSION=2.02.103 mkdir -p /usr/local/src/lvm2 &amp;amp;&amp;amp; curl -fsSL &amp;quot;https://mirrors.kernel.org/sourceware/lvm2/LVM2.${LVM2_VERSION}.tgz&amp;quot; | tar -xzC /usr/local/src/lvm2 --strip-components=1 cd /usr/local/src/lvm2 \ &amp;amp;&amp;amp; ./configure \ --build=&amp;quot;$(gcc -print-multiarch)&amp;quot; \ --enable-static_link \ &amp;amp;&amp;amp; make device-mapper \ &amp;amp;&amp;amp; make install_device-mapper  Compile runc binary  get the runc source code  mkdir -p /go/src/github.com/opencontainers/ cd /go/src/github.com/opencontainers/ git clone https://github.com/opencontainers/runc.git   Compile static runc binary  cd runc git checkout v1.</description>
     </item>
     
     <item>
       <title>Compile OpenvSwitch 2.5.x LTS from source code</title>
-      <link>http://daveixiang.github.io/articles/2017_01_14_compile_openvswitch_2_5_x_lts_from_source_code/</link>
+      <link>https://daveixiang.github.io/articles/2017_01_14_compile_openvswitch_2_5_x_lts_from_source_code/</link>
       <pubDate>Sat, 14 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_01_14_compile_openvswitch_2_5_x_lts_from_source_code/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_01_14_compile_openvswitch_2_5_x_lts_from_source_code/</guid>
       <description>Install compile dependencies Configure and compile the source code ./configure --with-linux=/lib/modules/$(uname -r)/build --prefix=/go/ovs make -j$(nproc) make install &amp;amp;&amp;amp; make modules_install  Load OpenvSwitch module modprobe gre modprobe openvswitch modprobe libcrc32c  Configure ovsdb /go/ovs/bin/ovsdb-tool create /go/ovs/etc/openvswitch/conf.db /go/ovs/share/openvswitch/vswitch.ovsschema  Start OVS Start ovsdb-server  without ssl
 /go/ovs/sbin/ovsdb-server --remote=punix:/go/ovs/var/run/openvswitch/db.sock \ --remote=db:Open_vSwitch,Open_vSwitch,manager_options \ --pidfile --detach --log-file  with ssl
 /go/ovs/sbin/ovsdb-server --remote=punix:/go/ovs/var/run/openvswitch/db.sock \ --remote=db:Open_vSwitch,Open_vSwitch,manager_options \ --private-key=db:Open_vSwitch,SSL,private_key \ --certificate=db:Open_vSwitch,SSL,certificate \ --bootstrap-ca-cert=db:Open_vSwitch,SSL,ca_cert \ --pidfile --detach --log-file   View /go/ovs/var/log/openvswitch/ovsdb-server.</description>
@@ -445,78 +445,78 @@ System Calls in 32-bit Linux  To make a system call in 32-bit Linux, place the s
     
     <item>
       <title>Compile Golang from source code</title>
-      <link>http://daveixiang.github.io/articles/2017_01_22_compile_golang_from_source_code/</link>
+      <link>https://daveixiang.github.io/articles/2017_01_22_compile_golang_from_source_code/</link>
       <pubDate>Thu, 12 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_01_22_compile_golang_from_source_code/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_01_22_compile_golang_from_source_code/</guid>
       <description>Introduction Go is a nice language started by Google. A nice advantage is that it compiles to native code and the binary does not have additional dependencies. Performance and low resource usage are focused on, even though I personally don&amp;rsquo;t like the gargabe collection based memory cleanup.
 Installation First start with Go 1.4 Since Go version 1.5 you need Go itself to compile it. So we first start with Go 1.</description>
     </item>
     
     <item>
       <title>Compile static nginx</title>
-      <link>http://daveixiang.github.io/articles/2017_01_12_compile_static_nginx/</link>
+      <link>https://daveixiang.github.io/articles/2017_01_12_compile_static_nginx/</link>
       <pubDate>Thu, 12 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_01_12_compile_static_nginx/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_01_12_compile_static_nginx/</guid>
       <description>Get nginx source code from officall website wget http://nginx.org/download/nginx-1.10.2.tar.gz  Untar it to specific directory tar zxf nginx-1.10.2.tar.gz -C /src  Go to the /src, and execute ./configure cd /src/nginx-1.10.2 ./configure --prefix=/src/nginx/ \ --with-cc-opt=&amp;quot;-static -static-libgcc&amp;quot; \ --with-ld-opt=&amp;quot;-static&amp;quot;  Build it with make -$(nproc) Error output But get the error:
 /usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/../../../../lib64/libpcre.a(libpcre_la-pcre_jit_compile.o): In function `sljit_generate_code&#39;: (.text+0x79f): undefined reference to `pthread_mutex_lock&#39; /usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/../../../../lib64/libpcre.a(libpcre_la-pcre_jit_compile.o): In function `sljit_generate_code&#39;: (.text+0x894): undefined reference to `pthread_mutex_unlock&#39; /usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/../../../../lib64/libpcre.a(libpcre_la-pcre_jit_compile.o): In function `sljit_generate_code&#39;: (.</description>
     </item>
     
     <item>
       <title>修心十德</title>
-      <link>http://daveixiang.github.io/articles/2017_01_01_xiu_xin_shi_de/</link>
+      <link>https://daveixiang.github.io/articles/2017_01_01_xiu_xin_shi_de/</link>
       <pubDate>Sun, 01 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_01_01_xiu_xin_shi_de/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_01_01_xiu_xin_shi_de/</guid>
       <description>若聞譏諷心能堪忍 若聞稱贊反生慚愧 修道歡喜自慶不傲 人之慚恥不宜宣說 不為世事而做咒術 少恩加己思欲大報 怨恨己者恒生善心 見有罵聲反生憐憫 視諸眾生猶如父母 擁諸所得樂於助人  </description>
     </item>
     
     <item>
       <title>C &amp; C&#43;&#43; link order</title>
-      <link>http://daveixiang.github.io/articles/2016_09_07_c_cpp_link_order/</link>
+      <link>https://daveixiang.github.io/articles/2016_09_07_c_cpp_link_order/</link>
       <pubDate>Wed, 07 Sep 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2016_09_07_c_cpp_link_order/</guid>
+      <guid>https://daveixiang.github.io/articles/2016_09_07_c_cpp_link_order/</guid>
       <description>If any [static] library A depends on symbols defined in library B, then library A should appear first in the list supplied to the linker.
 +- prog.o -----+ +- libA.a -----+ +- libB.a -----+ | U funcA --|---|-&amp;gt; T funcA | | | U : undefined/used | | | U funcB --|---|-&amp;gt; T funcB | T : defined | T main | | | | | +--------------+ +--------------+ +--------------+  gcc prog.</description>
     </item>
     
     <item>
       <title>Nested KVM</title>
-      <link>http://daveixiang.github.io/articles/2016_09_03_nested_kvm/</link>
+      <link>https://daveixiang.github.io/articles/2016_09_03_nested_kvm/</link>
       <pubDate>Sat, 03 Sep 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2016_09_03_nested_kvm/</guid>
+      <guid>https://daveixiang.github.io/articles/2016_09_03_nested_kvm/</guid>
       <description> Enable the setting for Nested KVM  cat &amp;lt;&amp;lt;EOF &amp;gt; /etc/modprobe.d/kvm-nested.conf options kvm_intel nested=1 EOF modprobe -r kvm_intel modprobe kvm_intel cat /sys/module/kvm_intel/parameters/nested   Edit the configuration of a virtual machine you&amp;rsquo;d want to set nested  virsh edit {DOMAIN_NAME}  and add the following setting to the vm configuration:
 &amp;lt;cpu mode=&#39;host-passthrough&#39;&amp;gt; &amp;lt;/cpu&amp;gt;  </description>
     </item>
     
     <item>
       <title>Managing Tuntap Virtual Interfaces</title>
-      <link>http://daveixiang.github.io/articles/2016_07_11_managing_tuntap_virtual_interfaces/</link>
+      <link>https://daveixiang.github.io/articles/2016_07_11_managing_tuntap_virtual_interfaces/</link>
       <pubDate>Mon, 11 Jul 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2016_07_11_managing_tuntap_virtual_interfaces/</guid>
+      <guid>https://daveixiang.github.io/articles/2016_07_11_managing_tuntap_virtual_interfaces/</guid>
       <description>TAP devices, in contrast, work at the Ethernet level or layer two and therefore behave very much like a real network adaptor. Since they are running at layer two they can transport any layer three protocol and aren’t limited to point-to-point connections. TAP devices can be part of a bridge and are commonly used in virtualization systems to provide virtual network adaptors to multiple guest machines.
  Create tuntap virtual interfaces  ip tuntap add name ${tap_name} mode tap   Delete tuntap virtual interfaces  ip tuntap del name ${tap_name} mode tap   Create Veth Pairs  ip link add ${point} type veth peer name ${other_point}  </description>
     </item>
     
     <item>
       <title>臨別贈友</title>
-      <link>http://daveixiang.github.io/articles/2016_05_06_lin_bie_zeng_you/</link>
+      <link>https://daveixiang.github.io/articles/2016_05_06_lin_bie_zeng_you/</link>
       <pubDate>Fri, 06 May 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2016_05_06_lin_bie_zeng_you/</guid>
+      <guid>https://daveixiang.github.io/articles/2016_05_06_lin_bie_zeng_you/</guid>
       <description>臨別贈友 項籍 窗敞風迎時難再 車馳山離心易寒 待到相逢把酒歡 笑看雲聚雲又散  </description>
     </item>
     
     <item>
       <title>Symbol versions and dependencies</title>
-      <link>http://daveixiang.github.io/articles/2016_05_03_symbol_versions_and_dependencies/</link>
+      <link>https://daveixiang.github.io/articles/2016_05_03_symbol_versions_and_dependencies/</link>
       <pubDate>Tue, 03 May 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2016_05_03_symbol_versions_and_dependencies/</guid>
+      <guid>https://daveixiang.github.io/articles/2016_05_03_symbol_versions_and_dependencies/</guid>
       <description>The documentation on ld&amp;rsquo;s symbol versioning syntax is a little bit vague on &amp;ldquo;dependencies&amp;rdquo;, which it talks about but doesn&amp;rsquo;t give many details on.
 Let&amp;rsquo;s construct a small example.
  foo.c  #include &amp;lt;stdio.h&amp;gt; #ifndef VERSION_2 void foo(int f) { printf(&amp;quot;version 1 called\n&amp;quot;); } #else void foo_v1(int f) { printf(&amp;quot;version 1 called\n&amp;quot;); } __asm__(&amp;quot;.symver foo_v1,foo@VERSION_1&amp;quot;); void foo_v2(int f) { printf(&amp;quot;version 2 called\n&amp;quot;); } /* i.e. foo_v2 is really foo@VERSION_2 * @@ means this is the default version */ __asm__(&amp;quot;.</description>
@@ -524,37 +524,37 @@ Let&amp;rsquo;s construct a small example.
     
     <item>
       <title>養育恩</title>
-      <link>http://daveixiang.github.io/articles/2016_05_02_yang_yu_en/</link>
+      <link>https://daveixiang.github.io/articles/2016_05_02_yang_yu_en/</link>
       <pubDate>Mon, 02 May 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2016_05_02_yang_yu_en/</guid>
+      <guid>https://daveixiang.github.io/articles/2016_05_02_yang_yu_en/</guid>
       <description>養育恩 項籍 微風細雨育萬物 家母心念歸期數 二十六年未省心 乳兒猶在他鄉處  </description>
     </item>
     
     <item>
       <title>C declaration Right-Left rule</title>
-      <link>http://daveixiang.github.io/articles/2016_04_27_c_declaration_right_left_rule/</link>
+      <link>https://daveixiang.github.io/articles/2016_04_27_c_declaration_right_left_rule/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2016_04_27_c_declaration_right_left_rule/</guid>
+      <guid>https://daveixiang.github.io/articles/2016_04_27_c_declaration_right_left_rule/</guid>
       <description>The &amp;quot;right-left&amp;quot; rule is a completely regular rule for deciphering C declarations. It can also be useful in creating them. First, symbols. Read *	as &amp;quot;pointer to&amp;quot;	- always on the left side [] as &amp;quot;array of&amp;quot;	- always on the right side ()	as &amp;quot;function returning&amp;quot;	- always on the right side as you encounter them in the declaration. STEP 1 ------ Find the identifier. This is your starting point.</description>
     </item>
     
     <item>
       <title>斬鬼</title>
-      <link>http://daveixiang.github.io/articles/2016_04_25_zhan_gui/</link>
+      <link>https://daveixiang.github.io/articles/2016_04_25_zhan_gui/</link>
       <pubDate>Mon, 25 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2016_04_25_zhan_gui/</guid>
+      <guid>https://daveixiang.github.io/articles/2016_04_25_zhan_gui/</guid>
       <description>斬鬼 項籍 吾心尋道世俗間 霧漫陰風雨連綿 縱有惡鬼攔路前 赤心揮斬鐘馗劍  </description>
     </item>
     
     <item>
       <title>Add Module to the Linux Kernel Source</title>
-      <link>http://daveixiang.github.io/articles/2016_04_21_add_module_to_the_linux_kernel_source/</link>
+      <link>https://daveixiang.github.io/articles/2016_04_21_add_module_to_the_linux_kernel_source/</link>
       <pubDate>Thu, 21 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2016_04_21_add_module_to_the_linux_kernel_source/</guid>
+      <guid>https://daveixiang.github.io/articles/2016_04_21_add_module_to_the_linux_kernel_source/</guid>
       <description>Create module directory Create a directory skm inside drivers (which is in the Linux source code) for your module and put source code(skm.c) into it. It will looks like:
 {LINUX_SRC_PATH}/drivers/skm/skm.c  and the source code file skm.c appears like:
 #include &amp;lt;linux/module.h&amp;gt; #include &amp;lt;linux/version.h&amp;gt; #include &amp;lt;linux/kernel.h&amp;gt; static int __init skm_init(void) { printk(KERN_INFO &amp;quot;Hello Kernel Space!\n&amp;quot;); return 0; } static void __exit skm_exit(void) { printk(KERN_INFO &amp;quot;Bye Kernel Space!\n&amp;quot;); } module_init(skm_init); module_exit(skm_exit); MODULE_LICENSE(&amp;quot;GPL&amp;quot;); MODULE_AUTHOR(&amp;quot;Xiang Davei&amp;quot;); MODULE_DESCRIPTION(&amp;quot;Simple Kernel Module&amp;quot;)  Create Makefile file Create one Makefile inside skm and add obj-$(CONFG_SKM) += skm.</description>
@@ -562,67 +562,67 @@ Let&amp;rsquo;s construct a small example.
     
     <item>
       <title>Linux Hello World Module</title>
-      <link>http://daveixiang.github.io/articles/2016_04_20_linux_helloworld_module/</link>
+      <link>https://daveixiang.github.io/articles/2016_04_20_linux_helloworld_module/</link>
       <pubDate>Wed, 20 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2016_04_20_linux_helloworld_module/</guid>
+      <guid>https://daveixiang.github.io/articles/2016_04_20_linux_helloworld_module/</guid>
       <description>Source Code  #include &amp;lt;linux/module.h&amp;gt; #include &amp;lt;linux/init.h&amp;gt; #include &amp;lt;linux/kernel.h&amp;gt; #include &amp;lt;linux/sched.h&amp;gt; static __init int hwm_init(void) { /* do_this() */ /* do_that() */ /* do_something_else() */ printk(KERN_INFO &amp;quot;hwm module being loaded\n&amp;quot;); return 0; } static __exit void hwm_exit(void) { /* undo_something_else() */ /* undo_that() */ /* undo_this() */ printk(KERN_INFO &amp;quot;hwm module being unloaded\n&amp;quot;); } module_init(hwm_init); module_exit(hwm_exit); MODULE_AUTHOR(&amp;quot;davei&amp;quot;); MODULE_LICENSE(&amp;quot;GPL&amp;quot;); MODULE_DESCRIPTION(&amp;quot;Hello World Module&amp;quot;); MODULE_INFO(flavor, &amp;quot;Linux&amp;quot;);   Makefile  obj-m := hwm.o ifeq ($(KERNELRELEASE),) KERNELDIR ?</description>
     </item>
     
     <item>
       <title>哀秦</title>
-      <link>http://daveixiang.github.io/articles/2016_04_19_ai_qin/</link>
+      <link>https://daveixiang.github.io/articles/2016_04_19_ai_qin/</link>
       <pubDate>Tue, 19 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2016_04_19_ai_qin/</guid>
+      <guid>https://daveixiang.github.io/articles/2016_04_19_ai_qin/</guid>
       <description>哀秦 項籍 崤函雖在險勢非 秦風已去土俑殘 苦菜烈酒未得嘗 遊魂遍野向西山  </description>
     </item>
     
     <item>
       <title>Reloading tmux config</title>
-      <link>http://daveixiang.github.io/articles/2016_04_10_reloading_tmux_config/</link>
+      <link>https://daveixiang.github.io/articles/2016_04_10_reloading_tmux_config/</link>
       <pubDate>Sun, 10 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2016_04_10_reloading_tmux_config/</guid>
+      <guid>https://daveixiang.github.io/articles/2016_04_10_reloading_tmux_config/</guid>
       <description>If you have made changes to your tmux configuration file in the ~/.tmux.conf file, it shouldn’t be necessary to start the server up again from scratch with kill-server. Instead, you can prompt the current tmux session to reload the configuration with the source-file command.
  Method 1  This can be done either from within tmux, by pressing Ctrl+B and then : to bring up a command prompt, and typing:</description>
     </item>
     
     <item>
       <title>醉問魏武</title>
-      <link>http://daveixiang.github.io/articles/2016_04_06_zui_wen_wei_wu/</link>
+      <link>https://daveixiang.github.io/articles/2016_04_06_zui_wen_wei_wu/</link>
       <pubDate>Wed, 06 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2016_04_06_zui_wen_wei_wu/</guid>
+      <guid>https://daveixiang.github.io/articles/2016_04_06_zui_wen_wei_wu/</guid>
       <description>醉問魏武 項籍
 欲問魏武杜康勁 試探周郎小兒心 赤壁紅海疾風嘯 奉孝若在乾坤逆</description>
     </item>
     
     <item>
       <title>Linux shared libraries</title>
-      <link>http://daveixiang.github.io/articles/2016_04_02_linux_shared_libraries/</link>
+      <link>https://daveixiang.github.io/articles/2016_04_02_linux_shared_libraries/</link>
       <pubDate>Sat, 02 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2016_04_02_linux_shared_libraries/</guid>
+      <guid>https://daveixiang.github.io/articles/2016_04_02_linux_shared_libraries/</guid>
       <description>Shared libraries are collections of code that can be shared by programs. Unlike static (aka archive) libraries, they&amp;rsquo;re not part of the compiled program - they&amp;rsquo;re loaded in at the start of run-time if they&amp;rsquo;re not already being used. You don&amp;rsquo;t need to worry about them unless you&amp;rsquo;re a system manager or applications writer.
 Every shared library has &amp;hellip; soname libname.so.version_number - the version number is incremented whenever the interface changes.</description>
     </item>
     
     <item>
       <title>明心</title>
-      <link>http://daveixiang.github.io/articles/2016_03_29_ming_xin/</link>
+      <link>https://daveixiang.github.io/articles/2016_03_29_ming_xin/</link>
       <pubDate>Tue, 29 Mar 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2016_03_29_ming_xin/</guid>
+      <guid>https://daveixiang.github.io/articles/2016_03_29_ming_xin/</guid>
       <description>明心 項籍 只知今世樂 不覺來世苦 緣分莫可求 唯因心智虛  </description>
     </item>
     
     <item>
       <title>望月</title>
-      <link>http://daveixiang.github.io/articles/2016_03_28_wang_yue/</link>
+      <link>https://daveixiang.github.io/articles/2016_03_28_wang_yue/</link>
       <pubDate>Mon, 28 Mar 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2016_03_28_wang_yue/</guid>
+      <guid>https://daveixiang.github.io/articles/2016_03_28_wang_yue/</guid>
       <description>望月 項籍 玉盤依樹梢 蟲鳴繞田間 日後他鄉處 此情與誰念  </description>
     </item>
     

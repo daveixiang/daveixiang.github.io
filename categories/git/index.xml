@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Git on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>http://daveixiang.github.io/categories/git/</link>
+    <link>https://daveixiang.github.io/categories/git/</link>
     <description>Recent content in Git on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 06 Mar 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://daveixiang.github.io/categories/git/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://daveixiang.github.io/categories/git/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Clone git repository only some directories</title>
-      <link>http://daveixiang.github.io/articles/2017_03_06_clone_git_repository_only_some_directories/</link>
+      <link>https://daveixiang.github.io/articles/2017_03_06_clone_git_repository_only_some_directories/</link>
       <pubDate>Mon, 06 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://daveixiang.github.io/articles/2017_03_06_clone_git_repository_only_some_directories/</guid>
+      <guid>https://daveixiang.github.io/articles/2017_03_06_clone_git_repository_only_some_directories/</guid>
       <description> First, do:  git clone --depth 1 [repo-root] [local_dir]   Then:  cd [local_dir]   And lastly:  git filter-branch --prune-empty --subdirectory-filter [repo-subdir] HEAD  </description>
     </item>
     
