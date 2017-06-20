@@ -2,40 +2,40 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tips on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>https://daveixiang.github.io/tags/tips/</link>
+    <link>http://daveixiang.github.io/tags/tips/</link>
     <description>Recent content in Tips on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
+    <language>en-us</language>
     <lastBuildDate>Tue, 20 Jun 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://daveixiang.github.io/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://daveixiang.github.io/tags/tips/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Some useful OVS commands</title>
-      <link>https://daveixiang.github.io/articles/2017_06_20_some_useful_ovs_commands/</link>
+      <link>http://daveixiang.github.io/articles/2017_06_20_some_useful_ovs_commands/</link>
       <pubDate>Tue, 20 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_06_20_some_useful_ovs_commands/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_06_20_some_useful_ovs_commands/</guid>
       <description>   OpenvSwitch Action     ovs-appctl fdb/show {bridge} Show MAC address table   ovs-appctl fdb/flush {bridge} Clear MAC address table   ovs-ofctl dump-ports-desc {bridge} Show port numbers   ovs-vsctl show Show OVS configuration   ovs-ofctl dump-flows {bridge} Show packet forwarding rules   ovsdb-tool show-log -m View command history   ovs-appctl ofproto/trace {bridge} in_port={ofport} Simulate packet flow    </description>
     </item>
     
     <item>
       <title>Format ovs-ofctl dump-flows output</title>
-      <link>https://daveixiang.github.io/articles/2017_06_06_format_ovs_ofctl_dump_flows_output/</link>
+      <link>http://daveixiang.github.io/articles/2017_06_06_format_ovs_ofctl_dump_flows_output/</link>
       <pubDate>Tue, 06 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_06_06_format_ovs_ofctl_dump_flows_output/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_06_06_format_ovs_ofctl_dump_flows_output/</guid>
       <description>Get the openflows of br-int  ovs-ofctl dump-flows br-int | \ sed -E -e &#39;1d&#39; \ -e &#39;s/(hard_age|idle_age)=[0-9]*?, //g&#39; \ -e &#39;s/ actions/, actions/g&#39; \ -e &#39;s/, /\t/g&#39; | \ awk &#39;{print $3&amp;quot;\t&amp;quot;$6&amp;quot;\t&amp;quot;$7}&#39; | sort -k1,1 -k2,2rV | column -t  and the output is:
 table=0 priority=10,icmp6,in_port=10,icmp_type=136 actions=resubmit(,24) table=0 priority=10,icmp6,in_port=2,icmp_type=136 actions=resubmit(,24) table=0 priority=10,arp,in_port=10 actions=resubmit(,24) table=0 priority=10,arp,in_port=2 actions=resubmit(,24) table=0 priority=9,in_port=10 actions=resubmit(,25) table=0 priority=9,in_port=2 actions=resubmit(,25) table=0 priority=4,in_port=21,dl_src=fa:16:3f:94:12:48 actions=resubmit(,2) table=0 priority=4,in_port=21,dl_src=fa:16:3f:75:2c:e8 actions=resubmit(,2) table=0 priority=4,in_port=1,dl_src=fa:16:3f:94:12:48 actions=resubmit(,2) table=0 priority=4,in_port=1,dl_src=fa:16:3f:75:2c:e8 actions=resubmit(,2) table=0 priority=3,in_port=1,dl_vlan=1075 actions=mod_vlan_vid:1,NORMAL table=0 priority=3,in_port=1,dl_vlan=1022 actions=mod_vlan_vid:5,NORMAL table=0 priority=2,in_port=21 actions=drop table=0 priority=2,in_port=1 actions=drop table=0 priority=1 actions=NORMAL table=0 priority=0 actions=NORMAL table=1 priority=1 actions=drop table=2 priority=4,dl_vlan=1075,dl_dst=fa:16:3e:c3:3d:00 actions=strip_vlan,mod_dl_src:fa:16:3e:f7:8a:d4,output:2 table=2 priority=4,dl_vlan=1022,dl_dst=fa:16:3e:2f:0a:ff actions=strip_vlan,mod_dl_src:fa:16:3e:a3:75:2a,output:10 table=2 priority=1 actions=drop table=23 priority=0 actions=drop table=24 priority=2,icmp6,in_port=10,icmp_type=136,nd_target=fe80::f816:3eff:fe2f:aff actions=NORMAL table=24 priority=2,icmp6,in_port=2,icmp_type=136,nd_target=fe80::f816:3eff:fec3:3d00 actions=NORMAL table=24 priority=2,arp,in_port=10,arp_spa=10.</description>
     </item>
     
     <item>
       <title>Clang print self</title>
-      <link>https://daveixiang.github.io/articles/2017_06_05_clang_print_self/</link>
+      <link>http://daveixiang.github.io/articles/2017_06_05_clang_print_self/</link>
       <pubDate>Mon, 05 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_06_05_clang_print_self/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_06_05_clang_print_self/</guid>
       <description>print-self.c  #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; extern char * _binary_print_self_c_start; int main() { printf(&amp;quot;%s&amp;quot;, (char *)&amp;amp;_binary_print_self_c_start); }  and generate print-self.bin
 objcopy -I binary -O elf64-x86-64 -B i386:x86-64 print-self.c print-self.bin   print-self.bin  readelf --sym print-self.bin  and the symbols is like:
 Symbol table &#39;.symtab&#39; contains 5 entries: Num: Value Size Type Bind Vis Ndx Name 0: 0000000000000000 0 NOTYPE LOCAL DEFAULT UND 1: 0000000000000000 0 SECTION LOCAL DEFAULT 1 2: 0000000000000000 0 NOTYPE GLOBAL DEFAULT 1 _binary_print_self_c_star 3: 000000000000009b 0 NOTYPE GLOBAL DEFAULT 1 _binary_print_self_c_end 4: 000000000000009b 0 NOTYPE GLOBAL DEFAULT ABS _binary_print_self_c_size   print-self  gcc -o print-self print-self.</description>
@@ -43,83 +43,83 @@ Symbol table &#39;.symtab&#39; contains 5 entries: Num: Value Size Type Bind Vis
     
     <item>
       <title>LSI MegaRaid Monitor Linux</title>
-      <link>https://daveixiang.github.io/articles/2017_06_02_lsi_megaraid_monitor_linux/</link>
+      <link>http://daveixiang.github.io/articles/2017_06_02_lsi_megaraid_monitor_linux/</link>
       <pubDate>Fri, 02 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_06_02_lsi_megaraid_monitor_linux/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_06_02_lsi_megaraid_monitor_linux/</guid>
       <description> Installl MegaCLI tools  unzip 8.07.10_MegaCLI_Linux.zip cd 8.07.10_MegaCLI_Linux rpm2cpio MegaCli-8.07.10-1.noarch.rpm | cpio -idmv cd opt &amp;amp;&amp;amp; mv MegaRAID /opt /opt/MegaRAID/MegaCli/MegaCli64 -AdpAllInfo -aALL   Command reference  MegaCli64 -adpCount MegaCli64 -AdpGetTime –aALL MegaCli64 -AdpAllInfo -aAll MegaCli64 -LDInfo -LALL -aAll MegaCli64 -PDList -aAll MegaCli64 -AdpBbuCmd -GetBbuStatus -aALL MegaCli64 -AdpBbuCmd -GetBbuCapacityInfo -aALL MegaCli64 -AdpBbuCmd -GetBbuDesignInfo -aALL MegaCli64 -AdpBbuCmd -GetBbuProperties -aALL MegaCli64 -cfgdsply -aALL  </description>
     </item>
     
     <item>
       <title>OpenStack RESTful API example(Mitaka)</title>
-      <link>https://daveixiang.github.io/articles/2017_05_30_openstack_restful_api_example_mitaka/</link>
+      <link>http://daveixiang.github.io/articles/2017_05_30_openstack_restful_api_example_mitaka/</link>
       <pubDate>Tue, 30 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_05_30_openstack_restful_api_example_mitaka/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_05_30_openstack_restful_api_example_mitaka/</guid>
       <description> token-request.json file { &amp;quot;auth&amp;quot;: { &amp;quot;identity&amp;quot;: { &amp;quot;methods&amp;quot;: [ &amp;quot;password&amp;quot; ], &amp;quot;password&amp;quot;: { &amp;quot;user&amp;quot;: { &amp;quot;domain&amp;quot;: { &amp;quot;name&amp;quot;: &amp;quot;Default&amp;quot; }, &amp;quot;name&amp;quot;: &amp;quot;admin&amp;quot;, &amp;quot;password&amp;quot;: &amp;quot;openstack&amp;quot; } } }, &amp;quot;scope&amp;quot;: { &amp;quot;project&amp;quot;: { &amp;quot;domain&amp;quot;: { &amp;quot;name&amp;quot;: &amp;quot;Default&amp;quot; }, &amp;quot;name&amp;quot;: &amp;quot;admin&amp;quot; } } } }  get the token export TOKEN=`curl -si -d @token-request.json -H &amp;quot;Content-type: application/json&amp;quot; \ http://localhost:35357/v3/auth/tokens | awk &#39;/X-Subject-Token/ {print $2}&#39;`  </description>
     </item>
     
     <item>
       <title>go tool: no such tool &#39;6g&#39;</title>
-      <link>https://daveixiang.github.io/articles/2017_04_07_go_tool_no_such_tool_6g/</link>
+      <link>http://daveixiang.github.io/articles/2017_04_07_go_tool_no_such_tool_6g/</link>
       <pubDate>Fri, 07 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_04_07_go_tool_no_such_tool_6g/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_04_07_go_tool_no_such_tool_6g/</guid>
       <description> Problem  davei@davei:/tmp&amp;gt; go tool 6g test.go go tool: no such tool &amp;quot;6g&amp;quot;   Solution  6g were renamed to &amp;quot;compile&amp;quot; since Go 1.5. So use &amp;quot;compile&amp;quot; instead.  </description>
     </item>
     
     <item>
       <title>go tool: no such tool &#39;6l&#39;</title>
-      <link>https://daveixiang.github.io/articles/2017_04_07_go_tool_no_such_tool_6l/</link>
+      <link>http://daveixiang.github.io/articles/2017_04_07_go_tool_no_such_tool_6l/</link>
       <pubDate>Fri, 07 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_04_07_go_tool_no_such_tool_6l/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_04_07_go_tool_no_such_tool_6l/</guid>
       <description> Problem  davei@davei:/tmp&amp;gt; go tool 6l test.o go tool: no such tool &amp;quot;6l&amp;quot;   Solution  6l and friends were renamed to &amp;quot;link&amp;quot; since Go 1.5. So use &amp;quot;link&amp;quot; instead.  </description>
     </item>
     
     <item>
       <title>Add OpenSuse Leap 42.2 repos</title>
-      <link>https://daveixiang.github.io/articles/2017_03_31_opensuse_add_repos/</link>
+      <link>http://daveixiang.github.io/articles/2017_03_31_opensuse_add_repos/</link>
       <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_03_31_opensuse_add_repos/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_03_31_opensuse_add_repos/</guid>
       <description> Remove previous repos  zypper repos | grep Yes | cut -f3 -d &#39;|&#39; | sed -e &amp;quot;s/ //&amp;quot; | awk &#39;{print &amp;quot;zypper rr &amp;quot; $1}&#39; | bash   Add the repos and refresh  zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/oss/ openSUSE-leap-42.2-Oss zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/non-oss/ openSUSE-leap-42.2-Non-Oss zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/oss openSUSE-leap-42.2-Update-Oss zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/non-oss/ openSUSE-leap-42.2-Update-Non-Oss zypper refresh  </description>
     </item>
     
     <item>
       <title>Notation meaning in top out</title>
-      <link>https://daveixiang.github.io/articles/2017_03_30_notation_meaning_in_top_out/</link>
+      <link>http://daveixiang.github.io/articles/2017_03_30_notation_meaning_in_top_out/</link>
       <pubDate>Thu, 30 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_03_30_notation_meaning_in_top_out/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_03_30_notation_meaning_in_top_out/</guid>
       <description>PID — Process Id  The task’s unique process ID, which periodically wraps, though never restarting at zero.   PPID — Parent Process Pid  The process ID of a task’s parent.   RUSER — Real User Name  The real user name of the task’s owner.   UID — User Id  The effective user ID of the task’s owner.   USER — User Name  The effective user name of the task’s owner.</description>
     </item>
     
     <item>
       <title>Clone git repository only some directories</title>
-      <link>https://daveixiang.github.io/articles/2017_03_06_clone_git_repository_only_some_directories/</link>
+      <link>http://daveixiang.github.io/articles/2017_03_06_clone_git_repository_only_some_directories/</link>
       <pubDate>Mon, 06 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_03_06_clone_git_repository_only_some_directories/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_03_06_clone_git_repository_only_some_directories/</guid>
       <description> First, do:  git clone --depth 1 [repo-root] [local_dir]   Then:  cd [local_dir]   And lastly:  git filter-branch --prune-empty --subdirectory-filter [repo-subdir] HEAD  </description>
     </item>
     
     <item>
       <title>Nested KVM</title>
-      <link>https://daveixiang.github.io/articles/2016_09_03_nested_kvm/</link>
+      <link>http://daveixiang.github.io/articles/2016_09_03_nested_kvm/</link>
       <pubDate>Sat, 03 Sep 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2016_09_03_nested_kvm/</guid>
+      <guid>http://daveixiang.github.io/articles/2016_09_03_nested_kvm/</guid>
       <description> Enable the setting for Nested KVM  cat &amp;lt;&amp;lt;EOF &amp;gt; /etc/modprobe.d/kvm-nested.conf options kvm_intel nested=1 EOF modprobe -r kvm_intel modprobe kvm_intel cat /sys/module/kvm_intel/parameters/nested   Edit the configuration of a virtual machine you&amp;rsquo;d want to set nested  virsh edit {DOMAIN_NAME}  and add the following setting to the vm configuration:
 &amp;lt;cpu mode=&#39;host-passthrough&#39;&amp;gt; &amp;lt;/cpu&amp;gt;  </description>
     </item>
     
     <item>
       <title>Reloading tmux config</title>
-      <link>https://daveixiang.github.io/articles/2016_04_10_reloading_tmux_config/</link>
+      <link>http://daveixiang.github.io/articles/2016_04_10_reloading_tmux_config/</link>
       <pubDate>Sun, 10 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2016_04_10_reloading_tmux_config/</guid>
+      <guid>http://daveixiang.github.io/articles/2016_04_10_reloading_tmux_config/</guid>
       <description>If you have made changes to your tmux configuration file in the ~/.tmux.conf file, it shouldn’t be necessary to start the server up again from scratch with kill-server. Instead, you can prompt the current tmux session to reload the configuration with the source-file command.
  Method 1  This can be done either from within tmux, by pressing Ctrl+B and then : to bring up a command prompt, and typing:</description>
     </item>

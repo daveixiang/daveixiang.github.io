@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Keepalived on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>https://daveixiang.github.io/tags/keepalived/</link>
+    <link>http://daveixiang.github.io/tags/keepalived/</link>
     <description>Recent content in Keepalived on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
+    <language>en-us</language>
     <lastBuildDate>Sat, 27 May 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://daveixiang.github.io/tags/keepalived/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://daveixiang.github.io/tags/keepalived/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Linux: How to bind IP that doesn&#39;t exist</title>
-      <link>https://daveixiang.github.io/articles/2017_05_27_linux_how_to_bind_ip_that_does_not_exist/</link>
+      <link>http://daveixiang.github.io/articles/2017_05_27_linux_how_to_bind_ip_that_does_not_exist/</link>
       <pubDate>Sat, 27 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_05_27_linux_how_to_bind_ip_that_does_not_exist/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_05_27_linux_how_to_bind_ip_that_does_not_exist/</guid>
       <description>This tip is really usefull if you use virtual ips.
 Imagine you are using keepalived + haproxy on your loadbalancers in active/active mode.
 You have 2 virtual IPs one is on the first load balancer and the other is on the second.

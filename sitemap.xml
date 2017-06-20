@@ -3,680 +3,680 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_06_20_some_useful_ovs_commands/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_06_20_some_useful_ovs_commands/</loc>
     <lastmod>2017-06-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_06_16_gentoo_install_openvswitch/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_06_16_gentoo_install_openvswitch/</loc>
     <lastmod>2017-06-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_06_06_format_ovs_ofctl_dump_flows_output/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_06_06_format_ovs_ofctl_dump_flows_output/</loc>
     <lastmod>2017-06-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_06_05_clang_print_self/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_06_05_clang_print_self/</loc>
     <lastmod>2017-06-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_06_02_lsi_megaraid_monitor_linux/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_06_02_lsi_megaraid_monitor_linux/</loc>
     <lastmod>2017-06-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_05_30_openstack_restful_api_example_mitaka/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_05_30_openstack_restful_api_example_mitaka/</loc>
     <lastmod>2017-05-30T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_05_27_linux_how_to_bind_ip_that_does_not_exist/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_05_27_linux_how_to_bind_ip_that_does_not_exist/</loc>
     <lastmod>2017-05-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_05_10_sheepdog_add_pthread_name/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_05_10_sheepdog_add_pthread_name/</loc>
     <lastmod>2017-05-10T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_05_03_ceph_monmap_change_or_rebuild/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_05_03_ceph_monmap_change_or_rebuild/</loc>
     <lastmod>2017-05-03T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_05_02_ceph_warn_too_few_pgs_per_osd/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_05_02_ceph_warn_too_few_pgs_per_osd/</loc>
     <lastmod>2017-05-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_04_29_sata_on_qemu/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_04_29_sata_on_qemu/</loc>
     <lastmod>2017-04-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_04_25_linux_pci_device_driver_using_mmio_demo/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_04_25_linux_pci_device_driver_using_mmio_demo/</loc>
     <lastmod>2017-04-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_04_25_qemu_pci_device_demo/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_04_25_qemu_pci_device_demo/</loc>
     <lastmod>2017-04-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_04_11_emacs_gdb_gui_customize_default_layout/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_04_11_emacs_gdb_gui_customize_default_layout/</loc>
     <lastmod>2017-04-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_04_07_go_tool_no_such_tool_6g/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_04_07_go_tool_no_such_tool_6g/</loc>
     <lastmod>2017-04-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_04_07_go_tool_no_such_tool_6l/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_04_07_go_tool_no_such_tool_6l/</loc>
     <lastmod>2017-04-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_04_06_configure_opensuse_leap_openvswitch_bridge_autostart_on_boot/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_04_06_configure_opensuse_leap_openvswitch_bridge_autostart_on_boot/</loc>
     <lastmod>2017-04-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows/</loc>
     <lastmod>2017-04-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_04_01_build_cross_gcc_toolchain_x86_64/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_04_01_build_cross_gcc_toolchain_x86_64/</loc>
     <lastmod>2017-04-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</loc>
     <lastmod>2017-04-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_03_31_opensuse_add_repos/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_03_31_opensuse_add_repos/</loc>
     <lastmod>2017-03-31T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_03_31_gcc_glibc_core_runtime_files/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_03_31_gcc_glibc_core_runtime_files/</loc>
     <lastmod>2017-03-31T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_03_31_netlink_hello_world_example/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_03_31_netlink_hello_world_example/</loc>
     <lastmod>2017-03-31T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_03_30_notation_meaning_in_top_out/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_03_30_notation_meaning_in_top_out/</loc>
     <lastmod>2017-03-30T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_03_23_configure_libvirt_with_openvswitch_bridge/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_03_23_configure_libvirt_with_openvswitch_bridge/</loc>
     <lastmod>2017-03-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</loc>
     <lastmod>2017-03-22T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_03_21_openstack_from_source_code_mitaka_02_glance/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_03_21_openstack_from_source_code_mitaka_02_glance/</loc>
     <lastmod>2017-03-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/xin/</loc>
+    <loc>http://daveixiang.github.io/xin/</loc>
     <lastmod>2017-03-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_03_13_compile_influxdb_0.11.1_from_source_code/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_03_13_compile_influxdb_0.11.1_from_source_code/</loc>
     <lastmod>2017-03-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_03_06_clone_git_repository_only_some_directories/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_03_06_clone_git_repository_only_some_directories/</loc>
     <lastmod>2017-03-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</loc>
     <lastmod>2017-03-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</loc>
     <lastmod>2017-03-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_02_28_multiple_ways_to_access_qmp/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_02_28_multiple_ways_to_access_qmp/</loc>
     <lastmod>2017-02-28T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_02_25_build_cross_gcc_toolchain_arm64/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_02_25_build_cross_gcc_toolchain_arm64/</loc>
     <lastmod>2017-02-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_02_25_build_minimal_linux_hack_env_with_busybox_arm64/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_02_25_build_minimal_linux_hack_env_with_busybox_arm64/</loc>
     <lastmod>2017-02-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</loc>
     <lastmod>2017-02-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_02_25_using_openvswitch_to_build_minimal_linux_networking_hack_env/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_02_25_using_openvswitch_to_build_minimal_linux_networking_hack_env/</loc>
     <lastmod>2017-02-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_02_17_gcc_inline_assembly_hello_world_example/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_02_17_gcc_inline_assembly_hello_world_example/</loc>
     <lastmod>2017-02-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_02_08_kvm_oom_case/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_02_08_kvm_oom_case/</loc>
     <lastmod>2017-02-08T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_02_02_system_v_calling_conversions/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_02_02_system_v_calling_conversions/</loc>
     <lastmod>2017-02-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_02_02_what_is_a_system_call_linux/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_02_02_what_is_a_system_call_linux/</loc>
     <lastmod>2017-02-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_02_02_caller_vs_callee/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_02_02_caller_vs_callee/</loc>
     <lastmod>2017-02-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_01_31_ascii_code_table/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_01_31_ascii_code_table/</loc>
     <lastmod>2017-01-31T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_01_16_compile_static_docker_without_docker_in_docker/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_01_16_compile_static_docker_without_docker_in_docker/</loc>
     <lastmod>2017-01-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_01_14_compile_openvswitch_2_5_x_lts_from_source_code/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_01_14_compile_openvswitch_2_5_x_lts_from_source_code/</loc>
     <lastmod>2017-01-14T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_01_22_compile_golang_from_source_code/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_01_22_compile_golang_from_source_code/</loc>
     <lastmod>2017-01-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_01_12_compile_static_nginx/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_01_12_compile_static_nginx/</loc>
     <lastmod>2017-01-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2017_01_01_xiu_xin_shi_de/</loc>
+    <loc>http://daveixiang.github.io/articles/2017_01_01_xiu_xin_shi_de/</loc>
     <lastmod>2017-01-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2016_09_07_c_cpp_link_order/</loc>
+    <loc>http://daveixiang.github.io/articles/2016_09_07_c_cpp_link_order/</loc>
     <lastmod>2016-09-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2016_09_03_nested_kvm/</loc>
+    <loc>http://daveixiang.github.io/articles/2016_09_03_nested_kvm/</loc>
     <lastmod>2016-09-03T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2016_07_11_managing_tuntap_virtual_interfaces/</loc>
+    <loc>http://daveixiang.github.io/articles/2016_07_11_managing_tuntap_virtual_interfaces/</loc>
     <lastmod>2016-07-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2016_05_06_lin_bie_zeng_you/</loc>
+    <loc>http://daveixiang.github.io/articles/2016_05_06_lin_bie_zeng_you/</loc>
     <lastmod>2016-05-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2016_05_03_symbol_versions_and_dependencies/</loc>
+    <loc>http://daveixiang.github.io/articles/2016_05_03_symbol_versions_and_dependencies/</loc>
     <lastmod>2016-05-03T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2016_05_02_yang_yu_en/</loc>
+    <loc>http://daveixiang.github.io/articles/2016_05_02_yang_yu_en/</loc>
     <lastmod>2016-05-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2016_04_27_c_declaration_right_left_rule/</loc>
+    <loc>http://daveixiang.github.io/articles/2016_04_27_c_declaration_right_left_rule/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2016_04_25_zhan_gui/</loc>
+    <loc>http://daveixiang.github.io/articles/2016_04_25_zhan_gui/</loc>
     <lastmod>2016-04-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2016_04_21_add_module_to_the_linux_kernel_source/</loc>
+    <loc>http://daveixiang.github.io/articles/2016_04_21_add_module_to_the_linux_kernel_source/</loc>
     <lastmod>2016-04-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2016_04_20_linux_helloworld_module/</loc>
+    <loc>http://daveixiang.github.io/articles/2016_04_20_linux_helloworld_module/</loc>
     <lastmod>2016-04-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2016_04_19_ai_qin/</loc>
+    <loc>http://daveixiang.github.io/articles/2016_04_19_ai_qin/</loc>
     <lastmod>2016-04-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2016_04_10_reloading_tmux_config/</loc>
+    <loc>http://daveixiang.github.io/articles/2016_04_10_reloading_tmux_config/</loc>
     <lastmod>2016-04-10T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2016_04_06_zui_wen_wei_wu/</loc>
+    <loc>http://daveixiang.github.io/articles/2016_04_06_zui_wen_wei_wu/</loc>
     <lastmod>2016-04-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2016_04_02_linux_shared_libraries/</loc>
+    <loc>http://daveixiang.github.io/articles/2016_04_02_linux_shared_libraries/</loc>
     <lastmod>2016-04-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2016_03_29_ming_xin/</loc>
+    <loc>http://daveixiang.github.io/articles/2016_03_29_ming_xin/</loc>
     <lastmod>2016-03-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/2016_03_28_wang_yue/</loc>
+    <loc>http://daveixiang.github.io/articles/2016_03_28_wang_yue/</loc>
     <lastmod>2016-03-28T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/articles/</loc>
+    <loc>http://daveixiang.github.io/articles/</loc>
     <lastmod>2017-06-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/asm/</loc>
+    <loc>http://daveixiang.github.io/tags/asm/</loc>
     <lastmod>2017-02-17T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/busybox/</loc>
+    <loc>http://daveixiang.github.io/tags/busybox/</loc>
     <lastmod>2017-04-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/categories/</loc>
+    <loc>http://daveixiang.github.io/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/centos/</loc>
+    <loc>http://daveixiang.github.io/tags/centos/</loc>
     <lastmod>2017-03-21T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/ceph/</loc>
+    <loc>http://daveixiang.github.io/tags/ceph/</loc>
     <lastmod>2017-05-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/categories/ceph/</loc>
+    <loc>http://daveixiang.github.io/categories/ceph/</loc>
     <lastmod>2017-05-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/clan/</loc>
+    <loc>http://daveixiang.github.io/tags/clan/</loc>
     <lastmod>2017-06-05T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/categories/clan/</loc>
+    <loc>http://daveixiang.github.io/categories/clan/</loc>
     <lastmod>2017-06-05T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/categories/database/</loc>
+    <loc>http://daveixiang.github.io/categories/database/</loc>
     <lastmod>2017-03-13T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/docker/</loc>
+    <loc>http://daveixiang.github.io/tags/docker/</loc>
     <lastmod>2017-01-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/emacs/</loc>
+    <loc>http://daveixiang.github.io/tags/emacs/</loc>
     <lastmod>2017-04-11T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/categories/emacs/</loc>
+    <loc>http://daveixiang.github.io/categories/emacs/</loc>
     <lastmod>2017-04-11T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/filesystem/</loc>
+    <loc>http://daveixiang.github.io/tags/filesystem/</loc>
     <lastmod>2017-03-22T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/gcc/</loc>
+    <loc>http://daveixiang.github.io/tags/gcc/</loc>
     <lastmod>2017-04-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/gdb/</loc>
+    <loc>http://daveixiang.github.io/tags/gdb/</loc>
     <lastmod>2017-04-11T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/gentoo/</loc>
+    <loc>http://daveixiang.github.io/tags/gentoo/</loc>
     <lastmod>2017-06-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/git/</loc>
+    <loc>http://daveixiang.github.io/tags/git/</loc>
     <lastmod>2017-03-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/categories/git/</loc>
+    <loc>http://daveixiang.github.io/categories/git/</loc>
     <lastmod>2017-03-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/golang/</loc>
+    <loc>http://daveixiang.github.io/tags/golang/</loc>
     <lastmod>2017-04-07T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/categories/golang/</loc>
+    <loc>http://daveixiang.github.io/categories/golang/</loc>
     <lastmod>2017-04-07T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/haproxy/</loc>
+    <loc>http://daveixiang.github.io/tags/haproxy/</loc>
     <lastmod>2017-05-27T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/keepalived/</loc>
+    <loc>http://daveixiang.github.io/tags/keepalived/</loc>
     <lastmod>2017-05-27T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/kernel/</loc>
+    <loc>http://daveixiang.github.io/tags/kernel/</loc>
     <lastmod>2017-04-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/categories/kernel/</loc>
+    <loc>http://daveixiang.github.io/categories/kernel/</loc>
     <lastmod>2017-03-31T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/kvm/</loc>
+    <loc>http://daveixiang.github.io/tags/kvm/</loc>
     <lastmod>2017-02-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/libvirt/</loc>
+    <loc>http://daveixiang.github.io/tags/libvirt/</loc>
     <lastmod>2017-03-23T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/categories/libvirt/</loc>
+    <loc>http://daveixiang.github.io/categories/libvirt/</loc>
     <lastmod>2017-03-23T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/categories/life/</loc>
+    <loc>http://daveixiang.github.io/categories/life/</loc>
     <lastmod>2017-01-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/linker/</loc>
+    <loc>http://daveixiang.github.io/tags/linker/</loc>
     <lastmod>2016-09-07T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/linux/</loc>
+    <loc>http://daveixiang.github.io/tags/linux/</loc>
     <lastmod>2017-06-02T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/categories/linux/</loc>
+    <loc>http://daveixiang.github.io/categories/linux/</loc>
     <lastmod>2017-06-02T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/megaraid/</loc>
+    <loc>http://daveixiang.github.io/tags/megaraid/</loc>
     <lastmod>2017-06-02T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/mitaka/</loc>
+    <loc>http://daveixiang.github.io/tags/mitaka/</loc>
     <lastmod>2017-05-30T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/network/</loc>
+    <loc>http://daveixiang.github.io/tags/network/</loc>
     <lastmod>2017-02-25T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/nginx/</loc>
+    <loc>http://daveixiang.github.io/tags/nginx/</loc>
     <lastmod>2017-01-12T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/categories/nginx/</loc>
+    <loc>http://daveixiang.github.io/categories/nginx/</loc>
     <lastmod>2017-01-12T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/oom/</loc>
+    <loc>http://daveixiang.github.io/tags/oom/</loc>
     <lastmod>2017-02-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/openstack/</loc>
+    <loc>http://daveixiang.github.io/tags/openstack/</loc>
     <lastmod>2017-05-30T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/categories/openstack/</loc>
+    <loc>http://daveixiang.github.io/categories/openstack/</loc>
     <lastmod>2017-05-30T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/opensuse/</loc>
+    <loc>http://daveixiang.github.io/tags/opensuse/</loc>
     <lastmod>2017-04-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/openvswitch/</loc>
+    <loc>http://daveixiang.github.io/tags/openvswitch/</loc>
     <lastmod>2017-06-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/categories/openvswitch/</loc>
+    <loc>http://daveixiang.github.io/categories/openvswitch/</loc>
     <lastmod>2017-06-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/qemu/</loc>
+    <loc>http://daveixiang.github.io/tags/qemu/</loc>
     <lastmod>2017-05-10T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/categories/qemu/</loc>
+    <loc>http://daveixiang.github.io/categories/qemu/</loc>
     <lastmod>2017-04-29T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/qemu-ga/</loc>
+    <loc>http://daveixiang.github.io/tags/qemu-ga/</loc>
     <lastmod>2017-04-05T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/qmp/</loc>
+    <loc>http://daveixiang.github.io/tags/qmp/</loc>
     <lastmod>2017-02-28T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/runc/</loc>
+    <loc>http://daveixiang.github.io/tags/runc/</loc>
     <lastmod>2017-01-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/shared-library/</loc>
+    <loc>http://daveixiang.github.io/tags/shared-library/</loc>
     <lastmod>2016-04-02T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/sheepdog/</loc>
+    <loc>http://daveixiang.github.io/tags/sheepdog/</loc>
     <lastmod>2017-05-10T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/categories/sheepdog/</loc>
+    <loc>http://daveixiang.github.io/categories/sheepdog/</loc>
     <lastmod>2017-05-10T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/syscall/</loc>
+    <loc>http://daveixiang.github.io/tags/syscall/</loc>
     <lastmod>2017-02-02T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/</loc>
+    <loc>http://daveixiang.github.io/tags/</loc>
     <lastmod>2017-02-17T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/tips/</loc>
+    <loc>http://daveixiang.github.io/tags/tips/</loc>
     <lastmod>2017-06-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/categories/tips/</loc>
+    <loc>http://daveixiang.github.io/categories/tips/</loc>
     <lastmod>2017-05-27T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/tmux/</loc>
+    <loc>http://daveixiang.github.io/tags/tmux/</loc>
     <lastmod>2016-04-10T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/tsdb/</loc>
+    <loc>http://daveixiang.github.io/tags/tsdb/</loc>
     <lastmod>2017-03-13T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/categories/virtualization/</loc>
+    <loc>http://daveixiang.github.io/categories/virtualization/</loc>
     <lastmod>2017-04-05T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/tags/zypper/</loc>
+    <loc>http://daveixiang.github.io/tags/zypper/</loc>
     <lastmod>2017-03-31T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daveixiang.github.io/</loc>
+    <loc>http://daveixiang.github.io/</loc>
     <lastmod>2017-06-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>

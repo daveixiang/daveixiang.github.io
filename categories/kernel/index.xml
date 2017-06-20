@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Kernel on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>https://daveixiang.github.io/categories/kernel/</link>
+    <link>http://daveixiang.github.io/categories/kernel/</link>
     <description>Recent content in Kernel on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
+    <language>en-us</language>
     <lastBuildDate>Fri, 31 Mar 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://daveixiang.github.io/categories/kernel/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://daveixiang.github.io/categories/kernel/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Netlink hello world example</title>
-      <link>https://daveixiang.github.io/articles/2017_03_31_netlink_hello_world_example/</link>
+      <link>http://daveixiang.github.io/articles/2017_03_31_netlink_hello_world_example/</link>
       <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_03_31_netlink_hello_world_example/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_03_31_netlink_hello_world_example/</guid>
       <description>demo kernel code  hello_nl_kern.c  #include &amp;lt;linux/module.h&amp;gt; #include &amp;lt;net/sock.h&amp;gt; #include &amp;lt;linux/netlink.h&amp;gt; #include &amp;lt;linux/skbuff.h&amp;gt; #define NETLINK_USER 31 struct sock *nl_sk = NULL; static void hello_nl_recv_msg(struct sk_buff *skb) { struct nlmsghdr *nlh; int pid; struct sk_buff *skb_out; int msg_size; char *msg = &amp;quot;Hello from kernel&amp;quot;; int res; printk(KERN_INFO &amp;quot;Entering: %s\n&amp;quot;, __FUNCTION__); msg_size = strlen(msg); nlh = (struct nlmsghdr *)skb-&amp;gt;data; printk(KERN_INFO &amp;quot;Netlink received msg payload: %s\n&amp;quot;,(char*)nlmsg_data(nlh)); pid = nlh-&amp;gt;nlmsg_pid; skb_out = nlmsg_new(msg_size,0); if (!</description>
     </item>
     

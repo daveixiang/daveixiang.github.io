@@ -2,49 +2,49 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Openvswitch on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>https://daveixiang.github.io/tags/openvswitch/</link>
+    <link>http://daveixiang.github.io/tags/openvswitch/</link>
     <description>Recent content in Openvswitch on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
+    <language>en-us</language>
     <lastBuildDate>Tue, 20 Jun 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://daveixiang.github.io/tags/openvswitch/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://daveixiang.github.io/tags/openvswitch/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Some useful OVS commands</title>
-      <link>https://daveixiang.github.io/articles/2017_06_20_some_useful_ovs_commands/</link>
+      <link>http://daveixiang.github.io/articles/2017_06_20_some_useful_ovs_commands/</link>
       <pubDate>Tue, 20 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_06_20_some_useful_ovs_commands/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_06_20_some_useful_ovs_commands/</guid>
       <description>   OpenvSwitch Action     ovs-appctl fdb/show {bridge} Show MAC address table   ovs-appctl fdb/flush {bridge} Clear MAC address table   ovs-ofctl dump-ports-desc {bridge} Show port numbers   ovs-vsctl show Show OVS configuration   ovs-ofctl dump-flows {bridge} Show packet forwarding rules   ovsdb-tool show-log -m View command history   ovs-appctl ofproto/trace {bridge} in_port={ofport} Simulate packet flow    </description>
     </item>
     
     <item>
       <title>Gentoo install openvswitch</title>
-      <link>https://daveixiang.github.io/articles/2017_06_16_gentoo_install_openvswitch/</link>
+      <link>http://daveixiang.github.io/articles/2017_06_16_gentoo_install_openvswitch/</link>
       <pubDate>Fri, 16 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_06_16_gentoo_install_openvswitch/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_06_16_gentoo_install_openvswitch/</guid>
       <description>Install net-misc/openvswitch emerge --ask --quiet-build net-misc/openvswitch  Create openvswitch database file ovsdb-tool create /var/lib/openvswitch/conf.db /usr/share/openvswitch/vswitch.ovsschema  Startup and enable the daemons rc-update add ovsdb-server default /etc/init.d/ovsdb-server start rc-update add ovs-vswitchd default /etc/init.d/ovs-vswitchd start  Setup auto-configure during system boot  configure eth0  cat &amp;gt; /etc/conf.d/net.eth0 &amp;lt;&amp;lt;EOF config_eth0=&amp;quot;null&amp;quot; EOF ln -sf /etc/init.d/net.lo /etc/init.d/net.eth0 rc-update add net.eth0 /etc/init.d/net.eth0 start   configure br0  cat &amp;gt; /etc/conf.d/net.br0 &amp;lt;&amp;lt;EOF config_br0=&amp;quot;10.0.100.73 netmask 255.</description>
     </item>
     
     <item>
       <title>Format ovs-ofctl dump-flows output</title>
-      <link>https://daveixiang.github.io/articles/2017_06_06_format_ovs_ofctl_dump_flows_output/</link>
+      <link>http://daveixiang.github.io/articles/2017_06_06_format_ovs_ofctl_dump_flows_output/</link>
       <pubDate>Tue, 06 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_06_06_format_ovs_ofctl_dump_flows_output/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_06_06_format_ovs_ofctl_dump_flows_output/</guid>
       <description>Get the openflows of br-int  ovs-ofctl dump-flows br-int | \ sed -E -e &#39;1d&#39; \ -e &#39;s/(hard_age|idle_age)=[0-9]*?, //g&#39; \ -e &#39;s/ actions/, actions/g&#39; \ -e &#39;s/, /\t/g&#39; | \ awk &#39;{print $3&amp;quot;\t&amp;quot;$6&amp;quot;\t&amp;quot;$7}&#39; | sort -k1,1 -k2,2rV | column -t  and the output is:
 table=0 priority=10,icmp6,in_port=10,icmp_type=136 actions=resubmit(,24) table=0 priority=10,icmp6,in_port=2,icmp_type=136 actions=resubmit(,24) table=0 priority=10,arp,in_port=10 actions=resubmit(,24) table=0 priority=10,arp,in_port=2 actions=resubmit(,24) table=0 priority=9,in_port=10 actions=resubmit(,25) table=0 priority=9,in_port=2 actions=resubmit(,25) table=0 priority=4,in_port=21,dl_src=fa:16:3f:94:12:48 actions=resubmit(,2) table=0 priority=4,in_port=21,dl_src=fa:16:3f:75:2c:e8 actions=resubmit(,2) table=0 priority=4,in_port=1,dl_src=fa:16:3f:94:12:48 actions=resubmit(,2) table=0 priority=4,in_port=1,dl_src=fa:16:3f:75:2c:e8 actions=resubmit(,2) table=0 priority=3,in_port=1,dl_vlan=1075 actions=mod_vlan_vid:1,NORMAL table=0 priority=3,in_port=1,dl_vlan=1022 actions=mod_vlan_vid:5,NORMAL table=0 priority=2,in_port=21 actions=drop table=0 priority=2,in_port=1 actions=drop table=0 priority=1 actions=NORMAL table=0 priority=0 actions=NORMAL table=1 priority=1 actions=drop table=2 priority=4,dl_vlan=1075,dl_dst=fa:16:3e:c3:3d:00 actions=strip_vlan,mod_dl_src:fa:16:3e:f7:8a:d4,output:2 table=2 priority=4,dl_vlan=1022,dl_dst=fa:16:3e:2f:0a:ff actions=strip_vlan,mod_dl_src:fa:16:3e:a3:75:2a,output:10 table=2 priority=1 actions=drop table=23 priority=0 actions=drop table=24 priority=2,icmp6,in_port=10,icmp_type=136,nd_target=fe80::f816:3eff:fe2f:aff actions=NORMAL table=24 priority=2,icmp6,in_port=2,icmp_type=136,nd_target=fe80::f816:3eff:fec3:3d00 actions=NORMAL table=24 priority=2,arp,in_port=10,arp_spa=10.</description>
     </item>
     
     <item>
       <title>Configure OpenSuse Leap OpenvSwitch bridge autostart on boot</title>
-      <link>https://daveixiang.github.io/articles/2017_04_06_configure_opensuse_leap_openvswitch_bridge_autostart_on_boot/</link>
+      <link>http://daveixiang.github.io/articles/2017_04_06_configure_opensuse_leap_openvswitch_bridge_autostart_on_boot/</link>
       <pubDate>Thu, 06 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_04_06_configure_opensuse_leap_openvswitch_bridge_autostart_on_boot/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_04_06_configure_opensuse_leap_openvswitch_bridge_autostart_on_boot/</guid>
       <description> ifcfg-br0  cat /etc/sysconfig/network/ifcfg-br0  and the output is
 TARTMODE=&#39;auto&#39; BOOTPROTO=&#39;static&#39; OVS_BRIDGE=&#39;yes&#39; OVS_BRIDGE_PORT_DEVICE=&#39;eth0&#39; IPADDR=&#39;xxx.xxx.xxx.xxx/yy&#39; BROADCAST=&#39;&#39; ETHTOOL_OPTIONS=&#39;&#39; MTU=&#39;&#39; NAME=&#39;&#39; NETWORK=&#39;&#39; REMOTE_IPADDR=&#39;&#39; STARTMODE=&#39;auto&#39;   ifcfg-eth0  cat /etc/sysconfig/network/ifcfg-eth0  and the output is
 STARTMODE=&#39;auto&#39; BOOTPROTO=&#39;none&#39;  </description>
@@ -52,37 +52,37 @@ STARTMODE=&#39;auto&#39; BOOTPROTO=&#39;none&#39;  </description>
     
     <item>
       <title>Netlink hello world example</title>
-      <link>https://daveixiang.github.io/articles/2017_03_31_netlink_hello_world_example/</link>
+      <link>http://daveixiang.github.io/articles/2017_03_31_netlink_hello_world_example/</link>
       <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_03_31_netlink_hello_world_example/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_03_31_netlink_hello_world_example/</guid>
       <description>demo kernel code  hello_nl_kern.c  #include &amp;lt;linux/module.h&amp;gt; #include &amp;lt;net/sock.h&amp;gt; #include &amp;lt;linux/netlink.h&amp;gt; #include &amp;lt;linux/skbuff.h&amp;gt; #define NETLINK_USER 31 struct sock *nl_sk = NULL; static void hello_nl_recv_msg(struct sk_buff *skb) { struct nlmsghdr *nlh; int pid; struct sk_buff *skb_out; int msg_size; char *msg = &amp;quot;Hello from kernel&amp;quot;; int res; printk(KERN_INFO &amp;quot;Entering: %s\n&amp;quot;, __FUNCTION__); msg_size = strlen(msg); nlh = (struct nlmsghdr *)skb-&amp;gt;data; printk(KERN_INFO &amp;quot;Netlink received msg payload: %s\n&amp;quot;,(char*)nlmsg_data(nlh)); pid = nlh-&amp;gt;nlmsg_pid; skb_out = nlmsg_new(msg_size,0); if (!</description>
     </item>
     
     <item>
       <title>Configure libvirt with openvswitch bridge</title>
-      <link>https://daveixiang.github.io/articles/2017_03_23_configure_libvirt_with_openvswitch_bridge/</link>
+      <link>http://daveixiang.github.io/articles/2017_03_23_configure_libvirt_with_openvswitch_bridge/</link>
       <pubDate>Thu, 23 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_03_23_configure_libvirt_with_openvswitch_bridge/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_03_23_configure_libvirt_with_openvswitch_bridge/</guid>
       <description> Create OpenvSwitch bridge ovs-vsctl add-br br0  Configure libvirt with br0 just created BRNAME=br0 cat &amp;gt; /tmp/libvirt-net.xml &amp;lt;&amp;lt;EOF &amp;lt;network&amp;gt; &amp;lt;name&amp;gt;${BRNAME}&amp;lt;/name&amp;gt; &amp;lt;forward mode=&#39;bridge&#39;/&amp;gt; &amp;lt;bridge name=&#39;${BRNAME}&#39;/&amp;gt; &amp;lt;virtualport type=&#39;openvswitch&#39;/&amp;gt; &amp;lt;/network&amp;gt; EOF virsh net-define /tmp/libvirt-net.xml virsh net-start $BRNAME virsh net-autostart $BRNAME  </description>
     </item>
     
     <item>
       <title>Using OpenvSwitch to build minimal linux networking hack environment</title>
-      <link>https://daveixiang.github.io/articles/2017_02_25_using_openvswitch_to_build_minimal_linux_networking_hack_env/</link>
+      <link>http://daveixiang.github.io/articles/2017_02_25_using_openvswitch_to_build_minimal_linux_networking_hack_env/</link>
       <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_02_25_using_openvswitch_to_build_minimal_linux_networking_hack_env/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_02_25_using_openvswitch_to_build_minimal_linux_networking_hack_env/</guid>
       <description>Create Openvswitch bridge and two tap devices for vm ip tuntap add name tap1 mode tap ip tuntap add name tap2 mode tap ip link set tap1 up ip link set tap2 up ovs-vsctl add-br br0 ovs-vsctl add-port br0 tap1 ovs-vsctl add-port br0 tap2  Start the two vms and config network configure vm01  start vm01  qemu-system-x86_64 -nographic \ -kernel ./bzImage -initrd ./initramfs \ -append &amp;quot;console=ttyS0 quiet&amp;quot; \ -netdev tap,id=net1,ifname=tap1,script=no,downscript=no \ -device e1000,netdev=net1,mac=&#39;9e:11:24:5c:35:89&#39;   configure vm01 network  ip link set eth0 up ip addr add 192.</description>
     </item>
     
     <item>
       <title>Compile OpenvSwitch 2.5.x LTS from source code</title>
-      <link>https://daveixiang.github.io/articles/2017_01_14_compile_openvswitch_2_5_x_lts_from_source_code/</link>
+      <link>http://daveixiang.github.io/articles/2017_01_14_compile_openvswitch_2_5_x_lts_from_source_code/</link>
       <pubDate>Sat, 14 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_01_14_compile_openvswitch_2_5_x_lts_from_source_code/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_01_14_compile_openvswitch_2_5_x_lts_from_source_code/</guid>
       <description>Install compile dependencies Configure and compile the source code ./configure --with-linux=/lib/modules/$(uname -r)/build --prefix=/go/ovs make -j$(nproc) make install &amp;amp;&amp;amp; make modules_install  Load OpenvSwitch module modprobe gre modprobe openvswitch modprobe libcrc32c  Configure ovsdb /go/ovs/bin/ovsdb-tool create /go/ovs/etc/openvswitch/conf.db /go/ovs/share/openvswitch/vswitch.ovsschema  Start OVS Start ovsdb-server  without ssl
 /go/ovs/sbin/ovsdb-server --remote=punix:/go/ovs/var/run/openvswitch/db.sock \ --remote=db:Open_vSwitch,Open_vSwitch,manager_options \ --pidfile --detach --log-file  with ssl
 /go/ovs/sbin/ovsdb-server --remote=punix:/go/ovs/var/run/openvswitch/db.sock \ --remote=db:Open_vSwitch,Open_vSwitch,manager_options \ --private-key=db:Open_vSwitch,SSL,private_key \ --certificate=db:Open_vSwitch,SSL,certificate \ --bootstrap-ca-cert=db:Open_vSwitch,SSL,ca_cert \ --pidfile --detach --log-file   View /go/ovs/var/log/openvswitch/ovsdb-server.</description>

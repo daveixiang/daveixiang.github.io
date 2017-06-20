@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Shared Library on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>https://daveixiang.github.io/tags/shared-library/</link>
+    <link>http://daveixiang.github.io/tags/shared-library/</link>
     <description>Recent content in Shared Library on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
+    <language>en-us</language>
     <lastBuildDate>Sat, 02 Apr 2016 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://daveixiang.github.io/tags/shared-library/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://daveixiang.github.io/tags/shared-library/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Linux shared libraries</title>
-      <link>https://daveixiang.github.io/articles/2016_04_02_linux_shared_libraries/</link>
+      <link>http://daveixiang.github.io/articles/2016_04_02_linux_shared_libraries/</link>
       <pubDate>Sat, 02 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2016_04_02_linux_shared_libraries/</guid>
+      <guid>http://daveixiang.github.io/articles/2016_04_02_linux_shared_libraries/</guid>
       <description>Shared libraries are collections of code that can be shared by programs. Unlike static (aka archive) libraries, they&amp;rsquo;re not part of the compiled program - they&amp;rsquo;re loaded in at the start of run-time if they&amp;rsquo;re not already being used. You don&amp;rsquo;t need to worry about them unless you&amp;rsquo;re a system manager or applications writer.
 Every shared library has &amp;hellip; soname libname.so.version_number - the version number is incremented whenever the interface changes.</description>
     </item>

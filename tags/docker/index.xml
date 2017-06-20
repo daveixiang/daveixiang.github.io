@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Docker on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>https://daveixiang.github.io/tags/docker/</link>
+    <link>http://daveixiang.github.io/tags/docker/</link>
     <description>Recent content in Docker on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
+    <language>en-us</language>
     <lastBuildDate>Mon, 16 Jan 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://daveixiang.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://daveixiang.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Compile static docker without docker in docker</title>
-      <link>https://daveixiang.github.io/articles/2017_01_16_compile_static_docker_without_docker_in_docker/</link>
+      <link>http://daveixiang.github.io/articles/2017_01_16_compile_static_docker_without_docker_in_docker/</link>
       <pubDate>Mon, 16 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_01_16_compile_static_docker_without_docker_in_docker/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_01_16_compile_static_docker_without_docker_in_docker/</guid>
       <description>Install dependencies  Install xfs btrfs packages  emerge --ask sys-fs/btrfs-progs sys-fs/xfsprogs   Install device mapper  export LVM2_VERSION=2.02.103 mkdir -p /usr/local/src/lvm2 &amp;amp;&amp;amp; curl -fsSL &amp;quot;https://mirrors.kernel.org/sourceware/lvm2/LVM2.${LVM2_VERSION}.tgz&amp;quot; | tar -xzC /usr/local/src/lvm2 --strip-components=1 cd /usr/local/src/lvm2 \ &amp;amp;&amp;amp; ./configure \ --build=&amp;quot;$(gcc -print-multiarch)&amp;quot; \ --enable-static_link \ &amp;amp;&amp;amp; make device-mapper \ &amp;amp;&amp;amp; make install_device-mapper  Compile runc binary  get the runc source code  mkdir -p /go/src/github.com/opencontainers/ cd /go/src/github.com/opencontainers/ git clone https://github.com/opencontainers/runc.git   Compile static runc binary  cd runc git checkout v1.</description>
     </item>
     

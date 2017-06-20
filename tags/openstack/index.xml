@@ -2,57 +2,57 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Openstack on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>https://daveixiang.github.io/tags/openstack/</link>
+    <link>http://daveixiang.github.io/tags/openstack/</link>
     <description>Recent content in Openstack on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
+    <language>en-us</language>
     <lastBuildDate>Tue, 30 May 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://daveixiang.github.io/tags/openstack/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://daveixiang.github.io/tags/openstack/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>OpenStack RESTful API example(Mitaka)</title>
-      <link>https://daveixiang.github.io/articles/2017_05_30_openstack_restful_api_example_mitaka/</link>
+      <link>http://daveixiang.github.io/articles/2017_05_30_openstack_restful_api_example_mitaka/</link>
       <pubDate>Tue, 30 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_05_30_openstack_restful_api_example_mitaka/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_05_30_openstack_restful_api_example_mitaka/</guid>
       <description> token-request.json file { &amp;quot;auth&amp;quot;: { &amp;quot;identity&amp;quot;: { &amp;quot;methods&amp;quot;: [ &amp;quot;password&amp;quot; ], &amp;quot;password&amp;quot;: { &amp;quot;user&amp;quot;: { &amp;quot;domain&amp;quot;: { &amp;quot;name&amp;quot;: &amp;quot;Default&amp;quot; }, &amp;quot;name&amp;quot;: &amp;quot;admin&amp;quot;, &amp;quot;password&amp;quot;: &amp;quot;openstack&amp;quot; } } }, &amp;quot;scope&amp;quot;: { &amp;quot;project&amp;quot;: { &amp;quot;domain&amp;quot;: { &amp;quot;name&amp;quot;: &amp;quot;Default&amp;quot; }, &amp;quot;name&amp;quot;: &amp;quot;admin&amp;quot; } } } }  get the token export TOKEN=`curl -si -d @token-request.json -H &amp;quot;Content-type: application/json&amp;quot; \ http://localhost:35357/v3/auth/tokens | awk &#39;/X-Subject-Token/ {print $2}&#39;`  </description>
     </item>
     
     <item>
       <title>Install Openstack from source code - glance (mitaka)</title>
-      <link>https://daveixiang.github.io/articles/2017_03_21_openstack_from_source_code_mitaka_02_glance/</link>
+      <link>http://daveixiang.github.io/articles/2017_03_21_openstack_from_source_code_mitaka_02_glance/</link>
       <pubDate>Tue, 21 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_03_21_openstack_from_source_code_mitaka_02_glance/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_03_21_openstack_from_source_code_mitaka_02_glance/</guid>
       <description>Create image service database export GLANCE_DBPASS=openstack export MYSQL_PASS=openstack mysql -uroot -p$MYSQL_PASS &amp;lt;&amp;lt;EOF CREATE DATABASE glance; GRANT ALL PRIVILEGES ON glance.* TO &#39;glance&#39;@&#39;localhost&#39; \ IDENTIFIED BY &#39;$GLANCE_DBPASS&#39;; GRANT ALL PRIVILEGES ON glance.* TO &#39;glance&#39;@&#39;%&#39; \ IDENTIFIED BY &#39;$GLANCE_DBPASS&#39;; EOF  Create the image service credentials andAPI endpoints openstack user create --domain default --password openstack glance openstack role add --project service --user glance admin openstack service create --name glance --description &amp;quot;OpenStack Image&amp;quot; image openstack endpoint create --region RegionOne image public http://controller:9292 openstack endpoint create --region RegionOne image internal http://controller:9292 openstack endpoint create --region RegionOne image admin http://controller:9292  Install glance dependences yum install $(cat openstack-glance-deps.</description>
     </item>
     
     <item>
       <title>Install Openstack from source code - keystone (mitaka)</title>
-      <link>https://daveixiang.github.io/articles/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</link>
+      <link>http://daveixiang.github.io/articles/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</link>
       <pubDate>Sat, 04 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_03_04_openstack_from_source_code_mitaka_01_keystone/</guid>
       <description>Install keystone dependences yum install $(cat openstack-keystone-deps.log | cut -d, -f1 | tr -s &#39;\n&#39; &#39; &#39;)  Git clone source code from github git clone https://github.com/openstack/keystone cd /src/openstack/keystone git checkout stable/mitaka  Build keystone source code cd /src/openstack/keystone python setup.py build  Make keystone configuration cp -aR etc/* /etc/keystone mv /etc/keystone/keystone.conf.sample /etc/keystone/keystone.conf mv /etc/keystone/logging.conf.sample /etc/keystone/logging.conf mkdir /etc/keystone/fernet-keys/ sed -i -E -e &#39;/^#.+?$/d&#39; -e &#39;/^$/d&#39; /etc/keystone/keystone.conf ini-config --set /etc/keystone/keystone.conf DEFAULT admin_token admintoken ini-config --set /etc/keystone/keystone.</description>
     </item>
     
     <item>
       <title>Install Openstack from source code dependences (mitaka)</title>
-      <link>https://daveixiang.github.io/articles/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</link>
+      <link>http://daveixiang.github.io/articles/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</link>
       <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_03_01_openstack_from_source_code_mitaka_00_dependences/</guid>
       <description>#!/bin/bash function gen_pkg_deps() { [ -z &amp;quot;$@&amp;quot; ] &amp;amp;&amp;amp; exit 0; yum install --assumeno &amp;quot;$@&amp;quot; | \ sed -n &#39;/Installing for dependencies:/,/Transaction Summary/p&#39; | \ sed -e &#39;/^=.*?$/d&#39; \ -e &#39;/Installing:/d&#39; \ -e &#39;/Installing for dependencies:/d&#39; \ -e &#39;/Transaction Summary/d&#39; \ -e &#39;/Updating/d&#39; \ -e &#39;/^$/d&#39; | \ awk &#39;BEGIN {n=1;arr[0]=0} { if (NF != 6) { for (i=n; i&amp;lt;=n+NF-1;i++) arr[i] = $(i-n+1) n+=NF; if (n == 7) { printf &amp;quot;%s,%s,%s,%s\n&amp;quot;, arr[1], arr[2], arr[3], arr[4] for (i=1; i&amp;lt;n;i++) del arr[i] n=1 } } else { printf &amp;quot;%s,%s,%s,%s\n&amp;quot;, $1, $2, $3, $4 } }&#39; | sort | grep -v -E -e &#39;glance|keystone|nova|neutron|swift|cinder|ceilometer&#39;\ &amp;gt; &amp;quot;$@&amp;quot;-deps.</description>
     </item>
     
     <item>
       <title>Install Openstack from source code prepares (mitaka)</title>
-      <link>https://daveixiang.github.io/articles/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</link>
+      <link>http://daveixiang.github.io/articles/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</link>
       <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_02_25_openstack_from_source_code_mitaka_00_prepares/</guid>
       <description>Disable NetworkManager and enable network systemctl stop NetworkManager.service systemctl disable NetworkManager.service systemctl start network.service systemctl enable network.service  Disable SELinux sed -i &#39;s/SELINUX=enforcing/SELINUX=disabled/g&#39; /etc/selinux/config  Disable Firewalld systemctl stop firewalld systemctl disable firewalld  Disalbe YUM fast mirrors and language features sed -i -E -e &#39;s/enabled=1/enabled=0/&#39; /etc/yum/pluginconf.d/fastestmirror.conf sed -i -E -e &#39;s/enabled=1/enabled=0/&#39; /etc/yum/pluginconf.d/langpacks.conf  Speed up SSH connection sed -i &#39;s/#UseDNS yes/UseDNS no/&#39; /etc/ssh/sshd_config  Install and configure rabbitmq yum -y install rabbitmq-server systemctl start rabbitmq-server systemctl enable rabbitmq-server  rabbitmqctl add_user openstack openstack rabbitmqctl set_user_tags openstack administrator rabbitmqctl set_permissions -p / openstack &amp;quot;.</description>
     </item>
     

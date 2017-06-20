@@ -2,30 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Asm on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>https://daveixiang.github.io/tags/asm/</link>
+    <link>http://daveixiang.github.io/tags/asm/</link>
     <description>Recent content in Asm on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
+    <language>en-us</language>
     <lastBuildDate>Fri, 17 Feb 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://daveixiang.github.io/tags/asm/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://daveixiang.github.io/tags/asm/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>GCC inline assembly hello world example</title>
-      <link>https://daveixiang.github.io/articles/2017_02_17_gcc_inline_assembly_hello_world_example/</link>
+      <link>http://daveixiang.github.io/articles/2017_02_17_gcc_inline_assembly_hello_world_example/</link>
       <pubDate>Fri, 17 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_02_17_gcc_inline_assembly_hello_world_example/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_02_17_gcc_inline_assembly_hello_world_example/</guid>
       <description>x86 example  #include &amp;lt;string.h&amp;gt; #include &amp;lt;stdio.h&amp;gt; int main(int argc, char *argv[]) { char *str = &amp;quot;Hello World\n&amp;quot;; long len = strlen(str); int ret = 0; /* * ssize_t write(int fd, const void *buf, size_t count); * */ __asm__(&amp;quot;movl $1, %%eax\n\t&amp;quot; // write syscall &amp;quot;movl $1, %%ebx\n\t&amp;quot; // fd &amp;quot;movl %1, %%ecx\n\t&amp;quot; // buf &amp;quot;movl %2, %%edx\n\t&amp;quot; // count &amp;quot;syscall\n\t&amp;quot; &amp;quot;movl %%eax, %0&amp;quot; // return result to ret : &amp;quot;+m&amp;quot;(ret) : &amp;quot;g&amp;quot;(str), &amp;quot;g&amp;quot;(len)); printf(&amp;quot;ret %d\n&amp;quot;, ret); return 0; }   x86-64 example  #include &amp;lt;string.</description>
     </item>
     
     <item>
       <title>What is a system call (Linux)</title>
-      <link>https://daveixiang.github.io/articles/2017_02_02_what_is_a_system_call_linux/</link>
+      <link>http://daveixiang.github.io/articles/2017_02_02_what_is_a_system_call_linux/</link>
       <pubDate>Thu, 02 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_02_02_what_is_a_system_call_linux/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_02_02_what_is_a_system_call_linux/</guid>
       <description>An application program makes a system call to get the operating system to perform a service for it, like reading from a file.
 System Calls in 32-bit Linux  To make a system call in 32-bit Linux, place the system call number in eax, then its arguments, in order, in ebx, ecx, edx, esi, edi, and ebp, then invoke int 0x80.
  Some system calls return information, usually in eax.</description>

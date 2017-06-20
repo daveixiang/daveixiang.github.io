@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Nginx on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>https://daveixiang.github.io/tags/nginx/</link>
+    <link>http://daveixiang.github.io/tags/nginx/</link>
     <description>Recent content in Nginx on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
+    <language>en-us</language>
     <lastBuildDate>Thu, 12 Jan 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://daveixiang.github.io/tags/nginx/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://daveixiang.github.io/tags/nginx/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Compile static nginx</title>
-      <link>https://daveixiang.github.io/articles/2017_01_12_compile_static_nginx/</link>
+      <link>http://daveixiang.github.io/articles/2017_01_12_compile_static_nginx/</link>
       <pubDate>Thu, 12 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_01_12_compile_static_nginx/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_01_12_compile_static_nginx/</guid>
       <description>Get nginx source code from officall website wget http://nginx.org/download/nginx-1.10.2.tar.gz  Untar it to specific directory tar zxf nginx-1.10.2.tar.gz -C /src  Go to the /src, and execute ./configure cd /src/nginx-1.10.2 ./configure --prefix=/src/nginx/ \ --with-cc-opt=&amp;quot;-static -static-libgcc&amp;quot; \ --with-ld-opt=&amp;quot;-static&amp;quot;  Build it with make -$(nproc) Error output But get the error:
 /usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/../../../../lib64/libpcre.a(libpcre_la-pcre_jit_compile.o): In function `sljit_generate_code&#39;: (.text+0x79f): undefined reference to `pthread_mutex_lock&#39; /usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/../../../../lib64/libpcre.a(libpcre_la-pcre_jit_compile.o): In function `sljit_generate_code&#39;: (.text+0x894): undefined reference to `pthread_mutex_unlock&#39; /usr/lib/gcc/x86_64-pc-linux-gnu/4.9.4/../../../../lib64/libpcre.a(libpcre_la-pcre_jit_compile.o): In function `sljit_generate_code&#39;: (.</description>
     </item>

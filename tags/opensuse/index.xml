@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Opensuse on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>https://daveixiang.github.io/tags/opensuse/</link>
+    <link>http://daveixiang.github.io/tags/opensuse/</link>
     <description>Recent content in Opensuse on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
+    <language>en-us</language>
     <lastBuildDate>Thu, 06 Apr 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://daveixiang.github.io/tags/opensuse/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://daveixiang.github.io/tags/opensuse/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Configure OpenSuse Leap OpenvSwitch bridge autostart on boot</title>
-      <link>https://daveixiang.github.io/articles/2017_04_06_configure_opensuse_leap_openvswitch_bridge_autostart_on_boot/</link>
+      <link>http://daveixiang.github.io/articles/2017_04_06_configure_opensuse_leap_openvswitch_bridge_autostart_on_boot/</link>
       <pubDate>Thu, 06 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_04_06_configure_opensuse_leap_openvswitch_bridge_autostart_on_boot/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_04_06_configure_opensuse_leap_openvswitch_bridge_autostart_on_boot/</guid>
       <description> ifcfg-br0  cat /etc/sysconfig/network/ifcfg-br0  and the output is
 TARTMODE=&#39;auto&#39; BOOTPROTO=&#39;static&#39; OVS_BRIDGE=&#39;yes&#39; OVS_BRIDGE_PORT_DEVICE=&#39;eth0&#39; IPADDR=&#39;xxx.xxx.xxx.xxx/yy&#39; BROADCAST=&#39;&#39; ETHTOOL_OPTIONS=&#39;&#39; MTU=&#39;&#39; NAME=&#39;&#39; NETWORK=&#39;&#39; REMOTE_IPADDR=&#39;&#39; STARTMODE=&#39;auto&#39;   ifcfg-eth0  cat /etc/sysconfig/network/ifcfg-eth0  and the output is
 STARTMODE=&#39;auto&#39; BOOTPROTO=&#39;none&#39;  </description>
@@ -24,10 +24,10 @@ STARTMODE=&#39;auto&#39; BOOTPROTO=&#39;none&#39;  </description>
     
     <item>
       <title>Add OpenSuse Leap 42.2 repos</title>
-      <link>https://daveixiang.github.io/articles/2017_03_31_opensuse_add_repos/</link>
+      <link>http://daveixiang.github.io/articles/2017_03_31_opensuse_add_repos/</link>
       <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_03_31_opensuse_add_repos/</guid>
+      <guid>http://daveixiang.github.io/articles/2017_03_31_opensuse_add_repos/</guid>
       <description> Remove previous repos  zypper repos | grep Yes | cut -f3 -d &#39;|&#39; | sed -e &amp;quot;s/ //&amp;quot; | awk &#39;{print &amp;quot;zypper rr &amp;quot; $1}&#39; | bash   Add the repos and refresh  zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/oss/ openSUSE-leap-42.2-Oss zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/non-oss/ openSUSE-leap-42.2-Non-Oss zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/oss openSUSE-leap-42.2-Update-Oss zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/non-oss/ openSUSE-leap-42.2-Update-Non-Oss zypper refresh  </description>
     </item>
     
