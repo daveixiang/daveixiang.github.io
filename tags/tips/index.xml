@@ -6,10 +6,19 @@
     <description>Recent content in Tips on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 06 Jun 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 20 Jun 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://daveixiang.github.io/tags/tips/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Some useful OVS commands</title>
+      <link>https://daveixiang.github.io/articles/2017_06_20_some_useful_ovs_commands/</link>
+      <pubDate>Tue, 20 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_06_20_some_useful_ovs_commands/</guid>
+      <description>   OpenvSwitch Action     ovs-appctl fdb/show {bridge} Show MAC address table   ovs-appctl fdb/flush {bridge} Clear MAC address table   ovs-ofctl dump-ports-desc {bridge} Show port numbers   ovs-vsctl show Show OVS configuration   ovs-ofctl dump-flows {bridge} Show packet forwarding rules   ovsdb-tool show-log -m View command history   ovs-appctl ofproto/trace {bridge} in_port={ofport} Simulate packet flow    </description>
+    </item>
     
     <item>
       <title>Format ovs-ofctl dump-flows output</title>

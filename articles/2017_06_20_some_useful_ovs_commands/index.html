@@ -2,17 +2,17 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Categories // 項 思 偉 ~ Aal Izz Well!</title>
+    <title>Some useful OVS commands // 項 思 偉 ~ Aal Izz Well!</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta property="og:title" content="Categories" />
+    <meta property="og:title" content="Some useful OVS commands" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="en_US" />
-<meta property="og:url" content="https://daveixiang.github.io/categories/" />
+<meta property="og:url" content="https://daveixiang.github.io/articles/2017_06_20_some_useful_ovs_commands/" />
 
 
-    <link href="https://daveixiang.github.io/categories/index.xml" rel="alternate" type="application/rss+xml" title="項 思 偉 ~ Aal Izz Well!" />
+    <link href="" rel="alternate" type="application/rss+xml" title="項 思 偉 ~ Aal Izz Well!" />
     <link rel="shortcut icon" href="https://daveixiang.github.io/favicon.png">
 
     <link href="https://daveixiang.github.io/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
@@ -32,6 +32,7 @@
 
     <meta name="generator" content="Hugo 0.22-DEV" />
 </head>
+
 
 <body>
 <div id="container">
@@ -58,87 +59,108 @@
 </header>
 
     <section id="main" class="outer">
-        <section class="layout-wrap">
-            <div class="layout-title">
-                <span>Categories</span>
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">Some useful OVS commands</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="https://daveixiang.github.io/articles/2017_06_20_some_useful_ovs_commands/" class="article-date">
+                <time datetime='2017-06-20T00:00:00.000&#43;00:00' itemprop="datePublished">2017-06-20</time>
+            </a>
+            
+            
+            <div class="post-categories">
+                <div class="article-category">
+                    
+                    
+                    <a class="article-category-link" href="https://daveixiang.github.io//categories/openvswitch">openvswitch</a>
+                    
+                </div>
             </div>
-            <div class="layout-wrap-inner tag-cloud">
-                
-                
-                <ul>
-                
-                <li>
-                    <a href="https://daveixiang.github.io/categories/ceph">ceph</a>(2)
-                </li>
-                
-                <li>
-                    <a href="https://daveixiang.github.io/categories/clan">clan</a>(12)
-                </li>
-                
-                <li>
-                    <a href="https://daveixiang.github.io/categories/database">database</a>(1)
-                </li>
-                
-                <li>
-                    <a href="https://daveixiang.github.io/categories/emacs">emacs</a>(1)
-                </li>
-                
-                <li>
-                    <a href="https://daveixiang.github.io/categories/git">git</a>(1)
-                </li>
-                
-                <li>
-                    <a href="https://daveixiang.github.io/categories/golang">golang</a>(3)
-                </li>
-                
-                <li>
-                    <a href="https://daveixiang.github.io/categories/kernel">kernel</a>(1)
-                </li>
-                
-                <li>
-                    <a href="https://daveixiang.github.io/categories/libvirt">libvirt</a>(1)
-                </li>
-                
-                <li>
-                    <a href="https://daveixiang.github.io/categories/life">life</a>(8)
-                </li>
-                
-                <li>
-                    <a href="https://daveixiang.github.io/categories/linux">linux</a>(9)
-                </li>
-                
-                <li>
-                    <a href="https://daveixiang.github.io/categories/nginx">nginx</a>(1)
-                </li>
-                
-                <li>
-                    <a href="https://daveixiang.github.io/categories/openstack">openstack</a>(5)
-                </li>
-                
-                <li>
-                    <a href="https://daveixiang.github.io/categories/openvswitch">openvswitch</a>(4)
-                </li>
-                
-                <li>
-                    <a href="https://daveixiang.github.io/categories/qemu">qemu</a>(4)
-                </li>
-                
-                <li>
-                    <a href="https://daveixiang.github.io/categories/sheepdog">sheepdog</a>(1)
-                </li>
-                
-                <li>
-                    <a href="https://daveixiang.github.io/categories/tips">tips</a>(3)
-                </li>
-                
-                <li>
-                    <a href="https://daveixiang.github.io/categories/virtualization">virtualization</a>(6)
-                </li>
-                
-                </ul>
-            </div>
+            
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            <table>
+<thead>
+<tr>
+<th>OpenvSwitch</th>
+<th>Action</th>
+</tr>
+</thead>
 
-        </section>
+<tbody>
+<tr>
+<td>ovs-appctl fdb/show {bridge}</td>
+<td>Show MAC address table</td>
+</tr>
+
+<tr>
+<td>ovs-appctl fdb/flush {bridge}</td>
+<td>Clear MAC address table</td>
+</tr>
+
+<tr>
+<td>ovs-ofctl dump-ports-desc {bridge}</td>
+<td>Show port numbers</td>
+</tr>
+
+<tr>
+<td>ovs-vsctl show</td>
+<td>Show OVS configuration</td>
+</tr>
+
+<tr>
+<td>ovs-ofctl dump-flows {bridge}</td>
+<td>Show packet forwarding rules</td>
+</tr>
+
+<tr>
+<td>ovsdb-tool show-log -m</td>
+<td>View command history</td>
+</tr>
+
+<tr>
+<td>ovs-appctl ofproto/trace {bridge} in_port={ofport}</td>
+<td>Simulate packet flow</td>
+</tr>
+</tbody>
+</table>
+
+        </div>
+
+        
+        <footer class="article-footer">
+            <ul class="article-tag-list">
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/openvswitch">openvswitch
+                    </a>
+                </li>
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://daveixiang.github.io//tags/tips">tips
+                    </a>
+                </li>
+                
+            </ul>
+        </footer>
+        
+    </div>
+    <nav id="article-nav">
+    
+    
+    <a href="https://daveixiang.github.io/articles/2017_06_16_gentoo_install_openvswitch/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Gentoo install openvswitch&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+</article>
+
+        
     </section>
     <footer id="footer">
     <div class="outer">

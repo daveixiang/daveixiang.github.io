@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://daveixiang.github.io/articles/2017_06_20_some_useful_ovs_commands/</loc>
+    <lastmod>2017-06-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://daveixiang.github.io/articles/2017_06_16_gentoo_install_openvswitch/</loc>
     <lastmod>2017-06-16T00:00:00+00:00</lastmod>
   </url>
@@ -319,7 +324,7 @@
   
   <url>
     <loc>https://daveixiang.github.io/articles/</loc>
-    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
+    <lastmod>2017-06-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -564,13 +569,13 @@
   
   <url>
     <loc>https://daveixiang.github.io/tags/openvswitch/</loc>
-    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
+    <lastmod>2017-06-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://daveixiang.github.io/categories/openvswitch/</loc>
-    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
+    <lastmod>2017-06-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -636,7 +641,7 @@
   
   <url>
     <loc>https://daveixiang.github.io/tags/tips/</loc>
-    <lastmod>2017-06-06T00:00:00+00:00</lastmod>
+    <lastmod>2017-06-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -672,7 +677,7 @@
   
   <url>
     <loc>https://daveixiang.github.io/</loc>
-    <lastmod>2017-06-16T00:00:00+00:00</lastmod>
+    <lastmod>2017-06-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
