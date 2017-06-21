@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://daveixiang.github.io/articles/2017_06_21_setup_vxlan_lab_using_openvswitch/</loc>
+    <lastmod>2017-06-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://daveixiang.github.io/articles/2017_06_20_some_useful_ovs_commands/</loc>
     <lastmod>2017-06-20T00:00:00+00:00</lastmod>
   </url>

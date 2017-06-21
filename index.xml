@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>Setup vxlan lab using openvswitch</title>
+      <link>https://daveixiang.github.io/articles/2017_06_21_setup_vxlan_lab_using_openvswitch/</link>
+      <pubDate>Tue, 20 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_06_21_setup_vxlan_lab_using_openvswitch/</guid>
+      <description>Prepare two vms  vm01  qemu-system-x86_64 -m 2048M \ -enable-kvm -nographic \ -kernel ./bzImage -initrd ./initramfs \ -append &amp;quot;console=ttyS0 quiet&amp;quot; \ -netdev tap,id=net1,ifname=tap01,script=no,downscript=no \ -device e1000,netdev=net1,mac=&#39;ee:b0:38:f6:f5:05&#39;   vm02  qemu-system-x86_64 -m 2048M \ -enable-kvm -nographic \ -kernel ./bzImage -initrd ./initramfs \ -append &amp;quot;console=ttyS0 quiet&amp;quot; \ -netdev tap,id=net1,ifname=tap02,script=no,downscript=no \ -device e1000,netdev=net1,mac=&#39;5a:73:63:0f:27:24&#39;  Configure vms  configure vm01  ip link set eth0 up ip addr add 192.168.0.1/24 dev eth0 ovs-vsctl add-br br1 ovs-vsctl set bridge br1 stp_enable=true ip link set br1 up ip addr add 10.</description>
+    </item>
+    
+    <item>
       <title>Some useful OVS commands</title>
       <link>https://daveixiang.github.io/articles/2017_06_20_some_useful_ovs_commands/</link>
       <pubDate>Tue, 20 Jun 2017 00:00:00 +0000</pubDate>
