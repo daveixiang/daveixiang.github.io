@@ -21,7 +21,7 @@
     </item>
     
     <item>
-      <title>Build minimal linux hack env ith busybox (Target: arm64)</title>
+      <title>Build minimal linux hack env with busybox (Target: arm64)</title>
       <link>https://daveixiang.github.io/articles/2017_02_25_build_minimal_linux_hack_env_with_busybox_arm64/</link>
       <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
       

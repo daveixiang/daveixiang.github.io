@@ -21,15 +21,6 @@
     </item>
     
     <item>
-      <title>Build minimal linux hack env with busybox (Target: x86_64)</title>
-      <link>https://daveixiang.github.io/articles/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</link>
-      <pubDate>Sat, 01 Apr 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://daveixiang.github.io/articles/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</guid>
-      <description>Build the kernel  Use x86_64 default configuration  make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- defconfig   Simplify x86_64 configuration by cutting unused drivers  make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- menuconfig   Create Image  make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- -j8  Build busybox  Use busybox default configuration  make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- defconfig   Customize configurations  make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- menuconfig  Busybox Settings ---&amp;gt; --- Build Options [*] Build BusyBox as a position independent executable   Create busybox  make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- -j$(nproc)   Install busybox(default path: BUSYBOX/_install)  make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- install  Generate minimal initramfs #!</description>
-    </item>
-    
-    <item>
       <title>Add OpenSuse Leap 42.2 repos</title>
       <link>https://daveixiang.github.io/articles/2017_03_31_opensuse_add_repos/</link>
       <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
@@ -45,24 +36,6 @@
       
       <guid>https://daveixiang.github.io/articles/2017_03_30_notation_meaning_in_top_out/</guid>
       <description>PID — Process Id  The task’s unique process ID, which periodically wraps, though never restarting at zero.   PPID — Parent Process Pid  The process ID of a task’s parent.   RUSER — Real User Name  The real user name of the task’s owner.   UID — User Id  The effective user ID of the task’s owner.   USER — User Name  The effective user name of the task’s owner.</description>
-    </item>
-    
-    <item>
-      <title>Build minimal linux hack env ith busybox (Target: arm64)</title>
-      <link>https://daveixiang.github.io/articles/2017_02_25_build_minimal_linux_hack_env_with_busybox_arm64/</link>
-      <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://daveixiang.github.io/articles/2017_02_25_build_minimal_linux_hack_env_with_busybox_arm64/</guid>
-      <description>Build the kernel  Use arm64 default configuration  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- defconfig   Simplify arm64 configuration by cutting unused drivers  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- menuconfig   Create Image  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j8  Build busybox  Use busybox default configuration  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- defconfig   Customize configurations  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- menuconfig  Busybox Settings ---&amp;gt; --- Build Options [*] Build BusyBox as a position independent executable   Create busybox  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j$(nproc)   Install busybox(default path: BUSYBOX/_install)  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- install  Generate minimal initramfs #!</description>
-    </item>
-    
-    <item>
-      <title>Using OpenvSwitch to build minimal linux networking hack environment</title>
-      <link>https://daveixiang.github.io/articles/2017_02_25_using_openvswitch_to_build_minimal_linux_networking_hack_env/</link>
-      <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://daveixiang.github.io/articles/2017_02_25_using_openvswitch_to_build_minimal_linux_networking_hack_env/</guid>
-      <description>Create Openvswitch bridge and two tap devices for vm ip tuntap add name tap1 mode tap ip tuntap add name tap2 mode tap ip link set tap1 up ip link set tap2 up ovs-vsctl add-br br0 ovs-vsctl add-port br0 tap1 ovs-vsctl add-port br0 tap2  Start the two vms and config network configure vm01  start vm01  qemu-system-x86_64 -nographic \ -kernel ./bzImage -initrd ./initramfs \ -append &amp;quot;console=ttyS0 quiet&amp;quot; \ -netdev tap,id=net1,ifname=tap1,script=no,downscript=no \ -device e1000,netdev=net1,mac=&#39;9e:11:24:5c:35:89&#39;   configure vm01 network  ip link set eth0 up ip addr add 192.</description>
     </item>
     
     <item>

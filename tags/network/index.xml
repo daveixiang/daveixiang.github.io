@@ -17,7 +17,7 @@
       <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2017_02_25_using_openvswitch_to_build_minimal_linux_networking_hack_env/</guid>
-      <description>Create Openvswitch bridge and two tap devices for vm ip tuntap add name tap1 mode tap ip tuntap add name tap2 mode tap ip link set tap1 up ip link set tap2 up ovs-vsctl add-br br0 ovs-vsctl add-port br0 tap1 ovs-vsctl add-port br0 tap2  Start the two vms and config network configure vm01  start vm01  qemu-system-x86_64 -nographic \ -kernel ./bzImage -initrd ./initramfs \ -append &amp;quot;console=ttyS0 quiet&amp;quot; \ -netdev tap,id=net1,ifname=tap1,script=no,downscript=no \ -device e1000,netdev=net1,mac=&#39;9e:11:24:5c:35:89&#39;   configure vm01 network  ip link set eth0 up ip addr add 192.</description>
+      <description>Create Openvswitch bridge and two tap devices for vm ip tuntap add name tap01 mode tap ip tuntap add name tap02 mode tap ip link set tap01 up ip link set tap02 up ip link set tap01 address 12:34:56:78:9a:01 ip link set tap01 address 12:34:56:78:9a:02 ovs-vsctl add-br br0 ovs-vsctl add-port br0 tap01 ovs-vsctl add-port br0 tap02  Start the two vms and config network configure vm01  start vm01  qemu-system-x86_64 -m 2048M -enable-kvm \ -nographic \ -kernel .</description>
     </item>
     
     <item>

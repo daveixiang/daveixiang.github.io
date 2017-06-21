@@ -33,17 +33,18 @@
 
 <h2 id="create-openvswitch-bridge-and-two-tap-devices-for-vm">Create Openvswitch bridge and two tap devices for vm</h2>
 
-<pre><code class="language-bash">ip tuntap add name tap1 mode tap
-ip tuntap add name tap2 mode tap
+<pre><code class="language-bash">ip tuntap add name tap01 mode tap
+ip tuntap add name tap02 mode tap
 
-ip link set tap1 up
-ip link set tap2 up
+ip link set tap01 up
+ip link set tap02 up
+
+ip link set tap01 address 12:34:56:78:9a:01
+ip link set tap01 address 12:34:56:78:9a:02
 
 ovs-vsctl add-br br0
-
-ovs-vsctl add-port br0 tap1
-
-ovs-vsctl add-port br0 tap2
+ovs-vsctl add-port br0 tap01
+ovs-vsctl add-port br0 tap02
 </code></pre>
 
 <h2 id="start-the-two-vms-and-config-network">Start the two vms and config network</h2>
@@ -54,11 +55,12 @@ ovs-vsctl add-port br0 tap2
 <li>start vm01</li>
 </ul>
 
-<pre><code class="language-bash">qemu-system-x86_64  -nographic \
+<pre><code class="language-bash">qemu-system-x86_64 -m 2048M -enable-kvm \
+-nographic \
 -kernel ./bzImage -initrd ./initramfs \
 -append  &quot;console=ttyS0 quiet&quot; \
--netdev tap,id=net1,ifname=tap1,script=no,downscript=no  \
--device e1000,netdev=net1,mac='9e:11:24:5c:35:89'
+-netdev tap,id=net1,ifname=tap01,script=no,downscript=no  \
+-device e1000,netdev=net1,mac='12:34:56:78:9a:01'
 </code></pre>
 
 <ul>
@@ -75,11 +77,12 @@ ip addr add 192.168.0.1/24 dev eth0
 <li>start vm02</li>
 </ul>
 
-<pre><code class="language-bash">qemu-system-x86_64  -nographic \
+<pre><code class="language-bash">qemu-system-x86_64 -m 2048M -enable-kvm \
+-nographic \
 -kernel ./bzImage -initrd ./initramfs \
 -append  &quot;console=ttyS0 quiet&quot; \
--netdev tap,id=net2,ifname=tap2,script=no,downscript=no  \
--device e1000,netdev=net2,mac='66:5f:30:f4:24:be'
+-netdev tap,id=net2,ifname=tap02,script=no,downscript=no  \
+-device e1000,netdev=net2,mac='12:34:56:78:9a:02'
 </code></pre>
 
 <ul>
@@ -90,7 +93,7 @@ ip addr add 192.168.0.1/24 dev eth0
 ip addr add 192.168.0.2/24 dev eth0
 </code></pre>
 
-<h2 id="test-the-vms-network-connection">Test the vms network connection</h2>
+<h2 id="check-the-vms-network-connection">Check the vms network connection</h2>
 
 <p>vm01 ping vm02</p>
 
