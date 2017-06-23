@@ -34,6 +34,24 @@
 <h1 id="prepare-two-vms">Prepare two vms</h1>
 
 <ul>
+<li>prepare ovs network environment</li>
+</ul>
+
+<pre><code class="language-bash">ip tuntap add name tap01 mode tap
+ip tuntap add name tap02 mode tap
+
+ip link set tap01 up
+ip link set tap02 up
+
+ip link set tap01 address 12:34:56:78:9a:01
+ip link set tap01 address 12:34:56:78:9a:02
+
+ovs-vsctl add-br br0
+ovs-vsctl add-port br0 tap01
+ovs-vsctl add-port br0 tap02
+</code></pre>
+
+<ul>
 <li>vm01</li>
 </ul>
 
@@ -42,7 +60,7 @@
 -kernel ./bzImage -initrd ./initramfs \
 -append  &quot;console=ttyS0 quiet&quot; \
 -netdev tap,id=net1,ifname=tap01,script=no,downscript=no  \
--device e1000,netdev=net1,mac='ee:b0:38:f6:f5:05'
+-device e1000,netdev=net1,mac='12:34:56:78:9a:01'
 </code></pre>
 
 <ul>
@@ -54,7 +72,7 @@
 -kernel ./bzImage -initrd ./initramfs \
 -append  &quot;console=ttyS0 quiet&quot; \
 -netdev tap,id=net1,ifname=tap02,script=no,downscript=no  \
--device e1000,netdev=net1,mac='5a:73:63:0f:27:24'
+-device e1000,netdev=net1,mac='12:34:56:78:9a:02'
 </code></pre>
 
 <h1 id="configure-vms">Configure vms</h1>

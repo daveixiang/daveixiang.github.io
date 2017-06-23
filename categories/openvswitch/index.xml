@@ -17,7 +17,7 @@
       <pubDate>Tue, 20 Jun 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2017_06_21_setup_vxlan_lab_using_openvswitch/</guid>
-      <description>Prepare two vms  vm01  qemu-system-x86_64 -m 2048M \ -enable-kvm -nographic \ -kernel ./bzImage -initrd ./initramfs \ -append &amp;quot;console=ttyS0 quiet&amp;quot; \ -netdev tap,id=net1,ifname=tap01,script=no,downscript=no \ -device e1000,netdev=net1,mac=&#39;ee:b0:38:f6:f5:05&#39;   vm02  qemu-system-x86_64 -m 2048M \ -enable-kvm -nographic \ -kernel ./bzImage -initrd ./initramfs \ -append &amp;quot;console=ttyS0 quiet&amp;quot; \ -netdev tap,id=net1,ifname=tap02,script=no,downscript=no \ -device e1000,netdev=net1,mac=&#39;5a:73:63:0f:27:24&#39;  Configure vms  configure vm01  ip link set eth0 up ip addr add 192.168.0.1/24 dev eth0 ovs-vsctl add-br br1 ovs-vsctl set bridge br1 stp_enable=true ip link set br1 up ip addr add 10.</description>
+      <description>Prepare two vms  prepare ovs network environment  ip tuntap add name tap01 mode tap ip tuntap add name tap02 mode tap ip link set tap01 up ip link set tap02 up ip link set tap01 address 12:34:56:78:9a:01 ip link set tap01 address 12:34:56:78:9a:02 ovs-vsctl add-br br0 ovs-vsctl add-port br0 tap01 ovs-vsctl add-port br0 tap02   vm01  qemu-system-x86_64 -m 2048M \ -enable-kvm -nographic \ -kernel ./bzImage -initrd .</description>
     </item>
     
     <item>

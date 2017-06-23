@@ -26,7 +26,7 @@
       <pubDate>Tue, 20 Jun 2017 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2017_06_21_setup_vxlan_lab_using_openvswitch/</guid>
-      <description>Prepare two vms  vm01  qemu-system-x86_64 -m 2048M \ -enable-kvm -nographic \ -kernel ./bzImage -initrd ./initramfs \ -append &amp;quot;console=ttyS0 quiet&amp;quot; \ -netdev tap,id=net1,ifname=tap01,script=no,downscript=no \ -device e1000,netdev=net1,mac=&#39;ee:b0:38:f6:f5:05&#39;   vm02  qemu-system-x86_64 -m 2048M \ -enable-kvm -nographic \ -kernel ./bzImage -initrd ./initramfs \ -append &amp;quot;console=ttyS0 quiet&amp;quot; \ -netdev tap,id=net1,ifname=tap02,script=no,downscript=no \ -device e1000,netdev=net1,mac=&#39;5a:73:63:0f:27:24&#39;  Configure vms  configure vm01  ip link set eth0 up ip addr add 192.168.0.1/24 dev eth0 ovs-vsctl add-br br1 ovs-vsctl set bridge br1 stp_enable=true ip link set br1 up ip addr add 10.</description>
+      <description>Prepare two vms  prepare ovs network environment  ip tuntap add name tap01 mode tap ip tuntap add name tap02 mode tap ip link set tap01 up ip link set tap02 up ip link set tap01 address 12:34:56:78:9a:01 ip link set tap01 address 12:34:56:78:9a:02 ovs-vsctl add-br br0 ovs-vsctl add-port br0 tap01 ovs-vsctl add-port br0 tap02   vm01  qemu-system-x86_64 -m 2048M \ -enable-kvm -nographic \ -kernel ./bzImage -initrd .</description>
     </item>
     
     <item>
@@ -517,7 +517,12 @@ Installation First start with Go 1.4 Since Go version 1.5 you need Go itself to 
       <pubDate>Fri, 06 May 2016 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2016_05_06_lin_bie_zeng_you/</guid>
-      <description>臨別贈友 項籍 窗敞風迎時難再 車馳山離心易寒 待到相逢把酒歡 笑看雲聚雲又散  </description>
+      <description> 臨別贈友 項籍
+窗敞風迎時難再
+車馳山離心易寒
+待到相逢把酒歡
+笑看雲聚雲又散
+ </description>
     </item>
     
     <item>
@@ -537,7 +542,12 @@ Let&amp;rsquo;s construct a small example.
       <pubDate>Mon, 02 May 2016 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2016_05_02_yang_yu_en/</guid>
-      <description>養育恩 項籍 微風細雨育萬物 家母心念歸期數 二十六年未省心 乳兒猶在他鄉處  </description>
+      <description> 養育恩 項籍
+微風細雨育萬物
+家母心念歸期數
+二十六年未省心
+乳兒猶在他鄉處
+ </description>
     </item>
     
     <item>
@@ -555,7 +565,12 @@ Let&amp;rsquo;s construct a small example.
       <pubDate>Mon, 25 Apr 2016 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2016_04_25_zhan_gui/</guid>
-      <description>斬鬼 項籍 吾心尋道世俗間 霧漫陰風雨連綿 縱有惡鬼攔路前 赤心揮斬鐘馗劍  </description>
+      <description> 斬鬼 項籍
+吾心尋道世俗間
+霧漫陰風雨連綿
+縱有惡鬼攔路前
+赤心揮斬鐘馗劍
+ </description>
     </item>
     
     <item>
@@ -584,7 +599,12 @@ Let&amp;rsquo;s construct a small example.
       <pubDate>Tue, 19 Apr 2016 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2016_04_19_ai_qin/</guid>
-      <description>哀秦 項籍 崤函雖在險勢非 秦風已去土俑殘 苦菜烈酒未得嘗 遊魂遍野向西山  </description>
+      <description> 哀秦 項籍
+崤函雖在險勢非
+秦風已去土俑殘
+苦菜烈酒未得嘗
+遊魂遍野向西山
+ </description>
     </item>
     
     <item>
@@ -603,8 +623,12 @@ Let&amp;rsquo;s construct a small example.
       <pubDate>Wed, 06 Apr 2016 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2016_04_06_zui_wen_wei_wu/</guid>
-      <description>醉問魏武 項籍
-欲問魏武杜康勁 試探周郎小兒心 赤壁紅海疾風嘯 奉孝若在乾坤逆</description>
+      <description> 醉問魏武 項籍
+欲問魏武杜康勁
+試探周郎小兒心
+赤壁紅海疾風嘯
+奉孝若在乾坤逆
+ </description>
     </item>
     
     <item>
@@ -623,7 +647,12 @@ Every shared library has &amp;hellip; soname libname.so.version_number - the ver
       <pubDate>Tue, 29 Mar 2016 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2016_03_29_ming_xin/</guid>
-      <description>明心 項籍 只知今世樂 不覺來世苦 緣分莫可求 唯因心智虛  </description>
+      <description> 明心 項籍
+只知今世樂
+不覺來世苦
+緣分莫可求
+唯因心智虛
+ </description>
     </item>
     
     <item>
@@ -632,7 +661,12 @@ Every shared library has &amp;hellip; soname libname.so.version_number - the ver
       <pubDate>Mon, 28 Mar 2016 00:00:00 +0000</pubDate>
       
       <guid>https://daveixiang.github.io/articles/2016_03_28_wang_yue/</guid>
-      <description>望月 項籍 玉盤依樹梢 蟲鳴繞田間 日後他鄉處 此情與誰念  </description>
+      <description> 望月 項籍
+玉盤依樹梢
+蟲鳴繞田間
+日後他鄉處
+此情與誰念
+ </description>
     </item>
     
   </channel>
