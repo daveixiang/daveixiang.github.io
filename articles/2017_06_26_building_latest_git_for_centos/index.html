@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <title>Building latest git for CentOS | 項 思 偉 ~ Aal Izz Well!</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/xin">Home</a></li>
+      
+      <li><a href="/">Articles</a></li>
+      
+      <li><a href="/categories/">Categories</a></li>
+      
+      <li><a href="/tags/">Tags</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Building latest git for CentOS</span></h1>
+</div>
+
+<main>
+<ul>
+<li>Install basic packages needed to compile RPMs</li>
+</ul>
+
+<pre><code class="language-shell">yum install make gcc perl-ExtUtils-MakeMaker \
+rpmdevtools curl-devel expat-devel gettext-devel openssl-devel zlib-devel
+</code></pre>
+
+<ul>
+<li>Get a git SRPM to build from <a href="https://apps.fedoraproject.org/packages/git/overview/">Fedora Package</a></li>
+</ul>
+
+<pre><code class="language-shell">wget https://kojipkgs.fedoraproject.org//packages/git/2.7.5/1.fc24/src/git-2.7.5-1.fc24.src.rpm
+
+rpm -i ./git-2.7.5-1.fc24.src.rpm
+
+</code></pre>
+
+<ul>
+<li>Install dependencies needed to compile git RPMs</li>
+</ul>
+
+<pre><code class="language-shell">yum install asciidoc  xmlto desktop-file-utils emacs libgnome-keyring-devel \
+pkgconfig bash-completion 
+</code></pre>
+
+<ul>
+<li>Go to SPECS directory and try to build the RPMs:</li>
+</ul>
+
+<pre><code class="language-shelll">cd rpmbuild/SPECS/
+rpmbuild -ba git.spec
+</code></pre>
+
+<ul>
+<li>Exit the chroot and install the following packages just built</li>
+</ul>
+
+<pre><code class="language-shell">yum install buildroot/root/rpmbuild/RPMS/x86_64/git-2.7.5-1.el7.centos.x86_64.rpm \
+buildroot/root/rpmbuild/RPMS/x86_64/git-core-* \
+buildroot/root/rpmbuild/RPMS/noarch/perl-Git-2.7.5-1.el7.centos.noarch.rpm
+</code></pre>
+
+</main>
+
+  <footer>
+  
+  
+  <hr/>
+  &copy; [項思偉] 2017 | <a href="https://github.com/daveixiang">Github</a>
+  
+  </footer>
+  </body>
+</html>
+

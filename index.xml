@@ -6,10 +6,28 @@
     <description>Recent content on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 21 Jun 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 26 Jun 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://daveixiang.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Building latest git for CentOS</title>
+      <link>https://daveixiang.github.io/articles/2017_06_26_building_latest_git_for_centos/</link>
+      <pubDate>Mon, 26 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_06_26_building_latest_git_for_centos/</guid>
+      <description>Install basic packages needed to compile RPMs  yum install make gcc perl-ExtUtils-MakeMaker \ rpmdevtools curl-devel expat-devel gettext-devel openssl-devel zlib-devel   Get a git SRPM to build from Fedora Package  wget https://kojipkgs.fedoraproject.org//packages/git/2.7.5/1.fc24/src/git-2.7.5-1.fc24.src.rpm rpm -i ./git-2.7.5-1.fc24.src.rpm   Install dependencies needed to compile git RPMs  yum install asciidoc xmlto desktop-file-utils emacs libgnome-keyring-devel \ pkgconfig bash-completion   Go to SPECS directory and try to build the RPMs:  cd rpmbuild/SPECS/ rpmbuild -ba git.</description>
+    </item>
+    
+    <item>
+      <title>RPM build chroot</title>
+      <link>https://daveixiang.github.io/articles/2017_06_26_rpm_build_chroot/</link>
+      <pubDate>Mon, 26 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://daveixiang.github.io/articles/2017_06_26_rpm_build_chroot/</guid>
+      <description> RPM build chroot  Create the chroot directory and initialize the rpm database  mkdir /root/buildroot rpm --root=/root/buildroot --rebuilddb   Install the latest centos-release package and yum inside  rpm --root=/root/buildroot -i ./centos-release-7-3.1611.el7.centos.x86_64.rpm yum --installroot=/root/buildroot install yum   With systemd-nspawn making it trivial to work inside the chroot  systemd-nspawn -D /root/buildroot/  </description>
+    </item>
     
     <item>
       <title>Some useful ethtool examples</title>

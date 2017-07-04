@@ -93,7 +93,8 @@ ovs-vsctl add-port br1 vxlan0 --\
   set interface vxlan0 type=vxlan \
   options:local_ip=192.168.0.1 \
   options:remote_ip=192.168.0.2 \
-  options:key=flow ofport_request=10
+  options:key=8080 \
+  ofport_request=10 
 </code></pre>
 
 <ul>
@@ -112,8 +113,11 @@ ovs-vsctl add-port br1 vxlan0 --\
   set interface vxlan0 type=vxlan \
   options:local_ip=192.168.0.2 \
   options:remote_ip=192.168.0.1 \
-  options:key=flow ofport_request=10
+  options:key=8080 \
+  ofport_request=10
 </code></pre>
+
+<p>[rstp]: Rapid Spanning Tree (RSTP), Open vSwitch supports the Rapid Spanning Tree Protocol, but is disabled by default. Rapid Spanning Tree is a network protocol used to prevent loops in a bridged Ethernet local area network.</p>
 
 </main>
 
