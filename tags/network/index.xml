@@ -2,32 +2,46 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Network on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>https://daveixiang.github.io/tags/network/</link>
+    <link>https://siweixiang.github.io/tags/network/</link>
     <description>Recent content in Network on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 25 Feb 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 21 Jun 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://daveixiang.github.io/tags/network/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://siweixiang.github.io/tags/network/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Some useful ethtool examples</title>
+      <link>https://siweixiang.github.io/articles/2017_06_21_some_useful_ethtool_examples/</link>
+      <pubDate>Wed, 21 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://siweixiang.github.io/articles/2017_06_21_some_useful_ethtool_examples/</guid>
+      <description>Display NIC settings
+ethtool &amp;lt;device_name&amp;gt;  Display Interface Device Driver
+ethtool -i &amp;lt;device_name&amp;gt;  Display Interface Statistics
+ethtool --statistics &amp;lt;device_name&amp;gt;  Display Autonegotiate, RX and TX settings
+ethtool -a &amp;lt;device_name&amp;gt;  Display NIC Features
+ethtool -k &amp;lt;device_name&amp;gt;  </description>
+    </item>
+    
+    <item>
       <title>Using OpenvSwitch to build minimal linux networking hack environment</title>
-      <link>https://daveixiang.github.io/articles/2017_02_25_using_openvswitch_to_build_minimal_linux_networking_hack_env/</link>
+      <link>https://siweixiang.github.io/articles/2017_02_25_using_openvswitch_to_build_minimal_linux_networking_hack_env/</link>
       <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_02_25_using_openvswitch_to_build_minimal_linux_networking_hack_env/</guid>
+      <guid>https://siweixiang.github.io/articles/2017_02_25_using_openvswitch_to_build_minimal_linux_networking_hack_env/</guid>
       <description>Create Openvswitch bridge and two tap devices for vm ip tuntap add name tap01 mode tap ip tuntap add name tap02 mode tap ip link set tap01 up ip link set tap02 up ip link set tap01 address 12:34:56:78:9a:01 ip link set tap01 address 12:34:56:78:9a:02 ovs-vsctl add-br br0 ovs-vsctl add-port br0 tap01 ovs-vsctl add-port br0 tap02  Start the two vms and config network configure vm01  start vm01  qemu-system-x86_64 -m 2048M -enable-kvm \ -nographic \ -kernel .</description>
     </item>
     
     <item>
       <title>Managing Tuntap Virtual Interfaces</title>
-      <link>https://daveixiang.github.io/articles/2016_07_11_managing_tuntap_virtual_interfaces/</link>
+      <link>https://siweixiang.github.io/articles/2016_07_11_managing_tuntap_virtual_interfaces/</link>
       <pubDate>Mon, 11 Jul 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2016_07_11_managing_tuntap_virtual_interfaces/</guid>
-      <description>TAP devices, in contrast, work at the Ethernet level or layer two and therefore behave very much like a real network adaptor. Since they are running at layer two they can transport any layer three protocol and aren’t limited to point-to-point connections. TAP devices can be part of a bridge and are commonly used in virtualization systems to provide virtual network adaptors to multiple guest machines.
- Create tuntap virtual interfaces  ip tuntap add name ${tap_name} mode tap   Delete tuntap virtual interfaces  ip tuntap del name ${tap_name} mode tap   Create Veth Pairs  ip link add ${point} type veth peer name ${other_point}  </description>
+      <guid>https://siweixiang.github.io/articles/2016_07_11_managing_tuntap_virtual_interfaces/</guid>
+      <description> TAP devices, in contrast, work at the Ethernet level or layer two and therefore behave very much like a real network adaptor. Since they are running at layer two they can transport any layer three protocol and aren’t limited to point-to-point connections. TAP devices can be part of a bridge and are commonly used in virtualization systems to provide virtual network adaptors to multiple guest machines.
+Create tuntap virtual interfaces ip tuntap add name ${tap_name} mode tap  Delete tuntap virtual interfaces ip tuntap del name ${tap_name} mode tap  Create Veth Pairs ip link add ${point} type veth peer name ${other_point}  </description>
     </item>
     
   </channel>

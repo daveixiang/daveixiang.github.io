@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Oom on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>https://daveixiang.github.io/tags/oom/</link>
+    <link>https://siweixiang.github.io/tags/oom/</link>
     <description>Recent content in Oom on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 08 Feb 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://daveixiang.github.io/tags/oom/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://siweixiang.github.io/tags/oom/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>内存不够导致KVM OOM</title>
-      <link>https://daveixiang.github.io/articles/2017_02_08_kvm_oom_case/</link>
+      <link>https://siweixiang.github.io/articles/2017_02_08_kvm_oom_case/</link>
       <pubDate>Wed, 08 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_02_08_kvm_oom_case/</guid>
+      <guid>https://siweixiang.github.io/articles/2017_02_08_kvm_oom_case/</guid>
       <description>KVM OOM  [451452.773003] [ pid ] uid tgid total_vm rss nr_ptes swapents oom_score_adj name [451452.773008] [ 395] 0 395 9240 1094 21 44 0 systemd-journal [451452.773010] [ 423] 0 423 29723 151 26 84 0 lvmetad [451452.773011] [ 429] 0 429 10897 261 21 109 -1000 systemd-udevd [451452.773013] [ 563] 0 563 13854 298 25 89 -1000 auditd [451452.773015] [ 585] 997 585 131910 320 55 1795 0 polkitd [451452.</description>
     </item>
     

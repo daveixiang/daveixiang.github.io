@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Build minimal linux hack env with busybox (Target: vexpress-a9) | 項 思 偉 ~ Aal Izz Well!</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <header>
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://siweixiang.github.io/">項 思 偉 ~ aal izz well!</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/xin">~/home</a>
+      </li>
+      
+      
+      <li class="pull-left current">
+        <a href="/">~/articles</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/categories/">~/categories</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/tags/">~/tags</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+  </head>
+
+  <body>
+    <br/>
+
+<div class="article-meta">
+<h1><span class="title">Build minimal linux hack env with busybox (Target: vexpress-a9)</span></h1>
+
+<h2 class="date">2017/07/17</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/categories/kernel">kernel</a> 
+  
+  
+  
+  Tags: <a href="/tags/linux">linux</a> <a href="/tags/kernel">kernel</a> <a href="/tags/busybox">busybox</a> 
+  
+  
+</p>
+</div>
+
+
+
+<main>
+
+
+<h2 id="build-the-kernel">Build the kernel</h2>
+
+<ul>
+<li>Use vexpress-a9 default configuration</li>
+</ul>
+
+<pre><code class="language-bash">make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabi- vexpress_defconfig
+</code></pre>
+
+<ul>
+<li>Simplify vexpress-a9 configuration by cutting unused drivers</li>
+</ul>
+
+<pre><code class="language-bash">make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabi- menuconfig
+</code></pre>
+
+<ul>
+<li>Create zImage</li>
+</ul>
+
+<pre><code class="language-bash">make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabi- -j$(nproc)
+</code></pre>
+
+<h2 id="build-busybox">Build busybox</h2>
+
+<ul>
+<li>Use busybox default configuration</li>
+</ul>
+
+<pre><code class="language-bash">make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabi- defconfig
+</code></pre>
+
+<ul>
+<li>Customize configurations</li>
+</ul>
+
+<pre><code class="language-bash">make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabi- menuconfig
+</code></pre>
+
+<p>Create busybox</p>
+
+<pre><code class="language-bash">make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabi- -j$(nproc)
+</code></pre>
+
+<p>Install busybox(default path: BUSYBOX/_install)</p>
+
+<pre><code class="language-bash">make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabi- install
+</code></pre>
+
+<h2 id="generate-minimal-initramfs">Generate minimal initramfs</h2>
+
+<pre><code class="language-bash">#!/bin/bash
+
+ROOTFS=rootfs
+BUSYBOX=$(find busybox* -maxdepth 0 -type d)
+ARM_DYNAMIC_LIB_PATH=/opt/cross/arm/arm-none-linux-gnueabi/libc/lib
+
+
+rm -rf $ROOTFS
+mkdir -p ${ROOTFS}/{proc,sys,dev,etc,etc/init.d,lib}
+
+cat &gt; $ROOTFS/etc/init.d/rcS &lt;&lt;EOF
+#!/bin/sh
+mount -t proc none /proc
+mount -t sysfs none /sys
+/sbin/mdev -s
+EOF
+
+chmod +x $ROOTFS/etc/init.d/rcS
+
+cat &gt; $ROOTFS/etc/inittab &lt;&lt;EOF
+# /etc/inittab
+::sysinit:/etc/init.d/rcS
+::askfirst:-/bin/sh
+::ctrlaltdel:/sbin/reboot
+::shutdown:/bin/umount -a -r
+EOF
+
+chmod +x $ROOTFS/etc/inittab
+
+cp -rP ${BUSYBOX}/_install/* ${ROOTFS}
+
+
+cp -rP ${ARM_DYNAMIC_LIB_PATH}/libc-2.21.so ${ROOTFS}/lib/
+cp -rP ${ARM_DYNAMIC_LIB_PATH}/libc.so.6 ${ROOTFS}/lib/
+cp -rP ${ARM_DYNAMIC_LIB_PATH}/libm-2.21.so ${ROOTFS}/lib/
+cp -rP ${ARM_DYNAMIC_LIB_PATH}/libm.so.6 ${ROOTFS}/lib/
+cp -rP ${ARM_DYNAMIC_LIB_PATH}/ld-2.21.so ${ROOTFS}/lib/
+cp -rP ${ARM_DYNAMIC_LIB_PATH}/ld-linux.so.3 ${ROOTFS}/lib/
+
+cd ${ROOTFS}
+ln -sf bin/busybox init
+find . | cpio -o --format=newc &gt; ../initramfs
+</code></pre>
+
+<h2 id="test-the-kernel-and-initramfs-just-built">Test the kernel and initramfs just built</h2>
+
+<p>Use qemu to test the /Image/ and /initramfs/ which we just builded:</p>
+
+<pre><code class="language-bash">qemu-system-arm -M vexpress-a9 \
+-kernel ./zImage -initrd ./initramfs -nographic -append  &quot;console=ttyAMA0&quot;
+</code></pre>
+
+<p>and the output just like the following:</p>
+
+<pre><code class="language-text">Please press Enter to activate this console. 
+
+./configure --prefix=/go/qemu/ --target-list=arm-softmmu,i386-softmmu,x86_64-softmmu,aarch64-linux-user,arm-linux-user,i386-linux-user,x86_64-linux-user,aarch64-softmmu --audio-drv-list=
+
+</code></pre>
+
+</main>
+
+    <footer>
+      
+<script async src="//yihui.name/js/center-img.js"></script>
+
+      
+      <hr/>
+      &copy; [項思偉] 2017 | <a href="https://github.com/siweixiang">Github</a>
+      
+    </footer>
+  </body>
+</html>
+

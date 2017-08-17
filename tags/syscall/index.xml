@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Syscall on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>https://daveixiang.github.io/tags/syscall/</link>
+    <link>https://siweixiang.github.io/tags/syscall/</link>
     <description>Recent content in Syscall on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 02 Feb 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://daveixiang.github.io/tags/syscall/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://siweixiang.github.io/tags/syscall/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>What is a system call (Linux)</title>
-      <link>https://daveixiang.github.io/articles/2017_02_02_what_is_a_system_call_linux/</link>
+      <link>https://siweixiang.github.io/articles/2017_02_02_what_is_a_system_call_linux/</link>
       <pubDate>Thu, 02 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_02_02_what_is_a_system_call_linux/</guid>
+      <guid>https://siweixiang.github.io/articles/2017_02_02_what_is_a_system_call_linux/</guid>
       <description>An application program makes a system call to get the operating system to perform a service for it, like reading from a file.
 System Calls in 32-bit Linux  To make a system call in 32-bit Linux, place the system call number in eax, then its arguments, in order, in ebx, ecx, edx, esi, edi, and ebp, then invoke int 0x80.
  Some system calls return information, usually in eax.</description>

@@ -2,31 +2,67 @@
 <html lang="en-us">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Linux shared libraries | 項 思 偉 ~ Aal Izz Well!</title>
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
-    
+    <header>
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://siweixiang.github.io//xin">項 思 偉 ~ aal izz well!</a>
+      </li>
+      
+      
+      <li class="pull-right ">
+        <a href="/">~/筆記</a>
+      </li>
+      
+      
+      <li class="pull-right ">
+        <a href="/categories/">~/分類</a>
+      </li>
+      
+      
+      <li class="pull-right ">
+        <a href="/tags/">~/標籤</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
   </head>
 
   <body>
-    <nav>
-    <ul class="menu">
-      
-      <li><a href="/xin">Home</a></li>
-      
-      <li><a href="/">Articles</a></li>
-      
-      <li><a href="/categories/">Categories</a></li>
-      
-      <li><a href="/tags/">Tags</a></li>
-      
-    </ul>
-    <hr/>
-    </nav>
+    <br/>
 
 <div class="article-meta">
 <h1><span class="title">Linux shared libraries</span></h1>
+
+<h2 class="date">2016/04/02</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/categories/clan">clan</a> 
+  
+  
+  
+  Tags: <a href="/tags/linux">linux</a> <a href="/tags/shared-library">shared library</a> <a href="/tags/clan">clan</a> 
+  
+  
+</p>
 </div>
+
+
 
 <main>
 
@@ -37,9 +73,11 @@ the compiled program - they&rsquo;re loaded in at the start of run-time if
 they&rsquo;re not already being used. You don&rsquo;t need to worry about them
 unless you&rsquo;re a system manager or applications writer.</p>
 
-<h1 id="every-shared-library-has">Every shared library has &hellip;</h1>
+<h2 id="every-shared-library-has">Every shared library has &hellip;</h2>
 
-<h2 id="soname">soname</h2>
+<ul>
+<li>soname</li>
+</ul>
 
 <p>libname.so.version_number - the version number is incremented whenever
 the interface changes.</p>
@@ -47,7 +85,9 @@ the interface changes.</p>
 <pre><code class="language-txt">libNAME.so.&lt;version_number&gt;
 </code></pre>
 
-<h2 id="realname">realname</h2>
+<ul>
+<li>realname</li>
+</ul>
 
 <p>The filename containing the actual library code. The &ldquo;real name&rdquo; adds
 to the &ldquo;soname&rdquo; a period, a minor number, another period, and the
@@ -56,14 +96,16 @@ release number. The last period and release number are optional.</p>
 <pre><code class="language-txt">libNAME.so.&lt;version_number&gt;.&lt;minor_number&gt;[.&lt;release_number&gt;]
 </code></pre>
 
-<h2 id="linker-name">linker name</h2>
+<ul>
+<li>linker name</li>
+</ul>
 
 <p>The name that the compiler uses (the soname without any version number).</p>
 
 <pre><code class="language-txt">libNAME.so
 </code></pre>
 
-<h1 id="creating-shared-libraries">Creating shared libraries</h1>
+<h2 id="creating-shared-libraries">Creating shared libraries</h2>
 
 <ol>
 <li><p>To generate object files, use <em>-fPIC</em> or <em>-fpic</em></p></li>
@@ -78,7 +120,7 @@ link to the &ldquo;real name&rdquo; and sets up the cache file
 symbolic link to the soname</p></li>
 </ol>
 
-<h1 id="shared-libraries-at-run-time">Shared libraries at run-time</h1>
+<h2 id="shared-libraries-at-run-time">Shared libraries at run-time</h2>
 
 <p>On Linux, starting up an ELF binary executable automatically causes
 the program loader /lib/ld-linux.so.X to be loaded and run, which in
@@ -98,7 +140,7 @@ subsequent commands Note that libc.so.N is the C library, which is
 used by just about all programs.</p></li>
 </ol>
 
-<h1 id="how-to-get-the-soname">How to get the SONAME</h1>
+<h2 id="how-to-get-the-soname">How to get the SONAME</h2>
 
 <pre><code class="language-bash">objdump -p /lib/libc.so.6  | grep SONAME
 </code></pre>
@@ -108,7 +150,7 @@ used by just about all programs.</p></li>
 <pre><code class="language-bash">readelf -d  /lib/libc.so.6  | grep SONAME
 </code></pre>
 
-<h1 id="get-default-shared-and-static-library-search-path">Get default shared and static library search path</h1>
+<h2 id="get-default-shared-and-static-library-search-path">Get default shared and static library search path</h2>
 
 <ul>
 <li>get the compiler default search path:</li>
@@ -127,13 +169,15 @@ used by just about all programs.</p></li>
 
 </main>
 
-  <footer>
-  
-  
-  <hr/>
-  &copy; [項思偉] 2017 | <a href="https://github.com/daveixiang">Github</a>
-  
-  </footer>
+    <footer>
+      
+<script async src="//yihui.name/js/center-img.js"></script>
+
+      
+      <hr/>
+      &copy; [項思偉] 2017 | <a href="https://github.com/siweixiang">Github</a>
+      
+    </footer>
   </body>
 </html>
 

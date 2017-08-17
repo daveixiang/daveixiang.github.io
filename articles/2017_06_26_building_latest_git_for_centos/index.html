@@ -2,44 +2,76 @@
 <html lang="en-us">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Building latest git for CentOS | 項 思 偉 ~ Aal Izz Well!</title>
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
-    
+    <header>
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://siweixiang.github.io//xin">項 思 偉 ~ aal izz well!</a>
+      </li>
+      
+      
+      <li class="pull-right ">
+        <a href="/">~/筆記</a>
+      </li>
+      
+      
+      <li class="pull-right ">
+        <a href="/categories/">~/分類</a>
+      </li>
+      
+      
+      <li class="pull-right ">
+        <a href="/tags/">~/標籤</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
   </head>
 
   <body>
-    <nav>
-    <ul class="menu">
-      
-      <li><a href="/xin">Home</a></li>
-      
-      <li><a href="/">Articles</a></li>
-      
-      <li><a href="/categories/">Categories</a></li>
-      
-      <li><a href="/tags/">Tags</a></li>
-      
-    </ul>
-    <hr/>
-    </nav>
+    <br/>
 
 <div class="article-meta">
 <h1><span class="title">Building latest git for CentOS</span></h1>
+
+<h2 class="date">2017/06/26</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/categories/linux">linux</a> 
+  
+  
+  
+  Tags: <a href="/tags/centos">centos</a> <a href="/tags/git">git</a> 
+  
+  
+</p>
 </div>
 
+
+
 <main>
-<ul>
-<li>Install basic packages needed to compile RPMs</li>
-</ul>
+<p>Install basic packages needed to compile RPMs</p>
 
 <pre><code class="language-shell">yum install make gcc perl-ExtUtils-MakeMaker \
 rpmdevtools curl-devel expat-devel gettext-devel openssl-devel zlib-devel
 </code></pre>
 
-<ul>
-<li>Get a git SRPM to build from <a href="https://apps.fedoraproject.org/packages/git/overview/">Fedora Package</a></li>
-</ul>
+<p>Get a git SRPM to build from <a href="https://apps.fedoraproject.org/packages/git/overview/">Fedora Package</a></p>
 
 <pre><code class="language-shell">wget https://kojipkgs.fedoraproject.org//packages/git/2.7.5/1.fc24/src/git-2.7.5-1.fc24.src.rpm
 
@@ -47,25 +79,19 @@ rpm -i ./git-2.7.5-1.fc24.src.rpm
 
 </code></pre>
 
-<ul>
-<li>Install dependencies needed to compile git RPMs</li>
-</ul>
+<p>Install dependencies needed to compile git RPMs</p>
 
 <pre><code class="language-shell">yum install asciidoc  xmlto desktop-file-utils emacs libgnome-keyring-devel \
 pkgconfig bash-completion 
 </code></pre>
 
-<ul>
-<li>Go to SPECS directory and try to build the RPMs:</li>
-</ul>
+<p>Go to SPECS directory and try to build the RPMs:</p>
 
 <pre><code class="language-shelll">cd rpmbuild/SPECS/
 rpmbuild -ba git.spec
 </code></pre>
 
-<ul>
-<li>Exit the chroot and install the following packages just built</li>
-</ul>
+<p>Exit the chroot and install the following packages just built</p>
 
 <pre><code class="language-shell">yum install buildroot/root/rpmbuild/RPMS/x86_64/git-2.7.5-1.el7.centos.x86_64.rpm \
 buildroot/root/rpmbuild/RPMS/x86_64/git-core-* \
@@ -74,13 +100,15 @@ buildroot/root/rpmbuild/RPMS/noarch/perl-Git-2.7.5-1.el7.centos.noarch.rpm
 
 </main>
 
-  <footer>
-  
-  
-  <hr/>
-  &copy; [項思偉] 2017 | <a href="https://github.com/daveixiang">Github</a>
-  
-  </footer>
+    <footer>
+      
+<script async src="//yihui.name/js/center-img.js"></script>
+
+      
+      <hr/>
+      &copy; [項思偉] 2017 | <a href="https://github.com/siweixiang">Github</a>
+      
+    </footer>
   </body>
 </html>
 

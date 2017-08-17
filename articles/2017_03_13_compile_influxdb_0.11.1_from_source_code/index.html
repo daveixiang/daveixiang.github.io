@@ -2,31 +2,67 @@
 <html lang="en-us">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Compile influxdb 0.11.1 from source code | 項 思 偉 ~ Aal Izz Well!</title>
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
-    
+    <header>
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://siweixiang.github.io//xin">項 思 偉 ~ aal izz well!</a>
+      </li>
+      
+      
+      <li class="pull-right ">
+        <a href="/">~/筆記</a>
+      </li>
+      
+      
+      <li class="pull-right ">
+        <a href="/categories/">~/分類</a>
+      </li>
+      
+      
+      <li class="pull-right ">
+        <a href="/tags/">~/標籤</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
   </head>
 
   <body>
-    <nav>
-    <ul class="menu">
-      
-      <li><a href="/xin">Home</a></li>
-      
-      <li><a href="/">Articles</a></li>
-      
-      <li><a href="/categories/">Categories</a></li>
-      
-      <li><a href="/tags/">Tags</a></li>
-      
-    </ul>
-    <hr/>
-    </nav>
+    <br/>
 
 <div class="article-meta">
 <h1><span class="title">Compile influxdb 0.11.1 from source code</span></h1>
+
+<h2 class="date">2017/03/13</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/categories/database">database</a> 
+  
+  
+  
+  Tags: <a href="/tags/tsdb">tsdb</a> <a href="/tags/golang">golang</a> 
+  
+  
+</p>
 </div>
+
+
 
 <main>
 
@@ -46,8 +82,8 @@ export PATH=$GOPATH/bin:$PATH
 
 <p>InfluxDB uses gdm to manage dependencies. Install it by running the following:</p>
 
-
-go get github.com/sparrc/gdm
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>go get github.com/sparrc/gdm
+</pre></div>
 
 
 <h2 id="extract-source-code">Extract source code</h2>
@@ -164,13 +200,15 @@ mkdir -p $GOPATH/var/lib/influxdb
 
 </main>
 
-  <footer>
-  
-  
-  <hr/>
-  &copy; [項思偉] 2017 | <a href="https://github.com/daveixiang">Github</a>
-  
-  </footer>
+    <footer>
+      
+<script async src="//yihui.name/js/center-img.js"></script>
+
+      
+      <hr/>
+      &copy; [項思偉] 2017 | <a href="https://github.com/siweixiang">Github</a>
+      
+    </footer>
   </body>
 </html>
 

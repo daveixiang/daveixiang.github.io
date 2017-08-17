@@ -2,21 +2,39 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Clan on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>https://daveixiang.github.io/tags/clan/</link>
+    <link>https://siweixiang.github.io/tags/clan/</link>
     <description>Recent content in Clan on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 05 Jun 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 17 Jul 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://daveixiang.github.io/tags/clan/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://siweixiang.github.io/tags/clan/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Build Cross GCC Toolchain (TARGET:arm)</title>
+      <link>https://siweixiang.github.io/articles/2017_07_17_build_cross_gcc_toolchain_arm/</link>
+      <pubDate>Mon, 17 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://siweixiang.github.io/articles/2017_07_17_build_cross_gcc_toolchain_arm/</guid>
+      <description>export BASE_DIR=/go/cross/ export LOG_DIR=$BASE_DIR/log export SRC_DIR=$BASE_DIR/src export BUILD_DIR=$BASE_DIR/build export INSTALL_DIR=$BASE_DIR/arm export SYSROOT_DIR=$INSTALL_DIR/sysroot export TARGET_MACH=arm-none-linux-gnueabi export LINUX_ARCH=arm export BUILD_MACH=$(gcc -dumpmachine) export binutils_version=binutils-2.27 export kernel_version=linux-4.9.35 export gcc_version=gcc-6.4.0 export glibc_version=glibc-2.25 export BINUTILS_SRC=$SRC_DIR/$binutils_version export KERNEL_SRC=$SRC_DIR/$kernel_version export GCC_SRC=$SRC_DIR/$gcc_version export GLIBC_SRC=$SRC_DIR/$glibc_version wrap_cmd() { stage=$1; shift LOGFILE=&amp;quot;$LOG_DIR/$stage.log&amp;quot; rm -rf &amp;quot;$LOGFILE&amp;quot; echo &amp;quot;begin $stage&amp;quot; for cmd in &amp;quot;$@&amp;quot; do echo &amp;quot;begin $cmd&amp;quot; eval &amp;quot;$cmd &amp;gt;&amp;gt; $LOGFILE 2&amp;gt;&amp;amp;1&amp;quot; [ $? -ne 0 ] &amp;amp;&amp;amp; echo &amp;quot;error&amp;quot; &amp;amp;&amp;amp; exit 1 echo &amp;quot;end $cmd&amp;quot; done echo &amp;quot;end $stage&amp;quot; } rm -rf $BUILD_DIR mkdir -p $BUILD_DIR mkdir -p $SRC_DIR $LOG_DIR wrap_cmd &amp;quot;00.</description>
+    </item>
+    
+    <item>
+      <title>Build Cross GCC Toolchain (TARGET:i686)</title>
+      <link>https://siweixiang.github.io/articles/2017_07_06_build_cross_gcc_toolchain_i686/</link>
+      <pubDate>Thu, 06 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://siweixiang.github.io/articles/2017_07_06_build_cross_gcc_toolchain_i686/</guid>
+      <description>export BASE_DIR=/go/cross/ export LOG_DIR=$BASE_DIR/log export SRC_DIR=$BASE_DIR/src export BUILD_DIR=$BASE_DIR/build export INSTALL_DIR=$BASE_DIR/i686 export SYSROOT_DIR=$INSTALL_DIR/sysroot export TARGET_MACH=i686-none-linux-gnu export LINUX_ARCH=i386 export BUILD_MACH=$(gcc -dumpmachine) export binutils_version=binutils-2.27 export kernel_version=linux-4.9.35 export gcc_version=gcc-6.4.0 export glibc_version=glibc-2.25 export BINUTILS_SRC=$SRC_DIR/$binutils_version export KERNEL_SRC=$SRC_DIR/$kernel_version export GCC_SRC=$SRC_DIR/$gcc_version export GLIBC_SRC=$SRC_DIR/$glibc_version wrap_cmd() { stage=$1; shift LOGFILE=&amp;quot;$LOG_DIR/$stage.log&amp;quot; rm -rf &amp;quot;$LOGFILE&amp;quot; echo &amp;quot;begin $stage&amp;quot; for cmd in &amp;quot;$@&amp;quot; do echo &amp;quot;begin $cmd&amp;quot; eval &amp;quot;$cmd &amp;gt;&amp;gt; $LOGFILE 2&amp;gt;&amp;amp;1&amp;quot; [ $? -ne 0 ] &amp;amp;&amp;amp; echo &amp;quot;error&amp;quot; &amp;amp;&amp;amp; exit 1 echo &amp;quot;end $cmd&amp;quot; done echo &amp;quot;end $stage&amp;quot; } rm -rf $BUILD_DIR mkdir -p $BUILD_DIR mkdir -p $SRC_DIR $LOG_DIR wrap_cmd &amp;quot;00.</description>
+    </item>
+    
+    <item>
       <title>Clang print self</title>
-      <link>https://daveixiang.github.io/articles/2017_06_05_clang_print_self/</link>
+      <link>https://siweixiang.github.io/articles/2017_06_05_clang_print_self/</link>
       <pubDate>Mon, 05 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_06_05_clang_print_self/</guid>
+      <guid>https://siweixiang.github.io/articles/2017_06_05_clang_print_self/</guid>
       <description>print-self.c  #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; extern char * _binary_print_self_c_start; int main() { printf(&amp;quot;%s&amp;quot;, (char *)&amp;amp;_binary_print_self_c_start); }  and generate print-self.bin
 objcopy -I binary -O elf64-x86-64 -B i386:x86-64 print-self.c print-self.bin   print-self.bin  readelf --sym print-self.bin  and the symbols is like:
 Symbol table &#39;.symtab&#39; contains 5 entries: Num: Value Size Type Bind Vis Ndx Name 0: 0000000000000000 0 NOTYPE LOCAL DEFAULT UND 1: 0000000000000000 0 SECTION LOCAL DEFAULT 1 2: 0000000000000000 0 NOTYPE GLOBAL DEFAULT 1 _binary_print_self_c_star 3: 000000000000009b 0 NOTYPE GLOBAL DEFAULT 1 _binary_print_self_c_end 4: 000000000000009b 0 NOTYPE GLOBAL DEFAULT ABS _binary_print_self_c_size   print-self  gcc -o print-self print-self.</description>
@@ -24,84 +42,84 @@ Symbol table &#39;.symtab&#39; contains 5 entries: Num: Value Size Type Bind Vis
     
     <item>
       <title>Build Cross GCC Toolchain (TARGET:x86_64)</title>
-      <link>https://daveixiang.github.io/articles/2017_04_01_build_cross_gcc_toolchain_x86_64/</link>
+      <link>https://siweixiang.github.io/articles/2017_04_01_build_cross_gcc_toolchain_x86_64/</link>
       <pubDate>Sat, 01 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_04_01_build_cross_gcc_toolchain_x86_64/</guid>
-      <description>export BASE_DIR=/src/cross/ export LOG_DIR=$BASE_DIR/log export SRC_DIR=$BASE_DIR/src export BUILD_DIR=$BASE_DIR/build export INSTALL_DIR=$BASE_DIR/x86_64 export SYSROOT_DIR=$INSTALL_DIR/sysroot export TARGET_MACH=x86_64-linux-gnu export LINUX_ARCH=x86_64 export BUILD_MACH=$(gcc -dumpmachine) export binutils_version=binutils-2.27 export kernel_version=linux-4.4.51 export gcc_version=gcc-5.4.0 export glibc_version=glibc-2.25 export BINUTILS_SRC=$SRC_DIR/$binutils_version export KERNEL_SRC=$SRC_DIR/$kernel_version export GCC_SRC=$SRC_DIR/$gcc_version export GLIBC_SRC=$SRC_DIR/$glibc_version wrap_cmd() { stage=$1; shift LOGFILE=&amp;quot;$LOG_DIR/$stage.log&amp;quot; rm -rf &amp;quot;$LOGFILE&amp;quot; echo &amp;quot;begin $stage&amp;quot; for cmd in &amp;quot;$@&amp;quot; do echo &amp;quot;begin $cmd&amp;quot; eval &amp;quot;$cmd &amp;gt;&amp;gt; $LOGFILE 2&amp;gt;&amp;amp;1&amp;quot; [ $? -ne 0 ] &amp;amp;&amp;amp; echo &amp;quot;error&amp;quot; &amp;amp;&amp;amp; exit 1 echo &amp;quot;end $cmd&amp;quot; done echo &amp;quot;end $stage&amp;quot; } rm -rf $BUILD_DIR mkdir -p $BUILD_DIR mkdir -p $SRC_DIR $LOG_DIR # wrap_cmd &amp;quot;00.</description>
+      <guid>https://siweixiang.github.io/articles/2017_04_01_build_cross_gcc_toolchain_x86_64/</guid>
+      <description>export BASE_DIR=/go/cross/ export LOG_DIR=$BASE_DIR/log export SRC_DIR=$BASE_DIR/src export BUILD_DIR=$BASE_DIR/build export INSTALL_DIR=$BASE_DIR/x86_64 export SYSROOT_DIR=$INSTALL_DIR/sysroot export TARGET_MACH=x86_64-linux-gnu export LINUX_ARCH=x86_64 export BUILD_MACH=$(gcc -dumpmachine) export binutils_version=binutils-2.27 export kernel_version=linux-4.9.35 export gcc_version=gcc-6.4.0 export glibc_version=glibc-2.25 export BINUTILS_SRC=$SRC_DIR/$binutils_version export KERNEL_SRC=$SRC_DIR/$kernel_version export GCC_SRC=$SRC_DIR/$gcc_version export GLIBC_SRC=$SRC_DIR/$glibc_version wrap_cmd() { stage=$1; shift LOGFILE=&amp;quot;$LOG_DIR/$stage.log&amp;quot; rm -rf &amp;quot;$LOGFILE&amp;quot; echo &amp;quot;begin $stage&amp;quot; for cmd in &amp;quot;$@&amp;quot; do echo &amp;quot;begin $cmd&amp;quot; eval &amp;quot;$cmd &amp;gt;&amp;gt; $LOGFILE 2&amp;gt;&amp;amp;1&amp;quot; [ $? -ne 0 ] &amp;amp;&amp;amp; echo &amp;quot;error&amp;quot; &amp;amp;&amp;amp; exit 1 echo &amp;quot;end $cmd&amp;quot; done echo &amp;quot;end $stage&amp;quot; } rm -rf $BUILD_DIR mkdir -p $BUILD_DIR mkdir -p $SRC_DIR $LOG_DIR wrap_cmd &amp;quot;00.</description>
     </item>
     
     <item>
       <title>GCC and Glibc core runtime files</title>
-      <link>https://daveixiang.github.io/articles/2017_03_31_gcc_glibc_core_runtime_files/</link>
+      <link>https://siweixiang.github.io/articles/2017_03_31_gcc_glibc_core_runtime_files/</link>
       <pubDate>Fri, 31 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_03_31_gcc_glibc_core_runtime_files/</guid>
+      <guid>https://siweixiang.github.io/articles/2017_03_31_gcc_glibc_core_runtime_files/</guid>
       <description>Files provided by glibc     file usage     crt0.o Older style of the initial runtime code. No one generates this anymore.   crt1.o Newer style of the initial runtime code. Contains the _start symbol which sets up the env with argc/argv/libc _init/libc _fini before jumping to the libc main. glibc calls this file &amp;lsquo;start.S&amp;rsquo;.   crti.o Defines the function prolog; _init in the .</description>
     </item>
     
     <item>
       <title>Build Cross GCC Toolchain (TARGET:arm64)</title>
-      <link>https://daveixiang.github.io/articles/2017_02_25_build_cross_gcc_toolchain_arm64/</link>
+      <link>https://siweixiang.github.io/articles/2017_02_25_build_cross_gcc_toolchain_arm64/</link>
       <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_02_25_build_cross_gcc_toolchain_arm64/</guid>
+      <guid>https://siweixiang.github.io/articles/2017_02_25_build_cross_gcc_toolchain_arm64/</guid>
       <description>export BASE_DIR=/src/cross/ export LOG_DIR=$BASE_DIR/log export SRC_DIR=$BASE_DIR/src export BUILD_DIR=$BASE_DIR/build export INSTALL_DIR=$BASE_DIR/aarch64 export SYSROOT_DIR=$INSTALL_DIR/sysroot export BINUTILS_SRC=$SRC_DIR/binutils-2.27 export KERNEL_SRC=$SRC_DIR/linux-4.4.51 export GCC_SRC=$SRC_DIR/gcc-5.4.0 export GLIBC_SRC=$SRC_DIR/glibc-2.25 export TARGET_MACH=aarch64-linux-gnu export LINUX_ARCH=arm64 export BUILD_MACH=$(gcc -dumpmachine) wrap_cmd() { stage=$1; shift LOGFILE=&amp;quot;$LOG_DIR/$stage.log&amp;quot; rm -rf &amp;quot;$LOGFILE&amp;quot; echo &amp;quot;begin $stage&amp;quot; for cmd in &amp;quot;$@&amp;quot; do echo &amp;quot;begin $cmd&amp;quot; eval &amp;quot;$cmd &amp;gt;&amp;gt; $LOGFILE 2&amp;gt;&amp;amp;1&amp;quot; [ $? -ne 0 ] &amp;amp;&amp;amp; echo &amp;quot;error&amp;quot; &amp;amp;&amp;amp; exit 1 echo &amp;quot;end $cmd&amp;quot; done echo &amp;quot;end $stage&amp;quot; } rm -rf $BUILD_DIR mkdir -p $BUILD_DIR wrap_cmd &amp;quot;01.</description>
     </item>
     
     <item>
       <title>GCC inline assembly hello world example</title>
-      <link>https://daveixiang.github.io/articles/2017_02_17_gcc_inline_assembly_hello_world_example/</link>
+      <link>https://siweixiang.github.io/articles/2017_02_17_gcc_inline_assembly_hello_world_example/</link>
       <pubDate>Fri, 17 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_02_17_gcc_inline_assembly_hello_world_example/</guid>
+      <guid>https://siweixiang.github.io/articles/2017_02_17_gcc_inline_assembly_hello_world_example/</guid>
       <description>x86 example  #include &amp;lt;string.h&amp;gt; #include &amp;lt;stdio.h&amp;gt; int main(int argc, char *argv[]) { char *str = &amp;quot;Hello World\n&amp;quot;; long len = strlen(str); int ret = 0; /* * ssize_t write(int fd, const void *buf, size_t count); * */ __asm__(&amp;quot;movl $1, %%eax\n\t&amp;quot; // write syscall &amp;quot;movl $1, %%ebx\n\t&amp;quot; // fd &amp;quot;movl %1, %%ecx\n\t&amp;quot; // buf &amp;quot;movl %2, %%edx\n\t&amp;quot; // count &amp;quot;syscall\n\t&amp;quot; &amp;quot;movl %%eax, %0&amp;quot; // return result to ret : &amp;quot;+m&amp;quot;(ret) : &amp;quot;g&amp;quot;(str), &amp;quot;g&amp;quot;(len)); printf(&amp;quot;ret %d\n&amp;quot;, ret); return 0; }   x86-64 example  #include &amp;lt;string.</description>
     </item>
     
     <item>
       <title>System V Calling Conversions</title>
-      <link>https://daveixiang.github.io/articles/2017_02_02_system_v_calling_conversions/</link>
+      <link>https://siweixiang.github.io/articles/2017_02_02_system_v_calling_conversions/</link>
       <pubDate>Thu, 02 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_02_02_system_v_calling_conversions/</guid>
+      <guid>https://siweixiang.github.io/articles/2017_02_02_system_v_calling_conversions/</guid>
       <description>System V i386  Parameters  Parameters are passed on the stack, with the first argument at the lowest address on the stack at the time of the call (pushed last, so it&amp;rsquo;s just above the return address on entry to the function). The caller is responsible for popping parameters back off the stack after the call.
  Return Value  For scalar return types, the return value is placed in EAX, or EDX:EAX for 64bit integers.</description>
     </item>
     
     <item>
       <title>caller vs callee</title>
-      <link>https://daveixiang.github.io/articles/2017_02_02_caller_vs_callee/</link>
+      <link>https://siweixiang.github.io/articles/2017_02_02_caller_vs_callee/</link>
       <pubDate>Thu, 02 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_02_02_caller_vs_callee/</guid>
+      <guid>https://siweixiang.github.io/articles/2017_02_02_caller_vs_callee/</guid>
       <description>caller vs callee  If routine A calls routine B then routine A is the caller and routine B is the callee. i.e. the caller is the routine which is calling the callee.   argument vs parameter  When a routine calls another routine, it may pass something to the other routine. From the perspective of the caller the thing which is passed is an argument. From the perspective of the routine that receives the call, i.</description>
     </item>
     
     <item>
       <title>ASCII Table</title>
-      <link>https://daveixiang.github.io/articles/2017_01_31_ascii_code_table/</link>
+      <link>https://siweixiang.github.io/articles/2017_01_31_ascii_code_table/</link>
       <pubDate>Tue, 31 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_01_31_ascii_code_table/</guid>
+      <guid>https://siweixiang.github.io/articles/2017_01_31_ascii_code_table/</guid>
       <description>ASCII control characters  Oct Dec Hex Control-key Control Action NUL 0 0 0 ^@ Null character SOH 1 1 1 ^A Start of heading, = console interrupt STX 2 2 2 ^B Start of text, maintenance mode on HP console ETX 3 3 3 ^C End of text EOT 4 4 4 ^D End of transmission, not the same as ETB ENQ 5 5 5 ^E Enquiry, goes with ACK; old HP flow control ACK 6 6 6 ^F Acknowledge, clears ENQ logon hang BEL 7 7 7 ^G Bell, rings the bell BS 10 8 8 ^H Backspace, works on HP terminals/computers HT 11 9 9 ^I Horizontal tab, move to next tab stop LF 12 10 a ^J Line Feed VT 13 11 b ^K Vertical tab FF 14 12 c ^L Form Feed, page eject CR 15 13 d ^M Carriage Return SO 16 14 e ^N Shift Out, alternate character set SI 17 15 f ^O Shift In, resume default character set DLE 20 16 10 ^P Data link escape DC1 21 17 11 ^Q XON, with XOFF to pause listings; &amp;amp;quot;okay to send&amp;amp;quot; DC2 22 18 12 ^R Device control 2, block-mode flow control DC3 23 19 13 ^S XOFF, with XON is TERM=18 flow control DC4 24 20 14 ^T Device control 4 NAK 25 21 15 ^U Negative acknowledge SYN 26 22 16 ^V Synchronous idle ETB 27 23 17 ^W End transmission block, not the same as EOT CAN 30 24 18 ^X Cancel line, MPE echoes !</description>
     </item>
     
     <item>
       <title>C &amp; C&#43;&#43; link order</title>
-      <link>https://daveixiang.github.io/articles/2016_09_07_c_cpp_link_order/</link>
+      <link>https://siweixiang.github.io/articles/2016_09_07_c_cpp_link_order/</link>
       <pubDate>Wed, 07 Sep 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2016_09_07_c_cpp_link_order/</guid>
+      <guid>https://siweixiang.github.io/articles/2016_09_07_c_cpp_link_order/</guid>
       <description>If any [static] library A depends on symbols defined in library B, then library A should appear first in the list supplied to the linker.
 +- prog.o -----+ +- libA.a -----+ +- libB.a -----+ | U funcA --|---|-&amp;gt; T funcA | | | U : undefined/used | | | U funcB --|---|-&amp;gt; T funcB | T : defined | T main | | | | | +--------------+ +--------------+ +--------------+  gcc prog.</description>
     </item>
     
     <item>
       <title>Symbol versions and dependencies</title>
-      <link>https://daveixiang.github.io/articles/2016_05_03_symbol_versions_and_dependencies/</link>
+      <link>https://siweixiang.github.io/articles/2016_05_03_symbol_versions_and_dependencies/</link>
       <pubDate>Tue, 03 May 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2016_05_03_symbol_versions_and_dependencies/</guid>
+      <guid>https://siweixiang.github.io/articles/2016_05_03_symbol_versions_and_dependencies/</guid>
       <description>The documentation on ld&amp;rsquo;s symbol versioning syntax is a little bit vague on &amp;ldquo;dependencies&amp;rdquo;, which it talks about but doesn&amp;rsquo;t give many details on.
 Let&amp;rsquo;s construct a small example.
  foo.c  #include &amp;lt;stdio.h&amp;gt; #ifndef VERSION_2 void foo(int f) { printf(&amp;quot;version 1 called\n&amp;quot;); } #else void foo_v1(int f) { printf(&amp;quot;version 1 called\n&amp;quot;); } __asm__(&amp;quot;.symver foo_v1,foo@VERSION_1&amp;quot;); void foo_v2(int f) { printf(&amp;quot;version 2 called\n&amp;quot;); } /* i.e. foo_v2 is really foo@VERSION_2 * @@ means this is the default version */ __asm__(&amp;quot;.</description>
@@ -109,12 +127,12 @@ Let&amp;rsquo;s construct a small example.
     
     <item>
       <title>Linux shared libraries</title>
-      <link>https://daveixiang.github.io/articles/2016_04_02_linux_shared_libraries/</link>
+      <link>https://siweixiang.github.io/articles/2016_04_02_linux_shared_libraries/</link>
       <pubDate>Sat, 02 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2016_04_02_linux_shared_libraries/</guid>
+      <guid>https://siweixiang.github.io/articles/2016_04_02_linux_shared_libraries/</guid>
       <description>Shared libraries are collections of code that can be shared by programs. Unlike static (aka archive) libraries, they&amp;rsquo;re not part of the compiled program - they&amp;rsquo;re loaded in at the start of run-time if they&amp;rsquo;re not already being used. You don&amp;rsquo;t need to worry about them unless you&amp;rsquo;re a system manager or applications writer.
-Every shared library has &amp;hellip; soname libname.so.version_number - the version number is incremented whenever the interface changes.</description>
+Every shared library has &amp;hellip;  soname  libname.so.version_number - the version number is incremented whenever the interface changes.</description>
     </item>
     
   </channel>

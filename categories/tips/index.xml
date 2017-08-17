@@ -2,30 +2,35 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tips on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>https://daveixiang.github.io/categories/tips/</link>
+    <link>https://siweixiang.github.io/categories/tips/</link>
     <description>Recent content in Tips on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 21 Jun 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://daveixiang.github.io/categories/tips/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://siweixiang.github.io/categories/tips/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Some useful ethtool examples</title>
-      <link>https://daveixiang.github.io/articles/2017_06_21_some_useful_ethtool_examples/</link>
+      <link>https://siweixiang.github.io/articles/2017_06_21_some_useful_ethtool_examples/</link>
       <pubDate>Wed, 21 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_06_21_some_useful_ethtool_examples/</guid>
-      <description> Display NIC settings  ethtool &amp;lt;device_name&amp;gt;   Display Interface Device Driver  ethtool -i &amp;lt;device_name&amp;gt;   Display Interface Statistics  ethtool --statistics &amp;lt;device_name&amp;gt;   Display Autonegotiate, RX and TX settings  ethtool -a &amp;lt;device_name&amp;gt;   Display NIC Features  ethtool -k &amp;lt;device_name&amp;gt;  </description>
+      <guid>https://siweixiang.github.io/articles/2017_06_21_some_useful_ethtool_examples/</guid>
+      <description>Display NIC settings
+ethtool &amp;lt;device_name&amp;gt;  Display Interface Device Driver
+ethtool -i &amp;lt;device_name&amp;gt;  Display Interface Statistics
+ethtool --statistics &amp;lt;device_name&amp;gt;  Display Autonegotiate, RX and TX settings
+ethtool -a &amp;lt;device_name&amp;gt;  Display NIC Features
+ethtool -k &amp;lt;device_name&amp;gt;  </description>
     </item>
     
     <item>
       <title>Linux: How to bind IP that doesn&#39;t exist</title>
-      <link>https://daveixiang.github.io/articles/2017_05_27_linux_how_to_bind_ip_that_does_not_exist/</link>
+      <link>https://siweixiang.github.io/articles/2017_05_27_linux_how_to_bind_ip_that_does_not_exist/</link>
       <pubDate>Sat, 27 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_05_27_linux_how_to_bind_ip_that_does_not_exist/</guid>
+      <guid>https://siweixiang.github.io/articles/2017_05_27_linux_how_to_bind_ip_that_does_not_exist/</guid>
       <description>This tip is really usefull if you use virtual ips.
 Imagine you are using keepalived + haproxy on your loadbalancers in active/active mode.
 You have 2 virtual IPs one is on the first load balancer and the other is on the second.
@@ -34,19 +39,19 @@ Now in your haproxy.cfg you have to bind these IPs, the probem is that one of th
     
     <item>
       <title>How to get the complete and exact list of mounted filesystems in Linux?</title>
-      <link>https://daveixiang.github.io/articles/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</link>
+      <link>https://siweixiang.github.io/articles/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</link>
       <pubDate>Wed, 22 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</guid>
+      <guid>https://siweixiang.github.io/articles/2017_03_22_get_the_complete_and_exact_list_of_mounted_filesystems_in_linux/</guid>
       <description>findmnt -lo source,target,fstype,label,options,used -t xfs  SOURCE TARGET FSTYPE LABEL OPTIONS /dev/vda1 / xfs rw,relatime,attr2,inode64,noquota  /proc/mounts /etc/mtab  </description>
     </item>
     
     <item>
       <title>Reloading tmux config</title>
-      <link>https://daveixiang.github.io/articles/2016_04_10_reloading_tmux_config/</link>
+      <link>https://siweixiang.github.io/articles/2016_04_10_reloading_tmux_config/</link>
       <pubDate>Sun, 10 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2016_04_10_reloading_tmux_config/</guid>
+      <guid>https://siweixiang.github.io/articles/2016_04_10_reloading_tmux_config/</guid>
       <description>If you have made changes to your tmux configuration file in the ~/.tmux.conf file, it shouldn’t be necessary to start the server up again from scratch with kill-server. Instead, you can prompt the current tmux session to reload the configuration with the source-file command.
  Method 1  This can be done either from within tmux, by pressing Ctrl+B and then : to bring up a command prompt, and typing:</description>
     </item>

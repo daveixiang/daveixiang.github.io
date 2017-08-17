@@ -2,36 +2,72 @@
 <html lang="en-us">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Add Module to the Linux Kernel Source | 項 思 偉 ~ Aal Izz Well!</title>
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
-    
+    <header>
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://siweixiang.github.io//xin">項 思 偉 ~ aal izz well!</a>
+      </li>
+      
+      
+      <li class="pull-right ">
+        <a href="/">~/筆記</a>
+      </li>
+      
+      
+      <li class="pull-right ">
+        <a href="/categories/">~/分類</a>
+      </li>
+      
+      
+      <li class="pull-right ">
+        <a href="/tags/">~/標籤</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
   </head>
 
   <body>
-    <nav>
-    <ul class="menu">
-      
-      <li><a href="/xin">Home</a></li>
-      
-      <li><a href="/">Articles</a></li>
-      
-      <li><a href="/categories/">Categories</a></li>
-      
-      <li><a href="/tags/">Tags</a></li>
-      
-    </ul>
-    <hr/>
-    </nav>
+    <br/>
 
 <div class="article-meta">
 <h1><span class="title">Add Module to the Linux Kernel Source</span></h1>
+
+<h2 class="date">2016/04/21</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/categories/linux">linux</a> 
+  
+  
+  
+  Tags: <a href="/tags/kernel">kernel</a> <a href="/tags/linux">linux</a> 
+  
+  
+</p>
 </div>
+
+
 
 <main>
 
 
-<h1 id="create-module-directory">Create module directory</h1>
+<h2 id="create-module-directory">Create module directory</h2>
 
 <p>Create a directory <em>skm</em> inside <em>drivers</em> (which is in the Linux
 source code) for your module and put source code(skm.c) into it. It
@@ -66,7 +102,7 @@ MODULE_AUTHOR(&quot;Xiang Davei&quot;);
 MODULE_DESCRIPTION(&quot;Simple Kernel Module&quot;)
 </code></pre>
 
-<h1 id="create-makefile-file">Create <em>Makefile</em> file</h1>
+<h2 id="create-makefile-file">Create <em>Makefile</em> file</h2>
 
 <p>Create one <em>Makefile</em> inside <em>skm</em> and add <em>obj-$(CONFG_SKM) += skm.o</em>
 to it. This will appears like:</p>
@@ -74,7 +110,7 @@ to it. This will appears like:</p>
 <pre><code class="language-makefile">obj-$(CONFIG_SKM) += skm.o
 </code></pre>
 
-<h1 id="create-kconfig-file">Create <em>Kconfig</em> file</h1>
+<h2 id="create-kconfig-file">Create <em>Kconfig</em> file</h2>
 
 <p>Create one <em>Kconfig</em> inside <em>skm</em> , then put the content as the
 following:</p>
@@ -91,7 +127,7 @@ following:</p>
 <pre><code class="language-txt">{LINUX_SRC_PATH}/drivers/skm/Kconfig
 </code></pre>
 
-<h1 id="edit-makefile-and-kconfig-in-linux-src-path-drivers">Edit <em>Makefile</em> and <em>Kconfig</em> in <em>{LINUX_SRC_PATH}/drivers/</em></h1>
+<h2 id="edit-makefile-and-kconfig-in-linux-src-path-drivers">Edit <em>Makefile</em> and <em>Kconfig</em> in <em>{LINUX_SRC_PATH}/drivers/</em></h2>
 
 <p>In the <em>Makefile</em> add below in last line</p>
 
@@ -108,7 +144,7 @@ following:</p>
 <pre><code class="language-txt">source &quot;drivers/skm/Kconfig&quot;
 </code></pre>
 
-<h1 id="compile-the-source-code-with-module-just-added">Compile the source code with module just added</h1>
+<h2 id="compile-the-source-code-with-module-just-added">Compile the source code with module just added</h2>
 
 <ul>
 <li>Use <em>make menuconfig</em> to choice the module just added</li>
@@ -137,7 +173,7 @@ following:</p>
 <pre><code class="language-bash">make modules_install INSTALL_MOD_PATH=${MODULES_PATH}
 </code></pre>
 
-<h1 id="test">Test</h1>
+<h2 id="test">Test</h2>
 
 <ul>
 <li>load the <em>skm</em> into the kernel</li>
@@ -163,13 +199,15 @@ following:</p>
 
 </main>
 
-  <footer>
-  
-  
-  <hr/>
-  &copy; [項思偉] 2017 | <a href="https://github.com/daveixiang">Github</a>
-  
-  </footer>
+    <footer>
+      
+<script async src="//yihui.name/js/center-img.js"></script>
+
+      
+      <hr/>
+      &copy; [項思偉] 2017 | <a href="https://github.com/siweixiang">Github</a>
+      
+    </footer>
   </body>
 </html>
 

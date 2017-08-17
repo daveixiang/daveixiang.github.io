@@ -2,34 +2,70 @@
 <html lang="en-us">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Build Cross GCC Toolchain (TARGET:x86_64) | 項 思 偉 ~ Aal Izz Well!</title>
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
-    
+    <header>
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://siweixiang.github.io//xin">項 思 偉 ~ aal izz well!</a>
+      </li>
+      
+      
+      <li class="pull-right ">
+        <a href="/">~/筆記</a>
+      </li>
+      
+      
+      <li class="pull-right ">
+        <a href="/categories/">~/分類</a>
+      </li>
+      
+      
+      <li class="pull-right ">
+        <a href="/tags/">~/標籤</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
   </head>
 
   <body>
-    <nav>
-    <ul class="menu">
-      
-      <li><a href="/xin">Home</a></li>
-      
-      <li><a href="/">Articles</a></li>
-      
-      <li><a href="/categories/">Categories</a></li>
-      
-      <li><a href="/tags/">Tags</a></li>
-      
-    </ul>
-    <hr/>
-    </nav>
+    <br/>
 
 <div class="article-meta">
 <h1><span class="title">Build Cross GCC Toolchain (TARGET:x86_64)</span></h1>
+
+<h2 class="date">2017/04/01</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/categories/clan">clan</a> 
+  
+  
+  
+  Tags: <a href="/tags/clan">clan</a> <a href="/tags/gcc">gcc</a> 
+  
+  
+</p>
 </div>
 
+
+
 <main>
-<pre><code class="language-bash">export BASE_DIR=/src/cross/
+<pre><code class="language-bash">export BASE_DIR=/go/cross/
 export LOG_DIR=$BASE_DIR/log
 export SRC_DIR=$BASE_DIR/src
 export BUILD_DIR=$BASE_DIR/build
@@ -41,8 +77,8 @@ export LINUX_ARCH=x86_64
 export BUILD_MACH=$(gcc -dumpmachine)
 
 export binutils_version=binutils-2.27
-export kernel_version=linux-4.4.51
-export gcc_version=gcc-5.4.0
+export kernel_version=linux-4.9.35
+export gcc_version=gcc-6.4.0
 export glibc_version=glibc-2.25
 
 export BINUTILS_SRC=$SRC_DIR/$binutils_version
@@ -70,12 +106,12 @@ mkdir -p $BUILD_DIR
 
 mkdir -p $SRC_DIR $LOG_DIR
 
-# wrap_cmd &quot;00.download_packages&quot; \
-#     &quot;cd $SRC_DIR&quot; \
-#     &quot;wget https://mirrors4.tuna.tsinghua.edu.cn/gnu/binutils/$binutils_version.tar.bz2&quot; \
-#     &quot;wget https://mirrors4.tuna.tsinghua.edu.cn/gnu/gcc/$gcc_version/$gcc_version.tar.bz2&quot; \
-#     &quot;wget https://mirrors4.tuna.tsinghua.edu.cn/gnu/glibc/$glibc_version.tar.bz2&quot; \
-#     &quot;wget https://mirrors4.tuna.tsinghua.edu.cn/kernel/v4.x/$kernel_version.tar.gz&quot; 
+wrap_cmd &quot;00.download_packages&quot; \
+    &quot;cd $SRC_DIR&quot; \
+    &quot;wget https://mirrors4.tuna.tsinghua.edu.cn/gnu/binutils/$binutils_version.tar.bz2&quot; \
+    &quot;wget https://mirrors4.tuna.tsinghua.edu.cn/gnu/gcc/$gcc_version/$gcc_version.tar.gz&quot; \
+    &quot;wget https://mirrors4.tuna.tsinghua.edu.cn/gnu/glibc/$glibc_version.tar.bz2&quot; \
+    &quot;wget https://mirrors4.tuna.tsinghua.edu.cn/kernel/v4.x/$kernel_version.tar.gz&quot; 
 
 wrap_cmd &quot;01.binutils_extract&quot; \
      &quot;rm -rf $BINUTILS_SRC&quot; \
@@ -99,7 +135,7 @@ wrap_cmd &quot;05.linux_header_install&quot; &quot;cd $KERNEL_SRC&quot; &quot;ma
 wrap_cmd &quot;06.gcc_extract&quot; \
      &quot;rm -rf $GCC_SRC&quot; \
      &quot;rm -rf $BUILD_DIR/bootstrap-gcc&quot; \
-     &quot;tar jxf $GCC_SRC.tar.bz2 -C $SRC_DIR/&quot; \
+     &quot;tar zxf $GCC_SRC.tar.gz -C $SRC_DIR/&quot; \
      &quot;sed -i -e '/k prot/agcc_cv_libc_provides_ssp=yes' $GCC_SRC/gcc/configure&quot; \
      &quot;mkdir $BUILD_DIR/bootstrap-gcc&quot;
 
@@ -137,7 +173,7 @@ wrap_cmd &quot;11.glibc_build&quot; \
 wrap_cmd &quot;12.gcc-final-01_extract&quot; \
      &quot;rm -rf $GCC_SRC&quot; \
      &quot;rm -rf $BUILD_DIR/final-gcc-01&quot; \
-     &quot;tar jxf $GCC_SRC.tar.bz2 -C $SRC_DIR/&quot; \
+     &quot;tar jxf $GCC_SRC.tar.gz -C $SRC_DIR/&quot; \
      &quot;mkdir -pv $BUILD_DIR/final-gcc-01&quot;
 
 wrap_cmd &quot;13.gcc-final-01_configure&quot; \
@@ -167,13 +203,15 @@ wrap_cmd &quot;15.gcc-final-02_build&quot; \
 
 </main>
 
-  <footer>
-  
-  
-  <hr/>
-  &copy; [項思偉] 2017 | <a href="https://github.com/daveixiang">Github</a>
-  
-  </footer>
+    <footer>
+      
+<script async src="//yihui.name/js/center-img.js"></script>
+
+      
+      <hr/>
+      &copy; [項思偉] 2017 | <a href="https://github.com/siweixiang">Github</a>
+      
+    </footer>
   </body>
 </html>
 

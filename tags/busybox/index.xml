@@ -2,31 +2,75 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Busybox on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>https://daveixiang.github.io/tags/busybox/</link>
+    <link>https://siweixiang.github.io/tags/busybox/</link>
     <description>Recent content in Busybox on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 01 Apr 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 17 Jul 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://daveixiang.github.io/tags/busybox/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://siweixiang.github.io/tags/busybox/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Build minimal linux hack env with busybox (Target: vexpress-a15)</title>
+      <link>https://siweixiang.github.io/articles/2017_07_17_build_minimal_linux_hack_env_with_busybox_vexpress_a15/</link>
+      <pubDate>Mon, 17 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://siweixiang.github.io/articles/2017_07_17_build_minimal_linux_hack_env_with_busybox_vexpress_a15/</guid>
+      <description>Build the kernel Use vexpress-a15 default configuration
+ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabi- make vexpress_defconfig  Simplify vexpress-a15 configuration by cutting unused drivers
+ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabi- make menuconfig  Create zImage
+ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabi- make -j$(nproc)  Build busybox Use busybox default configuration
+ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabi- make defconfig  Customize configurations
+ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabi- make menuconfig  Create busybox
+ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabi- make -j$(nproc)  Install busybox(default path: BUSYBOX/_install)
+ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabi- make install  Generate minimal initramfs #!/usr/bin/bash ROOTFS=rootfs BUSYBOX=$(find busybox* -maxdepth 0 -type d) SYSROOT=$(arm-none-linux-gnueabi-gcc --print-sysroot) GLIBC_VERSION=$(${SYSROOT}/usr/bin/ldd --version | head -1 | cut -d&#39; &#39; -f4) DYNAMIC_LIB_PATH=${SYSROOT}/lib rm -rf $ROOTFS mkdir -p ${ROOTFS}/{proc,sys,dev,etc,etc/init.</description>
+    </item>
+    
+    <item>
+      <title>Build minimal linux hack env with busybox (Target: i686)</title>
+      <link>https://siweixiang.github.io/articles/2017_07_06_build_minimal_linux_hack_env_with_busybox_i686/</link>
+      <pubDate>Thu, 06 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://siweixiang.github.io/articles/2017_07_06_build_minimal_linux_hack_env_with_busybox_i686/</guid>
+      <description>Build the kernel Use i686 default configuration
+ARCH=i386 CROSS_COMPILE=i686-none-linux-gnu- make defconfig  Simplify vexpress-a15 configuration by cutting unused drivers
+ARCH=i386 CROSS_COMPILE=i686-none-linux-gnu- make menuconfig  Create bzImage
+ARCH=i386 CROSS_COMPILE=i686-none-linux-gnu- make -j$(nproc)  Build busybox Use busybox default configuration
+ARCH=i386 CROSS_COMPILE=i686-none-linux-gnu- make defconfig  Customize configurations
+ARCH=i386 CROSS_COMPILE=i686-none-linux-gnu- make menuconfig  Create busybox
+ARCH=i386 CROSS_COMPILE=i686-none-linux-gnu- make -j$(nproc)  Install busybox(default path: BUSYBOX/_install)
+ARCH=i386 CROSS_COMPILE=i686-none-linux-gnu- make install  Generate minimal initramfs #!/usr/bin/bash ROOTFS=rootfs BUSYBOX=$(find busybox* -maxdepth 0 -type d) SYSROOT=$(i686-none-linux-gnu-gcc --print-sysroot) GLIBC_VERSION=$(${SYSROOT}/usr/bin/ldd --version | head -1 | cut -d&#39; &#39; -f4) DYNAMIC_LIB_PATH=${SYSROOT}/lib rm -rf $ROOTFS mkdir -p ${ROOTFS}/{proc,sys,dev,etc,etc/init.</description>
+    </item>
+    
+    <item>
       <title>Build minimal linux hack env with busybox (Target: x86_64)</title>
-      <link>https://daveixiang.github.io/articles/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</link>
+      <link>https://siweixiang.github.io/articles/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</link>
       <pubDate>Sat, 01 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</guid>
-      <description>Build the kernel  Use x86_64 default configuration  make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- defconfig   Simplify x86_64 configuration by cutting unused drivers  make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- menuconfig   Create Image  make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- -j8  Build busybox  Use busybox default configuration  make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- defconfig   Customize configurations  make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- menuconfig  Busybox Settings ---&amp;gt; --- Build Options [*] Build BusyBox as a position independent executable   Create busybox  make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- -j$(nproc)   Install busybox(default path: BUSYBOX/_install)  make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- install  Generate minimal initramfs #!</description>
+      <guid>https://siweixiang.github.io/articles/2017_04_01_build_minimal_linux_hack_env_with_busybox_x86_64/</guid>
+      <description>Build the kernel Use x86_64 default configuration
+ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- make defconfig  Simplify x86_64 configuration by cutting unused drivers
+ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- make menuconfig  Create kernel image
+ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- make -j8  Build busybox Use busybox default configuration
+ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- make defconfig  Customize busybox configurations
+ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- make menuconfig  Busybox Settings ---&amp;gt; --- Build Options [*] Build BusyBox as a position independent executable  Compile busybox
+ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- make -j$(nproc)  Install busybox(default path: BUSYBOX/_install)</description>
     </item>
     
     <item>
       <title>Build minimal linux hack env with busybox (Target: arm64)</title>
-      <link>https://daveixiang.github.io/articles/2017_02_25_build_minimal_linux_hack_env_with_busybox_arm64/</link>
+      <link>https://siweixiang.github.io/articles/2017_02_25_build_minimal_linux_hack_env_with_busybox_arm64/</link>
       <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2017_02_25_build_minimal_linux_hack_env_with_busybox_arm64/</guid>
-      <description>Build the kernel  Use arm64 default configuration  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- defconfig   Simplify arm64 configuration by cutting unused drivers  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- menuconfig   Create Image  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j8  Build busybox  Use busybox default configuration  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- defconfig   Customize configurations  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- menuconfig  Busybox Settings ---&amp;gt; --- Build Options [*] Build BusyBox as a position independent executable   Create busybox  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j$(nproc)   Install busybox(default path: BUSYBOX/_install)  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- install  Generate minimal initramfs #!</description>
+      <guid>https://siweixiang.github.io/articles/2017_02_25_build_minimal_linux_hack_env_with_busybox_arm64/</guid>
+      <description>Build the kernel Use arm64 default configuration
+ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- make defconfig  Simplify arm64 configuration by cutting unused drivers
+ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- make menuconfig  Create Image
+ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- make -j8  Build busybox Use busybox default configuration
+ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- make defconfig  Customize configurations
+ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- make menuconfig  Busybox Settings ---&amp;gt; --- Build Options [*] Build BusyBox as a position independent executable  Create busybox
+ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- make -j$(nproc)  Install busybox(default path: BUSYBOX/_install)</description>
     </item>
     
   </channel>

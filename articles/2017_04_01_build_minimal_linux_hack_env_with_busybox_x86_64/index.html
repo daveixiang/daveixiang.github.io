@@ -2,72 +2,98 @@
 <html lang="en-us">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Build minimal linux hack env with busybox (Target: x86_64) | 項 思 偉 ~ Aal Izz Well!</title>
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
-    
+    <header>
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://siweixiang.github.io//xin">項 思 偉 ~ aal izz well!</a>
+      </li>
+      
+      
+      <li class="pull-right ">
+        <a href="/">~/筆記</a>
+      </li>
+      
+      
+      <li class="pull-right ">
+        <a href="/categories/">~/分類</a>
+      </li>
+      
+      
+      <li class="pull-right ">
+        <a href="/tags/">~/標籤</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
   </head>
 
   <body>
-    <nav>
-    <ul class="menu">
-      
-      <li><a href="/xin">Home</a></li>
-      
-      <li><a href="/">Articles</a></li>
-      
-      <li><a href="/categories/">Categories</a></li>
-      
-      <li><a href="/tags/">Tags</a></li>
-      
-    </ul>
-    <hr/>
-    </nav>
+    <br/>
 
 <div class="article-meta">
 <h1><span class="title">Build minimal linux hack env with busybox (Target: x86_64)</span></h1>
+
+<h2 class="date">2017/04/01</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/categories/kernel">kernel</a> 
+  
+  
+  
+  Tags: <a href="/tags/linux">linux</a> <a href="/tags/kernel">kernel</a> <a href="/tags/busybox">busybox</a> 
+  
+  
+</p>
 </div>
+
+
 
 <main>
 
 
 <h2 id="build-the-kernel">Build the kernel</h2>
 
-<ul>
-<li>Use x86_64 default configuration</li>
-</ul>
+<p>Use x86_64 default configuration</p>
 
-<pre><code class="language-bash">make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- defconfig
+<pre><code class="language-bash">ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- make defconfig
 </code></pre>
 
-<ul>
-<li>Simplify x86_64 configuration by cutting unused drivers</li>
-</ul>
+<p>Simplify x86_64 configuration by cutting unused drivers</p>
 
-<pre><code class="language-bash">make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- menuconfig
+<pre><code class="language-bash">ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- make menuconfig
 </code></pre>
 
-<ul>
-<li>Create Image</li>
-</ul>
+<p>Create kernel image</p>
 
-<pre><code class="language-bash">make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- -j8
+<pre><code class="language-bash">ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- make -j8
 </code></pre>
 
 <h2 id="build-busybox">Build busybox</h2>
 
-<ul>
-<li>Use busybox default configuration</li>
-</ul>
+<p>Use busybox default configuration</p>
 
-<pre><code class="language-bash">make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- defconfig
+<pre><code class="language-bash">ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- make defconfig
 </code></pre>
 
-<ul>
-<li>Customize configurations</li>
-</ul>
+<p>Customize busybox configurations</p>
 
-<pre><code class="language-bash">make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- menuconfig
+<pre><code class="language-bash">ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- make menuconfig
 </code></pre>
 
 <pre><code class="language-txt">Busybox Settings  ---&gt;
@@ -75,18 +101,14 @@
   [*]   Build BusyBox as a position independent executable
 </code></pre>
 
-<ul>
-<li>Create busybox</li>
-</ul>
+<p>Compile busybox</p>
 
-<pre><code class="language-bash">make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- -j$(nproc)
+<pre><code class="language-bash">ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- make -j$(nproc)
 </code></pre>
 
-<ul>
-<li>Install busybox(default path: BUSYBOX/_install)</li>
-</ul>
+<p>Install busybox(default path: BUSYBOX/_install)</p>
 
-<pre><code class="language-bash">make ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- install
+<pre><code class="language-bash">ARCH=x86_64 CROSS_COMPILE=x86_64-linux-gnu- make install
 </code></pre>
 
 <h2 id="generate-minimal-initramfs">Generate minimal initramfs</h2>
@@ -95,7 +117,7 @@
 ROOTFS=rootfs
 BUSYBOX=$(find busybox* -maxdepth 0 -type d)
 SYSROOT=$(x86_64-linux-gnu-gcc --print-sysroot)
-GLIBC_VERSION=$(ldd --version | head -1 | cut -d' ' -f4)
+GLIBC_VERSION=$(${SYSROOT}/usr/bin/ldd --version | head -1 | cut -d' ' -f4)
 DYNAMIC_LIB_PATH_32=${SYSROOT}/lib
 DYNAMIC_LIB_PATH_64=${SYSROOT}/lib64
 
@@ -163,13 +185,15 @@ dev      init     lib64    mnt      root     sys
 
 </main>
 
-  <footer>
-  
-  
-  <hr/>
-  &copy; [項思偉] 2017 | <a href="https://github.com/daveixiang">Github</a>
-  
-  </footer>
+    <footer>
+      
+<script async src="//yihui.name/js/center-img.js"></script>
+
+      
+      <hr/>
+      &copy; [項思偉] 2017 | <a href="https://github.com/siweixiang">Github</a>
+      
+    </footer>
   </body>
 </html>
 

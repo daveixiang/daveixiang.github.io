@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tmux on 項 思 偉 ~ Aal Izz Well!</title>
-    <link>https://daveixiang.github.io/tags/tmux/</link>
+    <link>https://siweixiang.github.io/tags/tmux/</link>
     <description>Recent content in Tmux on 項 思 偉 ~ Aal Izz Well!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 10 Apr 2016 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://daveixiang.github.io/tags/tmux/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://siweixiang.github.io/tags/tmux/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Reloading tmux config</title>
-      <link>https://daveixiang.github.io/articles/2016_04_10_reloading_tmux_config/</link>
+      <link>https://siweixiang.github.io/articles/2016_04_10_reloading_tmux_config/</link>
       <pubDate>Sun, 10 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://daveixiang.github.io/articles/2016_04_10_reloading_tmux_config/</guid>
+      <guid>https://siweixiang.github.io/articles/2016_04_10_reloading_tmux_config/</guid>
       <description>If you have made changes to your tmux configuration file in the ~/.tmux.conf file, it shouldn’t be necessary to start the server up again from scratch with kill-server. Instead, you can prompt the current tmux session to reload the configuration with the source-file command.
  Method 1  This can be done either from within tmux, by pressing Ctrl+B and then : to bring up a command prompt, and typing:</description>
     </item>

@@ -2,40 +2,74 @@
 <html lang="en-us">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Setup vxlan lab using openvswitch | 項 思 偉 ~ Aal Izz Well!</title>
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
-    
+    <header>
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="https://siweixiang.github.io//xin">項 思 偉 ~ aal izz well!</a>
+      </li>
+      
+      
+      <li class="pull-right ">
+        <a href="/">~/筆記</a>
+      </li>
+      
+      
+      <li class="pull-right ">
+        <a href="/categories/">~/分類</a>
+      </li>
+      
+      
+      <li class="pull-right ">
+        <a href="/tags/">~/標籤</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
   </head>
 
   <body>
-    <nav>
-    <ul class="menu">
-      
-      <li><a href="/xin">Home</a></li>
-      
-      <li><a href="/">Articles</a></li>
-      
-      <li><a href="/categories/">Categories</a></li>
-      
-      <li><a href="/tags/">Tags</a></li>
-      
-    </ul>
-    <hr/>
-    </nav>
+    <br/>
 
 <div class="article-meta">
 <h1><span class="title">Setup vxlan lab using openvswitch</span></h1>
+
+<h2 class="date">2017/06/20</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/categories/openvswitch">openvswitch</a> 
+  
+  
+  
+  Tags: <a href="/tags/openvswitch">openvswitch</a> 
+  
+  
+</p>
 </div>
+
+
 
 <main>
 
 
 <h1 id="prepare-two-vms">Prepare two vms</h1>
 
-<ul>
-<li>prepare ovs network environment</li>
-</ul>
+<p>prepare ovs network environment</p>
 
 <pre><code class="language-bash">ip tuntap add name tap01 mode tap
 ip tuntap add name tap02 mode tap
@@ -51,9 +85,7 @@ ovs-vsctl add-port br0 tap01
 ovs-vsctl add-port br0 tap02
 </code></pre>
 
-<ul>
-<li>vm01</li>
-</ul>
+<p>vm01</p>
 
 <pre><code class="language-bash">qemu-system-x86_64  -m 2048M \
 -enable-kvm -nographic \
@@ -63,9 +95,7 @@ ovs-vsctl add-port br0 tap02
 -device e1000,netdev=net1,mac='12:34:56:78:9a:01'
 </code></pre>
 
-<ul>
-<li>vm02</li>
-</ul>
+<p>vm02</p>
 
 <pre><code class="language-bash">qemu-system-x86_64  -m 2048M \
 -enable-kvm -nographic \
@@ -77,9 +107,7 @@ ovs-vsctl add-port br0 tap02
 
 <h1 id="configure-vms">Configure vms</h1>
 
-<ul>
-<li>configure vm01</li>
-</ul>
+<p>configure vm01</p>
 
 <pre><code class="language-bash">ip link set eth0 up
 ip addr add 192.168.0.1/24 dev eth0
@@ -97,9 +125,7 @@ ovs-vsctl add-port br1 vxlan0 --\
   ofport_request=10 
 </code></pre>
 
-<ul>
-<li>configure vm02</li>
-</ul>
+<p>configure vm02</p>
 
 <pre><code class="language-bash">ip link set eth0 up
 ip addr add 192.168.0.2/24 dev eth0
@@ -121,13 +147,15 @@ ovs-vsctl add-port br1 vxlan0 --\
 
 </main>
 
-  <footer>
-  
-  
-  <hr/>
-  &copy; [項思偉] 2017 | <a href="https://github.com/daveixiang">Github</a>
-  
-  </footer>
+    <footer>
+      
+<script async src="//yihui.name/js/center-img.js"></script>
+
+      
+      <hr/>
+      &copy; [項思偉] 2017 | <a href="https://github.com/siweixiang">Github</a>
+      
+    </footer>
   </body>
 </html>
 
