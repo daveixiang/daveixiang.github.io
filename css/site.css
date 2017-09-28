@@ -3,9 +3,8 @@ body {
     background-color:#fff;
     font-family:"Lucida Grande","bitstream vera sans","trebuchet ms",verdana,arial;
     /* text-align:center;*/
-    margin-left: 15%;
-    margin-right: 15%;
-    margin-top: 6px;
+    width:960px;
+    margin: auto;
 }
 
 #page {
@@ -112,56 +111,13 @@ pre {
     border: 1px solid #ccc;
     box-shadow: 3px 3px 3px #eee;
     font-family: Lucida Console, monospace;
-    margin: 1.2em;
-    padding: 8pt;
-    font-size: 14px;
+    margin: 1.0em;
+    padding: 0.5em;
+    font-size: 12px;
     overflow: auto;
-    padding-top: 1.2em;
-    position: relative
+    position: relative;
 }
-pre>code:before {
-    display: block;
-    position: absolute;
-    background-color: #b3b3b3;
-    top: 0;
-    right: 0;
-    padding: .25em .5em;
-    border-bottom-left-radius: 8px;
-    border: 0;
-    color: #fff;
-    font-size: 80%
-}
-pre>code.src-sh:before {
-    content: "sh"
-}
-pre>code.src-bash:before {
-    content: "bash"
-}
-pre>code.src-emacs-lisp:before {
-    content: "Emacs Lisp"
-}
-pre>code.src-R:before {
-    content: "R"
-}
-pre>code.src-org:before {
-    content: "Org"
-}
-pre>code.src-cpp:before {
-    content: "C++"
-}
-pre>code.src-c:before {
-    content: "C"
-}
-pre>code.src-html:before {
-    content: "HTML"
-}
-pre>code.src-javascript:before,
-pre>code.src-js:before {
-    content: "Javascript"
-}
-pre>code.src-makefile:before {
-    content: "Makefile"
-}
+
 
 /**************************************************************************/
 /* org-mode postamble                                                     */
@@ -230,8 +186,8 @@ pre>code.src-makefile:before {
 /**************************************************************************/
 
 table {
-    width: 100%
-	       border: 1px solid #B0B0B0;
+    width: 100%;
+    border: 1px solid #B0B0B0;
 }
 tbody {
     /* Kind of irrelevant unless your .css is alreadt doing something else */
