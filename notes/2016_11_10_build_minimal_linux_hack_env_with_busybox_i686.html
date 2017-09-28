@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-09-28 Thu 15:48 -->
+<!-- 2017-09-28 Thu 18:17 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Build Minimal Linux Hack Env with Busybox (Target: i686)</title>
@@ -230,12 +230,15 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="preamble" class="status">
-<div class='nav'>
-<ul style='list-style-type: none; margin: 0; padding: 0;'>
-<li style='display: inline;'><a href='/'>Xin</a></li>
-<li style='display: inline;'><a href='/notes/index.html'>Notes</a></li>
-</ul>
+
+<div id='blogtitle'>項&nbsp;&nbsp;思&nbsp;偉
+<div id='subtitle'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Aal Izz Well</div>
 </div>
+<ul id='mainnav'>
+<li><a href='/'>Xin</a></li>
+<li><a href='/notes/index.html'>Notes</a></li>
+</ul>
+<div class='clearboth'></div>
 </div>
 <div id="content">
 <h1 class="title">Build Minimal Linux Hack Env with Busybox (Target: i686)</h1>
@@ -245,26 +248,26 @@ for the JavaScript code in this tag.
 <div class="outline-text-2" id="text-org502849f">
 <ol class="org-ol">
 <li><p>
-Use i686 default configuration
+Use <i>i686</i> default configuration
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #e69f00; font-weight: bold;">ARCH</span>=i386 <span style="color: #e69f00; font-weight: bold;">CROSS_COMPILE</span>=i686-none-linux-gnu- make defconfig
+<pre><code class="src src-sh"><span style="color: #e69f00; font-weight: bold;">ARCH</span>=i386 <span style="color: #e69f00; font-weight: bold;">CROSS_COMPILE</span>=i686-linux-gnu- make defconfig
 </code></pre>
 </div></li>
 
 <li><p>
-Simplify i686 configuration by cutting off unused drivers
+Simplify <i>i686</i> configuration by cutting off unused drivers
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #e69f00; font-weight: bold;">ARCH</span>=i386 <span style="color: #e69f00; font-weight: bold;">CROSS_COMPILE</span>=i686-none-linux-gnu- make menuconfig
+<pre><code class="src src-sh"><span style="color: #e69f00; font-weight: bold;">ARCH</span>=i386 <span style="color: #e69f00; font-weight: bold;">CROSS_COMPILE</span>=i686-linux-gnu- make menuconfig
 </code></pre>
 </div></li>
 
 <li><p>
-Create kernel image
+Create kernel image <i>bzImage</i>
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #e69f00; font-weight: bold;">ARCH</span>=i386 <span style="color: #e69f00; font-weight: bold;">CROSS_COMPILE</span>=i686-none-linux-gnu- make menuconfig
+<pre><code class="src src-sh"><span style="color: #e69f00; font-weight: bold;">ARCH</span>=i386 <span style="color: #e69f00; font-weight: bold;">CROSS_COMPILE</span>=i686-linux-gnu- make -j$(<span style="color: #ff00ff;">nproc</span>)
 </code></pre>
 </div></li>
 </ol>
@@ -279,7 +282,7 @@ Create kernel image
 Use busybox default configuration
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #e69f00; font-weight: bold;">ARCH</span>=i386 <span style="color: #e69f00; font-weight: bold;">CROSS_COMPILE</span>=i686-none-linux-gnu- make defconfig
+<pre><code class="src src-sh"><span style="color: #e69f00; font-weight: bold;">ARCH</span>=i386 <span style="color: #e69f00; font-weight: bold;">CROSS_COMPILE</span>=i686-linux-gnu- make defconfig
 </code></pre>
 </div></li>
 
@@ -287,7 +290,7 @@ Use busybox default configuration
 Customize configurations
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #e69f00; font-weight: bold;">ARCH</span>=i386 <span style="color: #e69f00; font-weight: bold;">CROSS_COMPILE</span>=i686-none-linux-gnu- make menuconfig
+<pre><code class="src src-sh"><span style="color: #e69f00; font-weight: bold;">ARCH</span>=i386 <span style="color: #e69f00; font-weight: bold;">CROSS_COMPILE</span>=i686-linux-gnu- make menuconfig
 </code></pre>
 </div></li>
 
@@ -295,7 +298,7 @@ Customize configurations
 Create busybox
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #e69f00; font-weight: bold;">ARCH</span>=i386 <span style="color: #e69f00; font-weight: bold;">CROSS_COMPILE</span>=i686-none-linux-gnu- make -j$(<span style="color: #ff00ff;">nproc</span>)
+<pre><code class="src src-sh"><span style="color: #e69f00; font-weight: bold;">ARCH</span>=i386 <span style="color: #e69f00; font-weight: bold;">CROSS_COMPILE</span>=i686-linux-gnu- make -j$(<span style="color: #ff00ff;">nproc</span>)
 </code></pre>
 </div></li>
 
@@ -303,7 +306,7 @@ Create busybox
 Install busybox(default path: <code>BUSYBOX/_install</code>)
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #e69f00; font-weight: bold;">ARCH</span>=i386 <span style="color: #e69f00; font-weight: bold;">CROSS_COMPILE</span>=i686-none-linux-gnu- make install
+<pre><code class="src src-sh"><span style="color: #e69f00; font-weight: bold;">ARCH</span>=i386 <span style="color: #e69f00; font-weight: bold;">CROSS_COMPILE</span>=i686-linux-gnu- make install
 </code></pre>
 </div></li>
 </ol>
@@ -317,7 +320,7 @@ Install busybox(default path: <code>BUSYBOX/_install</code>)
 <pre><code class="src src-sh"><span style="color: #009e73; font-style: italic;">#</span><span style="color: #009e73; font-style: italic;">!/usr/bin/</span><span style="color: #56b4e9; font-weight: bold;">bash</span>
 <span style="color: #e69f00; font-weight: bold;">ROOTFS</span>=rootfs
 <span style="color: #e69f00; font-weight: bold;">BUSYBOX</span>=$(<span style="color: #ff00ff;">find</span> busybox* -maxdepth 0 -type d)
-<span style="color: #e69f00; font-weight: bold;">SYSROOT</span>=$(<span style="color: #ff00ff;">i686-none-linux-gnu-gcc</span> --print-sysroot)
+<span style="color: #e69f00; font-weight: bold;">SYSROOT</span>=$(<span style="color: #ff00ff;">i686-linux-gnu-gcc</span> --print-sysroot)
 <span style="color: #e69f00; font-weight: bold;">GLIBC_VERSION</span>=$(${<span style="color: #e69f00; font-weight: bold;">SYSROOT</span>}/usr/bin/ldd --version | head -1 | cut -d<span style="color: #848ea9;">' '</span> -f4)
 <span style="color: #e69f00; font-weight: bold;">DYNAMIC_LIB_PATH</span>=${<span style="color: #e69f00; font-weight: bold;">SYSROOT</span>}/lib
 
@@ -369,11 +372,11 @@ find . | cpio -o --format=newc &gt; ../initramfs
 </div>
 </div>
 
-<div id="outline-container-orge4b591e" class="outline-2">
-<h2 id="orge4b591e">Test the kernel and initramfs just built</h2>
-<div class="outline-text-2" id="text-orge4b591e">
+<div id="outline-container-orge48ef11" class="outline-2">
+<h2 id="orge48ef11">Test the kernel <i>bzImage</i> and <i>initramfs</i> just built</h2>
+<div class="outline-text-2" id="text-orge48ef11">
 <p>
-Use qemu to test the zImage and initramfs which we just builded:
+Use qemu to test the <i>bzImage</i> and <i>initramfs</i> which we just builded:
 </p>
 
 <div class="org-src-container">
@@ -387,9 +390,9 @@ Use qemu to test the zImage and initramfs which we just builded:
 and the output just like the following:
 </p>
 <div class="org-src-container">
-<pre><code class="src src-text">Please press Enter to activate this console. 
+<pre><code class="src src-text">Please press Enter to activate this console.
 / # uname -a
-Linux (none) 4.9.35 #1 SMP Tue Jul 18 16:38:36 CST 2017 i686 GNU/Linux
+Linux (none) 4.9.51 #1 SMP Thu Sep 28 16:20:30 CST 2017 i686 GNU/Linux
 </code></pre>
 </div>
 </div>
@@ -397,8 +400,8 @@ Linux (none) 4.9.35 #1 SMP Tue Jul 18 16:38:36 CST 2017 i686 GNU/Linux
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2017 siweixiang (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br>
-Last updated 2016-11-10 Thu 21:27. <br>
+Copyright 2017 siweixiang (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Last updated 2017-09-28 Thu 16:24. <br/>
 Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
 </div>
 </div>
