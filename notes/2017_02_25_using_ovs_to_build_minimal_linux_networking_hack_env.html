@@ -6,7 +6,7 @@
 <!-- 2017-09-28 Thu 19:50 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>&lrm;</title>
+<title>Using OVS to Build Minimal Linux Networking Hack Environment</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="siweixiang" />
 <style type="text/css">
@@ -241,71 +241,96 @@ for the JavaScript code in this tag.
 <div class='clearboth'></div>
 </div>
 <div id="content">
-<div id="outline-container-org25714f7" class="outline-2">
-<h2 id="org25714f7">2017</h2>
-<div class="outline-text-2" id="text-org25714f7">
-<ul class="org-ul">
-<li>2017-09-28 <a href="2017_09_28_using_ovs_to_build_minimal_linux_networking_hack_env_aarch64.html">Using OVS to Build Minimal Linux Networking Hack Environment aarch64</a></li>
-<li>2017-07-18 <a href="2017_07_18_build_minimal_linux_hack_env_with_busybox_vexpress_a15.html">Build Minimal Linux Hack Env with Busybox (Target: vexpress-a15)</a></li>
-<li>2017-07-17 <a href="2017_07_17_build_cross_gcc_toolchain_arm.html">Build Cross GCC Toolchain (TARGET:arm)</a></li>
-<li>2017-06-21 <a href="2017_06_21_setup_vxlan_lab_using_openvswitch.html">Setup VXLAN Lab using OpenvSwitch</a></li>
-<li>2017-06-20 <a href="2017_06_20_some_useful_ovs_commands.html">Some Useful OVS Commands</a></li>
-<li>2017-06-06 <a href="2017_06_06_format_ovs_ofctl_dump_flows_output.html">Format ovs-ofctl dump-flows output</a></li>
-<li>2017-04-29 <a href="2017_04_29_enable_sata_on_qemu.html">Enable SATA on Qemu</a></li>
-<li>2017-04-25 <a href="2017_04_25_qemu_pci_device_demo.html">Qemu PCI Device Demo</a></li>
-<li>2017-04-25 <a href="2017_04_25_linux_pci_device_driver_using_mmio_demo.html">Linux PCI Device Driver using mmio Demo</a></li>
-<li>2017-04-11 <a href="2017_04_11_emacs_gdb_gui_customize_default_layout.html">Emacs gdb GUI Customize Default Layout</a></li>
-<li>2017-04-07 <a href="2017_04_07_go_tool_no_such_tool_6l.html">go tool: no such tool '6l'</a></li>
-<li>2017-04-07 <a href="2017_04_07_go_tool_no_such_tool_6g.html">go tool: no such tool '6g'</a></li>
-<li>2017-04-06 <a href="2017_04_06_configure_opensuse_leap_openvswitch_bridge_autostart_on_boot.html">Configure OpenSUSE Leap OpenvSwitch Bridge Autostart on Boot</a></li>
-<li>2017-04-05 <a href="2017_04_05_compiling_qemu_guest_agent_msi_package_for_windows.html">Compiling Qemu Guest Agent MSI Package for Windows</a></li>
-<li>2017-03-31 <a href="2017_03_31_opensuse_add_repos.html">Add OpenSUSE Leap 42.2 repos</a></li>
-<li>2017-03-31 <a href="2017_03_31_netlink_hello_world_example.html">Netlink Hello World Example</a></li>
-<li>2017-03-31 <a href="2017_03_31_gcc_glibc_core_runtime_files.html">GCC and Glibc Core Runtime Files</a></li>
-<li>2017-03-23 <a href="2017_03_23_configure_libvirt_with_openvswitch_bridge.html">Configure Libvirt with OpenvSwitch Bridge</a></li>
-<li>2017-02-27 <a href="2017_02_27_multiple_ways_to_access_qmp.html">Multiple Ways to Access Qemu Machine Protocol (QMP)</a></li>
-<li>2017-02-25 <a href="2017_02_25_using_ovs_to_build_minimal_linux_networking_hack_env.html">Using OVS to Build Minimal Linux Networking Hack Environment</a></li>
-<li>2017-02-25 <a href="2017_02_25_build_minimal_linux_hack_env_with_busybox_arm64.html">Build Minimal Linux Hack Env with Busybox (Target: arm64)</a></li>
-<li>2017-02-24 <a href="2017_02_24_build_cross_gcc_toolchain_arm64.html">Build Cross GCC Toolchain (TARGET:arm64)</a></li>
-<li>2017-02-17 <a href="2017_02_17_gcc_inline_assembly_hello_world_example.html">GCC Inline Assembly Hello World Example</a></li>
-<li>2017-02-02 <a href="2017_02_02_what_is_a_system_call_linux.html">What is a System Call (Linux)</a></li>
-<li>2017-02-02 <a href="2017_02_02_caller_vs_callee.html">Caller vs Callee</a></li>
-<li>2017-01-22 <a href="2017_01_22_compile_golang_from_source_code.html">Compile Golang from Source Code</a></li>
-<li>2017-01-14 <a href="2017_01_14_compile_openvswitch_2_5_x_lts_from_source_code.html">Compile OpenvSwitch 2.5.x LTS from Source Code</a></li>
-</ul>
+<h1 class="title">Using OVS to Build Minimal Linux Networking Hack Environment</h1>
+
+<div id="outline-container-org61dbdde" class="outline-2">
+<h2 id="org61dbdde">Create Openvswitch bridge and two tap devices for vms</h2>
+<div class="outline-text-2" id="text-org61dbdde">
+<div class="org-src-container">
+<pre><code class="src src-sh">ip tuntap add name tap01 mode tap
+ip tuntap add name tap02 mode tap
+
+ip link set tap01 up
+ip link set tap02 up
+
+ip link set tap01 address 12:34:56:78:9a:01
+ip link set tap01 address 12:34:56:78:9a:02
+
+ovs-vsctl add-br br0
+ovs-vsctl add-port br0 tap01
+ovs-vsctl add-port br0 tap02
+</code></pre>
 </div>
 </div>
-<div id="outline-container-orgd46b374" class="outline-2">
-<h2 id="orgd46b374">2016</h2>
-<div class="outline-text-2" id="text-orgd46b374">
+</div>
+
+<div id="outline-container-orgd362934" class="outline-2">
+<h2 id="orgd362934">Start the two vms and config network</h2>
+<div class="outline-text-2" id="text-orgd362934">
+</div>
+<div id="outline-container-org5adcebb" class="outline-3">
+<h3 id="org5adcebb">configure vm01</h3>
+<div class="outline-text-3" id="text-org5adcebb">
 <ul class="org-ul">
-<li>2016-11-10 <a href="2016_11_10_build_minimal_linux_hack_env_with_busybox_i686.html">Build Minimal Linux Hack Env with Busybox (Target: i686)</a></li>
-<li>2016-11-09 <a href="2016_11_09_build_cross_gcc_toolchain_i686.html">Build Cross GCC Toolchain (TARGET:i686)</a></li>
-<li>2016-10-16 <a href="2016_10_16_clang_print_self.html">Clang print self</a></li>
-<li>2016-09-07 <a href="2016_09_07_c_cpp_link_order.html">C &amp; C++ link order</a></li>
-<li>2016-09-03 <a href="2016_09_03_nested_kvm.html">Nested KVM</a></li>
-<li>2016-07-11 <a href="2016_07_11_managing_tuntap_virtual_interfaces.html">Managing Tuntap Virtual Interfaces</a></li>
-<li>2016-06-19 <a href="2016_06_19_build_minimal_linux_hack_env_with_busybox_x86_64.html">Build Minimal Linux Hack Env with Busybox (Target: x86_64)</a></li>
-<li>2016-06-18 <a href="2016_06_18_build_cross_gcc_toolchain_x86_64.html">Build Cross GCC Toolchain (TARGET:x86_64)</a></li>
-<li>2016-05-06 <a href="2016_05_06_lin_bie_zeng_you.html">臨別贈友</a></li>
-<li>2016-05-03 <a href="2016_05_03_symbol_versions_and_dependencies.html">Symbol Versions and Dependencies</a></li>
-<li>2016-05-02 <a href="2016_05_02_yang_yu_en.html">養育恩</a></li>
-<li>2016-04-27 <a href="2016_04_27_c_declaration_right_left_rule.html">C declaration Right-Left rule</a></li>
-<li>2016-04-25 <a href="2016_04_25_zhan_gui.html">斬鬼</a></li>
-<li>2016-04-21 <a href="2016_04_21_add_module_to_the_linux_kernel_source.html">Add Module to the Linux Kernel Source</a></li>
-<li>2016-04-20 <a href="2016_04_20_linux_helloworld_module.html">Linux Hello World Module</a></li>
-<li>2016-04-19 <a href="2016_04_19_ai_qin.html">哀秦</a></li>
-<li>2016-04-06 <a href="2016_04_06_zui_wen_wei_wu.html">醉問魏武</a></li>
-<li>2016-04-02 <a href="2016_04_02_linux_shared_libraries.html">Linux shared libraries</a></li>
-<li>2016-03-28 <a href="2016_03_28_wang_yue.html">望月</a></li>
+<li>start vm01</li>
 </ul>
+
+<div class="org-src-container">
+<pre><code class="src src-sh">qemu-system-x86_64 -m 2048M -enable-kvm <span style="color: #848ea9;">\</span>
+-nographic <span style="color: #848ea9;">\</span>
+-kernel ./bzImage -initrd ./initramfs <span style="color: #848ea9;">\</span>
+-append  <span style="color: #848ea9;">"console=ttyS0 quiet"</span> <span style="color: #848ea9;">\</span>
+-netdev tap,<span style="color: #e69f00; font-weight: bold;">id</span>=net1,<span style="color: #e69f00; font-weight: bold;">ifname</span>=tap01,<span style="color: #e69f00; font-weight: bold;">script</span>=no,<span style="color: #e69f00; font-weight: bold;">downscript</span>=no  <span style="color: #848ea9;">\</span>
+-device e1000,<span style="color: #e69f00; font-weight: bold;">netdev</span>=net1,<span style="color: #e69f00; font-weight: bold;">mac</span>=<span style="color: #848ea9;">'12:34:56:78:9a:01'</span>
+</code></pre>
+</div>
+
+<ul class="org-ul">
+<li>configure vm01 network</li>
+</ul>
+
+<div class="org-src-container">
+<pre><code class="src src-sh">ip link set eth0 up
+ip addr add 192.168.0.1/24 dev eth0
+</code></pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9c9d90f" class="outline-3">
+<h3 id="org9c9d90f">configure vm02</h3>
+<div class="outline-text-3" id="text-org9c9d90f">
+<ul class="org-ul">
+<li>start vm02</li>
+</ul>
+
+<div class="org-src-container">
+<pre><code class="src src-sh">qemu-system-x86_64 -m 2048M -enable-kvm <span style="color: #848ea9;">\</span>
+-nographic <span style="color: #848ea9;">\</span>
+-kernel ./bzImage -initrd ./initramfs <span style="color: #848ea9;">\</span>
+-append  <span style="color: #848ea9;">"console=ttyS0 quiet"</span> <span style="color: #848ea9;">\</span>
+-netdev tap,<span style="color: #e69f00; font-weight: bold;">id</span>=net2,<span style="color: #e69f00; font-weight: bold;">ifname</span>=tap02,<span style="color: #e69f00; font-weight: bold;">script</span>=no,<span style="color: #e69f00; font-weight: bold;">downscript</span>=no  <span style="color: #848ea9;">\</span>
+-device e1000,<span style="color: #e69f00; font-weight: bold;">netdev</span>=net2,<span style="color: #e69f00; font-weight: bold;">mac</span>=<span style="color: #848ea9;">'12:34:56:78:9a:02'</span>
+</code></pre>
+</div>
+
+<ul class="org-ul">
+<li>configure vm02 network</li>
+</ul>
+
+<div class="org-src-container">
+<pre><code class="src src-sh">ip link set eth0 up
+ip addr add 192.168.0.2/24 dev eth0
+</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
 Copyright 2017 siweixiang (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2017-09-28 Thu 19:49. <br/>
+Last updated 2017-09-28 Thu 19:47. <br/>
 Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
 </div>
 </div>
