@@ -1,444 +1,265 @@
-@import "http://fonts.googleapis.com/css?family=Droid+Sans|Droid+Sans+Mono|Droid+Serif";
+
 body {
-    font-family: Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.4;
-    color: #33333f;
+    background-color:#fff;
+    font-family:"Lucida Grande","bitstream vera sans","trebuchet ms",verdana,arial;
+    /* text-align:center;*/
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 6px;
 }
 
-code {
-    font-family: "Inconsolata", monospace;
-    font-size: 10px;
-}
-
-p>code, li>code {
-    background-color: #eee;
-    padding: 0.25em;
+#page {
+    background-color:#efefef;
+    width:600px;
+    margin:50px auto;
+    padding:20px 150px 20px 50px;
+    min-height:600px;
+    border:2px solid #fff;
+    outline:1px solid #ccc;
+    text-align:left;
 }
 
 h1, h2, h3 {
-    font-family: "Roboto Slab", Helvetica, Arial, sans-serif;
+    letter-spacing:-1px;
+    color:#2D5AC3;
+    font-weight:normal;
+    margin-bottom:-10px;
+}
+
+h1 {
+    text-align: center;
+    font-size:xx-large;
+    overflow: hidden;             /* don't crowd the menu */
+    padding: 0;
+/*    white-space: nowrap; */
 }
 
 h2 {
-    border-bottom: 1px solid #f0c;
-    padding-bottom: 0.5em;
-    font-size: 1.75em;
+    font-size:x-large;
+    border-bottom: solid 0.5px #708090; /* slate gray */
+    margin-top: 1em;
+    margin-bottom: .5em;
+    margin-right: 15px;
+    overflow: hidden;             /* don't crowd the menu */
 }
 
 h3 {
+   /*  border-bottom: solid 1px #708090; slate gray */
+    border-right: solid 2px #E5E5E5;  /* gainsboro */
+    font-size: large;
     margin-top: 1em;
-    font-size: 1.5em;
+    margin-bottom: .5em;
+    margin-right: 15px;
+    overflow: hidden;             /* don't crowd the menu */
+    padding-right: 6px;
 }
 
 h4 {
-    font-size: 1.25em;
+    border-bottom: dashed 1px #BEBEBE;    /* light gray */
+    border-right: solid 2px #E5E5E5;      /* gainsboro */
+    margin-top: 1.5em;
+    margin-bottom: .7em;
+    overflow: hidden;             /* don't crowd the menu */
+    padding-right: 6px;
 }
 
-h5 {
-    font-size: 1em;
+.less {
+    color:#999;
+    font-size:12px;
 }
 
-h2 code, h3 code, h4 code, h5 code, td code {
-    font-family: inherit !important;
-    font-size: inherit !important;
+a {
+    color:#295c72;
+    text-decoration: none;
 }
 
-td code {
-    font-weight: bold;
+a:link.top, a:visited.top {
+    color: #F5DEB3;               /* wheat */
+    line-height: 90%;
+    position: relative;
+    top: -13px;
 }
 
-ol>li {
-    margin-top: 1em;
+a:link:hover, a:visited:hover {
+    background-color: #F5F5F5;    /* white smoke */
 }
 
-a:link, a:hover, a:visited {
-                     text-decoration: none;
-                     color: black;
-                 }
-
-a:link {
-    background: #ff8;
+h1 a:link:hover, h1 a:visited:hover {
+    background-color: #708090;    /* slate gray */
 }
 
 a:visited {
-    color: #666;
-    background: #ffc;
+    color: #556B2F;               /* dark olive green */
 }
 
-a:link:hover,
-a:visited:hover {
-    background: #ff0;
+a:link {
+    color: #0000CD;               /* blue */
 }
 
-a[href^="http"] {
-    background: #bff;
+blockquote {
+    border-left: 2px solid #CCCCCC; /* gray80 */
+    padding: 5px;
+    font-style: italic;
+    margin: 5px 20px;
 }
 
-a[href^="http"]:visited {
-    background: #dff;
+dt {
+    margin-top: .5em;
+    padding: 0px;
 }
 
-a[href^="http"]:link:hover,
-a[href^="http"]:visited:hover {
-    background: #0ff;
+pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    font-family: Lucida Console, monospace;
+    margin: 1.2em;
+    padding: 8pt;
+    font-size: 14px;
+    overflow: auto;
+    padding-top: 1.2em;
+    position: relative
+}
+pre>code:before {
+    display: block;
+    position: absolute;
+    background-color: #b3b3b3;
+    top: 0;
+    right: 0;
+    padding: .25em .5em;
+    border-bottom-left-radius: 8px;
+    border: 0;
+    color: #fff;
+    font-size: 80%
+}
+pre>code.src-sh:before {
+    content: "sh"
+}
+pre>code.src-bash:before {
+    content: "bash"
+}
+pre>code.src-emacs-lisp:before {
+    content: "Emacs Lisp"
+}
+pre>code.src-R:before {
+    content: "R"
+}
+pre>code.src-org:before {
+    content: "Org"
+}
+pre>code.src-cpp:before {
+    content: "C++"
+}
+pre>code.src-c:before {
+    content: "C"
+}
+pre>code.src-html:before {
+    content: "HTML"
+}
+pre>code.src-javascript:before,
+pre>code.src-js:before {
+    content: "Javascript"
+}
+pre>code.src-makefile:before {
+    content: "Makefile"
 }
 
-a[href^="http"]:after {
-    content: "\21B3";
-    background: white;
-    padding-left: 0.2em;
+/**************************************************************************/
+/* org-mode postamble                                                     */
+/**************************************************************************/
+#postamble {
+    padding-top: 5dpx;
+    padding-bottom: 10px;
+    font-size: 0.75em;
+    text-align: right;
+    float: right;
 }
 
-#meta {
-    margin-top: 2em;
+/* Menu */
+
+.menu {
+    background-color: #CDCDCD;    /* gray/gainsboro */
+    border: 1px solid black;
+    display: inline;
+    float: right;
+    clear: both;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    padding: 3px;
 }
 
-#table-of-contents a:link,
-#table-of-contents a:visited {
-    color: black;
-    background: transparent;
-}
-
-#table-of-contents {
-    line-height: 1.2;
-}
-#table-of-contents h2 {
-    border-bottom: 0;
-}
-
-#table-of-contents ul {
-    list-style: none;
-    padding-left:0;
-    font-weight: normal;
-}
-
-#table-of-contents div>ul>li {
-    margin-top: 1em;
-    font-weight: bold;
-}
-
-#table-of-contents .tag {
-    display: none;
-}
-
-#table-of-contents .todo,
-#table-of-contents .done {
-    font-size: 80%;
-}
-
-table {
-    width: 100%;
-}
-
-table, th, td {
-    border: 1px solid #666;
-}
-
-th, td {
-    padding: 0.5em;
+.menuitem {
+    background-color: #E5E5E5;    /* gainsboro */
+    margin: 0;
+    padding-top: 2px;
+    padding-bottom: 3px;
+    padding-left: 2px;
+    padding-right: 2px;
     text-align: left;
 }
 
-tbody tr:nth-child(odd) {
-    background-color: #eee;
-}
-
-img {
-    max-width: 90%;
-}
-
-div.notice {
-    position: relative;
-    margin: 0 1.2em;
-    padding: 0.25em 1em;
-    border-left: 4px solid;
-}
-
-div.notice a {
-    background: transparent !important;
-    border-bottom: 1px dotted;
-}
-
-div.notice a[href^="http"]:after {
-    background: transparent !important;
-}
-
-div.notice:before {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 0.25em 0.5em;
-    font-size: 80%;
-    border-bottom-left-radius: 0.5em;
-}
-
-.notice-warning {
-    background: #fcc;
-    color: #600;
-}
-
-.notice-example {
-    background: #def;
-    color: #069;
-}
-
-.notice-info {
-    background: #efe;
-    color: #060;
-}
-
-.notice-warning a {
-    color: #600;
-}
-
-.notice-example a {
-    color: #069;
-}
-
-.notice-info a {
-    color: #060;
-}
-
-div.notice-warning:before {
-    content: "WARNING";
-    background: #c99;
-    color: #fcc;
-}
-
-div.notice-example:before {
-    content: "EXAMPLE";
-    background: #abc;
-    color: #def;
-}
-
-div.notice-info:before {
-    content: "INFO";
-    background: #9c9;
-    color: #efe;
-}
-
-pre {
-    font-family: Inconsolata;
-    border: 0;
-    box-shadow: none;
-}
-
-pre.example:before {
-    content: "Properties";
+.menuitem a:link, .menuitem a:visited {
+    color: #0000CD;               /* blue */
     display: block;
-    border-bottom: 1px dotted;
-    margin-bottom: 1em;
+    margin: 0;
+    padding-top: 2px;
+    padding-bottom: 3px;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
-pre.example {
-    background: #fec;
-    color: #666;
-    font-size: 0.85em;
+.menuitem a:link:hover, .menuitem a:visited:hover {
+    background-color: #F5F5F5;    /* white smoke */
 }
 
-pre {
-    font-family: "Lucida Console", Monaco, monospace;
-    background-color: #f8f8f8;
-    background-size: 8px 8px;
-    background-image: linear-gradient(135deg, transparent 25%, rgba(0, 0, 0, 0.02) 25%, rgba(0, 0, 0, 0.02) 50%, transparent 50%, transparent 75%, rgba(0, 0, 0, 0.02) 75%, rgba(0, 0, 0, 0.02));
+.menuother {
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
-pre.src {
-    font-size: 12px;
-    padding: 0.5em;
-    overflow:auto;
-}
-
-pre.src:before {
-    display: block;
-    position: absolute;
-    background-color: #ccccd0;
-    top: 0;
-    right: 0;
-    padding: 0.25em 0.5em;
-    border-bottom-left-radius: 8px;
-    border: 0;
-    color: white;
-    font-size: 80%;
-}
-
-pre.src-plantuml:before {
-    content: "UML";
-}
-
-pre.src-javascript:before {
-    content: "JS";
-}
-
-pre.src-clojure:before {
-    content: "CLJ";
-}
-
-pre.src-c:before {
-    content: "C";
-}
-
-span.org-string {
-    color: #f94;
-}
-
-span.org-keyword {
-    color: #c07;
-}
-
-span.org-variable-name {
-    color: #f04;
-}
-
-span.org-clojure-keyword {
-    color: #09f;
-}
-
-span.org-comment, span.org-comment-delimiter {
-    color: #999;
-}
-
-span.org-rainbow-delimiters-depth-1, span.org-rainbow-delimiters-depth-5 {
-    color: #666;
-}
-
-span.org-rainbow-delimiters-depth-2, span.org-rainbow-delimiters-depth-6 {
-    color: #888;
-}
-
-span.org-rainbow-delimiters-depth-3, span.org-rainbow-delimiters-depth-7 {
-    color: #aaa;
-}
-
-span.org-rainbow-delimiters-depth-4, span.org-rainbow-delimiters-depth-8 {
-    color: #ccc;
-}
-
-div.figure {
-    font-size: 0.85em;
-}
-
-.tag {
-    font-family: "Roboto Slab", Helvetica, Arial, sans-serif;
-    font-size: 11px;
-    font-weight: normal;
+#tooltipbox {
     float: right;
-    margin-top: 1em;
+    visibility: hidden;
+}
+
+#tooltip {
+    color: #006400;               /* dark green */
+}
+
+/**************************************************************************/
+/* table formatting                                                       */
+/**************************************************************************/
+
+table {
+    width: 100%
+	       border: 1px solid #B0B0B0;
+}
+tbody {
+    /* Kind of irrelevant unless your .css is alreadt doing something else */
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
     background: transparent;
 }
-
-.tag span {
-    background: #ccc;
-    padding: 0 0.5em;
-    border-radius: 0.2em;
-    color: white;
+thead {
+    text-align: left;
 }
-
-.todo, .done {
-    font-family: "Roboto Slab", Helvetica, Arial, sans-serif;
-    font-weight: normal;
-    padding: 0 0.25em;
-    border-radius: 0.2em;
+thead th {
+    background: -moz-linear-gradient(top, #F0F0F0 0, #DBDBDB 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #F0F0F0), color-stop(100%, #DBDBDB));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F0F0F0', endColorstr='#DBDBDB', GradientType=0);
+    border: 1px solid #B0B0B0;
+    color: #444;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 3px 10px;
 }
-
-.todo {
-    background: #f04;
-    color: white;
+td {
+    padding: 3px 10px;
+    border: 1px solid #B0B0B0;
 }
-
-.done {
-    background: #5f7;
-    color: white;
-}
-
-@media screen {
-    h1.title {
-        text-align: left;
-        margin: 1em 0 0 280px;
-    }
-
-    h2 {
-        margin-top: 1.5em;
-    }
-
-    #table-of-contents {
-        position: fixed;
-        top: 0;
-        left: 0;
-        padding: 2em 0 0 2em;
-        width: 240px;
-        height: 100vh;
-        font-size: 11px;
-        background: #eee;
-    }
-
-    #table-of-contents ul>li>ul>li>ul>li {
-        display: none;
-    }
-
-    #table-of-contents h2 {
-        margin-top: 0;
-    }
-
-    #table-of-contents code {
-        font-size: 12px;
-    }
-
-    div.outline-2, #footnotes {
-        margin-left: 280px;
-        max-width: 960px;
-    }
-}
-
-@media screen and (max-width: 1024px) {
-    html, body {
-        font-size: 14px;
-    }
-
-    #table-of-contents {
-        display: none;
-    }
-
-    h1.title {
-        margin-left: 5%;
-    }
-
-    div.outline-2, #footnotes {
-        margin-left: 5%;
-        max-width: 90%;
-    }
-}
-
-@media print {
-
-    body {
-        color: black;
-    }
-
-    @page {
-        margin: 25mm;
-    }
-
-    h2, h3 {
-        page-break-before: always;
-        margin-top: 0;
-    }
-
-    table {
-        page-break-inside: avoid;
-    }
-
-    a:visited {
-        color: black;
-        background: #ff8;
-    }
-
-    a[href^="http"]:visited {
-        background: #bff;
-    }
-
-    div.notice:before {
-        display: none;
-    }
+tr:nth-child(even) {
+    background: #F2F2F2;
 }

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-09-28 Thu 11:05 -->
+<!-- 2017-09-28 Thu 12:47 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Linux shared libraries</title>
@@ -258,14 +258,13 @@ unless you’re a system manager or applications writer.
 <h2 id="org5b617e6">Every shared library has …</h2>
 <div class="outline-text-2" id="text-org5b617e6">
 </div>
-<div id="outline-container-org57da626" class="outline-3">
-<h3 id="org57da626">soname</h3>
-<div class="outline-text-3" id="text-org57da626">
+<div id="outline-container-org834dcb5" class="outline-3">
+<h3 id="org834dcb5">soname</h3>
+<div class="outline-text-3" id="text-org834dcb5">
 <p>
-libname.so.version_number - the version number is incremented whenever
+<i>libname.so.version_number</i> - the version number is incremented whenever
 the interface changes.
 </p>
-
 <div class="org-src-container">
 <pre><code class="src src-text">libNAME.so.&lt;version_number&gt;
 </code></pre>
@@ -273,15 +272,14 @@ the interface changes.
 </div>
 </div>
 
-<div id="outline-container-org825e385" class="outline-3">
-<h3 id="org825e385">realname</h3>
-<div class="outline-text-3" id="text-org825e385">
+<div id="outline-container-org2927b4c" class="outline-3">
+<h3 id="org2927b4c">realname</h3>
+<div class="outline-text-3" id="text-org2927b4c">
 <p>
 The filename containing the actual library code. The “real name” adds
 to the “soname” a period, a minor number, another period, and the
 release number. The last period and release number are optional.
 </p>
-
 <div class="org-src-container">
 <pre><code class="src src-text">libNAME.so.&lt;version_number&gt;.&lt;minor_number&gt;[.&lt;release_number&gt;]
 </code></pre>
@@ -334,11 +332,11 @@ program. The list of directories to be searched is stored in the file
 </p>
 
 <ol class="org-ol">
-<li>Use <code>the LD_LIBRARY_PATH</code> environmental variable to change run-time
+<li>Use the <i>LD_LIBRARY_PATH</i> environmental variable to change run-time
 behaviour.</li>
-<li>Use <code>ldd program_filename</code> to see the list of the sonames being
+<li>Use <i>ldd program_filename</i> to see the list of the sonames being
 depended on, along with the directory that those names resolve to.</li>
-<li>Use <code>export LD_DEBUG=1</code> to print out information when you run
+<li>Use <i>export LD_DEBUG=1</i> to print out information when you run
 subsequent commands Note that libc.so.N is the C library, which is
 used by just about all programs.</li>
 </ol>
@@ -385,7 +383,7 @@ used by just about all programs.</li>
 <div id="postamble" class="status">
 <div class='footer'>
 Copyright 2017 siweixiang (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br>
-Last updated 2017-09-27 Wed 17:29. <br>
+Last updated 2017-09-28 Thu 12:44. <br>
 Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
 </div>
 </div>
