@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-09-28 Thu 11:05 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Build Cross GCC Toolchain (TARGET:i686)</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="siweixiang" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel='stylesheet' href='../css/site.css' type='text/css'/>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2017 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="preamble" class="status">
+<div class='nav'>
+<ul style='list-style-type: none; margin: 0; padding: 0;'>
+<li style='display: inline;'><a href='/'>Xin</a></li>
+<li style='display: inline;'><a href='/notes/index.html'>Notes</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<h1 class="title">Build Cross GCC Toolchain (TARGET:i686)</h1>
+
+<div id="outline-container-org6d8b423" class="outline-2">
+<h2 id="org6d8b423"></h2>
+<div class="outline-text-2" id="text-org6d8b423">
+<div class="org-src-container">
+<pre><code class="src src-sh"><span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">BASE_DIR</span>=/app/cross/
+<span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">LOG_DIR</span>=$<span style="color: #e69f00; font-weight: bold;">BASE_DIR</span>/log
+<span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">SRC_DIR</span>=$<span style="color: #e69f00; font-weight: bold;">BASE_DIR</span>/src
+<span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">BUILD_DIR</span>=$<span style="color: #e69f00; font-weight: bold;">BASE_DIR</span>/build
+<span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">INSTALL_DIR</span>=$<span style="color: #e69f00; font-weight: bold;">BASE_DIR</span>/i686
+<span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">SYSROOT_DIR</span>=$<span style="color: #e69f00; font-weight: bold;">INSTALL_DIR</span>/sysroot
+
+<span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">TARGET_MACH</span>=i686-none-linux-gnu
+<span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">LINUX_ARCH</span>=i386
+<span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">BUILD_MACH</span>=$(<span style="color: #ff00ff;">gcc</span> -dumpmachine)
+
+<span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">binutils_version</span>=binutils-2.27
+<span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">kernel_version</span>=linux-4.9.35
+<span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">gcc_version</span>=gcc-6.4.0
+<span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">glibc_version</span>=glibc-2.25
+
+<span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">BINUTILS_SRC</span>=$<span style="color: #e69f00; font-weight: bold;">SRC_DIR</span>/$<span style="color: #e69f00; font-weight: bold;">binutils_version</span>
+<span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">KERNEL_SRC</span>=$<span style="color: #e69f00; font-weight: bold;">SRC_DIR</span>/$<span style="color: #e69f00; font-weight: bold;">kernel_version</span>
+<span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">GCC_SRC</span>=$<span style="color: #e69f00; font-weight: bold;">SRC_DIR</span>/$<span style="color: #e69f00; font-weight: bold;">gcc_version</span>
+<span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">GLIBC_SRC</span>=$<span style="color: #e69f00; font-weight: bold;">SRC_DIR</span>/$<span style="color: #e69f00; font-weight: bold;">glibc_version</span>
+
+<span style="color: #d55e00;">wrap_cmd</span>() {
+    <span style="color: #e69f00; font-weight: bold;">stage</span>=$<span style="color: #e69f00; font-weight: bold;">1</span>; <span style="color: #0072b2;">shift</span>
+    <span style="color: #e69f00; font-weight: bold;">LOGFILE</span>=<span style="color: #848ea9;">"$LOG_DIR/$stage.log"</span>
+    rm -rf <span style="color: #848ea9;">"$LOGFILE"</span>
+    <span style="color: #0072b2;">echo</span> <span style="color: #848ea9;">"begin $stage"</span>
+    <span style="color: #56b4e9; font-weight: bold;">for</span> cmd<span style="color: #56b4e9; font-weight: bold;"> in</span> <span style="color: #848ea9;">"$@"</span>
+    <span style="color: #56b4e9; font-weight: bold;">do</span>
+    <span style="color: #0072b2;">echo</span> <span style="color: #848ea9;">"begin $cmd"</span>
+    <span style="color: #0072b2;">eval</span> <span style="color: #848ea9;">"$cmd &gt;&gt; $LOGFILE 2&gt;&amp;1"</span>
+    [ $<span style="color: #e69f00; font-weight: bold;">?</span> -ne 0 ] &amp;&amp; <span style="color: #0072b2;">echo</span> <span style="color: #848ea9;">"error"</span> &amp;&amp; <span style="color: #56b4e9; font-weight: bold;">exit</span> 1
+    <span style="color: #0072b2;">echo</span> <span style="color: #848ea9;">"end $cmd"</span>
+    <span style="color: #56b4e9; font-weight: bold;">done</span>
+    <span style="color: #0072b2;">echo</span> <span style="color: #848ea9;">"end $stage"</span>
+}
+
+rm -rf $<span style="color: #e69f00; font-weight: bold;">BUILD_DIR</span>
+mkdir -p $<span style="color: #e69f00; font-weight: bold;">BUILD_DIR</span>
+
+mkdir -p $<span style="color: #e69f00; font-weight: bold;">SRC_DIR</span> $<span style="color: #e69f00; font-weight: bold;">LOG_DIR</span>
+
+wrap_cmd <span style="color: #848ea9;">"00.download_packages"</span> <span style="color: #848ea9;">\</span>
+    <span style="color: #848ea9;">"cd $SRC_DIR"</span> <span style="color: #848ea9;">\</span>
+    <span style="color: #848ea9;">"wget https://mirrors4.tuna.tsinghua.edu.cn/gnu/binutils/$binutils_version.tar.bz2"</span> <span style="color: #848ea9;">\</span>
+    <span style="color: #848ea9;">"wget https://mirrors4.tuna.tsinghua.edu.cn/gnu/gcc/$gcc_version/$gcc_version.tar.gz"</span> <span style="color: #848ea9;">\</span>
+    <span style="color: #848ea9;">"wget https://mirrors4.tuna.tsinghua.edu.cn/gnu/glibc/$glibc_version.tar.bz2"</span> <span style="color: #848ea9;">\</span>
+    <span style="color: #848ea9;">"wget https://mirrors4.tuna.tsinghua.edu.cn/kernel/v4.x/$kernel_version.tar.gz"</span> 
+
+wrap_cmd <span style="color: #848ea9;">"01.binutils_extract"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"rm -rf $BINUTILS_SRC"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"tar jxf $BINUTILS_SRC.tar.bz2 -C $SRC_DIR/"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"mkdir -p $BUILD_DIR/binutils"</span>
+
+wrap_cmd <span style="color: #848ea9;">"02.binutils_configure"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"cd $BUILD_DIR/binutils"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"$BINUTILS_SRC/configure --prefix=$INSTALL_DIR --build=$BUILD_MACH --target=$TARGET_MACH --with-sysroot=$SYSROOT_DIR --disable-werror"</span>
+
+wrap_cmd <span style="color: #848ea9;">"03.binutils_build"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"cd $BUILD_DIR/binutils"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"make -j$(</span><span style="color: #ff00ff;">nproc</span><span style="color: #848ea9;">)"</span> <span style="color: #848ea9;">"make install"</span>
+
+wrap_cmd <span style="color: #848ea9;">"04.linux_extract"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"rm -rf $KERNEL_SRC"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"tar zxf $KERNEL_SRC.tar.gz -C $SRC_DIR/"</span>
+
+wrap_cmd <span style="color: #848ea9;">"05.linux_header_install"</span> <span style="color: #848ea9;">"cd $KERNEL_SRC"</span> <span style="color: #848ea9;">"make mrproper"</span> <span style="color: #848ea9;">"make ARCH=$LINUX_ARCH INSTALL_HDR_PATH=$SYSROOT_DIR/usr headers_install"</span>
+
+wrap_cmd <span style="color: #848ea9;">"06.gcc_extract"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"rm -rf $GCC_SRC"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"rm -rf $BUILD_DIR/bootstrap-gcc"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"tar zxf $GCC_SRC.tar.gz -C $SRC_DIR/"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"sed -i -e '/k prot/agcc_cv_libc_provides_ssp=yes' $GCC_SRC/gcc/configure"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"mkdir $BUILD_DIR/bootstrap-gcc"</span>
+
+wrap_cmd <span style="color: #848ea9;">"07.gcc_configure"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"cd $BUILD_DIR/bootstrap-gcc"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"$GCC_SRC/configure --prefix=$INSTALL_DIR --build=$BUILD_MACH --host=$BUILD_MACH --target=$TARGET_MACH --without-headers --enable-boostrap --enable-languages='c' --disable-threads --enable-__cxa_atexit --disable-libmudflap --with-gnu-ld --with-gnu-as --disable-libssp --disable-libgomp --disable-nls --disable-shared"</span>
+
+wrap_cmd <span style="color: #848ea9;">"08.gcc_build"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"make -j$(</span><span style="color: #ff00ff;">nproc</span><span style="color: #848ea9;">) all-gcc"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"make install-gcc"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"make -j$(</span><span style="color: #ff00ff;">nproc</span><span style="color: #848ea9;">) all-target-libgcc"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"make install-target-libgcc"</span>
+
+
+wrap_cmd <span style="color: #848ea9;">"09.glibc_extract"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"rm -rf $GLIBC_SRC"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"rm -rf $BUILD_DIR/libc"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"tar jxf $GLIBC_SRC.tar.bz2 -C $SRC_DIR/"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"mkdir -pv $BUILD_DIR/libc"</span>
+
+wrap_cmd <span style="color: #848ea9;">"10.glibc_configure"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"cd $BUILD_DIR/libc"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"echo 'libc_cv_forced_unwind=yes' &gt; config.cache"</span> <span style="color: #848ea9;">"echo 'libc_cv_c_cleanup=yes' &gt;&gt; config.cache"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"export PATH=$INSTALL_DIR/bin:$PATH"</span> <span style="color: #848ea9;">"export CC=${TARGET_MACH}-gcc"</span> <span style="color: #848ea9;">"export LD=${CROSS}-ld"</span> <span style="color: #848ea9;">"export AS=${TARGET_MACH}-as"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"$GLIBC_SRC/configure --prefix=/usr --build=$BUILD_MACH --host=$TARGET_MACH --with-headers=$SYSROOT_DIR/usr/include --config-cache --enable-kernel=2.6.32"</span>
+
+wrap_cmd <span style="color: #848ea9;">"11.glibc_build"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"make -k install-headers cross_compiling=yes install_root=$SYSROOT_DIR"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"make -j$(</span><span style="color: #ff00ff;">nproc</span><span style="color: #848ea9;">)"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"make install_root=$SYSROOT_DIR install"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"unset CC"</span> <span style="color: #848ea9;">"unset LD"</span> <span style="color: #848ea9;">"unset AS"</span>
+
+wrap_cmd <span style="color: #848ea9;">"12.gcc-final-01_extract"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"rm -rf $GCC_SRC"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"rm -rf $BUILD_DIR/final-gcc-01"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"tar zxf $GCC_SRC.tar.gz -C $SRC_DIR/"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"mkdir -pv $BUILD_DIR/final-gcc-01"</span>
+
+wrap_cmd <span style="color: #848ea9;">"13.gcc-final-01_configure"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"cd $BUILD_DIR/final-gcc-01"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"echo 'libc_cv_forced_unwind=yes' &gt; config.cache"</span> <span style="color: #848ea9;">"echo 'libc_cv_c_cleanup=yes' &gt;&gt; config.cache"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"$GCC_SRC/configure --prefix=$INSTALL_DIR --build=$BUILD_MACH --target=$TARGET_MACH --with-sysroot=$SYSROOT_DIR --enable-languages='c,c++' --with-gnu-as --with-gnu-ld --disable-multilib --disable-nls --enable-threads=posix --enable-long-longx"</span>
+
+wrap_cmd <span style="color: #848ea9;">"14.gcc-final-01_build"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"make -j$(</span><span style="color: #ff00ff;">nproc</span><span style="color: #848ea9;">) all-gcc"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"make install-gcc"</span>
+
+
+wrap_cmd <span style="color: #848ea9;">"13.gcc-final-02_extract"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"rm -rf $BUILD_DIR/final-gcc-02"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"mkdir -pv $BUILD_DIR/final-gcc-02"</span>
+
+wrap_cmd <span style="color: #848ea9;">"14.gcc-final-02_configure"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"cd $BUILD_DIR/final-gcc-02"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"echo 'libc_cv_forced_unwind=yes' &gt; config.cache"</span> <span style="color: #848ea9;">"echo 'libc_cv_c_cleanup=yes' &gt;&gt; config.cache"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"$GCC_SRC/configure --prefix=$INSTALL_DIR --build=$BUILD_MACH --target=$TARGET_MACH --with-sysroot=$SYSROOT_DIR --enable-languages='c,c++' --with-gnu-as --with-gnu-ld --disable-multilib --disable-nls --enable-threads=posix --disable-libssp --enable-long-longx --with-shared"</span>
+
+
+wrap_cmd <span style="color: #848ea9;">"15.gcc-final-02_build"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"make -j$(</span><span style="color: #ff00ff;">nproc</span><span style="color: #848ea9;">)"</span> <span style="color: #848ea9;">\</span>
+     <span style="color: #848ea9;">"make install"</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<div class='footer'>
+Copyright 2017 siweixiang (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br>
+Last updated 2017-07-05 Wed 19:37. <br>
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
+</div>
+</div>
+</body>
+</html>

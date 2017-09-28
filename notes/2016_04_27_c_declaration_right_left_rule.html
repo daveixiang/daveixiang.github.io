@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-09-28 Thu 11:05 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>C declaration Right-Left rule</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="siweixiang" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel='stylesheet' href='../css/site.css' type='text/css'/>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2017 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="preamble" class="status">
+<div class='nav'>
+<ul style='list-style-type: none; margin: 0; padding: 0;'>
+<li style='display: inline;'><a href='/'>Xin</a></li>
+<li style='display: inline;'><a href='/notes/index.html'>Notes</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<h1 class="title">C declaration Right-Left rule</h1>
+
+<div id="outline-container-org527007c" class="outline-2">
+<h2 id="org527007c">Introduction</h2>
+<div class="outline-text-2" id="text-org527007c">
+<div class="org-src-container">
+<pre><code class="src src-text">The "right-left" rule is a completely regular rule for deciphering C
+declarations.  It can also be useful in creating them.
+
+First, symbols.  Read
+
+     *          as "pointer to"                 - always on the left side
+     []         as "array of"                   - always on the right side
+     ()         as "function returning"         - always on the right side
+
+as you encounter them in the declaration.
+
+STEP 1
+------
+Find the identifier.  This is your starting point.  Then say to yourself,
+"identifier is."  You've started your declaration.
+
+STEP 2
+------
+Look at the symbols on the right of the identifier.  If, say, you find "()"
+there, then you know that this is the declaration for a function.  So you
+would then have "identifier is function returning".  Or if you found a 
+"[]" there, you would say "identifier is array of".  Continue right until
+you run out of symbols *OR* hit a *right* parenthesis ")".  (If you hit a 
+left parenthesis, that's the beginning of a () symbol, even if there
+is stuff in between the parentheses.  More on that below.)
+
+STEP 3
+------
+Look at the symbols to the left of the identifier.  If it is not one of our
+symbols above (say, something like "int"), just say it.  Otherwise, translate
+it into English using that table above.  Keep going left until you run out of
+symbols *OR* hit a *left* parenthesis "(".  
+
+Now repeat steps 2 and 3 until you've formed your declaration.  Here are some
+examples:
+
+     int *p[];
+
+1) Find identifier.          int *p[];
+                                  ^
+   "p is"
+
+2) Move right until out of symbols or right parenthesis hit.
+                             int *p[];
+                                   ^^
+   "p is array of"
+
+3) Can't move right anymore (out of symbols), so move left and find:
+                             int *p[];
+                                 ^
+   "p is array of pointer to"
+
+4) Keep going left and find:
+                             int *p[];
+                             ^^^
+   "p is array of pointer to int". 
+   (or "p is an array where each element is of type pointer to int")
+
+Another example:
+
+   int *(*func())();
+
+1) Find the identifier.      int *(*func())();
+                                    ^^^^
+   "func is"
+
+2) Move right.               int *(*func())();
+                                        ^^
+   "func is function returning"
+
+3) Can't move right anymore because of the right parenthesis, so move left.
+                             int *(*func())();
+                                   ^
+   "func is function returning pointer to"
+
+4) Can't move left anymore because of the left parenthesis, so keep going
+   right.                    int *(*func())();
+                                           ^^
+   "func is function returning pointer to function returning"
+
+5) Can't move right anymore because we're out of symbols, so go left.
+                             int *(*func())();
+                                 ^
+   "func is function returning pointer to function returning pointer to"
+
+6) And finally, keep going left, because there's nothing left on the right.
+                             int *(*func())();
+                             ^^^
+   "func is function returning pointer to function returning pointer to int".
+
+
+As you can see, this rule can be quite useful.  You can also use it to
+sanity check yourself while you are creating declarations, and to give
+you a hint about where to put the next symbol and whether parentheses
+are required.
+
+Some declarations look much more complicated than they are due to array
+sizes and argument lists in prototype form.  If you see "[3]", that's
+read as "array (size 3) of...".  If you see "(char *,int)" that's read
+as "function expecting (char *,int) and returning...".  Here's a fun
+one:
+
+                 int (*(*fun_one)(char *,double))[9][20];
+
+I won't go through each of the steps to decipher this one.
+
+Ok.  It's:
+
+     "fun_one is pointer to function expecting (char *,double) and 
+      returning pointer to array (size 9) of array (size 20) of int."
+
+As you can see, it's not as complicated if you get rid of the array sizes
+and argument lists:
+
+     int (*(*fun_one)())[][];
+
+You can decipher it that way, and then put in the array sizes and argument
+lists later.
+
+Some final words:
+
+It is quite possible to make illegal declarations using this rule,
+so some knowledge of what's legal in C is necessary.  For instance,
+if the above had been:
+
+     int *((*fun_one)())[][];
+
+it would have been "fun_one is pointer to function returning array of array of
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^
+pointer to int".  Since a function cannot return an array, but only a 
+pointer to an array, that declaration is illegal.
+
+
+Illegal combinations include:
+
+         []() - cannot have an array of functions
+         ()() - cannot have a function that returns a function
+         ()[] - cannot have a function that returns an array
+
+In all the above cases, you would need a set of parens to bind a *
+symbol on the left between these () and [] right-side symbols in order
+for the declaration to be legal.
+
+Here are some legal and illegal examples:
+
+int i;                  an int
+int *p;                 an int pointer (ptr to an int)
+int a[];                an array of ints
+int f();                a function returning an int
+int **pp;               a pointer to an int pointer (ptr to a ptr to an int)
+int (*pa)[];            a pointer to an array of ints
+int (*pf)();            a pointer to a function returning an int
+int *ap[];              an array of int pointers (array of ptrs to ints)
+int aa[][];             an array of arrays of ints
+int af[]();             an array of functions returning an int (ILLEGAL)
+int *fp();              a function returning an int pointer
+int fa()[];             a function returning an array of ints (ILLEGAL)
+int ff()();             a function returning a function returning an int
+                                (ILLEGAL)
+int ***ppp;             a pointer to a pointer to an int pointer
+int (**ppa)[];          a pointer to a pointer to an array of ints
+int (**ppf)();          a pointer to a pointer to a function returning an int
+int *(*pap)[];          a pointer to an array of int pointers
+int (*paa)[][];         a pointer to an array of arrays of ints
+int (*paf)[]();         a pointer to a an array of functions returning an int
+                                (ILLEGAL)
+int *(*pfp)();          a pointer to a function returning an int pointer
+int (*pfa)()[];         a pointer to a function returning an array of ints
+                                (ILLEGAL)
+int (*pff)()();         a pointer to a function returning a function
+                                returning an int (ILLEGAL)
+int **app[];            an array of pointers to int pointers
+int (*apa[])[];         an array of pointers to arrays of ints
+int (*apf[])();         an array of pointers to functions returning an int
+int *aap[][];           an array of arrays of int pointers
+int aaa[][][];          an array of arrays of arrays of ints
+int aaf[][]();          an array of arrays of functions returning an int
+                                (ILLEGAL)
+int *afp[]();           an array of functions returning int pointers (ILLEGAL)
+int afa[]()[];          an array of functions returning an array of ints
+                                (ILLEGAL)
+int aff[]()();          an array of functions returning functions
+                                returning an int (ILLEGAL)
+int **fpp();            a function returning a pointer to an int pointer
+int (*fpa())[];         a function returning a pointer to an array of ints
+int (*fpf())();         a function returning a pointer to a function
+                                returning an int
+int *fap()[];           a function returning an array of int pointers (ILLEGAL)
+int faa()[][];          a function returning an array of arrays of ints
+                                (ILLEGAL)
+int faf()[]();          a function returning an array of functions
+                                returning an int (ILLEGAL)
+int *ffp()();           a function returning a function
+                                returning an int pointer (ILLEGAL)
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<div class='footer'>
+Copyright 2017 siweixiang (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br>
+Last updated 2016-04-27 Wed 11:15. <br>
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
+</div>
+</div>
+</body>
+</html>
