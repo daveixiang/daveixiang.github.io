@@ -6,7 +6,7 @@
 <!-- 2017-10-02 Mon 11:24 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Add OpenSUSE Leap 42.2 repos</title>
+<title>GCC and Glibc Core Runtime Files</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="xiangsiwei" />
 <style type="text/css">
@@ -241,40 +241,116 @@ for the JavaScript code in this tag.
 <div class='clearboth'></div>
 </div>
 <div id="content">
-<h1 class="title">Add OpenSUSE Leap 42.2 repos</h1>
+<h1 class="title">GCC and Glibc Core Runtime Files</h1>
 
-<div id="outline-container-org0c52b69" class="outline-2">
-<h2 id="org0c52b69"></h2>
-<div class="outline-text-2" id="text-org0c52b69">
-<ol class="org-ol">
-<li><p>
-Remove previous repos
-</p>
-<div class="org-src-container">
-<pre><code class="src src-sh">zypper repos | grep Yes | cut -f3 -d <span style="color: #848ea9;">'|'</span> | sed -e <span style="color: #848ea9;">"s/ //"</span> | awk <span style="color: #848ea9;">'{print "zypper rr " $1}'</span> | bash
-</code></pre>
-</div></li>
+<div id="outline-container-org5035239" class="outline-2">
+<h2 id="org5035239">Files provided by glibc</h2>
+<div class="outline-text-2" id="text-org5035239">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
-<li><p>
-Add the repos and refresh
-</p>
-<div class="org-src-container">
-<pre><code class="src src-sh">zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/oss/ openSUSE-leap-42.2-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/non-oss/ openSUSE-leap-42.2-Non-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/oss openSUSE-leap-42.2-Update-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/non-oss/ openSUSE-leap-42.2-Update-Non-Oss
 
-zypper refresh
-</code></pre>
-</div></li>
-</ol>
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">file</th>
+<th scope="col" class="org-left">usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">crt0.o</td>
+<td class="org-left">Older style of the initial runtime code. No one generates this anymore.</td>
+</tr>
+
+<tr>
+<td class="org-left">crt1.o</td>
+<td class="org-left">Newer style of the initial runtime code. Contains the _start symbol which sets up the env with argc/argv/libc _init/libc _fini before jumping to the libc main. glibc calls this file ‘start.S’.</td>
+</tr>
+
+<tr>
+<td class="org-left">crti.o</td>
+<td class="org-left">Defines the function prolog; _init in the .init section and _fini in the .fini section. glibc calls this ‘initfini.c’.</td>
+</tr>
+
+<tr>
+<td class="org-left">crtn.o</td>
+<td class="org-left">Defines the function epilog. glibc calls this ‘initfini.c’.</td>
+</tr>
+
+<tr>
+<td class="org-left">Scrt1.o</td>
+<td class="org-left">Used in place of crt1.o when generating PIEs.</td>
+</tr>
+
+<tr>
+<td class="org-left">gcrt1.o</td>
+<td class="org-left">Used in place of crt1.o when generating code with profiling information. Compile with -pg. Produces output suitable for the gprof util.</td>
+</tr>
+
+<tr>
+<td class="org-left">Mcrt1.o</td>
+<td class="org-left">Like gcrt1.o, but is used with the prof utility. glibc installs this as a dummy file as it’s useless on linux systems.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org06e15bd" class="outline-2">
+<h2 id="org06e15bd">Files provides by gcc</h2>
+<div class="outline-text-2" id="text-org06e15bd">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">file</th>
+<th scope="col" class="org-left">usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">crtbegin.o</td>
+<td class="org-left">GCC uses this to find the start of the constructors.</td>
+</tr>
+
+<tr>
+<td class="org-left">crtbeginS.o</td>
+<td class="org-left">Used in place of crtbegin.o when generating shared objects/PIEs.</td>
+</tr>
+
+<tr>
+<td class="org-left">crtbeginT.o</td>
+<td class="org-left">Used in place of crtbegin.o when generating static executables.</td>
+</tr>
+
+<tr>
+<td class="org-left">crtend.o</td>
+<td class="org-left">GCC uses this to find the start of the destructors.</td>
+</tr>
+
+<tr>
+<td class="org-left">crtendS.o</td>
+<td class="org-left">Used in place of crtend.o when generating shared objects/PIEs.</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
 Copyright 2017 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2017-09-27 Wed 20:29. <br/>
+Last updated 2016-07-25 Mon 19:31. <br/>
 Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
 </div>
 </div>

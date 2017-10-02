@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-09-28 Thu 18:17 -->
+<!-- 2017-10-02 Mon 15:29 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Compile Golang from Source Code</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="siweixiang" />
+<meta name="author" content="xiangsiwei" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -244,9 +244,9 @@ for the JavaScript code in this tag.
 <h1 class="title">Compile Golang from Source Code</h1>
 
 
-<div id="outline-container-org17c57db" class="outline-2">
-<h2 id="org17c57db">Introduction</h2>
-<div class="outline-text-2" id="text-org17c57db">
+<div id="outline-container-orgb7d6ac5" class="outline-2">
+<h2 id="orgb7d6ac5">Introduction</h2>
+<div class="outline-text-2" id="text-orgb7d6ac5">
 <p>
 Go is a nice language started by Google. A nice advantage is that it
 compiles to native code and the binary does not have additional
@@ -257,13 +257,13 @@ cleanup.
 </div>
 </div>
 
-<div id="outline-container-orgfd52268" class="outline-2">
-<h2 id="orgfd52268">Installation steps</h2>
-<div class="outline-text-2" id="text-orgfd52268">
+<div id="outline-container-orgbbd4fbb" class="outline-2">
+<h2 id="orgbbd4fbb">Installation steps</h2>
+<div class="outline-text-2" id="text-orgbbd4fbb">
 </div>
-<div id="outline-container-org5c89b04" class="outline-3">
-<h3 id="org5c89b04">First start with Go 1.4</h3>
-<div class="outline-text-3" id="text-org5c89b04">
+<div id="outline-container-orgf9ef06b" class="outline-3">
+<h3 id="orgf9ef06b">First start with Go 1.4</h3>
+<div class="outline-text-3" id="text-orgf9ef06b">
 <p>
 Since Go version 1.5 you need Go itself to compile it. So we first
 start with Go 1.4:
@@ -272,7 +272,7 @@ start with Go 1.4:
 <ul class="org-ul">
 <li>Download <a href="https://storage.googleapis.com/golang/go1.4.3.src.tar.gz">go1.4.3.src.tar.gz</a></li>
 
-<li>Untar it to <code>/go/go1.4/</code> directory:</li>
+<li>Untar it to <code>/app/go1.4/</code> directory:</li>
 </ul>
 
 <div class="org-src-container">
@@ -287,7 +287,7 @@ mv go go1.4
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #0072b2;">cd</span> /go/go1.4/src
+<pre><code class="src src-sh"><span style="color: #0072b2;">cd</span> /app/go1.4/src
 ./make.bash
 </code></pre>
 </div>
@@ -316,13 +316,13 @@ Using Go 1.4 to bootstrap a later version, disable cgo with:
 </div>
 </div>
 
-<div id="outline-container-orgcd4f802" class="outline-3">
-<h3 id="orgcd4f802">Compile the current version (go1.7.5)</h3>
-<div class="outline-text-3" id="text-orgcd4f802">
+<div id="outline-container-org8e77384" class="outline-3">
+<h3 id="org8e77384">Compile the current version (go1.7.5)</h3>
+<div class="outline-text-3" id="text-org8e77384">
 <ul class="org-ul">
 <li>Download <a href="https://storage.googleapis.com/golang/go1.7.5.src.tar.gz">go1.7.5.src.tar.gz</a></li>
 
-<li>Untar it to <code>/go/go1.7</code> directory:</li>
+<li>Untar it to <code>/app/go1.7</code> directory:</li>
 </ul>
 
 <div class="org-src-container">
@@ -337,7 +337,7 @@ mv go go1.7
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">GOROOT_BOOTSTRAP</span>=/go/go1.4
+<pre><code class="src src-sh"><span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">GOROOT_BOOTSTRAP</span>=/app/go1.4
 </code></pre>
 </div>
 
@@ -346,7 +346,7 @@ mv go go1.7
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #0072b2;">cd</span> /go/go1.7/src
+<pre><code class="src src-sh"><span style="color: #0072b2;">cd</span> /app/go1.7/src
 ./make.bash
 </code></pre>
 </div>
@@ -357,43 +357,44 @@ After some more minutes, we finally have working Go 1.7 installation.
 </div>
 </div>
 
-<div id="outline-container-org88debc9" class="outline-3">
-<h3 id="org88debc9">Set up environment variables for convenience</h3>
-<div class="outline-text-3" id="text-org88debc9">
-<ul class="org-ul">
-<li>set the root of the go installation:</li>
-</ul>
-
+<div id="outline-container-orgd41c4a0" class="outline-3">
+<h3 id="orgd41c4a0">Set up environment variables for convenience</h3>
+<div class="outline-text-3" id="text-orgd41c4a0">
+<ol class="org-ol">
+<li><p>
+set the root of the go installation:
+</p>
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">GOROOT</span>=/go/go1.7
+<pre><code class="src src-shell">ln -sf /app/go1.7 /app/go
+
+<span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">GOROOT</span>=/app/go
 </code></pre>
-</div>
+</div></li>
 
-<ul class="org-ul">
-<li>tell go where to store additional packages downloaded with “go get”:</li>
-</ul>
-
+<li><p>
+tell go where to store additional packages downloaded with “go get”:
+</p>
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">GOPATH</span>=&lt;path/to/addons&gt;
+<pre><code class="src src-shell"><span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">GOPATH</span>=&lt;path/to/addons&gt;
 </code></pre>
-</div>
+</div></li>
 
-<ul class="org-ul">
-<li>and finally add the bin directory to your PATH:</li>
-</ul>
-
+<li><p>
+finally add the bin directory to your PATH:
+</p>
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">PATH</span>=$<span style="color: #e69f00; font-weight: bold;">PATH</span>:$<span style="color: #e69f00; font-weight: bold;">GOROOT</span>/bin
+<pre><code class="src src-shell"><span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">PATH</span>=$<span style="color: #e69f00; font-weight: bold;">GOROOT</span>/bin:$<span style="color: #e69f00; font-weight: bold;">GOPATH</span>/bin:$<span style="color: #e69f00; font-weight: bold;">PATH</span>
 </code></pre>
-</div>
+</div></li>
+</ol>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2017 siweixiang (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2017-09-27 Wed 18:53. <br/>
+Copyright 2017 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Last updated 2017-10-02 Mon 15:28. <br/>
 Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
 </div>
 </div>

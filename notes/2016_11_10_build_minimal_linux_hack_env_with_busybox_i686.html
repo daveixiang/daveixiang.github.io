@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-09-28 Thu 18:17 -->
+<!-- 2017-10-02 Mon 11:24 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Build Minimal Linux Hack Env with Busybox (Target: i686)</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="siweixiang" />
+<meta name="author" content="xiangsiwei" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -243,9 +243,9 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">Build Minimal Linux Hack Env with Busybox (Target: i686)</h1>
 
-<div id="outline-container-org502849f" class="outline-2">
-<h2 id="org502849f">Build the kernel</h2>
-<div class="outline-text-2" id="text-org502849f">
+<div id="outline-container-org57845c0" class="outline-2">
+<h2 id="org57845c0">Build the kernel</h2>
+<div class="outline-text-2" id="text-org57845c0">
 <ol class="org-ol">
 <li><p>
 Use <i>i686</i> default configuration
@@ -274,9 +274,9 @@ Create kernel image <i>bzImage</i>
 </div>
 </div>
 
-<div id="outline-container-orgca31f58" class="outline-2">
-<h2 id="orgca31f58">Build busybox</h2>
-<div class="outline-text-2" id="text-orgca31f58">
+<div id="outline-container-orgdb33a02" class="outline-2">
+<h2 id="orgdb33a02">Build busybox</h2>
+<div class="outline-text-2" id="text-orgdb33a02">
 <ol class="org-ol">
 <li><p>
 Use busybox default configuration
@@ -313,9 +313,9 @@ Install busybox(default path: <code>BUSYBOX/_install</code>)
 </div>
 </div>
 
-<div id="outline-container-org03afe93" class="outline-2">
-<h2 id="org03afe93">Generate minimal initramfs</h2>
-<div class="outline-text-2" id="text-org03afe93">
+<div id="outline-container-orgd4f6f9b" class="outline-2">
+<h2 id="orgd4f6f9b">Generate minimal initramfs</h2>
+<div class="outline-text-2" id="text-orgd4f6f9b">
 <div class="org-src-container">
 <pre><code class="src src-sh"><span style="color: #009e73; font-style: italic;">#</span><span style="color: #009e73; font-style: italic;">!/usr/bin/</span><span style="color: #56b4e9; font-weight: bold;">bash</span>
 <span style="color: #e69f00; font-weight: bold;">ROOTFS</span>=rootfs
@@ -372,9 +372,9 @@ find . | cpio -o --format=newc &gt; ../initramfs
 </div>
 </div>
 
-<div id="outline-container-orge48ef11" class="outline-2">
-<h2 id="orge48ef11">Test the kernel <i>bzImage</i> and <i>initramfs</i> just built</h2>
-<div class="outline-text-2" id="text-orge48ef11">
+<div id="outline-container-org4fac4a5" class="outline-2">
+<h2 id="org4fac4a5">Test the kernel <i>bzImage</i> and <i>initramfs</i> just built</h2>
+<div class="outline-text-2" id="text-org4fac4a5">
 <p>
 Use qemu to test the <i>bzImage</i> and <i>initramfs</i> which we just builded:
 </p>
@@ -400,7 +400,7 @@ Linux (none) 4.9.51 #1 SMP Thu Sep 28 16:20:30 CST 2017 i686 GNU/Linux
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2017 siweixiang (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Copyright 2017 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
 Last updated 2017-09-28 Thu 16:24. <br/>
 Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
 </div>

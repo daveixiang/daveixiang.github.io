@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-09-28 Thu 18:16 -->
+<!-- 2017-10-02 Mon 11:24 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Build Minimal Linux Hack Env with Busybox (Target: x86_64)</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="siweixiang" />
+<meta name="author" content="xiangsiwei" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -243,9 +243,9 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">Build Minimal Linux Hack Env with Busybox (Target: x86_64)</h1>
 
-<div id="outline-container-orgd8b3d2e" class="outline-2">
-<h2 id="orgd8b3d2e">Build the kernel</h2>
-<div class="outline-text-2" id="text-orgd8b3d2e">
+<div id="outline-container-org47987b8" class="outline-2">
+<h2 id="org47987b8">Build the kernel</h2>
+<div class="outline-text-2" id="text-org47987b8">
 <ol class="org-ol">
 <li><p>
 Use x86_64 default configuration
@@ -274,9 +274,9 @@ Create kernel image
 </div>
 </div>
 
-<div id="outline-container-orgc3389e7" class="outline-2">
-<h2 id="orgc3389e7">Build busybox</h2>
-<div class="outline-text-2" id="text-orgc3389e7">
+<div id="outline-container-org1f3c6a9" class="outline-2">
+<h2 id="org1f3c6a9">Build busybox</h2>
+<div class="outline-text-2" id="text-org1f3c6a9">
 <ol class="org-ol">
 <li><p>
 Use busybox default configuration
@@ -319,9 +319,9 @@ Install busybox(default path: <code>BUSYBOX/_install</code>)
 </div>
 </div>
 
-<div id="outline-container-org9586dc0" class="outline-2">
-<h2 id="org9586dc0">Generate minimal initramfs</h2>
-<div class="outline-text-2" id="text-org9586dc0">
+<div id="outline-container-org85708d5" class="outline-2">
+<h2 id="org85708d5">Generate minimal initramfs</h2>
+<div class="outline-text-2" id="text-org85708d5">
 <div class="org-src-container">
 <pre><code class="src src-sh"><span style="color: #009e73; font-style: italic;">#</span><span style="color: #009e73; font-style: italic;">!/usr/bin/</span><span style="color: #56b4e9; font-weight: bold;">bash</span>
 <span style="color: #e69f00; font-weight: bold;">ROOTFS</span>=rootfs
@@ -379,9 +379,9 @@ find . | cpio -o --format=newc &gt; ../initramfs
 </div>
 </div>
 
-<div id="outline-container-orgb1f5118" class="outline-2">
-<h2 id="orgb1f5118">Test the kernel and initramfs just built</h2>
-<div class="outline-text-2" id="text-orgb1f5118">
+<div id="outline-container-org7413d6b" class="outline-2">
+<h2 id="org7413d6b">Test the kernel and initramfs just built</h2>
+<div class="outline-text-2" id="text-org7413d6b">
 <p>
 Use qemu to test the Image and initramfs which we just builded:
 </p>
@@ -409,7 +409,7 @@ dev      init     lib64    mnt      root     sys
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2017 siweixiang (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Copyright 2017 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
 Last updated 2016-06-19 Sun 21:39. <br/>
 Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
 </div>

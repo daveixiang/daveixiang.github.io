@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-09-28 Thu 19:50 -->
+<!-- 2017-10-02 Mon 11:24 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Using OVS to Build Minimal Linux Networking Hack Environment aarch64</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="siweixiang" />
+<meta name="author" content="xiangsiwei" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -243,9 +243,9 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">Using OVS to Build Minimal Linux Networking Hack Environment aarch64</h1>
 
-<div id="outline-container-org34d746b" class="outline-2">
-<h2 id="org34d746b">Create Openvswitch bridge and two tap devices for vms</h2>
-<div class="outline-text-2" id="text-org34d746b">
+<div id="outline-container-org3a93701" class="outline-2">
+<h2 id="org3a93701">Create Openvswitch bridge and two tap devices for vms</h2>
+<div class="outline-text-2" id="text-org3a93701">
 <div class="org-src-container">
 <pre><code class="src src-sh">ip tuntap add name tap01 mode tap
 ip tuntap add name tap02 mode tap
@@ -264,13 +264,13 @@ ovs-vsctl add-port br0 tap02
 </div>
 </div>
 
-<div id="outline-container-orgcd2c543" class="outline-2">
-<h2 id="orgcd2c543">Start the two vms and config network</h2>
-<div class="outline-text-2" id="text-orgcd2c543">
+<div id="outline-container-org0e7bf4a" class="outline-2">
+<h2 id="org0e7bf4a">Start the two vms and config network</h2>
+<div class="outline-text-2" id="text-org0e7bf4a">
 </div>
-<div id="outline-container-org48c688a" class="outline-3">
-<h3 id="org48c688a">configure vm01</h3>
-<div class="outline-text-3" id="text-org48c688a">
+<div id="outline-container-orgc3a1e9d" class="outline-3">
+<h3 id="orgc3a1e9d">configure vm01</h3>
+<div class="outline-text-3" id="text-orgc3a1e9d">
 <ul class="org-ul">
 <li>start vm01</li>
 </ul>
@@ -296,9 +296,9 @@ ip addr add 192.168.0.1/24 dev eth0
 </div>
 </div>
 
-<div id="outline-container-org4895de1" class="outline-3">
-<h3 id="org4895de1">configure vm02</h3>
-<div class="outline-text-3" id="text-org4895de1">
+<div id="outline-container-orgb387490" class="outline-3">
+<h3 id="orgb387490">configure vm02</h3>
+<div class="outline-text-3" id="text-orgb387490">
 <ul class="org-ul">
 <li>start vm02</li>
 </ul>
@@ -327,7 +327,7 @@ ip addr add 192.168.0.2/24 dev eth0
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2017 siweixiang (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Copyright 2017 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
 Last updated 2017-09-28 Thu 19:47. <br/>
 Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
 </div>

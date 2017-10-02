@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-09-28 Thu 18:16 -->
+<!-- 2017-10-02 Mon 11:24 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Linux shared libraries</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="siweixiang" />
+<meta name="author" content="xiangsiwei" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -244,9 +244,9 @@ for the JavaScript code in this tag.
 <h1 class="title">Linux shared libraries</h1>
 
 
-<div id="outline-container-orga38772f" class="outline-2">
-<h2 id="orga38772f">Introduction</h2>
-<div class="outline-text-2" id="text-orga38772f">
+<div id="outline-container-org3c850ce" class="outline-2">
+<h2 id="org3c850ce">Introduction</h2>
+<div class="outline-text-2" id="text-org3c850ce">
 <p>
 Shared libraries are collections of code that can be shared by
 programs. Unlike static (aka archive) libraries, they’re not part of
@@ -257,13 +257,13 @@ unless you’re a system manager or applications writer.
 </div>
 </div>
 
-<div id="outline-container-org5b617e6" class="outline-2">
-<h2 id="org5b617e6">Every shared library has …</h2>
-<div class="outline-text-2" id="text-org5b617e6">
+<div id="outline-container-org5d498e6" class="outline-2">
+<h2 id="org5d498e6">Every shared library has …</h2>
+<div class="outline-text-2" id="text-org5d498e6">
 </div>
-<div id="outline-container-org834dcb5" class="outline-3">
-<h3 id="org834dcb5">soname</h3>
-<div class="outline-text-3" id="text-org834dcb5">
+<div id="outline-container-orge5ef8db" class="outline-3">
+<h3 id="orge5ef8db">soname</h3>
+<div class="outline-text-3" id="text-orge5ef8db">
 <p>
 <i>libname.so.version_number</i> - the version number is incremented whenever
 the interface changes.
@@ -275,9 +275,9 @@ the interface changes.
 </div>
 </div>
 
-<div id="outline-container-org2927b4c" class="outline-3">
-<h3 id="org2927b4c">realname</h3>
-<div class="outline-text-3" id="text-org2927b4c">
+<div id="outline-container-org7f3df6e" class="outline-3">
+<h3 id="org7f3df6e">realname</h3>
+<div class="outline-text-3" id="text-org7f3df6e">
 <p>
 The filename containing the actual library code. The “real name” adds
 to the “soname” a period, a minor number, another period, and the
@@ -290,9 +290,9 @@ release number. The last period and release number are optional.
 </div>
 </div>
 
-<div id="outline-container-org55c1a0d" class="outline-3">
-<h3 id="org55c1a0d">linker name</h3>
-<div class="outline-text-3" id="text-org55c1a0d">
+<div id="outline-container-org741bda4" class="outline-3">
+<h3 id="org741bda4">linker name</h3>
+<div class="outline-text-3" id="text-org741bda4">
 <p>
 The name that the compiler uses (the soname without any version
 number).
@@ -307,9 +307,9 @@ number).
 </div>
 
 
-<div id="outline-container-org7eaaeac" class="outline-2">
-<h2 id="org7eaaeac">Creating shared libraries</h2>
-<div class="outline-text-2" id="text-org7eaaeac">
+<div id="outline-container-org14a1463" class="outline-2">
+<h2 id="org14a1463">Creating shared libraries</h2>
+<div class="outline-text-2" id="text-org14a1463">
 <ol class="org-ol">
 <li>To generate object files, use <code>-fPIC</code> or <code>-fpic</code></li>
 <li>To create a library, use <code>cc -shared -Wl,-soname,your_soname -o
@@ -323,9 +323,9 @@ symbolic link to the soname</li>
 </div>
 </div>
 
-<div id="outline-container-orge8d4685" class="outline-2">
-<h2 id="orge8d4685">Shared libraries at run-time</h2>
-<div class="outline-text-2" id="text-orge8d4685">
+<div id="outline-container-orgae9d2e8" class="outline-2">
+<h2 id="orgae9d2e8">Shared libraries at run-time</h2>
+<div class="outline-text-2" id="text-orgae9d2e8">
 <p>
 On Linux, starting up an ELF binary executable automatically causes
 the program loader /lib/ld-linux.so.X to be loaded and run, which in
@@ -347,13 +347,13 @@ used by just about all programs.</li>
 </div>
 
 
-<div id="outline-container-orgfd96558" class="outline-2">
-<h2 id="orgfd96558">Tips</h2>
-<div class="outline-text-2" id="text-orgfd96558">
+<div id="outline-container-org5628e67" class="outline-2">
+<h2 id="org5628e67">Tips</h2>
+<div class="outline-text-2" id="text-org5628e67">
 </div>
-<div id="outline-container-orgea31e70" class="outline-3">
-<h3 id="orgea31e70">How to get the SONAME</h3>
-<div class="outline-text-3" id="text-orgea31e70">
+<div id="outline-container-orga11b674" class="outline-3">
+<h3 id="orga11b674">How to get the SONAME</h3>
+<div class="outline-text-3" id="text-orga11b674">
 <div class="org-src-container">
 <pre><code class="src src-bash">objdump -p /lib/libc.so.6  | grep SONAME
 </code></pre>
@@ -361,9 +361,9 @@ used by just about all programs.</li>
 </div>
 </div>
 
-<div id="outline-container-org551f694" class="outline-3">
-<h3 id="org551f694">How to get default shared and static library search path</h3>
-<div class="outline-text-3" id="text-org551f694">
+<div id="outline-container-orgdeca153" class="outline-3">
+<h3 id="orgdeca153">How to get default shared and static library search path</h3>
+<div class="outline-text-3" id="text-orgdeca153">
 <ul class="org-ul">
 <li>get the compiler default search path:</li>
 </ul>
@@ -385,7 +385,7 @@ used by just about all programs.</li>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2017 siweixiang (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Copyright 2017 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
 Last updated 2017-09-28 Thu 12:44. <br/>
 Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
 </div>

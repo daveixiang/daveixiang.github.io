@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-09-28 Thu 18:16 -->
+<!-- 2017-10-02 Mon 11:24 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Multiple Ways to Access Qemu Machine Protocol (QMP)</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="siweixiang" />
+<meta name="author" content="xiangsiwei" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -243,9 +243,9 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">Multiple Ways to Access Qemu Machine Protocol (QMP)</h1>
 
-<div id="outline-container-orgb8b086f" class="outline-2">
-<h2 id="orgb8b086f">Introduction</h2>
-<div class="outline-text-2" id="text-orgb8b086f">
+<div id="outline-container-org32b5a21" class="outline-2">
+<h2 id="org32b5a21">Introduction</h2>
+<div class="outline-text-2" id="text-org32b5a21">
 <p>
 QMP (QEMU Machine Protocol) is quiet useful. QMP allows applications
 to communicate withh a running QEMU’s instance. There ae a few
@@ -255,13 +255,13 @@ information, modify the guest state using the QMP commands.
 </div>
 </div>
 
-<div id="outline-container-org32ac2a9" class="outline-2">
-<h2 id="org32ac2a9">Different ways to access QMP</h2>
-<div class="outline-text-2" id="text-org32ac2a9">
+<div id="outline-container-orgbf27c80" class="outline-2">
+<h2 id="orgbf27c80">Different ways to access QMP</h2>
+<div class="outline-text-2" id="text-orgbf27c80">
 </div>
-<div id="outline-container-org7565878" class="outline-3">
-<h3 id="org7565878">Access QMP via libvirt’s qemu-monitor-command</h3>
-<div class="outline-text-3" id="text-org7565878">
+<div id="outline-container-org339f143" class="outline-3">
+<h3 id="org339f143">Access QMP via libvirt’s qemu-monitor-command</h3>
+<div class="outline-text-3" id="text-org339f143">
 <div class="org-src-container">
 <pre><code class="src src-sh">virsh qemu-monitor-command ${<span style="color: #e69f00; font-weight: bold;">domain</span>-name} --pretty <span style="color: #848ea9;">'{"execute":"query-kvm"}'</span>
 </code></pre>
@@ -269,9 +269,9 @@ information, modify the guest state using the QMP commands.
 </div>
 </div>
 
-<div id="outline-container-org1e473d2" class="outline-3">
-<h3 id="org1e473d2">QMP via tcp socket</h3>
-<div class="outline-text-3" id="text-org1e473d2">
+<div id="outline-container-orgdec726d" class="outline-3">
+<h3 id="orgdec726d">QMP via tcp socket</h3>
+<div class="outline-text-3" id="text-orgdec726d">
 <ol class="org-ol">
 <li><p>
 launch an qemu instance:
@@ -320,9 +320,9 @@ execute <code>query-kvm</code> command
 </div>
 </div>
 
-<div id="outline-container-orge0b6cd3" class="outline-3">
-<h3 id="orge0b6cd3">QMP via unix socket</h3>
-<div class="outline-text-3" id="text-orge0b6cd3">
+<div id="outline-container-org5ad0e37" class="outline-3">
+<h3 id="org5ad0e37">QMP via unix socket</h3>
+<div class="outline-text-3" id="text-org5ad0e37">
 <ol class="org-ol">
 <li><p>
 launch an qemu instance with unix socket:
@@ -360,7 +360,7 @@ and the output like:
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2017 siweixiang (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Copyright 2017 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
 Last updated 2017-09-27 Wed 19:46. <br/>
 Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
 </div>

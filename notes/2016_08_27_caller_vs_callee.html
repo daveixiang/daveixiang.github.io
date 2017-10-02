@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-10-02 Mon 11:24 -->
+<!-- 2017-10-02 Mon 11:29 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Add OpenSUSE Leap 42.2 repos</title>
+<title>Caller vs Callee</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="xiangsiwei" />
 <style type="text/css">
@@ -241,40 +241,36 @@ for the JavaScript code in this tag.
 <div class='clearboth'></div>
 </div>
 <div id="content">
-<h1 class="title">Add OpenSUSE Leap 42.2 repos</h1>
+<h1 class="title">Caller vs Callee</h1>
 
-<div id="outline-container-org0c52b69" class="outline-2">
-<h2 id="org0c52b69"></h2>
-<div class="outline-text-2" id="text-org0c52b69">
-<ol class="org-ol">
-<li><p>
-Remove previous repos
+<div id="outline-container-orga19eb75" class="outline-2">
+<h2 id="orga19eb75">caller vs callee</h2>
+<div class="outline-text-2" id="text-orga19eb75">
+<p class="verse">
+If routine A calls routine B then routine A is the caller and<br />
+routine B is the callee. i.e. the caller is the routine which is<br />
+calling the callee.<br />
 </p>
-<div class="org-src-container">
-<pre><code class="src src-sh">zypper repos | grep Yes | cut -f3 -d <span style="color: #848ea9;">'|'</span> | sed -e <span style="color: #848ea9;">"s/ //"</span> | awk <span style="color: #848ea9;">'{print "zypper rr " $1}'</span> | bash
-</code></pre>
-</div></li>
+</div>
+</div>
 
-<li><p>
-Add the repos and refresh
+<div id="outline-container-org939e4b4" class="outline-2">
+<h2 id="org939e4b4">argument vs parameter</h2>
+<div class="outline-text-2" id="text-org939e4b4">
+<p class="verse">
+When a routine calls another routine, it may pass something to the<br />
+other routine. From the perspective of the caller the thing which is<br />
+passed is an argument. From the perspective of the routine that<br />
+receives the call, i.e. the callee, the thing which is passed is a<br />
+parameter.<br />
 </p>
-<div class="org-src-container">
-<pre><code class="src src-sh">zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/oss/ openSUSE-leap-42.2-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/non-oss/ openSUSE-leap-42.2-Non-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/oss openSUSE-leap-42.2-Update-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/non-oss/ openSUSE-leap-42.2-Update-Non-Oss
-
-zypper refresh
-</code></pre>
-</div></li>
-</ol>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
 Copyright 2017 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2017-09-27 Wed 20:29. <br/>
+Last updated 2016-08-27 Sat 20:51. <br/>
 Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
 </div>
 </div>

@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-10-02 Mon 11:24 -->
+<!-- 2017-10-02 Mon 15:08 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Add OpenSUSE Leap 42.2 repos</title>
+<title>Fix Fcitx Chinese Input for Emacs</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="xiangsiwei" />
 <style type="text/css">
@@ -241,30 +241,36 @@ for the JavaScript code in this tag.
 <div class='clearboth'></div>
 </div>
 <div id="content">
-<h1 class="title">Add OpenSUSE Leap 42.2 repos</h1>
+<h1 class="title">Fix Fcitx Chinese Input for Emacs</h1>
 
-<div id="outline-container-org0c52b69" class="outline-2">
-<h2 id="org0c52b69"></h2>
-<div class="outline-text-2" id="text-org0c52b69">
+<div id="outline-container-orge7edfc5" class="outline-2">
+<h2 id="orge7edfc5">Introduction</h2>
+<div class="outline-text-2" id="text-orge7edfc5">
+<p>
+当 LC_CTYPE 为英文时, 在 Emacs 上可能无法使用输入法。若遇到此情况，请
+在启动 Emacs 时将 LC_CTYPE 设为 zh_CN.UTF-8. 终端下并不会遇到此现象，
+因为输入法会交给终端程序处理。
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd28fa1c" class="outline-2">
+<h2 id="orgd28fa1c">Debian Stretch处理方法</h2>
+<div class="outline-text-2" id="text-orgd28fa1c">
 <ol class="org-ol">
 <li><p>
-Remove previous repos
+备份/usr/bin/emacs
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh">zypper repos | grep Yes | cut -f3 -d <span style="color: #848ea9;">'|'</span> | sed -e <span style="color: #848ea9;">"s/ //"</span> | awk <span style="color: #848ea9;">'{print "zypper rr " $1}'</span> | bash
+<pre><code class="src src-shell">mv /usr/bin/emacs /usr/bin/emacs.bak
 </code></pre>
 </div></li>
 
 <li><p>
-Add the repos and refresh
+创建/usr/bin/emacs, 输入一下内容:
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh">zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/oss/ openSUSE-leap-42.2-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/non-oss/ openSUSE-leap-42.2-Non-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/oss openSUSE-leap-42.2-Update-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/non-oss/ openSUSE-leap-42.2-Update-Non-Oss
-
-zypper refresh
+<pre><code class="src src-shell"><span style="color: #e69f00; font-weight: bold;">LC_CTYPE</span>=zh_CN.UTF-8 /usr/bin/emacs25-x $<span style="color: #e69f00; font-weight: bold;">@</span>
 </code></pre>
 </div></li>
 </ol>
@@ -274,7 +280,7 @@ zypper refresh
 <div id="postamble" class="status">
 <div class='footer'>
 Copyright 2017 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2017-09-27 Wed 20:29. <br/>
+Last updated 2017-10-02 Mon 15:07. <br/>
 Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
 </div>
 </div>

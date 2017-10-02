@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-09-28 Thu 18:16 -->
+<!-- 2017-10-02 Mon 11:24 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Qemu PCI Device Demo</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="siweixiang" />
+<meta name="author" content="xiangsiwei" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -243,9 +243,9 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">Qemu PCI Device Demo</h1>
 
-<div id="outline-container-org49072ae" class="outline-2">
-<h2 id="org49072ae">Add the device source code {QEMU_SRC}/hw/misc/pci-helloworld.c</h2>
-<div class="outline-text-2" id="text-org49072ae">
+<div id="outline-container-orgf9583ba" class="outline-2">
+<h2 id="orgf9583ba">Add the device source code {QEMU_SRC}/hw/misc/pci-helloworld.c</h2>
+<div class="outline-text-2" id="text-orgf9583ba">
 <div class="org-src-container">
 <pre><code class="src src-c"><span style="color: #0072b2;">#include</span> <span style="color: #848ea9;">"qemu/osdep.h"</span>
 <span style="color: #0072b2;">#include</span> <span style="color: #848ea9;">"hw/hw.h"</span>
@@ -390,9 +390,9 @@ type_init(pci_helloworld_register_types)
 </div>
 </div>
 
-<div id="outline-container-org59ee077" class="outline-2">
-<h2 id="org59ee077">Add the following line to {QEMU_SRC}/hw/misc/Makefile.objs</h2>
-<div class="outline-text-2" id="text-org59ee077">
+<div id="outline-container-orgd2042a5" class="outline-2">
+<h2 id="orgd2042a5">Add the following line to {QEMU_SRC}/hw/misc/Makefile.objs</h2>
+<div class="outline-text-2" id="text-orgd2042a5">
 <div class="org-src-container">
 <pre><code class="src src-makefile">ifeq ($(<span style="color: #e69f00; font-weight: bold;">CONFIG_PCI</span>), y)
 <span style="color: #e69f00; font-weight: bold;">obj-y</span> += pci-helloworld.o
@@ -402,9 +402,9 @@ endif
 </div>
 </div>
 
-<div id="outline-container-org6baa364" class="outline-2">
-<h2 id="org6baa364">Recompile the qemu source code and check the result</h2>
-<div class="outline-text-2" id="text-org6baa364">
+<div id="outline-container-orgfb6e15c" class="outline-2">
+<h2 id="orgfb6e15c">Recompile the qemu source code and check the result</h2>
+<div class="outline-text-2" id="text-orgfb6e15c">
 <ol class="org-ol">
 <li><p>
 get the device list
@@ -454,7 +454,7 @@ Please press Enter to activate this console.
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2017 siweixiang (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Copyright 2017 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
 Last updated 2017-09-28 Thu 15:57. <br/>
 Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
 </div>

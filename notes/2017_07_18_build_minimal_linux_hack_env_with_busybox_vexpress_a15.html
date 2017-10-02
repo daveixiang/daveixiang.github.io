@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-09-28 Thu 19:02 -->
+<!-- 2017-10-02 Mon 11:24 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Build Minimal Linux Hack Env with Busybox (Target: vexpress-a15)</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="siweixiang" />
+<meta name="author" content="xiangsiwei" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -243,9 +243,9 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">Build Minimal Linux Hack Env with Busybox (Target: vexpress-a15)</h1>
 
-<div id="outline-container-orged174a1" class="outline-2">
-<h2 id="orged174a1">Build the kernel</h2>
-<div class="outline-text-2" id="text-orged174a1">
+<div id="outline-container-org9012ce8" class="outline-2">
+<h2 id="org9012ce8">Build the kernel</h2>
+<div class="outline-text-2" id="text-org9012ce8">
 <ol class="org-ol">
 <li><p>
 Use <i>vexpress-a15</i> default configuration
@@ -274,9 +274,9 @@ Create kernel image <i>zImage</i>
 </div>
 </div>
 
-<div id="outline-container-org5105013" class="outline-2">
-<h2 id="org5105013">Build busybox</h2>
-<div class="outline-text-2" id="text-org5105013">
+<div id="outline-container-org27bcbd6" class="outline-2">
+<h2 id="org27bcbd6">Build busybox</h2>
+<div class="outline-text-2" id="text-org27bcbd6">
 <ol class="org-ol">
 <li><p>
 Use busybox default configuration
@@ -313,9 +313,9 @@ Install busybox(default path: <code>BUSYBOX/_install</code>)
 </div>
 </div>
 
-<div id="outline-container-org814de2b" class="outline-2">
-<h2 id="org814de2b">Generate minimal initramfs</h2>
-<div class="outline-text-2" id="text-org814de2b">
+<div id="outline-container-orge0c8c59" class="outline-2">
+<h2 id="orge0c8c59">Generate minimal initramfs</h2>
+<div class="outline-text-2" id="text-orge0c8c59">
 <div class="org-src-container">
 <pre><code class="src src-sh"><span style="color: #009e73; font-style: italic;">#</span><span style="color: #009e73; font-style: italic;">!/usr/bin/</span><span style="color: #56b4e9; font-weight: bold;">bash</span>
 <span style="color: #e69f00; font-weight: bold;">ROOTFS</span>=rootfs
@@ -372,9 +372,9 @@ find . | cpio -o --format=newc &gt; ../initramfs
 </div>
 </div>
 
-<div id="outline-container-orgf97b4e9" class="outline-2">
-<h2 id="orgf97b4e9">Test the <i>zImage</i> and <i>initramfs</i> just built</h2>
-<div class="outline-text-2" id="text-orgf97b4e9">
+<div id="outline-container-orgd3844fe" class="outline-2">
+<h2 id="orgd3844fe">Test the <i>zImage</i> and <i>initramfs</i> just built</h2>
+<div class="outline-text-2" id="text-orgd3844fe">
 <p>
 Use qemu to test the <i>zImage</i> and <i>initramfs</i> which we just builded:
 </p>
@@ -400,7 +400,7 @@ and the output just like the following:
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2017 siweixiang (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Copyright 2017 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
 Last updated 2017-09-28 Thu 19:02. <br/>
 Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
 </div>

@@ -6,7 +6,7 @@
 <!-- 2017-10-02 Mon 11:24 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Add OpenSUSE Leap 42.2 repos</title>
+<title>GCC Inline Assembly Hello World Example</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="xiangsiwei" />
 <style type="text/css">
@@ -241,40 +241,81 @@ for the JavaScript code in this tag.
 <div class='clearboth'></div>
 </div>
 <div id="content">
-<h1 class="title">Add OpenSUSE Leap 42.2 repos</h1>
+<h1 class="title">GCC Inline Assembly Hello World Example</h1>
 
-<div id="outline-container-org0c52b69" class="outline-2">
-<h2 id="org0c52b69"></h2>
-<div class="outline-text-2" id="text-org0c52b69">
-<ol class="org-ol">
-<li><p>
-Remove previous repos
-</p>
+<div id="outline-container-orgf75c3a9" class="outline-2">
+<h2 id="orgf75c3a9"></h2>
+<div class="outline-text-2" id="text-orgf75c3a9">
+<ul class="org-ul">
+<li>Linux x86</li>
+</ul>
+
 <div class="org-src-container">
-<pre><code class="src src-sh">zypper repos | grep Yes | cut -f3 -d <span style="color: #848ea9;">'|'</span> | sed -e <span style="color: #848ea9;">"s/ //"</span> | awk <span style="color: #848ea9;">'{print "zypper rr " $1}'</span> | bash
-</code></pre>
-</div></li>
+<pre><code class="src src-c"><span style="color: #0072b2;">#include</span> <span style="color: #848ea9;">&lt;string.h&gt;</span>
+<span style="color: #0072b2;">#include</span> <span style="color: #848ea9;">&lt;stdio.h&gt;</span>
 
-<li><p>
-Add the repos and refresh
-</p>
+<span style="color: #0072b2; font-weight: bold;">int</span> <span style="color: #d55e00;">main</span>(<span style="color: #0072b2; font-weight: bold;">int</span> <span style="color: #e69f00; font-weight: bold;">argc</span>, <span style="color: #0072b2; font-weight: bold;">char</span> *<span style="color: #e69f00; font-weight: bold;">argv</span>[])
+{
+        <span style="color: #0072b2; font-weight: bold;">char</span> *<span style="color: #e69f00; font-weight: bold;">str</span> = <span style="color: #848ea9;">"Hello World\n"</span>;
+        <span style="color: #0072b2; font-weight: bold;">long</span> <span style="color: #e69f00; font-weight: bold;">len</span> = strlen(str);
+        <span style="color: #0072b2; font-weight: bold;">int</span> <span style="color: #e69f00; font-weight: bold;">ret</span> = 0;
+<span style="color: #009e73; font-style: italic;">/*</span>
+<span style="color: #009e73; font-style: italic;"> * ssize_t write(int fd, const void *buf, size_t count);</span>
+<span style="color: #009e73; font-style: italic;"> *</span>
+<span style="color: #009e73; font-style: italic;"> </span><span style="color: #009e73; font-style: italic;">*/</span>
+        <span style="color: #56b4e9; font-weight: bold;">__asm__</span>(<span style="color: #848ea9;">"movl $1, %%eax\n\t"</span>    <span style="color: #009e73; font-style: italic;">// </span><span style="color: #009e73; font-style: italic;">write syscall</span>
+                <span style="color: #848ea9;">"movl $1, %%ebx\n\t"</span>    <span style="color: #009e73; font-style: italic;">// </span><span style="color: #009e73; font-style: italic;">fd   </span>
+                <span style="color: #848ea9;">"movl %1, %%ecx\n\t"</span>    <span style="color: #009e73; font-style: italic;">// </span><span style="color: #009e73; font-style: italic;">buf</span>
+                <span style="color: #848ea9;">"movl %2, %%edx\n\t"</span>    <span style="color: #009e73; font-style: italic;">// </span><span style="color: #009e73; font-style: italic;">count</span>
+                <span style="color: #848ea9;">"syscall\n\t"</span>
+                <span style="color: #848ea9;">"movl %%eax, %0"</span>        <span style="color: #009e73; font-style: italic;">// </span><span style="color: #009e73; font-style: italic;">return result to ret</span>
+                : <span style="color: #848ea9;">"+m"</span>(ret)
+                : <span style="color: #848ea9;">"g"</span>(str), <span style="color: #848ea9;">"g"</span>(len));
+        printf(<span style="color: #848ea9;">"ret %d\n"</span>, ret);
+
+        <span style="color: #56b4e9; font-weight: bold;">return</span> 0;
+}
+</code></pre>
+</div>
+
+<ul class="org-ul">
+<li>Linux x86-64</li>
+</ul>
+
 <div class="org-src-container">
-<pre><code class="src src-sh">zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/oss/ openSUSE-leap-42.2-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/non-oss/ openSUSE-leap-42.2-Non-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/oss openSUSE-leap-42.2-Update-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/non-oss/ openSUSE-leap-42.2-Update-Non-Oss
+<pre><code class="src src-c"><span style="color: #0072b2;">#include</span> <span style="color: #848ea9;">&lt;string.h&gt;</span>
+<span style="color: #0072b2;">#include</span> <span style="color: #848ea9;">&lt;stdio.h&gt;</span>
 
-zypper refresh
+<span style="color: #0072b2; font-weight: bold;">int</span> <span style="color: #d55e00;">main</span>(<span style="color: #0072b2; font-weight: bold;">int</span> <span style="color: #e69f00; font-weight: bold;">argc</span>, <span style="color: #0072b2; font-weight: bold;">char</span> *<span style="color: #e69f00; font-weight: bold;">argv</span>[])
+{
+        <span style="color: #0072b2; font-weight: bold;">char</span> *<span style="color: #e69f00; font-weight: bold;">str</span> = <span style="color: #848ea9;">"Hello World\n"</span>;
+        <span style="color: #0072b2; font-weight: bold;">long</span> <span style="color: #e69f00; font-weight: bold;">len</span> = strlen(str);
+        <span style="color: #0072b2; font-weight: bold;">int</span> <span style="color: #e69f00; font-weight: bold;">ret</span> = 0;
+<span style="color: #009e73; font-style: italic;">/*</span>
+<span style="color: #009e73; font-style: italic;"> * ssize_t write(int fd, const void *buf, size_t count);</span>
+<span style="color: #009e73; font-style: italic;"> *</span>
+<span style="color: #009e73; font-style: italic;"> </span><span style="color: #009e73; font-style: italic;">*/</span>
+        <span style="color: #56b4e9; font-weight: bold;">__asm__</span>(<span style="color: #848ea9;">"movq $1, %%rax\n\t"</span>    <span style="color: #009e73; font-style: italic;">// </span><span style="color: #009e73; font-style: italic;">write syscall</span>
+                <span style="color: #848ea9;">"movq $1, %%rdi\n\t"</span>    <span style="color: #009e73; font-style: italic;">// </span><span style="color: #009e73; font-style: italic;">fd   </span>
+                <span style="color: #848ea9;">"movq %1, %%rsi\n\t"</span>    <span style="color: #009e73; font-style: italic;">// </span><span style="color: #009e73; font-style: italic;">buf</span>
+                <span style="color: #848ea9;">"movl %2, %%edx\n\t"</span>    <span style="color: #009e73; font-style: italic;">// </span><span style="color: #009e73; font-style: italic;">count</span>
+                <span style="color: #848ea9;">"syscall\n\t"</span>
+                <span style="color: #848ea9;">"movq %%rax, %0"</span>        <span style="color: #009e73; font-style: italic;">// </span><span style="color: #009e73; font-style: italic;">return result to ret</span>
+                : <span style="color: #848ea9;">"+m"</span>(ret)
+                : <span style="color: #848ea9;">"g"</span>(str), <span style="color: #848ea9;">"g"</span>(len));
+        printf(<span style="color: #848ea9;">"ret %d\n"</span>, ret);
+
+        <span style="color: #56b4e9; font-weight: bold;">return</span> 0;
+}
 </code></pre>
-</div></li>
-</ol>
+</div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
 Copyright 2017 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2017-09-27 Wed 20:29. <br/>
+Last updated 2016-08-17 Wed 21:51. <br/>
 Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
 </div>
 </div>
