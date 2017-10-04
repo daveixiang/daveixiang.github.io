@@ -167,14 +167,18 @@ dt {
 }
 
 pre {
-    border: 1px solid #ccc;
+
+    border: 1px dashed #2f6fab;
+/*    border: 1px solid #ccc; */
     box-shadow: 3px 3px 3px #eee;
     font-family: Lucida Console, monospace;
     margin: 1.0em;
-    padding: 0.5em;
+    padding:1.0em;
     font-size: 12px;
     overflow: auto;
     position: relative;
+    background-color: #f9f9f9;
+    line-height: 1.3em;
 }
 
 

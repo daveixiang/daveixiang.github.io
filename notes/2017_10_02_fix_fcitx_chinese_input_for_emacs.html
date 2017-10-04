@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-10-02 Mon 15:08 -->
+<!-- 2017-10-03 Tue 17:00 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Fix Fcitx Chinese Input for Emacs</title>
@@ -270,7 +270,12 @@ for the JavaScript code in this tag.
 创建/usr/bin/emacs, 输入一下内容:
 </p>
 <div class="org-src-container">
-<pre><code class="src src-shell"><span style="color: #e69f00; font-weight: bold;">LC_CTYPE</span>=zh_CN.UTF-8 /usr/bin/emacs25-x $<span style="color: #e69f00; font-weight: bold;">@</span>
+<pre><code class="src src-text">LC_CTYPE=zh_CN.UTF-8 /usr/bin/emacs25-x $@
+</code></pre>
+</div>
+
+<div class="org-src-container">
+<pre><code class="src src-shell">chmod +x /usr/bin/emacs
 </code></pre>
 </div></li>
 </ol>
@@ -280,7 +285,7 @@ for the JavaScript code in this tag.
 <div id="postamble" class="status">
 <div class='footer'>
 Copyright 2017 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2017-10-02 Mon 15:07. <br/>
+Last updated 2017-10-03 Tue 17:00. <br/>
 Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
 </div>
 </div>
