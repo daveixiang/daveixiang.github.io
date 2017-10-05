@@ -6,7 +6,7 @@
 <!-- 2017-10-05 Thu 15:12 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>養育恩</title>
+<title>Installing Ubuntu font family in Debian</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="xiangsiwei" />
 <style type="text/css">
@@ -241,23 +241,38 @@ for the JavaScript code in this tag.
 <div class='clearboth'></div>
 </div>
 <div id="content">
-<h1 class="title">養育恩</h1>
-<p class="verse">
-養育恩 項籍<br />
-<br />
-微風細雨育萬物<br />
-<br />
-家母心念歸期數<br />
-<br />
-二十六年未省心<br />
-<br />
-乳兒猶在他鄉處<br />
+<h1 class="title">Installing Ubuntu font family in Debian</h1>
+<p>
+Download Ubuntu font family from <a href="http://font.ubuntu.com">http://font.ubuntu.com</a>. Using file
+manager and as a user root, do:
 </p>
+
+<ol class="org-ol">
+<li><p>
+Create a directory in <code>/usr/share/fonts/truetype</code> named
+<code>ttf-ubuntu</code>.
+</p>
+
+<div class="org-src-container">
+<pre><code class="src src-shell">sudo mkdir /usr/share/fonts/truetype/ttf-ubuntu
+</code></pre>
+</div></li>
+
+<li><p>
+Using copy the <code>*.ttf</code> files to
+<code>/usr/share/fonts/truetype/ttf-ubuntu</code>.
+</p>
+
+<div class="org-src-container">
+<pre><code class="src src-shell">sudo cp -ap *.ttf /usr/share/fonts/truetype/ttf-ubuntu
+</code></pre>
+</div></li>
+</ol>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
 Copyright 2017 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2017-10-05 Thu 15:12. <br/>
+Last updated 2017-10-05 Thu 15:10. <br/>
 Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
 </div>
 </div>
