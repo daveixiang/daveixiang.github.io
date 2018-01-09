@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-10-02 Mon 15:29 -->
+<!-- 2018-01-09 Tue 12:20 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Compile Golang from Source Code</title>
@@ -277,7 +277,7 @@ start with Go 1.4:
 
 <div class="org-src-container">
 <pre><code class="src src-sh">tar zxf go1.4.3.src.tar.gz -C /go
-<span style="color: #0072b2;">cd</span> /go
+<span style="color: #657b83; font-weight: bold;">cd</span> /go
 mv go go1.4
 </code></pre>
 </div>
@@ -287,7 +287,7 @@ mv go go1.4
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #0072b2;">cd</span> /app/go1.4/src
+<pre><code class="src src-sh"><span style="color: #657b83; font-weight: bold;">cd</span> /app/go1.4/src
 ./make.bash
 </code></pre>
 </div>
@@ -310,7 +310,7 @@ Using Go 1.4 to bootstrap a later version, disable cgo with:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">env <span style="color: #e69f00; font-weight: bold;">CGO_ENABLED</span>=0 ./make.bash
+<pre><code class="src src-sh">env <span style="color: #268bd2;">CGO_ENABLED</span>=0 ./make.bash
 </code></pre>
 </div>
 </div>
@@ -327,7 +327,7 @@ Using Go 1.4 to bootstrap a later version, disable cgo with:
 
 <div class="org-src-container">
 <pre><code class="src src-sh">tar zxf go1.7.5.src.tar.gz -C /go
-<span style="color: #0072b2;">cd</span> /go
+<span style="color: #657b83; font-weight: bold;">cd</span> /go
 mv go go1.7
 </code></pre>
 </div>
@@ -337,7 +337,7 @@ mv go go1.7
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">GOROOT_BOOTSTRAP</span>=/app/go1.4
+<pre><code class="src src-sh"><span style="color: #657b83; font-weight: bold;">export</span> <span style="color: #268bd2;">GOROOT_BOOTSTRAP</span>=/app/go1.4
 </code></pre>
 </div>
 
@@ -346,7 +346,7 @@ mv go go1.7
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #0072b2;">cd</span> /app/go1.7/src
+<pre><code class="src src-sh"><span style="color: #657b83; font-weight: bold;">cd</span> /app/go1.7/src
 ./make.bash
 </code></pre>
 </div>
@@ -367,7 +367,7 @@ set the root of the go installation:
 <div class="org-src-container">
 <pre><code class="src src-shell">ln -sf /app/go1.7 /app/go
 
-<span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">GOROOT</span>=/app/go
+<span style="color: #657b83; font-weight: bold;">export</span> <span style="color: #268bd2;">GOROOT</span>=/app/go
 </code></pre>
 </div></li>
 
@@ -375,7 +375,7 @@ set the root of the go installation:
 tell go where to store additional packages downloaded with “go get”:
 </p>
 <div class="org-src-container">
-<pre><code class="src src-shell"><span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">GOPATH</span>=&lt;path/to/addons&gt;
+<pre><code class="src src-shell"><span style="color: #657b83; font-weight: bold;">export</span> <span style="color: #268bd2;">GOPATH</span>=&lt;path/to/addons&gt;
 </code></pre>
 </div></li>
 
@@ -383,7 +383,7 @@ tell go where to store additional packages downloaded with “go get”:
 finally add the bin directory to your PATH:
 </p>
 <div class="org-src-container">
-<pre><code class="src src-shell"><span style="color: #0072b2;">export</span> <span style="color: #e69f00; font-weight: bold;">PATH</span>=$<span style="color: #e69f00; font-weight: bold;">GOROOT</span>/bin:$<span style="color: #e69f00; font-weight: bold;">GOPATH</span>/bin:$<span style="color: #e69f00; font-weight: bold;">PATH</span>
+<pre><code class="src src-shell"><span style="color: #657b83; font-weight: bold;">export</span> <span style="color: #268bd2;">PATH</span>=$<span style="color: #268bd2;">GOROOT</span>/bin:$<span style="color: #268bd2;">GOPATH</span>/bin:$<span style="color: #268bd2;">PATH</span>
 </code></pre>
 </div></li>
 </ol>
@@ -393,9 +393,9 @@ finally add the bin directory to your PATH:
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2017 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Copyright 2018 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
 Last updated 2017-10-02 Mon 15:28. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
 </div>
 </div>
 </body>

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-10-02 Mon 11:24 -->
+<!-- 2018-01-09 Tue 12:20 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Multiple Ways to Access Qemu Machine Protocol (QMP)</title>
@@ -263,7 +263,7 @@ information, modify the guest state using the QMP commands.
 <h3 id="org339f143">Access QMP via libvirt’s qemu-monitor-command</h3>
 <div class="outline-text-3" id="text-org339f143">
 <div class="org-src-container">
-<pre><code class="src src-sh">virsh qemu-monitor-command ${<span style="color: #e69f00; font-weight: bold;">domain</span>-name} --pretty <span style="color: #848ea9;">'{"execute":"query-kvm"}'</span>
+<pre><code class="src src-sh">virsh qemu-monitor-command ${<span style="color: #268bd2;">domain</span>-name} --pretty <span style="color: #2aa198;">'{"execute":"query-kvm"}'</span>
 </code></pre>
 </div>
 </div>
@@ -277,7 +277,7 @@ information, modify the guest state using the QMP commands.
 launch an qemu instance:
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh">qemu-system-x86_64 --enable-kvm -drive <span style="color: #e69f00; font-weight: bold;">if</span>=virtio,<span style="color: #e69f00; font-weight: bold;">format</span>=qcow2,<span style="color: #e69f00; font-weight: bold;">index</span>=0,<span style="color: #e69f00; font-weight: bold;">file</span>=cirros-0.3.5-x86_64-disk.img --qmp tcp:127.0.0.1:12345,server
+<pre><code class="src src-sh">qemu-system-x86_64 --enable-kvm -drive <span style="color: #268bd2;">if</span>=virtio,<span style="color: #268bd2;">format</span>=qcow2,<span style="color: #268bd2;">index</span>=0,<span style="color: #268bd2;">file</span>=cirros-0.3.5-x86_64-disk.img --qmp tcp:127.0.0.1:12345,server
 </code></pre>
 </div>
 <p>
@@ -301,8 +301,8 @@ and the output like:
 <div class="org-src-container">
 <pre><code class="src src-sh">Trying 127.0.0.1...
 Connected to 127.0.0.1.
-Escape character is <span style="color: #848ea9;">'^]'</span>.
-{<span style="color: #848ea9;">"QMP"</span>: {<span style="color: #848ea9;">"version"</span>: {<span style="color: #848ea9;">"qemu"</span>: {<span style="color: #848ea9;">"micro"</span>: 0, <span style="color: #848ea9;">"minor"</span>: 8, <span style="color: #848ea9;">"major"</span>: 2}, <span style="color: #848ea9;">"package"</span>: <span style="color: #848ea9;">""</span>}, <span style="color: #848ea9;">"capabilities"</span>: []}}
+Escape character is <span style="color: #2aa198;">'^]'</span>.
+{<span style="color: #2aa198;">"QMP"</span>: {<span style="color: #2aa198;">"version"</span>: {<span style="color: #2aa198;">"qemu"</span>: {<span style="color: #2aa198;">"micro"</span>: 0, <span style="color: #2aa198;">"minor"</span>: 8, <span style="color: #2aa198;">"major"</span>: 2}, <span style="color: #2aa198;">"package"</span>: <span style="color: #2aa198;">""</span>}, <span style="color: #2aa198;">"capabilities"</span>: []}}
 </code></pre>
 </div></li>
 
@@ -310,10 +310,10 @@ Escape character is <span style="color: #848ea9;">'^]'</span>.
 execute <code>query-kvm</code> command
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh">{<span style="color: #848ea9;">"execute"</span> : <span style="color: #848ea9;">"qmp_capabilities"</span>}
-{<span style="color: #848ea9;">"return"</span>: {}}
-{<span style="color: #848ea9;">"execute"</span> : <span style="color: #848ea9;">"query-kvm"</span>}
-{<span style="color: #848ea9;">"return"</span>: {<span style="color: #848ea9;">"enabled"</span>: true, <span style="color: #848ea9;">"present"</span>: true}}
+<pre><code class="src src-sh">{<span style="color: #2aa198;">"execute"</span> : <span style="color: #2aa198;">"qmp_capabilities"</span>}
+{<span style="color: #2aa198;">"return"</span>: {}}
+{<span style="color: #2aa198;">"execute"</span> : <span style="color: #2aa198;">"query-kvm"</span>}
+{<span style="color: #2aa198;">"return"</span>: {<span style="color: #2aa198;">"enabled"</span>: true, <span style="color: #2aa198;">"present"</span>: true}}
 </code></pre>
 </div></li>
 </ol>
@@ -328,7 +328,7 @@ execute <code>query-kvm</code> command
 launch an qemu instance with unix socket:
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh">qemu-system-x86_64 --enable-kvm -drive <span style="color: #e69f00; font-weight: bold;">if</span>=virtio,<span style="color: #e69f00; font-weight: bold;">format</span>=qcow2,<span style="color: #e69f00; font-weight: bold;">index</span>=0,<span style="color: #e69f00; font-weight: bold;">file</span>=cirros-0.3.5-x86_64-disk.img -qmp unix:./qmp-sock,server
+<pre><code class="src src-sh">qemu-system-x86_64 --enable-kvm -drive <span style="color: #268bd2;">if</span>=virtio,<span style="color: #268bd2;">format</span>=qcow2,<span style="color: #268bd2;">index</span>=0,<span style="color: #268bd2;">file</span>=cirros-0.3.5-x86_64-disk.img -qmp unix:./qmp-sock,server
 </code></pre>
 </div>
 <p>
@@ -350,7 +350,7 @@ access the instance we have launched using socat and rlwrap:
 and the output like:
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh">{<span style="color: #848ea9;">"QMP"</span>: {<span style="color: #848ea9;">"version"</span>: {<span style="color: #848ea9;">"qemu"</span>: {<span style="color: #848ea9;">"micro"</span>: 0, <span style="color: #848ea9;">"minor"</span>: 8, <span style="color: #848ea9;">"major"</span>: 2}, <span style="color: #848ea9;">"package"</span>: <span style="color: #848ea9;">""</span>}, <span style="color: #848ea9;">"capabilities"</span>: []}}
+<pre><code class="src src-sh">{<span style="color: #2aa198;">"QMP"</span>: {<span style="color: #2aa198;">"version"</span>: {<span style="color: #2aa198;">"qemu"</span>: {<span style="color: #2aa198;">"micro"</span>: 0, <span style="color: #2aa198;">"minor"</span>: 8, <span style="color: #2aa198;">"major"</span>: 2}, <span style="color: #2aa198;">"package"</span>: <span style="color: #2aa198;">""</span>}, <span style="color: #2aa198;">"capabilities"</span>: []}}
 </code></pre>
 </div></li>
 </ol>
@@ -360,9 +360,9 @@ and the output like:
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2017 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Copyright 2018 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
 Last updated 2017-09-27 Wed 19:46. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
 </div>
 </div>
 </body>

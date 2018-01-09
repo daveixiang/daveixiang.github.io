@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-10-02 Mon 11:24 -->
+<!-- 2018-01-09 Tue 12:20 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Using OVS to Build Minimal Linux Networking Hack Environment aarch64</title>
@@ -276,10 +276,10 @@ ovs-vsctl add-port br0 tap02
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">qemu-system-aarch64 -machine virt -cpu cortex-a57 <span style="color: #848ea9;">\</span>
--kernel ./Image -initrd ./initramfs -append <span style="color: #848ea9;">"console=ttyAMA0 quiet"</span> <span style="color: #848ea9;">\</span>
--netdev <span style="color: #e69f00; font-weight: bold;">type</span>=tap,<span style="color: #e69f00; font-weight: bold;">id</span>=net1,<span style="color: #e69f00; font-weight: bold;">ifname</span>=tap01,<span style="color: #e69f00; font-weight: bold;">script</span>=no,<span style="color: #e69f00; font-weight: bold;">downscript</span>=no <span style="color: #848ea9;">\</span>
--device virtio-net-device,<span style="color: #e69f00; font-weight: bold;">netdev</span>=net1,<span style="color: #e69f00; font-weight: bold;">mac</span>=<span style="color: #848ea9;">'12:34:56:78:9a:01'</span> <span style="color: #848ea9;">\</span>
+<pre><code class="src src-sh">qemu-system-aarch64 -machine virt -cpu cortex-a57 <span style="color: #b58900; font-weight: bold;">\</span>
+-kernel ./Image -initrd ./initramfs -append <span style="color: #2aa198;">"console=ttyAMA0 quiet"</span> <span style="color: #b58900; font-weight: bold;">\</span>
+-netdev <span style="color: #268bd2;">type</span>=tap,<span style="color: #268bd2;">id</span>=net1,<span style="color: #268bd2;">ifname</span>=tap01,<span style="color: #268bd2;">script</span>=no,<span style="color: #268bd2;">downscript</span>=no <span style="color: #b58900; font-weight: bold;">\</span>
+-device virtio-net-device,<span style="color: #268bd2;">netdev</span>=net1,<span style="color: #268bd2;">mac</span>=<span style="color: #2aa198;">'12:34:56:78:9a:01'</span> <span style="color: #b58900; font-weight: bold;">\</span>
 -nographic
 </code></pre>
 </div>
@@ -304,10 +304,10 @@ ip addr add 192.168.0.1/24 dev eth0
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">qemu-system-aarch64 -machine virt -cpu cortex-a57 <span style="color: #848ea9;">\</span>
--kernel ./Image -initrd ./initramfs -append <span style="color: #848ea9;">"console=ttyAMA0 quiet"</span> <span style="color: #848ea9;">\</span>
--netdev <span style="color: #e69f00; font-weight: bold;">type</span>=tap,<span style="color: #e69f00; font-weight: bold;">id</span>=net2,<span style="color: #e69f00; font-weight: bold;">ifname</span>=tap02,<span style="color: #e69f00; font-weight: bold;">script</span>=no,<span style="color: #e69f00; font-weight: bold;">downscript</span>=no <span style="color: #848ea9;">\</span>
--device virtio-net-device,<span style="color: #e69f00; font-weight: bold;">netdev</span>=net2,<span style="color: #e69f00; font-weight: bold;">mac</span>=<span style="color: #848ea9;">'12:34:56:78:9a:02'</span> <span style="color: #848ea9;">\</span>
+<pre><code class="src src-sh">qemu-system-aarch64 -machine virt -cpu cortex-a57 <span style="color: #b58900; font-weight: bold;">\</span>
+-kernel ./Image -initrd ./initramfs -append <span style="color: #2aa198;">"console=ttyAMA0 quiet"</span> <span style="color: #b58900; font-weight: bold;">\</span>
+-netdev <span style="color: #268bd2;">type</span>=tap,<span style="color: #268bd2;">id</span>=net2,<span style="color: #268bd2;">ifname</span>=tap02,<span style="color: #268bd2;">script</span>=no,<span style="color: #268bd2;">downscript</span>=no <span style="color: #b58900; font-weight: bold;">\</span>
+-device virtio-net-device,<span style="color: #268bd2;">netdev</span>=net2,<span style="color: #268bd2;">mac</span>=<span style="color: #2aa198;">'12:34:56:78:9a:02'</span> <span style="color: #b58900; font-weight: bold;">\</span>
 -nographic
 </code></pre>
 </div>
@@ -327,9 +327,9 @@ ip addr add 192.168.0.2/24 dev eth0
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2017 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Copyright 2018 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
 Last updated 2017-09-28 Thu 19:47. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
 </div>
 </div>
 </body>

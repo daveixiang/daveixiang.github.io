@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-10-05 Thu 14:37 -->
+<!-- 2018-01-09 Tue 12:20 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Build Router Environment Using OVS - Five Devices</title>
@@ -337,22 +337,22 @@ two PCs
 <li>pc01</li>
 </ul>
 <div class="org-src-container">
-<pre><code class="src src-shell">qemu-system-i386 -enable-kvm -m 1024M  -kernel ./bzImage <span style="color: #5c3566;">\</span>
--initrd ./initramfs -append  <span style="color: #5c3566;">"console=ttyS0 quiet"</span> <span style="color: #5c3566;">\</span>
--nographic -serial mon:stdio <span style="color: #5c3566;">\</span>
--netdev tap,<span style="color: #b35000;">id</span>=net1,<span style="color: #b35000;">ifname</span>=tap02,<span style="color: #b35000;">script</span>=no,<span style="color: #b35000;">downscript</span>=no  <span style="color: #5c3566;">\</span>
--device e1000,<span style="color: #b35000;">netdev</span>=net1,<span style="color: #b35000;">mac</span>=<span style="color: #5c3566;">'12:34:56:78:9a:02'</span>
+<pre><code class="src src-shell">qemu-system-i386 -enable-kvm -m 1024M  -kernel ./bzImage <span style="color: #b58900; font-weight: bold;">\</span>
+-initrd ./initramfs -append  <span style="color: #2aa198;">"console=ttyS0 quiet"</span> <span style="color: #b58900; font-weight: bold;">\</span>
+-nographic -serial mon:stdio <span style="color: #b58900; font-weight: bold;">\</span>
+-netdev tap,<span style="color: #268bd2;">id</span>=net1,<span style="color: #268bd2;">ifname</span>=tap02,<span style="color: #268bd2;">script</span>=no,<span style="color: #268bd2;">downscript</span>=no  <span style="color: #b58900; font-weight: bold;">\</span>
+-device e1000,<span style="color: #268bd2;">netdev</span>=net1,<span style="color: #268bd2;">mac</span>=<span style="color: #2aa198;">'12:34:56:78:9a:02'</span>
 </code></pre>
 </div>
 <ul class="org-ul">
 <li>pc02</li>
 </ul>
 <div class="org-src-container">
-<pre><code class="src src-shell">qemu-system-i386 -enable-kvm -m 1024M  -kernel ./bzImage <span style="color: #5c3566;">\</span>
--initrd ./initramfs -append  <span style="color: #5c3566;">"console=ttyS0 quiet"</span> <span style="color: #5c3566;">\</span>
--nographic -serial mon:stdio <span style="color: #5c3566;">\</span>
--netdev tap,<span style="color: #b35000;">id</span>=net1,<span style="color: #b35000;">ifname</span>=tap32,<span style="color: #b35000;">script</span>=no,<span style="color: #b35000;">downscript</span>=no  <span style="color: #5c3566;">\</span>
--device e1000,<span style="color: #b35000;">netdev</span>=net1,<span style="color: #b35000;">mac</span>=<span style="color: #5c3566;">'12:34:56:78:9a:32'</span>
+<pre><code class="src src-shell">qemu-system-i386 -enable-kvm -m 1024M  -kernel ./bzImage <span style="color: #b58900; font-weight: bold;">\</span>
+-initrd ./initramfs -append  <span style="color: #2aa198;">"console=ttyS0 quiet"</span> <span style="color: #b58900; font-weight: bold;">\</span>
+-nographic -serial mon:stdio <span style="color: #b58900; font-weight: bold;">\</span>
+-netdev tap,<span style="color: #268bd2;">id</span>=net1,<span style="color: #268bd2;">ifname</span>=tap32,<span style="color: #268bd2;">script</span>=no,<span style="color: #268bd2;">downscript</span>=no  <span style="color: #b58900; font-weight: bold;">\</span>
+-device e1000,<span style="color: #268bd2;">netdev</span>=net1,<span style="color: #268bd2;">mac</span>=<span style="color: #2aa198;">'12:34:56:78:9a:32'</span>
 </code></pre>
 </div></li>
 
@@ -363,39 +363,39 @@ three Routers
 <li>router01</li>
 </ul>
 <div class="org-src-container">
-<pre><code class="src src-shell">qemu-system-i386 -enable-kvm -m 1024M  -kernel ./bzImage <span style="color: #5c3566;">\</span>
--initrd ./initramfs -append  <span style="color: #5c3566;">"console=ttyS0 quiet"</span> <span style="color: #5c3566;">\</span>
--nographic -serial mon:stdio <span style="color: #5c3566;">\</span>
--netdev tap,<span style="color: #b35000;">id</span>=net1,<span style="color: #b35000;">ifname</span>=tap01,<span style="color: #b35000;">script</span>=no,<span style="color: #b35000;">downscript</span>=no  <span style="color: #5c3566;">\</span>
--device e1000,<span style="color: #b35000;">netdev</span>=net1,<span style="color: #b35000;">mac</span>=<span style="color: #5c3566;">'12:34:56:78:9a:01'</span> <span style="color: #5c3566;">\</span>
--netdev tap,<span style="color: #b35000;">id</span>=net2,<span style="color: #b35000;">ifname</span>=tap11,<span style="color: #b35000;">script</span>=no,<span style="color: #b35000;">downscript</span>=no  <span style="color: #5c3566;">\</span>
--device e1000,<span style="color: #b35000;">netdev</span>=net2,<span style="color: #b35000;">mac</span>=<span style="color: #5c3566;">'12:34:56:78:9a:11'</span>
+<pre><code class="src src-shell">qemu-system-i386 -enable-kvm -m 1024M  -kernel ./bzImage <span style="color: #b58900; font-weight: bold;">\</span>
+-initrd ./initramfs -append  <span style="color: #2aa198;">"console=ttyS0 quiet"</span> <span style="color: #b58900; font-weight: bold;">\</span>
+-nographic -serial mon:stdio <span style="color: #b58900; font-weight: bold;">\</span>
+-netdev tap,<span style="color: #268bd2;">id</span>=net1,<span style="color: #268bd2;">ifname</span>=tap01,<span style="color: #268bd2;">script</span>=no,<span style="color: #268bd2;">downscript</span>=no  <span style="color: #b58900; font-weight: bold;">\</span>
+-device e1000,<span style="color: #268bd2;">netdev</span>=net1,<span style="color: #268bd2;">mac</span>=<span style="color: #2aa198;">'12:34:56:78:9a:01'</span> <span style="color: #b58900; font-weight: bold;">\</span>
+-netdev tap,<span style="color: #268bd2;">id</span>=net2,<span style="color: #268bd2;">ifname</span>=tap11,<span style="color: #268bd2;">script</span>=no,<span style="color: #268bd2;">downscript</span>=no  <span style="color: #b58900; font-weight: bold;">\</span>
+-device e1000,<span style="color: #268bd2;">netdev</span>=net2,<span style="color: #268bd2;">mac</span>=<span style="color: #2aa198;">'12:34:56:78:9a:11'</span>
 </code></pre>
 </div>
 <ul class="org-ul">
 <li>router02</li>
 </ul>
 <div class="org-src-container">
-<pre><code class="src src-shell">qemu-system-i386 -enable-kvm -m 1024M  -kernel ./bzImage <span style="color: #5c3566;">\</span>
--initrd ./initramfs -append  <span style="color: #5c3566;">"console=ttyS0 quiet"</span> <span style="color: #5c3566;">\</span>
--nographic -serial mon:stdio <span style="color: #5c3566;">\</span>
--netdev tap,<span style="color: #b35000;">id</span>=net1,<span style="color: #b35000;">ifname</span>=tap12,<span style="color: #b35000;">script</span>=no,<span style="color: #b35000;">downscript</span>=no  <span style="color: #5c3566;">\</span>
--device e1000,<span style="color: #b35000;">netdev</span>=net1,<span style="color: #b35000;">mac</span>=<span style="color: #5c3566;">'12:34:56:78:9a:12'</span> <span style="color: #5c3566;">\</span>
--netdev tap,<span style="color: #b35000;">id</span>=net2,<span style="color: #b35000;">ifname</span>=tap21,<span style="color: #b35000;">script</span>=no,<span style="color: #b35000;">downscript</span>=no  <span style="color: #5c3566;">\</span>
--device e1000,<span style="color: #b35000;">netdev</span>=net2,<span style="color: #b35000;">mac</span>=<span style="color: #5c3566;">'12:34:56:78:9a:21'</span>
+<pre><code class="src src-shell">qemu-system-i386 -enable-kvm -m 1024M  -kernel ./bzImage <span style="color: #b58900; font-weight: bold;">\</span>
+-initrd ./initramfs -append  <span style="color: #2aa198;">"console=ttyS0 quiet"</span> <span style="color: #b58900; font-weight: bold;">\</span>
+-nographic -serial mon:stdio <span style="color: #b58900; font-weight: bold;">\</span>
+-netdev tap,<span style="color: #268bd2;">id</span>=net1,<span style="color: #268bd2;">ifname</span>=tap12,<span style="color: #268bd2;">script</span>=no,<span style="color: #268bd2;">downscript</span>=no  <span style="color: #b58900; font-weight: bold;">\</span>
+-device e1000,<span style="color: #268bd2;">netdev</span>=net1,<span style="color: #268bd2;">mac</span>=<span style="color: #2aa198;">'12:34:56:78:9a:12'</span> <span style="color: #b58900; font-weight: bold;">\</span>
+-netdev tap,<span style="color: #268bd2;">id</span>=net2,<span style="color: #268bd2;">ifname</span>=tap21,<span style="color: #268bd2;">script</span>=no,<span style="color: #268bd2;">downscript</span>=no  <span style="color: #b58900; font-weight: bold;">\</span>
+-device e1000,<span style="color: #268bd2;">netdev</span>=net2,<span style="color: #268bd2;">mac</span>=<span style="color: #2aa198;">'12:34:56:78:9a:21'</span>
 </code></pre>
 </div>
 <ul class="org-ul">
 <li>router03</li>
 </ul>
 <div class="org-src-container">
-<pre><code class="src src-shell">qemu-system-i386 -enable-kvm -m 1024M  -kernel ./bzImage <span style="color: #5c3566;">\</span>
--initrd ./initramfs -append  <span style="color: #5c3566;">"console=ttyS0 quiet"</span> <span style="color: #5c3566;">\</span>
--nographic -serial mon:stdio <span style="color: #5c3566;">\</span>
--netdev tap,<span style="color: #b35000;">id</span>=net1,<span style="color: #b35000;">ifname</span>=tap22,<span style="color: #b35000;">script</span>=no,<span style="color: #b35000;">downscript</span>=no  <span style="color: #5c3566;">\</span>
--device e1000,<span style="color: #b35000;">netdev</span>=net1,<span style="color: #b35000;">mac</span>=<span style="color: #5c3566;">'12:34:56:78:9a:22'</span> <span style="color: #5c3566;">\</span>
--netdev tap,<span style="color: #b35000;">id</span>=net2,<span style="color: #b35000;">ifname</span>=tap31,<span style="color: #b35000;">script</span>=no,<span style="color: #b35000;">downscript</span>=no  <span style="color: #5c3566;">\</span>
--device e1000,<span style="color: #b35000;">netdev</span>=net2,<span style="color: #b35000;">mac</span>=<span style="color: #5c3566;">'12:34:56:78:9a:31'</span>
+<pre><code class="src src-shell">qemu-system-i386 -enable-kvm -m 1024M  -kernel ./bzImage <span style="color: #b58900; font-weight: bold;">\</span>
+-initrd ./initramfs -append  <span style="color: #2aa198;">"console=ttyS0 quiet"</span> <span style="color: #b58900; font-weight: bold;">\</span>
+-nographic -serial mon:stdio <span style="color: #b58900; font-weight: bold;">\</span>
+-netdev tap,<span style="color: #268bd2;">id</span>=net1,<span style="color: #268bd2;">ifname</span>=tap22,<span style="color: #268bd2;">script</span>=no,<span style="color: #268bd2;">downscript</span>=no  <span style="color: #b58900; font-weight: bold;">\</span>
+-device e1000,<span style="color: #268bd2;">netdev</span>=net1,<span style="color: #268bd2;">mac</span>=<span style="color: #2aa198;">'12:34:56:78:9a:22'</span> <span style="color: #b58900; font-weight: bold;">\</span>
+-netdev tap,<span style="color: #268bd2;">id</span>=net2,<span style="color: #268bd2;">ifname</span>=tap31,<span style="color: #268bd2;">script</span>=no,<span style="color: #268bd2;">downscript</span>=no  <span style="color: #b58900; font-weight: bold;">\</span>
+-device e1000,<span style="color: #268bd2;">netdev</span>=net2,<span style="color: #268bd2;">mac</span>=<span style="color: #2aa198;">'12:34:56:78:9a:31'</span>
 </code></pre>
 </div></li>
 </ol>
@@ -439,7 +439,7 @@ ip addr add 10.0.1.1/24 dev eth1
 
 ip route add 10.0.2.0/24 via 10.0.1.2 dev eth1
 ip route add 10.0.3.0/24 via 10.0.1.2 dev eth1
-<span style="color: #75507b;">echo</span> 1 &gt; /proc/sys/net/ipv4/ip_forward
+<span style="color: #657b83; font-weight: bold;">echo</span> 1 &gt; /proc/sys/net/ipv4/ip_forward
 </code></pre>
 </div></li>
 
@@ -454,7 +454,7 @@ ip addr add 10.0.2.1/24 dev eth1
 
 ip route add 10.0.3.0/24 via 10.0.2.2 dev eth1
 ip route add 10.0.0.0/24 via 10.0.1.1 dev eth0
-<span style="color: #75507b;">echo</span> 1 &gt; /proc/sys/net/ipv4/ip_forward
+<span style="color: #657b83; font-weight: bold;">echo</span> 1 &gt; /proc/sys/net/ipv4/ip_forward
 </code></pre>
 </div></li>
 
@@ -469,7 +469,7 @@ ip addr add 10.0.3.1/24 dev eth1
 
 ip route add 10.0.1.0/24 via 10.0.2.1 dev eth0
 ip route add 10.0.0.0/24 via 10.0.2.1 dev eth0
-<span style="color: #75507b;">echo</span> 1 &gt; /proc/sys/net/ipv4/ip_forward
+<span style="color: #657b83; font-weight: bold;">echo</span> 1 &gt; /proc/sys/net/ipv4/ip_forward
 </code></pre>
 </div></li>
 
@@ -502,9 +502,9 @@ round-trip min/avg/max = 2.079/3.903/4.997 ms
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2017 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Copyright 2018 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
 Last updated 2017-10-05 Thu 14:36. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
 </div>
 </div>
 </body>

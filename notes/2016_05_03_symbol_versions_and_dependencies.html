@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-10-02 Mon 11:24 -->
+<!-- 2018-01-09 Tue 12:20 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Symbol Versions and Dependencies</title>
@@ -266,28 +266,28 @@ Let’s construct a small example.
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span style="color: #0072b2;">#include</span> <span style="color: #848ea9;">&lt;stdio.h&gt;</span>
+<pre><code class="src src-c"><span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">&lt;stdio.h&gt;</span>
 
-<span style="color: #0072b2;">#if</span><span style="color: #0072b2;">n</span><span style="color: #0072b2;">def</span> VERSION_2
-<span style="color: #0072b2; font-weight: bold;">void</span> <span style="color: #d55e00;">foo</span>(<span style="color: #0072b2; font-weight: bold;">int</span> <span style="color: #e69f00; font-weight: bold;">f</span>) {
-     printf(<span style="color: #848ea9;">"version 1 called\n"</span>);
+<span style="color: #268bd2;">#if</span><span style="color: #268bd2; font-weight: bold;">n</span><span style="color: #268bd2;">def</span> VERSION_2
+<span style="color: #b58900;">void</span> <span style="color: #268bd2;">foo</span>(<span style="color: #b58900;">int</span> <span style="color: #268bd2;">f</span>) {
+     printf(<span style="color: #2aa198;">"version 1 called\n"</span>);
 }
 
-<span style="color: #0072b2;">#else</span>
-<span style="color: #0072b2; font-weight: bold;">void</span> <span style="color: #d55e00;">foo_v1</span>(<span style="color: #0072b2; font-weight: bold;">int</span> <span style="color: #e69f00; font-weight: bold;">f</span>) {
-     printf(<span style="color: #848ea9;">"version 1 called\n"</span>);
+<span style="color: #268bd2;">#else</span>
+<span style="color: #b58900;">void</span> <span style="color: #268bd2;">foo_v1</span>(<span style="color: #b58900;">int</span> <span style="color: #268bd2;">f</span>) {
+     printf(<span style="color: #2aa198;">"version 1 called\n"</span>);
 }
-<span style="color: #56b4e9; font-weight: bold;">__asm__</span>(<span style="color: #848ea9;">".symver foo_v1,foo@VERSION_1"</span>);
+<span style="color: #859900; font-weight: bold;">__asm__</span>(<span style="color: #2aa198;">".symver foo_v1,foo@VERSION_1"</span>);
 
-<span style="color: #0072b2; font-weight: bold;">void</span> <span style="color: #d55e00;">foo_v2</span>(<span style="color: #0072b2; font-weight: bold;">int</span> <span style="color: #e69f00; font-weight: bold;">f</span>) {
-     printf(<span style="color: #848ea9;">"version 2 called\n"</span>);
+<span style="color: #b58900;">void</span> <span style="color: #268bd2;">foo_v2</span>(<span style="color: #b58900;">int</span> <span style="color: #268bd2;">f</span>) {
+     printf(<span style="color: #2aa198;">"version 2 called\n"</span>);
 }
-<span style="color: #009e73; font-style: italic;">/* </span><span style="color: #009e73; font-style: italic;">i.e. foo_v2 is really foo@VERSION_2</span>
-<span style="color: #009e73; font-style: italic;"> * @@ means this is the default version</span>
-<span style="color: #009e73; font-style: italic;"> </span><span style="color: #009e73; font-style: italic;">*/</span>
-<span style="color: #56b4e9; font-weight: bold;">__asm__</span>(<span style="color: #848ea9;">".symver foo_v2,foo@@VERSION_2"</span>);
+<span style="color: #93a1a1;">/* </span><span style="color: #93a1a1;">i.e. foo_v2 is really foo@VERSION_2</span>
+<span style="color: #93a1a1;"> * @@ means this is the default version</span>
+<span style="color: #93a1a1;"> </span><span style="color: #93a1a1;">*/</span>
+<span style="color: #859900; font-weight: bold;">__asm__</span>(<span style="color: #2aa198;">".symver foo_v2,foo@@VERSION_2"</span>);
 
-<span style="color: #0072b2;">#endif</span>
+<span style="color: #268bd2;">#endif</span>
 </code></pre>
 </div>
 
@@ -326,13 +326,13 @@ VERSION_2 {
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span style="color: #0072b2;">#include</span> <span style="color: #848ea9;">&lt;stdio.h&gt;</span>
+<pre><code class="src src-c"><span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">&lt;stdio.h&gt;</span>
 
-<span style="color: #0072b2; font-weight: bold;">void</span> <span style="color: #d55e00;">foo</span>(<span style="color: #0072b2; font-weight: bold;">int</span>);
+<span style="color: #b58900;">void</span> <span style="color: #268bd2;">foo</span>(<span style="color: #b58900;">int</span>);
 
-<span style="color: #0072b2; font-weight: bold;">int</span> <span style="color: #d55e00;">main</span>(<span style="color: #0072b2; font-weight: bold;">void</span>) {
+<span style="color: #b58900;">int</span> <span style="color: #268bd2;">main</span>(<span style="color: #b58900;">void</span>) {
     foo(100);
-    <span style="color: #56b4e9; font-weight: bold;">return</span> 0;
+    <span style="color: #859900; font-weight: bold;">return</span> 0;
 }
 </code></pre>
 </div>
@@ -342,24 +342,24 @@ VERSION_2 {
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-makefile"><span style="color: #d55e00;">all</span>: v1 v2
+<pre><code class="src src-makefile"><span style="color: #268bd2;">all</span>: v1 v2
 
-<span style="color: #d55e00;">libfoo.so.1</span> : foo.c
-        gcc -shared -fPIC -o libfoo.so.1 -Wl,--soname=<span style="color: #848ea9;">'libfoo.so.1'</span> -Wl,--version-script=1.ver foo.c
+<span style="color: #268bd2;">libfoo.so.1</span> : foo.c
+        gcc -shared -fPIC -o libfoo.so.1 -Wl,--soname=<span style="color: #2aa198;">'libfoo.so.1'</span> -Wl,--version-script=1.ver foo.c
 
-<span style="color: #d55e00;">libfoo.so.2</span> : foo.c
-        gcc -shared -fPIC -DVERSION_2 -o libfoo.so.2 -Wl,--soname=<span style="color: #848ea9;">'libfoo.so.2'</span> -Wl,--version-script=2.ver foo.c
+<span style="color: #268bd2;">libfoo.so.2</span> : foo.c
+        gcc -shared -fPIC -DVERSION_2 -o libfoo.so.2 -Wl,--soname=<span style="color: #2aa198;">'libfoo.so.2'</span> -Wl,--version-script=2.ver foo.c
 
-<span style="color: #d55e00;">v1</span>: main.c libfoo.so.1
+<span style="color: #268bd2;">v1</span>: main.c libfoo.so.1
     ln -sf libfoo.so.1 libfoo.so
     gcc -Wall -o v1 -lfoo -L. -Wl,-rpath=. main.c
 
-<span style="color: #d55e00;">v2</span>: main.c libfoo.so.2
+<span style="color: #268bd2;">v2</span>: main.c libfoo.so.2
     ln -sf libfoo.so.2 libfoo.so
     gcc -Wall -o v2 -lfoo -L. -Wl,-rpath=. main.c
 
-<span style="color: #d55e00;">.PHONY</span>: clean
-<span style="color: #d55e00;">clean</span>:
+<span style="color: #268bd2;">.PHONY</span>: clean
+<span style="color: #268bd2;">clean</span>:
     rm -f libfoo* v1 v2
 </code></pre>
 </div>
@@ -368,9 +368,9 @@ VERSION_2 {
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2017 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Copyright 2018 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
 Last updated 2016-05-03 Tue 21:35. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
 </div>
 </div>
 </body>

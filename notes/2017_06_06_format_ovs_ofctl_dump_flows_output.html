@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-10-02 Mon 11:24 -->
+<!-- 2018-01-09 Tue 12:20 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Format ovs-ofctl dump-flows output</title>
@@ -250,12 +250,12 @@ for the JavaScript code in this tag.
 Get the openflows of <i>br-int</i>
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh">ovs-ofctl dump-flows   br-int | <span style="color: #848ea9;">\</span>
-sed -E -e <span style="color: #848ea9;">'1d'</span> <span style="color: #848ea9;">\</span>
--e <span style="color: #848ea9;">'s/(hard_age|idle_age)=[0-9]*?, //g'</span> <span style="color: #848ea9;">\</span>
--e <span style="color: #848ea9;">'s/ actions/, actions/g'</span> <span style="color: #848ea9;">\</span>
--e <span style="color: #848ea9;">'s/, /\t/g'</span> | <span style="color: #848ea9;">\</span>
-awk <span style="color: #848ea9;">'{print $3"\t"$6"\t"$7}'</span> | sort -k1,1 -k2,2rV | column -t
+<pre><code class="src src-sh">ovs-ofctl dump-flows   br-int | <span style="color: #b58900; font-weight: bold;">\</span>
+sed -E -e <span style="color: #2aa198;">'1d'</span> <span style="color: #b58900; font-weight: bold;">\</span>
+-e <span style="color: #2aa198;">'s/(hard_age|idle_age)=[0-9]*?, //g'</span> <span style="color: #b58900; font-weight: bold;">\</span>
+-e <span style="color: #2aa198;">'s/ actions/, actions/g'</span> <span style="color: #b58900; font-weight: bold;">\</span>
+-e <span style="color: #2aa198;">'s/, /\t/g'</span> | <span style="color: #b58900; font-weight: bold;">\</span>
+awk <span style="color: #2aa198;">'{print $3"\t"$6"\t"$7}'</span> | sort -k1,1 -k2,2rV | column -t
 </code></pre>
 </div>
 
@@ -298,9 +298,9 @@ table=25  priority=2,in_port=2,dl_src=fa:16:3e:c3:3d:00                         
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2017 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Copyright 2018 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
 Last updated 2017-09-27 Wed 21:34. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
 </div>
 </div>
 </body>

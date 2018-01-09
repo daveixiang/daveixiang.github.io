@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-10-02 Mon 11:24 -->
+<!-- 2018-01-09 Tue 12:20 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Linux Hello World Module</title>
@@ -251,37 +251,37 @@ for the JavaScript code in this tag.
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span style="color: #0072b2;">#include</span> <span style="color: #848ea9;">&lt;linux/module.h&gt;</span>
-<span style="color: #0072b2;">#include</span> <span style="color: #848ea9;">&lt;linux/init.h&gt;</span>
-<span style="color: #0072b2;">#include</span> <span style="color: #848ea9;">&lt;linux/kernel.h&gt;</span>
-<span style="color: #0072b2;">#include</span> <span style="color: #848ea9;">&lt;linux/sched.h&gt;</span>
+<pre><code class="src src-c"><span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">&lt;linux/module.h&gt;</span>
+<span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">&lt;linux/init.h&gt;</span>
+<span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">&lt;linux/kernel.h&gt;</span>
+<span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">&lt;linux/sched.h&gt;</span>
 
-<span style="color: #56b4e9; font-weight: bold;">static</span> __init <span style="color: #0072b2; font-weight: bold;">int</span> <span style="color: #d55e00;">hwm_init</span>(<span style="color: #0072b2; font-weight: bold;">void</span>)
+<span style="color: #859900; font-weight: bold;">static</span> __init <span style="color: #b58900;">int</span> <span style="color: #268bd2;">hwm_init</span>(<span style="color: #b58900;">void</span>)
 {
-        <span style="color: #009e73; font-style: italic;">/* </span><span style="color: #009e73; font-style: italic;">do_this() </span><span style="color: #009e73; font-style: italic;">*/</span>
-        <span style="color: #009e73; font-style: italic;">/* </span><span style="color: #009e73; font-style: italic;">do_that() </span><span style="color: #009e73; font-style: italic;">*/</span>
-        <span style="color: #009e73; font-style: italic;">/* </span><span style="color: #009e73; font-style: italic;">do_something_else() </span><span style="color: #009e73; font-style: italic;">*/</span>
+        <span style="color: #93a1a1;">/* </span><span style="color: #93a1a1;">do_this() </span><span style="color: #93a1a1;">*/</span>
+        <span style="color: #93a1a1;">/* </span><span style="color: #93a1a1;">do_that() </span><span style="color: #93a1a1;">*/</span>
+        <span style="color: #93a1a1;">/* </span><span style="color: #93a1a1;">do_something_else() </span><span style="color: #93a1a1;">*/</span>
 
-        printk(KERN_INFO <span style="color: #848ea9;">"hwm module being loaded\n"</span>);
-        <span style="color: #56b4e9; font-weight: bold;">return</span> 0;
+        printk(KERN_INFO <span style="color: #2aa198;">"hwm module being loaded\n"</span>);
+        <span style="color: #859900; font-weight: bold;">return</span> 0;
 }
 
-<span style="color: #56b4e9; font-weight: bold;">static</span> __exit <span style="color: #0072b2; font-weight: bold;">void</span> <span style="color: #d55e00;">hwm_exit</span>(<span style="color: #0072b2; font-weight: bold;">void</span>)
+<span style="color: #859900; font-weight: bold;">static</span> __exit <span style="color: #b58900;">void</span> <span style="color: #268bd2;">hwm_exit</span>(<span style="color: #b58900;">void</span>)
 {
-        <span style="color: #009e73; font-style: italic;">/* </span><span style="color: #009e73; font-style: italic;">undo_something_else() </span><span style="color: #009e73; font-style: italic;">*/</span>
-        <span style="color: #009e73; font-style: italic;">/* </span><span style="color: #009e73; font-style: italic;">undo_that() </span><span style="color: #009e73; font-style: italic;">*/</span>
-        <span style="color: #009e73; font-style: italic;">/* </span><span style="color: #009e73; font-style: italic;">undo_this() </span><span style="color: #009e73; font-style: italic;">*/</span>
+        <span style="color: #93a1a1;">/* </span><span style="color: #93a1a1;">undo_something_else() </span><span style="color: #93a1a1;">*/</span>
+        <span style="color: #93a1a1;">/* </span><span style="color: #93a1a1;">undo_that() </span><span style="color: #93a1a1;">*/</span>
+        <span style="color: #93a1a1;">/* </span><span style="color: #93a1a1;">undo_this() </span><span style="color: #93a1a1;">*/</span>
 
-        printk(KERN_INFO <span style="color: #848ea9;">"hwm module being unloaded\n"</span>);
+        printk(KERN_INFO <span style="color: #2aa198;">"hwm module being unloaded\n"</span>);
 }
 
 module_init(hwm_init);
 module_exit(hwm_exit);
 
-MODULE_AUTHOR(<span style="color: #848ea9;">"davei"</span>);
-MODULE_LICENSE(<span style="color: #848ea9;">"GPL"</span>);
-MODULE_DESCRIPTION(<span style="color: #848ea9;">"Hello World Module"</span>);
-MODULE_INFO(flavor, <span style="color: #848ea9;">"Linux"</span>);
+MODULE_AUTHOR(<span style="color: #2aa198;">"davei"</span>);
+MODULE_LICENSE(<span style="color: #2aa198;">"GPL"</span>);
+MODULE_DESCRIPTION(<span style="color: #2aa198;">"Hello World Module"</span>);
+MODULE_INFO(flavor, <span style="color: #2aa198;">"Linux"</span>);
 </code></pre>
 </div>
 
@@ -294,16 +294,16 @@ MODULE_INFO(flavor, <span style="color: #848ea9;">"Linux"</span>);
 
 ifeq ($(KERNELRELEASE),)  
 
-KERNELDIR ?= /lib/modules/$(<span style="color: #0072b2; font-weight: bold;">shell</span> <span style="color: #e69f00; font-weight: bold;">uname</span> -r)/build 
-PWD := $(<span style="color: #0072b2; font-weight: bold;">shell</span> <span style="color: #e69f00; font-weight: bold;">pwd</span>)  
+KERNELDIR ?= /lib/modules/$(<span style="color: #b58900;">shell</span> <span style="color: #268bd2;">uname</span> -r)/build 
+PWD := $(<span style="color: #b58900;">shell</span> <span style="color: #268bd2;">pwd</span>)  
 
 all:
-        $(MAKE) -C $(KERNELDIR) M=$(PWD) <span style="color: #0072b2; font-weight: bold;">modules</span>  
-<span style="color: #d55e00;">clean</span>:
+        $(MAKE) -C $(KERNELDIR) M=$(PWD) <span style="color: #b58900;">modules</span>  
+<span style="color: #268bd2;">clean</span>:
         $(MAKE) -C $(KERNELDIR) M=$(PWD) clean
-<span style="color: #56b4e9; font-weight: bold;">else</span>  
+<span style="color: #859900; font-weight: bold;">else</span>  
 
-$(info Building <span style="color: #0072b2; font-weight: bold;">with</span> <span style="color: #e69f00; font-weight: bold;">KERNELRELEASE</span> = ${KERNELRELEASE})  
+$(info Building <span style="color: #b58900;">with</span> <span style="color: #268bd2;">KERNELRELEASE</span> = ${KERNELRELEASE})  
 
 endif
 </code></pre>
@@ -337,9 +337,9 @@ vermagic:       4.1.15 SMP mod_unload modversions
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2017 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Copyright 2018 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
 Last updated 2016-04-20 Wed 21:20. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
 </div>
 </div>
 </body>

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-10-02 Mon 11:24 -->
+<!-- 2018-01-09 Tue 12:20 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Setup VXLAN Lab using OpenvSwitch</title>
@@ -270,12 +270,12 @@ ovs-vsctl add-port br0 tap02
 start vm01
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh">qemu-system-x86_64  -m 2048M <span style="color: #848ea9;">\</span>
--enable-kvm -nographic <span style="color: #848ea9;">\</span>
--kernel ./bzImage -initrd ./initramfs <span style="color: #848ea9;">\</span>
--append  <span style="color: #848ea9;">"console=ttyS0 quiet"</span> <span style="color: #848ea9;">\</span>
--netdev tap,<span style="color: #e69f00; font-weight: bold;">id</span>=net1,<span style="color: #e69f00; font-weight: bold;">ifname</span>=tap01,<span style="color: #e69f00; font-weight: bold;">script</span>=no,<span style="color: #e69f00; font-weight: bold;">downscript</span>=no  <span style="color: #848ea9;">\</span>
--device e1000,<span style="color: #e69f00; font-weight: bold;">netdev</span>=net1,<span style="color: #e69f00; font-weight: bold;">mac</span>=<span style="color: #848ea9;">'12:34:56:78:9a:01'</span>   
+<pre><code class="src src-sh">qemu-system-x86_64  -m 2048M <span style="color: #b58900; font-weight: bold;">\</span>
+-enable-kvm -nographic <span style="color: #b58900; font-weight: bold;">\</span>
+-kernel ./bzImage -initrd ./initramfs <span style="color: #b58900; font-weight: bold;">\</span>
+-append  <span style="color: #2aa198;">"console=ttyS0 quiet"</span> <span style="color: #b58900; font-weight: bold;">\</span>
+-netdev tap,<span style="color: #268bd2;">id</span>=net1,<span style="color: #268bd2;">ifname</span>=tap01,<span style="color: #268bd2;">script</span>=no,<span style="color: #268bd2;">downscript</span>=no  <span style="color: #b58900; font-weight: bold;">\</span>
+-device e1000,<span style="color: #268bd2;">netdev</span>=net1,<span style="color: #268bd2;">mac</span>=<span style="color: #2aa198;">'12:34:56:78:9a:01'</span>   
 </code></pre>
 </div></li>
 
@@ -283,12 +283,12 @@ start vm01
 start vm02
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh">qemu-system-x86_64  -m 2048M <span style="color: #848ea9;">\</span>
--enable-kvm -nographic <span style="color: #848ea9;">\</span>
--kernel ./bzImage -initrd ./initramfs <span style="color: #848ea9;">\</span>
--append  <span style="color: #848ea9;">"console=ttyS0 quiet"</span> <span style="color: #848ea9;">\</span>
--netdev tap,<span style="color: #e69f00; font-weight: bold;">id</span>=net1,<span style="color: #e69f00; font-weight: bold;">ifname</span>=tap02,<span style="color: #e69f00; font-weight: bold;">script</span>=no,<span style="color: #e69f00; font-weight: bold;">downscript</span>=no  <span style="color: #848ea9;">\</span>
--device e1000,<span style="color: #e69f00; font-weight: bold;">netdev</span>=net1,<span style="color: #e69f00; font-weight: bold;">mac</span>=<span style="color: #848ea9;">'12:34:56:78:9a:02'</span>
+<pre><code class="src src-sh">qemu-system-x86_64  -m 2048M <span style="color: #b58900; font-weight: bold;">\</span>
+-enable-kvm -nographic <span style="color: #b58900; font-weight: bold;">\</span>
+-kernel ./bzImage -initrd ./initramfs <span style="color: #b58900; font-weight: bold;">\</span>
+-append  <span style="color: #2aa198;">"console=ttyS0 quiet"</span> <span style="color: #b58900; font-weight: bold;">\</span>
+-netdev tap,<span style="color: #268bd2;">id</span>=net1,<span style="color: #268bd2;">ifname</span>=tap02,<span style="color: #268bd2;">script</span>=no,<span style="color: #268bd2;">downscript</span>=no  <span style="color: #b58900; font-weight: bold;">\</span>
+-device e1000,<span style="color: #268bd2;">netdev</span>=net1,<span style="color: #268bd2;">mac</span>=<span style="color: #2aa198;">'12:34:56:78:9a:02'</span>
 </code></pre>
 </div></li>
 </ol>
@@ -307,16 +307,16 @@ configure vm01
 ip addr add 192.168.0.1/24 dev eth0
 
 ovs-vsctl add-br br1
-ovs-vsctl set bridge br1 <span style="color: #e69f00; font-weight: bold;">stp_enable</span>=true
+ovs-vsctl set bridge br1 <span style="color: #268bd2;">stp_enable</span>=true
 
 ip link set br1 up
 ip addr add 10.0.1.1/24 dev br1
-ovs-vsctl add-port br1 vxlan0 --<span style="color: #848ea9;">\</span>
-  <span style="color: #0072b2;">set</span> interface vxlan0 <span style="color: #e69f00; font-weight: bold;">type</span>=vxlan <span style="color: #848ea9;">\</span>
-  options:<span style="color: #e69f00; font-weight: bold;">local_ip</span>=192.168.0.1 <span style="color: #848ea9;">\</span>
-  options:<span style="color: #e69f00; font-weight: bold;">remote_ip</span>=192.168.0.2 <span style="color: #848ea9;">\</span>
-  options:<span style="color: #e69f00; font-weight: bold;">key</span>=8080 <span style="color: #848ea9;">\</span>
-  <span style="color: #e69f00; font-weight: bold;">ofport_request</span>=10 
+ovs-vsctl add-port br1 vxlan0 --<span style="color: #b58900; font-weight: bold;">\</span>
+  <span style="color: #657b83; font-weight: bold;">set</span> interface vxlan0 <span style="color: #268bd2;">type</span>=vxlan <span style="color: #b58900; font-weight: bold;">\</span>
+  options:<span style="color: #268bd2;">local_ip</span>=192.168.0.1 <span style="color: #b58900; font-weight: bold;">\</span>
+  options:<span style="color: #268bd2;">remote_ip</span>=192.168.0.2 <span style="color: #b58900; font-weight: bold;">\</span>
+  options:<span style="color: #268bd2;">key</span>=8080 <span style="color: #b58900; font-weight: bold;">\</span>
+  <span style="color: #268bd2;">ofport_request</span>=10 
 </code></pre>
 </div></li>
 
@@ -328,16 +328,16 @@ configure vm02
 ip addr add 192.168.0.1/24 dev eth0
 
 ovs-vsctl add-br br1
-ovs-vsctl set bridge br1 <span style="color: #e69f00; font-weight: bold;">stp_enable</span>=true
+ovs-vsctl set bridge br1 <span style="color: #268bd2;">stp_enable</span>=true
 
 ip link set br1 up
 ip addr add 10.0.1.1/24 dev br1
-ovs-vsctl add-port br1 vxlan0 --<span style="color: #848ea9;">\</span>
-  <span style="color: #0072b2;">set</span> interface vxlan0 <span style="color: #e69f00; font-weight: bold;">type</span>=vxlan <span style="color: #848ea9;">\</span>
-  options:<span style="color: #e69f00; font-weight: bold;">local_ip</span>=192.168.0.1 <span style="color: #848ea9;">\</span>
-  options:<span style="color: #e69f00; font-weight: bold;">remote_ip</span>=192.168.0.2 <span style="color: #848ea9;">\</span>
-  options:<span style="color: #e69f00; font-weight: bold;">key</span>=8080 <span style="color: #848ea9;">\</span>
-  <span style="color: #e69f00; font-weight: bold;">ofport_request</span>=10
+ovs-vsctl add-port br1 vxlan0 --<span style="color: #b58900; font-weight: bold;">\</span>
+  <span style="color: #657b83; font-weight: bold;">set</span> interface vxlan0 <span style="color: #268bd2;">type</span>=vxlan <span style="color: #b58900; font-weight: bold;">\</span>
+  options:<span style="color: #268bd2;">local_ip</span>=192.168.0.1 <span style="color: #b58900; font-weight: bold;">\</span>
+  options:<span style="color: #268bd2;">remote_ip</span>=192.168.0.2 <span style="color: #b58900; font-weight: bold;">\</span>
+  options:<span style="color: #268bd2;">key</span>=8080 <span style="color: #b58900; font-weight: bold;">\</span>
+  <span style="color: #268bd2;">ofport_request</span>=10
 </code></pre>
 </div></li>
 </ol>
@@ -351,9 +351,9 @@ Tree Protocol, but is disabled by default.
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2017 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Copyright 2018 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
 Last updated 2017-09-28 Thu 18:26. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
 </div>
 </div>
 </body>

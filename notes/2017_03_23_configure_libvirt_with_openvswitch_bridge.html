@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-10-02 Mon 11:24 -->
+<!-- 2018-01-09 Tue 12:20 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Configure Libvirt with OpenvSwitch Bridge</title>
@@ -259,20 +259,20 @@ Create OpenvSwitch bridge
 Configure libvirt with <code>br0</code> just created
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #e69f00; font-weight: bold;">BRNAME</span>=br0
+<pre><code class="src src-sh"><span style="color: #268bd2;">BRNAME</span>=br0
 
 cat &gt; /tmp/libvirt-net.xml &lt;&lt;EOF
-<span style="color: #ffa54f;">&lt;network&gt;</span>
-<span style="color: #ffa54f;">  &lt;name&gt;${BRNAME}&lt;/name&gt;</span>
-<span style="color: #ffa54f;">  &lt;forward mode='bridge'/&gt;</span>
-<span style="color: #ffa54f;">  &lt;bridge name='${BRNAME}'/&gt;</span>
-<span style="color: #ffa54f;">  &lt;virtualport type='openvswitch'/&gt;</span>
-<span style="color: #ffa54f;">&lt;/network&gt;</span>
-<span style="color: #ffa54f;">EOF</span>
+<span style="color: #b58900; font-weight: bold;">&lt;network&gt;</span>
+<span style="color: #b58900; font-weight: bold;">  &lt;name&gt;${BRNAME}&lt;/name&gt;</span>
+<span style="color: #b58900; font-weight: bold;">  &lt;forward mode='bridge'/&gt;</span>
+<span style="color: #b58900; font-weight: bold;">  &lt;bridge name='${BRNAME}'/&gt;</span>
+<span style="color: #b58900; font-weight: bold;">  &lt;virtualport type='openvswitch'/&gt;</span>
+<span style="color: #b58900; font-weight: bold;">&lt;/network&gt;</span>
+<span style="color: #b58900; font-weight: bold;">EOF</span>
 
 virsh net-define /tmp/libvirt-net.xml
-virsh net-start $<span style="color: #e69f00; font-weight: bold;">BRNAME</span>
-virsh net-autostart $<span style="color: #e69f00; font-weight: bold;">BRNAME</span>
+virsh net-start $<span style="color: #268bd2;">BRNAME</span>
+virsh net-autostart $<span style="color: #268bd2;">BRNAME</span>
 </code></pre>
 </div></li>
 </ol>
@@ -281,9 +281,9 @@ virsh net-autostart $<span style="color: #e69f00; font-weight: bold;">BRNAME</sp
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2017 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Copyright 2018 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
 Last updated 2017-09-27 Wed 19:51. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
 </div>
 </div>
 </body>

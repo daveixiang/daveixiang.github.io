@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-10-02 Mon 11:24 -->
+<!-- 2018-01-09 Tue 12:20 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Nested KVM</title>
@@ -252,8 +252,8 @@ for the JavaScript code in this tag.
 <div class="outline-text-4" id="text-orgf04d4ae">
 <div class="org-src-container">
 <pre><code class="src src-sh">cat &lt;&lt;EOF &gt; /etc/modprobe.d/kvm-nested.conf
-<span style="color: #ffa54f;">options kvm_intel nested=1</span>
-<span style="color: #ffa54f;">EOF</span>
+<span style="color: #b58900; font-weight: bold;">options kvm_intel nested=1</span>
+<span style="color: #b58900; font-weight: bold;">EOF</span>
 
 modprobe -r kvm_intel
 
@@ -278,8 +278,8 @@ and add the following setting to the vm configuration:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-xml">&lt;<span style="color: #d55e00;">cpu</span> <span style="color: #e69f00; font-weight: bold;">mode</span>=<span style="color: #848ea9;">'</span><span style="color: #848ea9;">host-passthrough</span><span style="color: #848ea9;">'</span>&gt;
-&lt;/<span style="color: #d55e00;">cpu</span>&gt;
+<pre><code class="src src-xml">&lt;<span style="color: #268bd2;">cpu</span> <span style="color: #268bd2;">mode</span>=<span style="color: #2aa198;">'</span><span style="color: #2aa198;">host-passthrough</span><span style="color: #2aa198;">'</span>&gt;
+&lt;/<span style="color: #268bd2;">cpu</span>&gt;
 </code></pre>
 </div>
 </div>
@@ -288,9 +288,9 @@ and add the following setting to the vm configuration:
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2017 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Copyright 2018 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
 Last updated 2017-09-27 Wed 18:24. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
 </div>
 </div>
 </body>
