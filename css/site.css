@@ -79,7 +79,7 @@ body {
 
 h1, h2, h3 {
     letter-spacing:-1px;
-    color:#2D5AC3;
+    color:#444;
     font-weight:normal;
     margin-bottom:-10px;
 }
@@ -147,11 +147,11 @@ h1 a:link:hover, h1 a:visited:hover {
 }
 
 a:visited {
-    color: #556B2F;               /* dark olive green */
+    color: #b0b0b0;               /* dark olive green */
 }
 
 a:link {
-    color: #0000CD;               /* blue */
+    color: #444;               /* blue */
 }
 
 blockquote {
