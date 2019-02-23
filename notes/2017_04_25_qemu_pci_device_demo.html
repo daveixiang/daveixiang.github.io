@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-02-21 Wed 15:32 -->
+<!-- 2019-02-23 Sat 15:47 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Qemu PCI Device Demo</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="xiangsiwei" />
+<meta name="author" content="siwei" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -186,7 +186,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2017 Free Software Foundation, Inc.
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -243,73 +243,73 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">Qemu PCI Device Demo</h1>
 
-<div id="outline-container-orgf9583ba" class="outline-2">
-<h2 id="orgf9583ba">Add the device source code {QEMU_SRC}/hw/misc/pci-helloworld.c</h2>
-<div class="outline-text-2" id="text-orgf9583ba">
+<div id="outline-container-orga0e5364" class="outline-2">
+<h2 id="orga0e5364">Add the device source code {QEMU_SRC}/hw/misc/pci-helloworld.c</h2>
+<div class="outline-text-2" id="text-orga0e5364">
 <div class="org-src-container">
-<pre><code class="src src-c"><span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">"qemu/osdep.h"</span>
-<span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">"hw/hw.h"</span>
-<span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">"hw/pci/pci.h"</span>
-<span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">"qemu/event_notifier.h"</span>
+<pre class="src src-c"><span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">"qemu/osdep.h"</span>
+<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">"hw/hw.h"</span>
+<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">"hw/pci/pci.h"</span>
+<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">"qemu/event_notifier.h"</span>
 
-<span style="color: #859900; font-weight: bold;">typedef</span> <span style="color: #859900; font-weight: bold;">struct</span> <span style="color: #b58900;">PCIHelloWorldDevState</span> {
-    <span style="color: #b58900;">PCIDevice</span> <span style="color: #268bd2;">parent_obj</span>;
+<span style="color: #7E57C2;">typedef</span> <span style="color: #7E57C2;">struct</span> <span style="color: #D84315;">PCIHelloWorldDevState</span> {
+    <span style="color: #D84315;">PCIDevice</span> <span style="color: #26A69A;">parent_obj</span>;
 
-    <span style="color: #b58900;">int</span> <span style="color: #268bd2;">pos</span>;
-    <span style="color: #b58900;">char</span> *<span style="color: #268bd2;">buf</span>;
-    <span style="color: #b58900;">int</span> <span style="color: #268bd2;">buflen</span>;
+    <span style="color: #D84315;">int</span> <span style="color: #26A69A;">pos</span>;
+    <span style="color: #D84315;">char</span> *<span style="color: #26A69A;">buf</span>;
+    <span style="color: #D84315;">int</span> <span style="color: #26A69A;">buflen</span>;
 
-    <span style="color: #b58900;">MemoryRegion</span> <span style="color: #268bd2;">mmio</span>;
-} <span style="color: #b58900;">PCIHelloWorldDevState</span>;
+    <span style="color: #D84315;">MemoryRegion</span> <span style="color: #26A69A;">mmio</span>;
+} <span style="color: #D84315;">PCIHelloWorldDevState</span>;
 
-<span style="color: #268bd2;">#define</span> <span style="color: #268bd2;">TYPE_PCI_HELLOWORLD_DEV</span> <span style="color: #2aa198;">"pci-helloworld"</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">TYPE_PCI_HELLOWORLD_DEV</span> <span style="color: #66BB6A;">"pci-helloworld"</span>
 
-<span style="color: #268bd2;">#define</span> <span style="color: #268bd2;">PCI_HELLOWORLD_DEV</span>(<span style="color: #268bd2;">obj</span>) \
+<span style="color: #1E88E5;">#define</span> <span style="color: #42A5F5;">PCI_HELLOWORLD_DEV</span>(<span style="color: #26A69A;">obj</span>) \
     OBJECT_CHECK(PCIHelloWorldDevState, (obj), TYPE_PCI_HELLOWORLD_DEV)
 
-<span style="color: #859900; font-weight: bold;">static</span> <span style="color: #b58900;">uint64_t</span>
-<span style="color: #268bd2;">pci_helloworld_dev_mmio_read</span>(<span style="color: #b58900;">void</span> *<span style="color: #268bd2;">opaque</span>, <span style="color: #b58900;">hwaddr</span> <span style="color: #268bd2;">addr</span>, <span style="color: #b58900;">unsigned</span> <span style="color: #268bd2;">size</span>)
+<span style="color: #7E57C2;">static</span> <span style="color: #D84315;">uint64_t</span>
+<span style="color: #42A5F5;">pci_helloworld_dev_mmio_read</span>(<span style="color: #D84315;">void</span> *<span style="color: #26A69A;">opaque</span>, <span style="color: #D84315;">hwaddr</span> <span style="color: #26A69A;">addr</span>, <span style="color: #D84315;">unsigned</span> <span style="color: #26A69A;">size</span>)
 {
-    <span style="color: #b58900;">PCIHelloWorldDevState</span> *<span style="color: #268bd2;">d</span> = opaque;
+    <span style="color: #D84315;">PCIHelloWorldDevState</span> *<span style="color: #26A69A;">d</span> = opaque;
 
-    <span style="color: #859900; font-weight: bold;">if</span> (addr == 0)
-        <span style="color: #859900; font-weight: bold;">return</span> d-&gt;buf[d-&gt;pos ++];
-    <span style="color: #859900; font-weight: bold;">else</span>
-        <span style="color: #859900; font-weight: bold;">return</span> d-&gt;buflen;
+    <span style="color: #7E57C2;">if</span> (addr == 0)
+        <span style="color: #7E57C2;">return</span> d-&gt;buf[d-&gt;pos ++];
+    <span style="color: #7E57C2;">else</span>
+        <span style="color: #7E57C2;">return</span> d-&gt;buflen;
 }
 
-<span style="color: #859900; font-weight: bold;">static</span> <span style="color: #b58900;">void</span>
-<span style="color: #268bd2;">pci_helloworld_dev_mmio_write</span>(<span style="color: #b58900;">void</span> *<span style="color: #268bd2;">opaque</span>, <span style="color: #b58900;">hwaddr</span> <span style="color: #268bd2;">addr</span>, <span style="color: #b58900;">uint64_t</span> <span style="color: #268bd2;">val</span>,
-                       <span style="color: #b58900;">unsigned</span> <span style="color: #268bd2;">size</span>)
+<span style="color: #7E57C2;">static</span> <span style="color: #D84315;">void</span>
+<span style="color: #42A5F5;">pci_helloworld_dev_mmio_write</span>(<span style="color: #D84315;">void</span> *<span style="color: #26A69A;">opaque</span>, <span style="color: #D84315;">hwaddr</span> <span style="color: #26A69A;">addr</span>, <span style="color: #D84315;">uint64_t</span> <span style="color: #26A69A;">val</span>,
+                       <span style="color: #D84315;">unsigned</span> <span style="color: #26A69A;">size</span>)
 {
 
-   <span style="color: #b58900;">PCIHelloWorldDevState</span> *<span style="color: #268bd2;">d</span> = opaque;
+   <span style="color: #D84315;">PCIHelloWorldDevState</span> *<span style="color: #26A69A;">d</span> = opaque;
 
-   <span style="color: #859900; font-weight: bold;">switch</span>(addr) {
-       <span style="color: #859900; font-weight: bold;">case</span> 0:
-           <span style="color: #93a1a1;">/* </span><span style="color: #93a1a1;">write byte </span><span style="color: #93a1a1;">*/</span>
-           <span style="color: #859900; font-weight: bold;">if</span> (<span style="color: #b58900; font-weight: bold;">!</span>d-&gt;buf)
-               <span style="color: #859900; font-weight: bold;">break</span>;
-           <span style="color: #859900; font-weight: bold;">if</span> (d-&gt;pos &gt;= d-&gt;buflen)
-               <span style="color: #859900; font-weight: bold;">break</span>;
-           d-&gt;buf[d-&gt;pos ++] = (<span style="color: #b58900;">uint8_t</span>)val;
-           <span style="color: #859900; font-weight: bold;">break</span>;
-       <span style="color: #859900; font-weight: bold;">case</span> 1:
-           <span style="color: #93a1a1;">/* </span><span style="color: #93a1a1;">reset pos </span><span style="color: #93a1a1;">*/</span>
+   <span style="color: #7E57C2;">switch</span>(addr) {
+       <span style="color: #7E57C2;">case</span> 0:
+           <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">write byte </span><span style="color: #90A4AE;">*/</span>
+           <span style="color: #7E57C2;">if</span> (<span style="color: #FF1744;">!</span>d-&gt;buf)
+               <span style="color: #7E57C2;">break</span>;
+           <span style="color: #7E57C2;">if</span> (d-&gt;pos &gt;= d-&gt;buflen)
+               <span style="color: #7E57C2;">break</span>;
+           d-&gt;buf[d-&gt;pos ++] = (<span style="color: #D84315;">uint8_t</span>)val;
+           <span style="color: #7E57C2;">break</span>;
+       <span style="color: #7E57C2;">case</span> 1:
+           <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">reset pos </span><span style="color: #90A4AE;">*/</span>
            d-&gt;pos = 0;
-           <span style="color: #859900; font-weight: bold;">break</span>;
-       <span style="color: #859900; font-weight: bold;">case</span> 2:
-           <span style="color: #93a1a1;">/* </span><span style="color: #93a1a1;">set buffer length </span><span style="color: #93a1a1;">*/</span>
+           <span style="color: #7E57C2;">break</span>;
+       <span style="color: #7E57C2;">case</span> 2:
+           <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">set buffer length </span><span style="color: #90A4AE;">*/</span>
            d-&gt;buflen = val + 1;
            g_free(d-&gt;buf);
            d-&gt;buf = g_malloc(d-&gt;buflen);
-           <span style="color: #859900; font-weight: bold;">break</span>;
+           <span style="color: #7E57C2;">break</span>;
    }
 
-   <span style="color: #859900; font-weight: bold;">return</span>;
+   <span style="color: #7E57C2;">return</span>;
 }
 
-<span style="color: #859900; font-weight: bold;">static</span> <span style="color: #859900; font-weight: bold;">const</span> <span style="color: #b58900;">MemoryRegionOps</span> <span style="color: #268bd2;">pci_helloworld_dev_mmio_ops</span> = {
+<span style="color: #7E57C2;">static</span> <span style="color: #7E57C2;">const</span> <span style="color: #D84315;">MemoryRegionOps</span> <span style="color: #26A69A;">pci_helloworld_dev_mmio_ops</span> = {
     .read = pci_helloworld_dev_mmio_read,
     .write = pci_helloworld_dev_mmio_write,
     .endianness = DEVICE_LITTLE_ENDIAN,
@@ -319,47 +319,47 @@ for the JavaScript code in this tag.
     },
 };
 
-<span style="color: #859900; font-weight: bold;">static</span> <span style="color: #b58900;">int</span>
-<span style="color: #268bd2;">pci_helloworld_dev_init</span>(<span style="color: #b58900;">PCIDevice</span> *<span style="color: #268bd2;">pci_dev</span>)
+<span style="color: #7E57C2;">static</span> <span style="color: #D84315;">int</span>
+<span style="color: #42A5F5;">pci_helloworld_dev_init</span>(<span style="color: #D84315;">PCIDevice</span> *<span style="color: #26A69A;">pci_dev</span>)
 {
-    <span style="color: #b58900;">PCIHelloWorldDevState</span> *<span style="color: #268bd2;">d</span> = PCI_HELLOWORLD_DEV(pci_dev);
-    <span style="color: #b58900;">uint8_t</span> *<span style="color: #268bd2;">pci_conf</span>;
+    <span style="color: #D84315;">PCIHelloWorldDevState</span> *<span style="color: #26A69A;">d</span> = PCI_HELLOWORLD_DEV(pci_dev);
+    <span style="color: #D84315;">uint8_t</span> *<span style="color: #26A69A;">pci_conf</span>;
 
     pci_conf = pci_dev-&gt;config;
 
-    pci_conf[PCI_INTERRUPT_PIN] = 0; <span style="color: #93a1a1;">/* </span><span style="color: #93a1a1;">no interrupt pin </span><span style="color: #93a1a1;">*/</span>
+    pci_conf[PCI_INTERRUPT_PIN] = 0; <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">no interrupt pin </span><span style="color: #90A4AE;">*/</span>
 
     memory_region_init_io(&amp;d-&gt;mmio, OBJECT(d), &amp;pci_helloworld_dev_mmio_ops, d,
-                          <span style="color: #2aa198;">"pci-helloworld-dev-mmio"</span>, 128);
+                          <span style="color: #66BB6A;">"pci-helloworld-dev-mmio"</span>, 128);
     pci_register_bar(pci_dev, 0, PCI_BASE_ADDRESS_SPACE_MEMORY, &amp;d-&gt;mmio);
 
     d-&gt;pos = 0;
     d-&gt;buf = g_malloc(14);
-    memcpy(d-&gt;buf, <span style="color: #2aa198;">"Hello, world!\n"</span>, 14);
+    memcpy(d-&gt;buf, <span style="color: #66BB6A;">"Hello, world!\n"</span>, 14);
     d-&gt;buflen = 14;
-    printf(<span style="color: #2aa198;">"Loaded helloworld pci\n"</span>);
+    printf(<span style="color: #66BB6A;">"Loaded helloworld pci\n"</span>);
 
-    <span style="color: #859900; font-weight: bold;">return</span> 0;
+    <span style="color: #7E57C2;">return</span> 0;
 }
 
-<span style="color: #859900; font-weight: bold;">static</span> <span style="color: #b58900;">void</span>
-<span style="color: #268bd2;">pci_helloworld_dev_uninit</span>(<span style="color: #b58900;">PCIDevice</span> *<span style="color: #268bd2;">dev</span>)
+<span style="color: #7E57C2;">static</span> <span style="color: #D84315;">void</span>
+<span style="color: #42A5F5;">pci_helloworld_dev_uninit</span>(<span style="color: #D84315;">PCIDevice</span> *<span style="color: #26A69A;">dev</span>)
 {
-    <span style="color: #93a1a1;">//</span><span style="color: #93a1a1;">PCIHelloWorldDevState *d = PCI_HELLOWORLD_DEV(dev);</span>
-    printf(<span style="color: #2aa198;">"unloaded helloworld pci\n"</span>);
+    <span style="color: #90A4AE;">//</span><span style="color: #90A4AE;">PCIHelloWorldDevState *d = PCI_HELLOWORLD_DEV(dev);</span>
+    printf(<span style="color: #66BB6A;">"unloaded helloworld pci\n"</span>);
 }
 
-<span style="color: #859900; font-weight: bold;">static</span> <span style="color: #b58900;">void</span>
-<span style="color: #268bd2;">qdev_pci_helloworld_dev_reset</span>(<span style="color: #b58900;">DeviceState</span> *<span style="color: #268bd2;">dev</span>)
+<span style="color: #7E57C2;">static</span> <span style="color: #D84315;">void</span>
+<span style="color: #42A5F5;">qdev_pci_helloworld_dev_reset</span>(<span style="color: #D84315;">DeviceState</span> *<span style="color: #26A69A;">dev</span>)
 {
-    <span style="color: #93a1a1;">//</span><span style="color: #93a1a1;">PCIHelloWorldDevState *d = PCI_HELLOWORLD_DEV(dev);</span>
+    <span style="color: #90A4AE;">//</span><span style="color: #90A4AE;">PCIHelloWorldDevState *d = PCI_HELLOWORLD_DEV(dev);</span>
 }
 
-<span style="color: #859900; font-weight: bold;">static</span> <span style="color: #b58900;">void</span>
-<span style="color: #268bd2;">pci_helloworld_dev_class_init</span>(<span style="color: #b58900;">ObjectClass</span> *<span style="color: #268bd2;">klass</span>, <span style="color: #b58900;">void</span> *<span style="color: #268bd2;">data</span>)
+<span style="color: #7E57C2;">static</span> <span style="color: #D84315;">void</span>
+<span style="color: #42A5F5;">pci_helloworld_dev_class_init</span>(<span style="color: #D84315;">ObjectClass</span> *<span style="color: #26A69A;">klass</span>, <span style="color: #D84315;">void</span> *<span style="color: #26A69A;">data</span>)
 {
-    <span style="color: #b58900;">DeviceClass</span> *<span style="color: #268bd2;">dc</span> = DEVICE_CLASS(klass);
-    <span style="color: #b58900;">PCIDeviceClass</span> *<span style="color: #268bd2;">k</span> = PCI_DEVICE_CLASS(klass);
+    <span style="color: #D84315;">DeviceClass</span> *<span style="color: #26A69A;">dc</span> = DEVICE_CLASS(klass);
+    <span style="color: #D84315;">PCIDeviceClass</span> *<span style="color: #26A69A;">k</span> = PCI_DEVICE_CLASS(klass);
 
     k-&gt;init = pci_helloworld_dev_init;
     k-&gt;exit = pci_helloworld_dev_uninit;
@@ -367,74 +367,74 @@ for the JavaScript code in this tag.
     k-&gt;device_id = 0x0001;
     k-&gt;revision = 0x00;
     k-&gt;class_id = PCI_CLASS_OTHERS;
-    dc-&gt;desc = <span style="color: #2aa198;">"HelloWorld PCI"</span>;
+    dc-&gt;desc = <span style="color: #66BB6A;">"HelloWorld PCI"</span>;
     set_bit(DEVICE_CATEGORY_MISC, dc-&gt;categories);
     dc-&gt;reset = qdev_pci_helloworld_dev_reset;
 }
 
-<span style="color: #859900; font-weight: bold;">static</span> <span style="color: #859900; font-weight: bold;">const</span> <span style="color: #b58900;">TypeInfo</span> <span style="color: #268bd2;">pci_helloworld_info</span> = {
+<span style="color: #7E57C2;">static</span> <span style="color: #7E57C2;">const</span> <span style="color: #D84315;">TypeInfo</span> <span style="color: #26A69A;">pci_helloworld_info</span> = {
     .name          = TYPE_PCI_HELLOWORLD_DEV,
     .parent        = TYPE_PCI_DEVICE,
-    .instance_size = <span style="color: #859900; font-weight: bold;">sizeof</span>(PCIHelloWorldDevState),
+    .instance_size = <span style="color: #7E57C2;">sizeof</span>(PCIHelloWorldDevState),
     .class_init    = pci_helloworld_dev_class_init,
 };
 
-<span style="color: #859900; font-weight: bold;">static</span> <span style="color: #b58900;">void</span> <span style="color: #268bd2;">pci_helloworld_register_types</span>(<span style="color: #b58900;">void</span>)
+<span style="color: #7E57C2;">static</span> <span style="color: #D84315;">void</span> <span style="color: #42A5F5;">pci_helloworld_register_types</span>(<span style="color: #D84315;">void</span>)
 {
     type_register_static(&amp;pci_helloworld_info);
 }
 
-type_init(pci_helloworld_register_types)
-</code></pre>
+<span style="color: #42A5F5;">type_init</span>(pci_helloworld_register_types)
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgd2042a5" class="outline-2">
-<h2 id="orgd2042a5">Add the following line to {QEMU_SRC}/hw/misc/Makefile.objs</h2>
-<div class="outline-text-2" id="text-orgd2042a5">
+<div id="outline-container-org99d0366" class="outline-2">
+<h2 id="org99d0366">Add the following line to {QEMU_SRC}/hw/misc/Makefile.objs</h2>
+<div class="outline-text-2" id="text-org99d0366">
 <div class="org-src-container">
-<pre><code class="src src-makefile">ifeq ($(<span style="color: #268bd2;">CONFIG_PCI</span>), y)
-<span style="color: #268bd2;">obj-y</span> += pci-helloworld.o
+<pre class="src src-makefile">ifeq ($(<span style="color: #26A69A;">CONFIG_PCI</span>), y)
+<span style="color: #26A69A;">obj-y</span> += pci-helloworld.o
 endif
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgfb6e15c" class="outline-2">
-<h2 id="orgfb6e15c">Recompile the qemu source code and check the result</h2>
-<div class="outline-text-2" id="text-orgfb6e15c">
+<div id="outline-container-orgfbc3f7e" class="outline-2">
+<h2 id="orgfbc3f7e">Recompile the qemu source code and check the result</h2>
+<div class="outline-text-2" id="text-orgfbc3f7e">
 <ol class="org-ol">
 <li><p>
 get the device list
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh">x86_64-softmmu/qemu-system-x86_64 -device ? 2&gt;&amp;1 | grep hello
-</code></pre>
+<pre class="src src-sh">x86_64-softmmu/qemu-system-x86_64 -device ? 2&gt;&amp;1 | grep hello
+</pre>
 </div>
 <p>
 and we get the following result:
 </p>
 <div class="org-src-container">
-<pre><code class="src src-text">name "pci-helloworld", bus PCI, desc "HelloWorld PCI"
-</code></pre>
+<pre class="src src-text">name "pci-helloworld", bus PCI, desc "HelloWorld PCI"
+</pre>
 </div></li>
 
 <li><p>
 startup vm
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh">x86_64-softmmu/qemu-system-x86_64  <span style="color: #b58900; font-weight: bold;">\</span>
--kernel ./bzImage -initrd ./initramfs <span style="color: #b58900; font-weight: bold;">\</span>
--nographic -append  <span style="color: #2aa198;">"console=ttyS0 quiet"</span>  -device pci-helloworld
-</code></pre>
+<pre class="src src-sh">x86_64-softmmu/qemu-system-x86_64  <span style="color: #66BB6A;">\</span>
+-kernel ./bzImage -initrd ./initramfs <span style="color: #66BB6A;">\</span>
+-nographic -append  <span style="color: #66BB6A;">"console=ttyS0 quiet"</span>  -device pci-helloworld
+</pre>
 </div>
 <p>
 use lspci to get pci info:
 </p>
 <div class="org-src-container">
-<pre><code class="src src-text">Loaded helloworld pci
+<pre class="src src-text">Loaded helloworld pci
 [    0.869296] kvm: no hardware support
 
 Please press Enter to activate this console.  
@@ -446,7 +446,7 @@ Please press Enter to activate this console.
 00:02.0 Class 0300: 1234:1111
 00:03.0 Class 0200: 8086:100e
 00:04.0 Class 00ff: 6688:0001
-</code></pre>
+</pre>
 </div></li>
 </ol>
 </div>
@@ -454,9 +454,9 @@ Please press Enter to activate this console.
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2018 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2017-09-28 Thu 15:57. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
+Copyright 2018 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Last updated 2019-02-03 Sun 11:12. <br/>
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.1.9).
 </div>
 </div>
 </body>

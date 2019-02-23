@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-02-21 Wed 15:32 -->
+<!-- 2019-02-23 Sat 15:47 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Format ovs-ofctl dump-flows output</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="xiangsiwei" />
+<meta name="author" content="siwei" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -186,7 +186,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2017 Free Software Foundation, Inc.
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -243,27 +243,27 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">Format ovs-ofctl dump-flows output</h1>
 
-<div id="outline-container-org5b486e4" class="outline-2">
-<h2 id="org5b486e4"></h2>
-<div class="outline-text-2" id="text-org5b486e4">
+<div id="outline-container-orgb2b08fe" class="outline-2">
+<h2 id="orgb2b08fe"></h2>
+<div class="outline-text-2" id="text-orgb2b08fe">
 <p>
 Get the openflows of <i>br-int</i>
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh">ovs-ofctl dump-flows   br-int | <span style="color: #b58900; font-weight: bold;">\</span>
-sed -E -e <span style="color: #2aa198;">'1d'</span> <span style="color: #b58900; font-weight: bold;">\</span>
--e <span style="color: #2aa198;">'s/(hard_age|idle_age)=[0-9]*?, //g'</span> <span style="color: #b58900; font-weight: bold;">\</span>
--e <span style="color: #2aa198;">'s/ actions/, actions/g'</span> <span style="color: #b58900; font-weight: bold;">\</span>
--e <span style="color: #2aa198;">'s/, /\t/g'</span> | <span style="color: #b58900; font-weight: bold;">\</span>
-awk <span style="color: #2aa198;">'{print $3"\t"$6"\t"$7}'</span> | sort -k1,1 -k2,2rV | column -t
-</code></pre>
+<pre class="src src-sh">ovs-ofctl dump-flows   br-int | <span style="color: #66BB6A;">\</span>
+sed -E -e <span style="color: #66BB6A;">'1d'</span> <span style="color: #66BB6A;">\</span>
+-e <span style="color: #66BB6A;">'s/(hard_age|idle_age)=[0-9]*?, //g'</span> <span style="color: #66BB6A;">\</span>
+-e <span style="color: #66BB6A;">'s/ actions/, actions/g'</span> <span style="color: #66BB6A;">\</span>
+-e <span style="color: #66BB6A;">'s/, /\t/g'</span> | <span style="color: #66BB6A;">\</span>
+awk <span style="color: #66BB6A;">'{print $3"\t"$6"\t"$7}'</span> | sort -k1,1 -k2,2rV | column -t
+</pre>
 </div>
 
 <p>
 and the output is:
 </p>
 <div class="org-src-container">
-<pre><code class="src src-text">table=0   priority=10,icmp6,in_port=10,icmp_type=136                                    actions=resubmit(,24)
+<pre class="src src-text">table=0   priority=10,icmp6,in_port=10,icmp_type=136                                    actions=resubmit(,24)
 table=0   priority=10,icmp6,in_port=2,icmp_type=136                                     actions=resubmit(,24)
 table=0   priority=10,arp,in_port=10                                                    actions=resubmit(,24)
 table=0   priority=10,arp,in_port=2                                                     actions=resubmit(,24)
@@ -291,16 +291,16 @@ table=24  priority=2,arp,in_port=2,arp_spa=10.0.4.204                           
 table=24  priority=0                                                                    actions=drop
 table=25  priority=2,in_port=10,dl_src=fa:16:3e:2f:0a:ff                                actions=NORMAL
 table=25  priority=2,in_port=2,dl_src=fa:16:3e:c3:3d:00                                 actions=NORMAL
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2018 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2017-09-27 Wed 21:34. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
+Copyright 2018 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Last updated 2019-02-03 Sun 11:12. <br/>
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.1.9).
 </div>
 </div>
 </body>

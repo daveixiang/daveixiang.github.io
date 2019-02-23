@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-02-21 Wed 15:32 -->
+<!-- 2019-02-23 Sat 15:47 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Using OVS to Build Minimal Linux Networking Hack Environment aarch64</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="xiangsiwei" />
+<meta name="author" content="siwei" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -186,7 +186,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2017 Free Software Foundation, Inc.
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -243,11 +243,11 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">Using OVS to Build Minimal Linux Networking Hack Environment aarch64</h1>
 
-<div id="outline-container-org3a93701" class="outline-2">
-<h2 id="org3a93701">Create Openvswitch bridge and two tap devices for vms</h2>
-<div class="outline-text-2" id="text-org3a93701">
+<div id="outline-container-orgf5e4d70" class="outline-2">
+<h2 id="orgf5e4d70">Create Openvswitch bridge and two tap devices for vms</h2>
+<div class="outline-text-2" id="text-orgf5e4d70">
 <div class="org-src-container">
-<pre><code class="src src-sh">ip tuntap add name tap01 mode tap
+<pre class="src src-sh">ip tuntap add name tap01 mode tap
 ip tuntap add name tap02 mode tap
 
 ip link set tap01 up
@@ -259,29 +259,29 @@ ip link set tap01 address 12:34:56:78:9a:02
 ovs-vsctl add-br br0
 ovs-vsctl add-port br0 tap01
 ovs-vsctl add-port br0 tap02
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org0e7bf4a" class="outline-2">
-<h2 id="org0e7bf4a">Start the two vms and config network</h2>
-<div class="outline-text-2" id="text-org0e7bf4a">
+<div id="outline-container-orgc51e836" class="outline-2">
+<h2 id="orgc51e836">Start the two vms and config network</h2>
+<div class="outline-text-2" id="text-orgc51e836">
 </div>
-<div id="outline-container-orgc3a1e9d" class="outline-3">
-<h3 id="orgc3a1e9d">configure vm01</h3>
-<div class="outline-text-3" id="text-orgc3a1e9d">
+<div id="outline-container-org29bdeb5" class="outline-3">
+<h3 id="org29bdeb5">configure vm01</h3>
+<div class="outline-text-3" id="text-org29bdeb5">
 <ul class="org-ul">
 <li>start vm01</li>
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">qemu-system-aarch64 -machine virt -cpu cortex-a57 <span style="color: #b58900; font-weight: bold;">\</span>
--kernel ./Image -initrd ./initramfs -append <span style="color: #2aa198;">"console=ttyAMA0 quiet"</span> <span style="color: #b58900; font-weight: bold;">\</span>
--netdev <span style="color: #268bd2;">type</span>=tap,<span style="color: #268bd2;">id</span>=net1,<span style="color: #268bd2;">ifname</span>=tap01,<span style="color: #268bd2;">script</span>=no,<span style="color: #268bd2;">downscript</span>=no <span style="color: #b58900; font-weight: bold;">\</span>
--device virtio-net-device,<span style="color: #268bd2;">netdev</span>=net1,<span style="color: #268bd2;">mac</span>=<span style="color: #2aa198;">'12:34:56:78:9a:01'</span> <span style="color: #b58900; font-weight: bold;">\</span>
+<pre class="src src-sh">qemu-system-aarch64 -machine virt -cpu cortex-a57 <span style="color: #66BB6A;">\</span>
+-kernel ./Image -initrd ./initramfs -append <span style="color: #66BB6A;">"console=ttyAMA0 quiet"</span> <span style="color: #66BB6A;">\</span>
+-netdev <span style="color: #26A69A;">type</span>=tap,<span style="color: #26A69A;">id</span>=net1,<span style="color: #26A69A;">ifname</span>=tap01,<span style="color: #26A69A;">script</span>=no,<span style="color: #26A69A;">downscript</span>=no <span style="color: #66BB6A;">\</span>
+-device virtio-net-device,<span style="color: #26A69A;">netdev</span>=net1,<span style="color: #26A69A;">mac</span>=<span style="color: #66BB6A;">'12:34:56:78:9a:01'</span> <span style="color: #66BB6A;">\</span>
 -nographic
-</code></pre>
+</pre>
 </div>
 
 <ul class="org-ul">
@@ -289,27 +289,27 @@ ovs-vsctl add-port br0 tap02
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">ip link set eth0 up
+<pre class="src src-sh">ip link set eth0 up
 ip addr add 192.168.0.1/24 dev eth0
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgb387490" class="outline-3">
-<h3 id="orgb387490">configure vm02</h3>
-<div class="outline-text-3" id="text-orgb387490">
+<div id="outline-container-orgb597c3a" class="outline-3">
+<h3 id="orgb597c3a">configure vm02</h3>
+<div class="outline-text-3" id="text-orgb597c3a">
 <ul class="org-ul">
 <li>start vm02</li>
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">qemu-system-aarch64 -machine virt -cpu cortex-a57 <span style="color: #b58900; font-weight: bold;">\</span>
--kernel ./Image -initrd ./initramfs -append <span style="color: #2aa198;">"console=ttyAMA0 quiet"</span> <span style="color: #b58900; font-weight: bold;">\</span>
--netdev <span style="color: #268bd2;">type</span>=tap,<span style="color: #268bd2;">id</span>=net2,<span style="color: #268bd2;">ifname</span>=tap02,<span style="color: #268bd2;">script</span>=no,<span style="color: #268bd2;">downscript</span>=no <span style="color: #b58900; font-weight: bold;">\</span>
--device virtio-net-device,<span style="color: #268bd2;">netdev</span>=net2,<span style="color: #268bd2;">mac</span>=<span style="color: #2aa198;">'12:34:56:78:9a:02'</span> <span style="color: #b58900; font-weight: bold;">\</span>
+<pre class="src src-sh">qemu-system-aarch64 -machine virt -cpu cortex-a57 <span style="color: #66BB6A;">\</span>
+-kernel ./Image -initrd ./initramfs -append <span style="color: #66BB6A;">"console=ttyAMA0 quiet"</span> <span style="color: #66BB6A;">\</span>
+-netdev <span style="color: #26A69A;">type</span>=tap,<span style="color: #26A69A;">id</span>=net2,<span style="color: #26A69A;">ifname</span>=tap02,<span style="color: #26A69A;">script</span>=no,<span style="color: #26A69A;">downscript</span>=no <span style="color: #66BB6A;">\</span>
+-device virtio-net-device,<span style="color: #26A69A;">netdev</span>=net2,<span style="color: #26A69A;">mac</span>=<span style="color: #66BB6A;">'12:34:56:78:9a:02'</span> <span style="color: #66BB6A;">\</span>
 -nographic
-</code></pre>
+</pre>
 </div>
 
 <ul class="org-ul">
@@ -317,9 +317,9 @@ ip addr add 192.168.0.1/24 dev eth0
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">ip link set eth0 up
+<pre class="src src-sh">ip link set eth0 up
 ip addr add 192.168.0.2/24 dev eth0
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
@@ -327,9 +327,9 @@ ip addr add 192.168.0.2/24 dev eth0
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2018 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2017-09-28 Thu 19:47. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
+Copyright 2018 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Last updated 2019-02-03 Sun 11:12. <br/>
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.1.9).
 </div>
 </div>
 </body>

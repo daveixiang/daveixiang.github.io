@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-02-21 Wed 15:32 -->
+<!-- 2019-02-23 Sat 15:47 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Linux PCI Device Driver using mmio Demo</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="xiangsiwei" />
+<meta name="author" content="siwei" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -186,7 +186,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2017 Free Software Foundation, Inc.
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -243,101 +243,101 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">Linux PCI Device Driver using mmio Demo</h1>
 
-<div id="outline-container-org33462a8" class="outline-2">
-<h2 id="org33462a8">pci-helloworld driver source code</h2>
-<div class="outline-text-2" id="text-org33462a8">
+<div id="outline-container-org57a89e3" class="outline-2">
+<h2 id="org57a89e3">pci-helloworld driver source code</h2>
+<div class="outline-text-2" id="text-org57a89e3">
 <ul class="org-ul">
 <li>pci-helloworld.c</li>
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">&lt;linux/init.h&gt;</span>
-<span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">&lt;linux/kernel.h&gt;</span>
-<span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">&lt;linux/module.h&gt;</span>
-<span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">&lt;linux/pci.h&gt;</span>
-<span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">&lt;linux/printk.h&gt;</span>
-<span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">&lt;linux/proc_fs.h&gt;</span>
-<span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">&lt;linux/seq_file.h&gt;</span>
+<pre class="src src-c"><span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;linux/init.h&gt;</span>
+<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;linux/kernel.h&gt;</span>
+<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;linux/module.h&gt;</span>
+<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;linux/pci.h&gt;</span>
+<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;linux/printk.h&gt;</span>
+<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;linux/proc_fs.h&gt;</span>
+<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;linux/seq_file.h&gt;</span>
 
-MODULE_LICENSE(<span style="color: #2aa198;">"GPL"</span>);
+MODULE_LICENSE(<span style="color: #66BB6A;">"GPL"</span>);
 
-<span style="color: #859900; font-weight: bold;">static</span> <span style="color: #859900; font-weight: bold;">struct</span> <span style="color: #b58900;">pci_dev</span> *<span style="color: #268bd2;">_pdev</span>;
-<span style="color: #859900; font-weight: bold;">static</span> <span style="color: #b58900;">void</span> <span style="color: #268bd2;">__iomem</span> *_mmio;
+<span style="color: #7E57C2;">static</span> <span style="color: #7E57C2;">struct</span> <span style="color: #D84315;">pci_dev</span> *<span style="color: #26A69A;">_pdev</span>;
+<span style="color: #7E57C2;">static</span> <span style="color: #D84315;">void</span> <span style="color: #26A69A;">__iomem</span> *_mmio;
 
-<span style="color: #859900; font-weight: bold;">static</span> <span style="color: #859900; font-weight: bold;">const</span> <span style="color: #859900; font-weight: bold;">struct</span> <span style="color: #b58900;">pci_device_id</span> <span style="color: #268bd2;">pcidevtbl</span>[] = {
+<span style="color: #7E57C2;">static</span> <span style="color: #7E57C2;">const</span> <span style="color: #7E57C2;">struct</span> <span style="color: #D84315;">pci_device_id</span> <span style="color: #26A69A;">pcidevtbl</span>[] = {
 
         { 0x6688, 0x0001, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
-        { } <span style="color: #93a1a1;">/* </span><span style="color: #93a1a1;">terminate </span><span style="color: #93a1a1;">*/</span>
+        { } <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">terminate </span><span style="color: #90A4AE;">*/</span>
 
 };
 
-<span style="color: #b58900;">void</span> <span style="color: #268bd2;">pci_helloworld_reset_pointer</span>(<span style="color: #b58900;">void</span> <span style="color: #268bd2;">__iomem</span> *mmio)
+<span style="color: #D84315;">void</span> <span style="color: #42A5F5;">pci_helloworld_reset_pointer</span>(<span style="color: #D84315;">void</span> <span style="color: #26A69A;">__iomem</span> *mmio)
 {
         iowrite8(1, mmio + 1);
 }
 
-<span style="color: #b58900;">void</span> <span style="color: #268bd2;">pci_helloworld_set_buf_len</span>(<span style="color: #b58900;">void</span> <span style="color: #268bd2;">__iomem</span> *mmio, <span style="color: #b58900;">uint8_t</span> <span style="color: #268bd2;">len</span>)
+<span style="color: #D84315;">void</span> <span style="color: #42A5F5;">pci_helloworld_set_buf_len</span>(<span style="color: #D84315;">void</span> <span style="color: #26A69A;">__iomem</span> *mmio, <span style="color: #D84315;">uint8_t</span> <span style="color: #26A69A;">len</span>)
 {
         iowrite8(len, mmio + 2);
 }
 
-<span style="color: #b58900;">void</span> <span style="color: #268bd2;">pci_helloworld_write_char</span>(<span style="color: #b58900;">void</span> <span style="color: #268bd2;">__iomem</span> *mmio, <span style="color: #b58900;">char</span> <span style="color: #268bd2;">c</span>)
+<span style="color: #D84315;">void</span> <span style="color: #42A5F5;">pci_helloworld_write_char</span>(<span style="color: #D84315;">void</span> <span style="color: #26A69A;">__iomem</span> *mmio, <span style="color: #D84315;">char</span> <span style="color: #26A69A;">c</span>)
 {
         iowrite8(c, mmio + 0);
 }
 
-<span style="color: #859900; font-weight: bold;">static</span> <span style="color: #b58900;">int</span> <span style="color: #268bd2;">pci_helloworld_show</span>(<span style="color: #859900; font-weight: bold;">struct</span> <span style="color: #b58900;">seq_file</span> *<span style="color: #268bd2;">m</span>, <span style="color: #b58900;">void</span> *<span style="color: #268bd2;">v</span>) {
-        <span style="color: #b58900;">int</span> <span style="color: #268bd2;">i</span>, <span style="color: #268bd2;">len</span>;
-        <span style="color: #b58900;">char</span> *<span style="color: #268bd2;">buf</span>;
+<span style="color: #7E57C2;">static</span> <span style="color: #D84315;">int</span> <span style="color: #42A5F5;">pci_helloworld_show</span>(<span style="color: #7E57C2;">struct</span> <span style="color: #D84315;">seq_file</span> *<span style="color: #26A69A;">m</span>, <span style="color: #D84315;">void</span> *<span style="color: #26A69A;">v</span>) {
+        <span style="color: #D84315;">int</span> <span style="color: #26A69A;">i</span>, <span style="color: #26A69A;">len</span>;
+        <span style="color: #D84315;">char</span> *<span style="color: #26A69A;">buf</span>;
 
-        <span style="color: #859900; font-weight: bold;">if</span> (<span style="color: #b58900; font-weight: bold;">!</span>_mmio) {
-                pr_emerg(<span style="color: #2aa198;">"pci_iomap failed!\n"</span>);
-                <span style="color: #859900; font-weight: bold;">return</span> -ENODEV;
+        <span style="color: #7E57C2;">if</span> (<span style="color: #FF1744;">!</span>_mmio) {
+                pr_emerg(<span style="color: #66BB6A;">"pci_iomap failed!\n"</span>);
+                <span style="color: #7E57C2;">return</span> -ENODEV;
         }
 
         pci_helloworld_reset_pointer(_mmio);
 
         len = ioread8(_mmio + 1);
-        <span style="color: #859900; font-weight: bold;">if</span> (len) {
+        <span style="color: #7E57C2;">if</span> (len) {
                 buf = kmalloc(len + 1, GFP_KERNEL);
-                <span style="color: #859900; font-weight: bold;">if</span> (<span style="color: #b58900; font-weight: bold;">!</span>buf)
-                        <span style="color: #859900; font-weight: bold;">return</span> -ENOMEM;
-        } <span style="color: #859900; font-weight: bold;">else</span> {
-                buf = <span style="color: #2aa198;">""</span>;
+                <span style="color: #7E57C2;">if</span> (<span style="color: #FF1744;">!</span>buf)
+                        <span style="color: #7E57C2;">return</span> -ENOMEM;
+        } <span style="color: #7E57C2;">else</span> {
+                buf = <span style="color: #66BB6A;">""</span>;
         }
 
-        <span style="color: #859900; font-weight: bold;">for</span> (i = 0; i &lt; len; i++)
+        <span style="color: #7E57C2;">for</span> (i = 0; i &lt; len; i++)
                 buf[i] = ioread8(_mmio);
 
-        seq_printf(m, <span style="color: #2aa198;">"%s"</span>, buf);
+        seq_printf(m, <span style="color: #66BB6A;">"%s"</span>, buf);
 
-        <span style="color: #859900; font-weight: bold;">return</span> 0;
+        <span style="color: #7E57C2;">return</span> 0;
 }
 
-<span style="color: #859900; font-weight: bold;">static</span> <span style="color: #b58900;">int</span> <span style="color: #268bd2;">pci_helloworld_open</span>(<span style="color: #859900; font-weight: bold;">struct</span> <span style="color: #b58900;">inode</span> *<span style="color: #268bd2;">inode</span>, <span style="color: #859900; font-weight: bold;">struct</span> <span style="color: #b58900;">file</span> *<span style="color: #268bd2;">file</span>) {
-        <span style="color: #859900; font-weight: bold;">return</span> single_open(file, pci_helloworld_show, <span style="color: #268bd2; font-weight: bold;">NULL</span>);
+<span style="color: #7E57C2;">static</span> <span style="color: #D84315;">int</span> <span style="color: #42A5F5;">pci_helloworld_open</span>(<span style="color: #7E57C2;">struct</span> <span style="color: #D84315;">inode</span> *<span style="color: #26A69A;">inode</span>, <span style="color: #7E57C2;">struct</span> <span style="color: #D84315;">file</span> *<span style="color: #26A69A;">file</span>) {
+        <span style="color: #7E57C2;">return</span> single_open(file, pci_helloworld_show, <span style="color: #5C6BC0;">NULL</span>);
 }
 
-<span style="color: #b58900;">ssize_t</span> <span style="color: #268bd2;">pci_helloworld_write</span> (<span style="color: #859900; font-weight: bold;">struct</span> <span style="color: #b58900;">file</span> *<span style="color: #268bd2;">file</span>, <span style="color: #859900; font-weight: bold;">const</span> <span style="color: #b58900;">char</span> <span style="color: #268bd2;">__user</span> *buf, <span style="color: #b58900;">size_t</span> <span style="color: #268bd2;">len</span>,
-                        <span style="color: #b58900;">loff_t</span> *<span style="color: #268bd2;">l</span>)
+<span style="color: #D84315;">ssize_t</span> <span style="color: #42A5F5;">pci_helloworld_write</span> (<span style="color: #7E57C2;">struct</span> <span style="color: #D84315;">file</span> *<span style="color: #26A69A;">file</span>, <span style="color: #7E57C2;">const</span> <span style="color: #D84315;">char</span> <span style="color: #26A69A;">__user</span> *buf, <span style="color: #D84315;">size_t</span> <span style="color: #26A69A;">len</span>,
+                        <span style="color: #D84315;">loff_t</span> *<span style="color: #26A69A;">l</span>)
 {
-        <span style="color: #b58900;">int</span> <span style="color: #268bd2;">i</span> = 0;
+        <span style="color: #D84315;">int</span> <span style="color: #26A69A;">i</span> = 0;
 
-        <span style="color: #859900; font-weight: bold;">if</span> (<span style="color: #b58900; font-weight: bold;">!</span>_mmio) {
-                pr_emerg(<span style="color: #2aa198;">"failed to pci_iomap\n"</span>);
-                <span style="color: #859900; font-weight: bold;">return</span> 0;
+        <span style="color: #7E57C2;">if</span> (<span style="color: #FF1744;">!</span>_mmio) {
+                pr_emerg(<span style="color: #66BB6A;">"failed to pci_iomap\n"</span>);
+                <span style="color: #7E57C2;">return</span> 0;
         }
 
         pci_helloworld_reset_pointer(_mmio);
         pci_helloworld_set_buf_len(_mmio, len + 1);
 
-        <span style="color: #859900; font-weight: bold;">for</span>(i = 0; i &lt; len; i ++)
+        <span style="color: #7E57C2;">for</span>(i = 0; i &lt; len; i ++)
                 pci_helloworld_write_char(_mmio, buf[i]);
 
-        <span style="color: #859900; font-weight: bold;">return</span> i;
+        <span style="color: #7E57C2;">return</span> i;
 }
 
-<span style="color: #859900; font-weight: bold;">static</span> <span style="color: #859900; font-weight: bold;">const</span> <span style="color: #859900; font-weight: bold;">struct</span> <span style="color: #b58900;">file_operations</span> <span style="color: #268bd2;">proc_fops</span> = {
+<span style="color: #7E57C2;">static</span> <span style="color: #7E57C2;">const</span> <span style="color: #7E57C2;">struct</span> <span style="color: #D84315;">file_operations</span> <span style="color: #26A69A;">proc_fops</span> = {
         .owner = THIS_MODULE,
         .open = pci_helloworld_open,
         .read = seq_read,
@@ -346,77 +346,77 @@ MODULE_LICENSE(<span style="color: #2aa198;">"GPL"</span>);
         .release = single_release,
 };
 
-<span style="color: #859900; font-weight: bold;">static</span> <span style="color: #b58900;">int</span> <span style="color: #268bd2;">pci_helloworld_probe</span>(<span style="color: #859900; font-weight: bold;">struct</span> <span style="color: #b58900;">pci_dev</span> *<span style="color: #268bd2;">pdev</span>, <span style="color: #859900; font-weight: bold;">const</span> <span style="color: #859900; font-weight: bold;">struct</span> <span style="color: #b58900;">pci_device_id</span> *<span style="color: #268bd2;">ent</span>)
+<span style="color: #7E57C2;">static</span> <span style="color: #D84315;">int</span> <span style="color: #42A5F5;">pci_helloworld_probe</span>(<span style="color: #7E57C2;">struct</span> <span style="color: #D84315;">pci_dev</span> *<span style="color: #26A69A;">pdev</span>, <span style="color: #7E57C2;">const</span> <span style="color: #7E57C2;">struct</span> <span style="color: #D84315;">pci_device_id</span> *<span style="color: #26A69A;">ent</span>)
 {
-        <span style="color: #b58900;">void</span> <span style="color: #268bd2;">__iomem</span> *mmio;
-        <span style="color: #b58900;">char</span> *<span style="color: #268bd2;">buf</span>;
-        <span style="color: #b58900;">int</span> <span style="color: #268bd2;">len</span>, <span style="color: #268bd2;">i</span>;
-        <span style="color: #859900; font-weight: bold;">struct</span> <span style="color: #b58900;">proc_dir_entry</span> *<span style="color: #268bd2;">proc_entry</span>;
+        <span style="color: #D84315;">void</span> <span style="color: #26A69A;">__iomem</span> *mmio;
+        <span style="color: #D84315;">char</span> *<span style="color: #26A69A;">buf</span>;
+        <span style="color: #D84315;">int</span> <span style="color: #26A69A;">len</span>, <span style="color: #26A69A;">i</span>;
+        <span style="color: #7E57C2;">struct</span> <span style="color: #D84315;">proc_dir_entry</span> *<span style="color: #26A69A;">proc_entry</span>;
 
-        pr_debug(<span style="color: #2aa198;">"probed pci dev, trying read.\n"</span>);
+        pr_debug(<span style="color: #66BB6A;">"probed pci dev, trying read.\n"</span>);
 
         mmio = pci_iomap(pdev, 0, 0);
-        <span style="color: #859900; font-weight: bold;">if</span> (<span style="color: #b58900; font-weight: bold;">!</span>mmio) {
-                pr_emerg(<span style="color: #2aa198;">"failed to iomap!\n"</span>);
-                <span style="color: #859900; font-weight: bold;">return</span> -ENODEV;
+        <span style="color: #7E57C2;">if</span> (<span style="color: #FF1744;">!</span>mmio) {
+                pr_emerg(<span style="color: #66BB6A;">"failed to iomap!\n"</span>);
+                <span style="color: #7E57C2;">return</span> -ENODEV;
         }
 
         len = ioread8(mmio + 1);
-        pr_info(<span style="color: #2aa198;">"length of string: %d bytes\n"</span>, len);
+        pr_info(<span style="color: #66BB6A;">"length of string: %d bytes\n"</span>, len);
 
         buf = kmalloc(len + 1, GFP_KERNEL);
-        <span style="color: #859900; font-weight: bold;">if</span> (<span style="color: #b58900; font-weight: bold;">!</span>buf) {
-                pr_err(<span style="color: #2aa198;">"no memory...\n"</span>);
-                <span style="color: #859900; font-weight: bold;">return</span> -ENOMEM;
+        <span style="color: #7E57C2;">if</span> (<span style="color: #FF1744;">!</span>buf) {
+                pr_err(<span style="color: #66BB6A;">"no memory...\n"</span>);
+                <span style="color: #7E57C2;">return</span> -ENOMEM;
         }
 
-        <span style="color: #859900; font-weight: bold;">for</span> (i = 0; i &lt; len; i++)
+        <span style="color: #7E57C2;">for</span> (i = 0; i &lt; len; i++)
                 buf[i] = ioread8(mmio);
 
-        pr_info(<span style="color: #2aa198;">"read this string: %s"</span>, buf);
+        pr_info(<span style="color: #66BB6A;">"read this string: %s"</span>, buf);
 
-        proc_entry = proc_create(<span style="color: #2aa198;">"helloworld"</span>, 0755, <span style="color: #268bd2; font-weight: bold;">NULL</span>, &amp;proc_fops);
+        proc_entry = proc_create(<span style="color: #66BB6A;">"helloworld"</span>, 0755, <span style="color: #5C6BC0;">NULL</span>, &amp;proc_fops);
 
         _mmio = mmio;
         _pdev = pdev;
-        <span style="color: #859900; font-weight: bold;">return</span> 0;
+        <span style="color: #7E57C2;">return</span> 0;
 }
 
-<span style="color: #859900; font-weight: bold;">static</span> <span style="color: #b58900;">void</span> <span style="color: #268bd2;">pci_helloworld_remove</span>(<span style="color: #859900; font-weight: bold;">struct</span> <span style="color: #b58900;">pci_dev</span> *<span style="color: #268bd2;">pdev</span>) {
-        pr_debug(<span style="color: #2aa198;">"unloaded device\n"</span>);
+<span style="color: #7E57C2;">static</span> <span style="color: #D84315;">void</span> <span style="color: #42A5F5;">pci_helloworld_remove</span>(<span style="color: #7E57C2;">struct</span> <span style="color: #D84315;">pci_dev</span> *<span style="color: #26A69A;">pdev</span>) {
+        pr_debug(<span style="color: #66BB6A;">"unloaded device\n"</span>);
 }
 
-<span style="color: #859900; font-weight: bold;">static</span> <span style="color: #859900; font-weight: bold;">struct</span> <span style="color: #b58900;">pci_driver</span> <span style="color: #268bd2;">helloworld_pci_driver</span> = {
-        .name = <span style="color: #2aa198;">"PCI-Hello-World driver"</span>,
+<span style="color: #7E57C2;">static</span> <span style="color: #7E57C2;">struct</span> <span style="color: #D84315;">pci_driver</span> <span style="color: #26A69A;">helloworld_pci_driver</span> = {
+        .name = <span style="color: #66BB6A;">"PCI-Hello-World driver"</span>,
         .id_table = pcidevtbl,
         .probe = pci_helloworld_probe,
         .remove = pci_helloworld_remove,
 
 };
 
-<span style="color: #859900; font-weight: bold;">static</span> <span style="color: #b58900;">int</span> <span style="color: #268bd2;">__init</span> pci_helloworld_init(<span style="color: #b58900;">void</span>)
+<span style="color: #7E57C2;">static</span> <span style="color: #D84315;">int</span> <span style="color: #42A5F5;">__init</span> pci_helloworld_init(<span style="color: #D84315;">void</span>)
 {
-        <span style="color: #b58900;">int</span> <span style="color: #268bd2;">rc</span>;
-        pr_debug(<span style="color: #2aa198;">"pci device driver online.\n"</span>);
+        <span style="color: #D84315;">int</span> <span style="color: #26A69A;">rc</span>;
+        pr_debug(<span style="color: #66BB6A;">"pci device driver online.\n"</span>);
 
         rc = pci_register_driver(&amp;helloworld_pci_driver);
-        <span style="color: #859900; font-weight: bold;">if</span> (rc) {
-                pr_err(<span style="color: #2aa198;">"failed to register driver.\n"</span>);
-                <span style="color: #859900; font-weight: bold;">return</span> rc;
+        <span style="color: #7E57C2;">if</span> (rc) {
+                pr_err(<span style="color: #66BB6A;">"failed to register driver.\n"</span>);
+                <span style="color: #7E57C2;">return</span> rc;
         }
 
-        <span style="color: #859900; font-weight: bold;">return</span> 0;
+        <span style="color: #7E57C2;">return</span> 0;
 }
 
-<span style="color: #859900; font-weight: bold;">static</span> <span style="color: #b58900;">void</span> <span style="color: #268bd2;">__exit</span> pci_helloworld_exit(<span style="color: #b58900;">void</span>)
+<span style="color: #7E57C2;">static</span> <span style="color: #D84315;">void</span> <span style="color: #42A5F5;">__exit</span> pci_helloworld_exit(<span style="color: #D84315;">void</span>)
 {
-        pr_debug(<span style="color: #2aa198;">"driver unloaded :-(\n"</span>);
-        <span style="color: #859900; font-weight: bold;">return</span>;
+        pr_debug(<span style="color: #66BB6A;">"driver unloaded :-(\n"</span>);
+        <span style="color: #7E57C2;">return</span>;
 }
 
-module_init(pci_helloworld_init);
-module_exit(pci_helloworld_exit);
-</code></pre>
+<span style="color: #42A5F5;">module_init</span>(pci_helloworld_init);
+<span style="color: #42A5F5;">module_exit</span>(pci_helloworld_exit);
+</pre>
 </div>
 
 <ul class="org-ul">
@@ -424,57 +424,57 @@ module_exit(pci_helloworld_exit);
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-makefile"><span style="color: #268bd2;">obj-m</span> := pci-helloworld.o
+<pre class="src src-makefile"><span style="color: #26A69A;">obj-m</span> := pci-helloworld.o
 
-ifeq ($(<span style="color: #268bd2;">KERNELRELEASE</span>),)  
+ifeq ($(<span style="color: #26A69A;">KERNELRELEASE</span>),)  
 
-<span style="color: #268bd2;">KERNELDIR</span> ?= /lib/modules/$(<span style="color: #268bd2;">shell</span> uname -r)/build 
-<span style="color: #268bd2;">PWD</span> := $(<span style="color: #268bd2;">shell</span> pwd)  
+<span style="color: #26A69A;">KERNELDIR</span> ?= /lib/modules/$(<span style="color: #26A69A;">shell</span> uname -r)/build 
+<span style="color: #26A69A;">PWD</span> := $(<span style="color: #26A69A;">shell</span> pwd)  
 
-<span style="color: #268bd2;">all</span>:
-        $(<span style="color: #268bd2;">MAKE</span>) -C $(<span style="color: #268bd2;">KERNELDIR</span>) M=$(<span style="color: #268bd2;">PWD</span>) modules  
-<span style="color: #268bd2;">clean</span>:
-        $(<span style="color: #268bd2;">MAKE</span>) -C $(<span style="color: #268bd2;">KERNELDIR</span>) M=$(<span style="color: #268bd2;">PWD</span>) clean
+<span style="color: #42A5F5;">all</span>:
+        $(<span style="color: #26A69A;">MAKE</span>) -C $(<span style="color: #26A69A;">KERNELDIR</span>) M=$(<span style="color: #26A69A;">PWD</span>) modules  
+<span style="color: #42A5F5;">clean</span>:
+        $(<span style="color: #26A69A;">MAKE</span>) -C $(<span style="color: #26A69A;">KERNELDIR</span>) M=$(<span style="color: #26A69A;">PWD</span>) clean
 else  
 
-$(<span style="color: #268bd2;">info</span> Building with KERNELRELEASE = ${<span style="color: #268bd2;">KERNELRELEASE</span>})  
+$(<span style="color: #26A69A;">info</span> Building with KERNELRELEASE = ${<span style="color: #26A69A;">KERNELRELEASE</span>})  
 
 endif
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org939d143" class="outline-2">
-<h2 id="org939d143">Load the module and check the result</h2>
-<div class="outline-text-2" id="text-org939d143">
+<div id="outline-container-org6d41780" class="outline-2">
+<h2 id="org6d41780">Load the module and check the result</h2>
+<div class="outline-text-2" id="text-org6d41780">
 <ul class="org-ul">
 <li>Load the module</li>
 </ul>
 <div class="org-src-container">
-<pre><code class="src src-sh">insmod pci-helloworld.ko
-</code></pre>
+<pre class="src src-sh">insmod pci-helloworld.ko
+</pre>
 </div>
 
 <ul class="org-ul">
 <li>Check the result</li>
 </ul>
 <div class="org-src-container">
-<pre><code class="src src-sh">cat /proc/helloworld <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">Hello, world!</span>
+<pre class="src src-sh">cat /proc/helloworld <span style="color: #90A4AE;"># </span><span style="color: #90A4AE;">Hello, world!</span>
 
-<span style="color: #657b83; font-weight: bold;">echo</span> <span style="color: #2aa198;">"davei"</span> &gt; /proc/hellworld
+<span style="color: #0097A7;">echo</span> <span style="color: #66BB6A;">"davei"</span> &gt; /proc/hellworld
 
-cat /proc/helloworld <span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">davei</span>
-</code></pre>
+cat /proc/helloworld <span style="color: #90A4AE;"># </span><span style="color: #90A4AE;">davei</span>
+</pre>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2018 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2017-04-25 Tue 22:30. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
+Copyright 2018 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Last updated 2019-02-03 Sun 11:12. <br/>
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.1.9).
 </div>
 </div>
 </body>

@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-02-21 Wed 15:32 -->
+<!-- 2019-02-23 Sat 15:47 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Configure Libvirt with OpenvSwitch Bridge</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="xiangsiwei" />
+<meta name="author" content="siwei" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -186,7 +186,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2017 Free Software Foundation, Inc.
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -244,36 +244,36 @@ for the JavaScript code in this tag.
 <h1 class="title">Configure Libvirt with OpenvSwitch Bridge</h1>
 
 
-<div id="outline-container-orgc4a34ba" class="outline-2">
-<h2 id="orgc4a34ba"></h2>
-<div class="outline-text-2" id="text-orgc4a34ba">
+<div id="outline-container-org16e7893" class="outline-2">
+<h2 id="org16e7893"></h2>
+<div class="outline-text-2" id="text-org16e7893">
 <ol class="org-ol">
 <li><p>
 Create OpenvSwitch bridge
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh">ovs-vsctl add-br br0
-</code></pre>
+<pre class="src src-sh">ovs-vsctl add-br br0
+</pre>
 </div></li>
 <li><p>
 Configure libvirt with <code>br0</code> just created
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #268bd2;">BRNAME</span>=br0
+<pre class="src src-sh"><span style="color: #26A69A;">BRNAME</span>=br0
 
 cat &gt; /tmp/libvirt-net.xml &lt;&lt;EOF
-<span style="color: #b58900; font-weight: bold;">&lt;network&gt;</span>
-<span style="color: #b58900; font-weight: bold;">  &lt;name&gt;${BRNAME}&lt;/name&gt;</span>
-<span style="color: #b58900; font-weight: bold;">  &lt;forward mode='bridge'/&gt;</span>
-<span style="color: #b58900; font-weight: bold;">  &lt;bridge name='${BRNAME}'/&gt;</span>
-<span style="color: #b58900; font-weight: bold;">  &lt;virtualport type='openvswitch'/&gt;</span>
-<span style="color: #b58900; font-weight: bold;">&lt;/network&gt;</span>
-<span style="color: #b58900; font-weight: bold;">EOF</span>
+<span style="color: #ffa54f;">&lt;network&gt;</span>
+<span style="color: #ffa54f;">  &lt;name&gt;${BRNAME}&lt;/name&gt;</span>
+<span style="color: #ffa54f;">  &lt;forward mode='bridge'/&gt;</span>
+<span style="color: #ffa54f;">  &lt;bridge name='${BRNAME}'/&gt;</span>
+<span style="color: #ffa54f;">  &lt;virtualport type='openvswitch'/&gt;</span>
+<span style="color: #ffa54f;">&lt;/network&gt;</span>
+<span style="color: #ffa54f;">EOF</span>
 
 virsh net-define /tmp/libvirt-net.xml
-virsh net-start $<span style="color: #268bd2;">BRNAME</span>
-virsh net-autostart $<span style="color: #268bd2;">BRNAME</span>
-</code></pre>
+virsh net-start $<span style="color: #26A69A;">BRNAME</span>
+virsh net-autostart $<span style="color: #26A69A;">BRNAME</span>
+</pre>
 </div></li>
 </ol>
 </div>
@@ -281,9 +281,9 @@ virsh net-autostart $<span style="color: #268bd2;">BRNAME</span>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2018 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2017-09-27 Wed 19:51. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
+Copyright 2018 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Last updated 2019-02-03 Sun 11:12. <br/>
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.1.9).
 </div>
 </div>
 </body>

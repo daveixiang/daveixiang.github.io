@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-02-21 Wed 15:32 -->
+<!-- 2019-02-23 Sat 15:47 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Compile Golang from Source Code</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="xiangsiwei" />
+<meta name="author" content="siwei" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -186,7 +186,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2017 Free Software Foundation, Inc.
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -244,9 +244,9 @@ for the JavaScript code in this tag.
 <h1 class="title">Compile Golang from Source Code</h1>
 
 
-<div id="outline-container-orgb7d6ac5" class="outline-2">
-<h2 id="orgb7d6ac5">Introduction</h2>
-<div class="outline-text-2" id="text-orgb7d6ac5">
+<div id="outline-container-orgea9e024" class="outline-2">
+<h2 id="orgea9e024">Introduction</h2>
+<div class="outline-text-2" id="text-orgea9e024">
 <p>
 Go is a nice language started by Google. A nice advantage is that it
 compiles to native code and the binary does not have additional
@@ -257,13 +257,13 @@ cleanup.
 </div>
 </div>
 
-<div id="outline-container-orgbbd4fbb" class="outline-2">
-<h2 id="orgbbd4fbb">Installation steps</h2>
-<div class="outline-text-2" id="text-orgbbd4fbb">
+<div id="outline-container-orgf0d4612" class="outline-2">
+<h2 id="orgf0d4612">Installation steps</h2>
+<div class="outline-text-2" id="text-orgf0d4612">
 </div>
-<div id="outline-container-orgf9ef06b" class="outline-3">
-<h3 id="orgf9ef06b">First start with Go 1.4</h3>
-<div class="outline-text-3" id="text-orgf9ef06b">
+<div id="outline-container-org8195e46" class="outline-3">
+<h3 id="org8195e46">First start with Go 1.4</h3>
+<div class="outline-text-3" id="text-org8195e46">
 <p>
 Since Go version 1.5 you need Go itself to compile it. So we first
 start with Go 1.4:
@@ -276,10 +276,10 @@ start with Go 1.4:
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">tar zxf go1.4.3.src.tar.gz -C /go
-<span style="color: #657b83; font-weight: bold;">cd</span> /go
+<pre class="src src-sh">tar zxf go1.4.3.src.tar.gz -C /go
+<span style="color: #0097A7;">cd</span> /go
 mv go go1.4
-</code></pre>
+</pre>
 </div>
 
 <ul class="org-ul">
@@ -287,9 +287,9 @@ mv go go1.4
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #657b83; font-weight: bold;">cd</span> /app/go1.4/src
+<pre class="src src-sh"><span style="color: #0097A7;">cd</span> /app/go1.4/src
 ./make.bash
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -301,8 +301,8 @@ If get the following error:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-text">cannot load DWARF output from $WORK/os/user/_obj//_cgo_.o: decoding dwarf section info at offset 0x4: unsupported version 0
-</code></pre>
+<pre class="src src-text">cannot load DWARF output from $WORK/os/user/_obj//_cgo_.o: decoding dwarf section info at offset 0x4: unsupported version 0
+</pre>
 </div>
 
 <p>
@@ -310,15 +310,15 @@ Using Go 1.4 to bootstrap a later version, disable cgo with:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">env <span style="color: #268bd2;">CGO_ENABLED</span>=0 ./make.bash
-</code></pre>
+<pre class="src src-sh">env <span style="color: #26A69A;">CGO_ENABLED</span>=0 ./make.bash
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org8e77384" class="outline-3">
-<h3 id="org8e77384">Compile the current version (go1.7.5)</h3>
-<div class="outline-text-3" id="text-org8e77384">
+<div id="outline-container-org44e57c7" class="outline-3">
+<h3 id="org44e57c7">Compile the current version (go1.7.5)</h3>
+<div class="outline-text-3" id="text-org44e57c7">
 <ul class="org-ul">
 <li>Download <a href="https://storage.googleapis.com/golang/go1.7.5.src.tar.gz">go1.7.5.src.tar.gz</a></li>
 
@@ -326,10 +326,10 @@ Using Go 1.4 to bootstrap a later version, disable cgo with:
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">tar zxf go1.7.5.src.tar.gz -C /go
-<span style="color: #657b83; font-weight: bold;">cd</span> /go
+<pre class="src src-sh">tar zxf go1.7.5.src.tar.gz -C /go
+<span style="color: #0097A7;">cd</span> /go
 mv go go1.7
-</code></pre>
+</pre>
 </div>
 
 <ul class="org-ul">
@@ -337,8 +337,8 @@ mv go go1.7
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #657b83; font-weight: bold;">export</span> <span style="color: #268bd2;">GOROOT_BOOTSTRAP</span>=/app/go1.4
-</code></pre>
+<pre class="src src-sh"><span style="color: #0097A7;">export</span> <span style="color: #26A69A;">GOROOT_BOOTSTRAP</span>=/app/go1.4
+</pre>
 </div>
 
 <ul class="org-ul">
@@ -346,9 +346,9 @@ mv go go1.7
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #657b83; font-weight: bold;">cd</span> /app/go1.7/src
+<pre class="src src-sh"><span style="color: #0097A7;">cd</span> /app/go1.7/src
 ./make.bash
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -357,34 +357,34 @@ After some more minutes, we finally have working Go 1.7 installation.
 </div>
 </div>
 
-<div id="outline-container-orgd41c4a0" class="outline-3">
-<h3 id="orgd41c4a0">Set up environment variables for convenience</h3>
-<div class="outline-text-3" id="text-orgd41c4a0">
+<div id="outline-container-org71dccc2" class="outline-3">
+<h3 id="org71dccc2">Set up environment variables for convenience</h3>
+<div class="outline-text-3" id="text-org71dccc2">
 <ol class="org-ol">
 <li><p>
 set the root of the go installation:
 </p>
 <div class="org-src-container">
-<pre><code class="src src-shell">ln -sf /app/go1.7 /app/go
+<pre class="src src-shell">ln -sf /app/go1.7 /app/go
 
-<span style="color: #657b83; font-weight: bold;">export</span> <span style="color: #268bd2;">GOROOT</span>=/app/go
-</code></pre>
+<span style="color: #0097A7;">export</span> <span style="color: #26A69A;">GOROOT</span>=/app/go
+</pre>
 </div></li>
 
 <li><p>
 tell go where to store additional packages downloaded with “go get”:
 </p>
 <div class="org-src-container">
-<pre><code class="src src-shell"><span style="color: #657b83; font-weight: bold;">export</span> <span style="color: #268bd2;">GOPATH</span>=&lt;path/to/addons&gt;
-</code></pre>
+<pre class="src src-shell"><span style="color: #0097A7;">export</span> <span style="color: #26A69A;">GOPATH</span>=&lt;path/to/addons&gt;
+</pre>
 </div></li>
 
 <li><p>
 finally add the bin directory to your PATH:
 </p>
 <div class="org-src-container">
-<pre><code class="src src-shell"><span style="color: #657b83; font-weight: bold;">export</span> <span style="color: #268bd2;">PATH</span>=$<span style="color: #268bd2;">GOROOT</span>/bin:$<span style="color: #268bd2;">GOPATH</span>/bin:$<span style="color: #268bd2;">PATH</span>
-</code></pre>
+<pre class="src src-shell"><span style="color: #0097A7;">export</span> <span style="color: #26A69A;">PATH</span>=$<span style="color: #26A69A;">GOROOT</span>/bin:$<span style="color: #26A69A;">GOPATH</span>/bin:$<span style="color: #26A69A;">PATH</span>
+</pre>
 </div></li>
 </ol>
 </div>
@@ -393,9 +393,9 @@ finally add the bin directory to your PATH:
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2018 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2017-10-02 Mon 15:28. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
+Copyright 2018 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Last updated 2019-02-03 Sun 11:12. <br/>
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.1.9).
 </div>
 </div>
 </body>

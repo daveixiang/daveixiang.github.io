@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-02-21 Wed 15:32 -->
+<!-- 2019-02-23 Sat 15:47 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>What is a System Call (Linux)</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="xiangsiwei" />
+<meta name="author" content="siwei" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -186,7 +186,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2017 Free Software Foundation, Inc.
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -243,9 +243,9 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">What is a System Call (Linux)</h1>
 
-<div id="outline-container-org0f87316" class="outline-2">
-<h2 id="org0f87316">Introduction</h2>
-<div class="outline-text-2" id="text-org0f87316">
+<div id="outline-container-orgbeddefe" class="outline-2">
+<h2 id="orgbeddefe">Introduction</h2>
+<div class="outline-text-2" id="text-orgbeddefe">
 <p>
 An application program makes a system call to get the operating system
 to perform a service for it, like reading from a file.
@@ -253,9 +253,9 @@ to perform a service for it, like reading from a file.
 </div>
 </div>
 
-<div id="outline-container-org4893e22" class="outline-2">
-<h2 id="org4893e22">System Calls in 32-bit Linux</h2>
-<div class="outline-text-2" id="text-org4893e22">
+<div id="outline-container-org5ec5753" class="outline-2">
+<h2 id="org5ec5753">System Calls in 32-bit Linux</h2>
+<div class="outline-text-2" id="text-org5ec5753">
 <ol class="org-ol">
 <li>To make a system call in <code>32-bit</code> Linux, place the system call
 number in <code>eax</code>, then its arguments, in order, in <code>ebx</code>, <code>ecx</code>,
@@ -266,31 +266,31 @@ number in <code>eax</code>, then its arguments, in order, in <code>ebx</code>, <
 <li>All registers are saved across the system call.</li>
 </ol>
 <div class="org-src-container">
-<pre><code class="src src-asm"><span style="color: #859900; font-weight: bold;">.section</span> .data
-<span style="color: #268bd2;">mesg</span>:
-    <span style="color: #859900; font-weight: bold;">.asciz</span> <span style="color: #2aa198;">"Hello World\n"</span>
-<span style="color: #268bd2;">mesg_len</span> = . - mesg
+<pre class="src src-asm"><span style="color: #7E57C2;">.section</span> .data
+<span style="color: #42A5F5;">mesg</span>:
+    <span style="color: #7E57C2;">.asciz</span> <span style="color: #66BB6A;">"Hello World\n"</span>
+<span style="color: #42A5F5;">mesg_len</span> = . - mesg
 
-<span style="color: #859900; font-weight: bold;">.section</span> .text
-<span style="color: #859900; font-weight: bold;">.global</span> _start
-<span style="color: #268bd2;">_start</span>:                         # ELF entry point
-    <span style="color: #859900; font-weight: bold;">mov</span> $4, <span style="color: #268bd2;">%eax</span>                # sys_write
-    <span style="color: #859900; font-weight: bold;">mov</span> $1, <span style="color: #268bd2;">%ebx</span>                # STDOUT
-    <span style="color: #859900; font-weight: bold;">mov</span> $mesg, <span style="color: #268bd2;">%ecx</span>             # buffer address
-    <span style="color: #859900; font-weight: bold;">mov</span> $mesg_len, <span style="color: #268bd2;">%edx</span>         # buffer length
-    <span style="color: #859900; font-weight: bold;">int</span> $0x80
+<span style="color: #7E57C2;">.section</span> .text
+<span style="color: #7E57C2;">.global</span> _start
+<span style="color: #42A5F5;">_start</span>:                         # ELF entry point
+    <span style="color: #7E57C2;">mov</span> $4, <span style="color: #26A69A;">%eax</span>                # sys_write
+    <span style="color: #7E57C2;">mov</span> $1, <span style="color: #26A69A;">%ebx</span>                # STDOUT
+    <span style="color: #7E57C2;">mov</span> $mesg, <span style="color: #26A69A;">%ecx</span>             # buffer address
+    <span style="color: #7E57C2;">mov</span> $mesg_len, <span style="color: #26A69A;">%edx</span>         # buffer length
+    <span style="color: #7E57C2;">int</span> $0x80
 
-    <span style="color: #859900; font-weight: bold;">mov</span> $1, <span style="color: #268bd2;">%eax</span>                # sys_exit
-    <span style="color: #859900; font-weight: bold;">mov</span> $0, <span style="color: #268bd2;">%ebx</span>                # error code
-    <span style="color: #859900; font-weight: bold;">int</span> $0x80
-</code></pre>
+    <span style="color: #7E57C2;">mov</span> $1, <span style="color: #26A69A;">%eax</span>                # sys_exit
+    <span style="color: #7E57C2;">mov</span> $0, <span style="color: #26A69A;">%ebx</span>                # error code
+    <span style="color: #7E57C2;">int</span> $0x80
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgbf20da0" class="outline-2">
-<h2 id="orgbf20da0">System Calls in 64-bit Linux</h2>
-<div class="outline-text-2" id="text-orgbf20da0">
+<div id="outline-container-orgc65acf1" class="outline-2">
+<h2 id="orgc65acf1">System Calls in 64-bit Linux</h2>
+<div class="outline-text-2" id="text-orgc65acf1">
 <ol class="org-ol">
 <li>To make a system call in <code>64-bit</code> Linux, place the system call
 number in <code>rax</code>, then its arguments, in order, in <code>rdi</code>, <code>rsi</code>,
@@ -308,25 +308,25 @@ saved across the system call.</li>
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-asm"><span style="color: #859900; font-weight: bold;">.section</span> .data
-<span style="color: #268bd2;">mesg</span>:
-    <span style="color: #859900; font-weight: bold;">.asciz</span> <span style="color: #2aa198;">"Hello World\n"</span>
-<span style="color: #268bd2;">mesg_len</span> = . - mesg
+<pre class="src src-asm"><span style="color: #7E57C2;">.section</span> .data
+<span style="color: #42A5F5;">mesg</span>:
+    <span style="color: #7E57C2;">.asciz</span> <span style="color: #66BB6A;">"Hello World\n"</span>
+<span style="color: #42A5F5;">mesg_len</span> = . - mesg
 
-<span style="color: #859900; font-weight: bold;">.section</span> .text
-<span style="color: #859900; font-weight: bold;">.global</span> _start
-<span style="color: #268bd2;">_start</span>:                         # ELF entry point
-    <span style="color: #859900; font-weight: bold;">mov</span> $1, <span style="color: #268bd2;">%rax</span>                # sys_write
-    <span style="color: #859900; font-weight: bold;">mov</span> $1, <span style="color: #268bd2;">%rdi</span>                # STDOUT
-    <span style="color: #859900; font-weight: bold;">mov</span> $mesg, <span style="color: #268bd2;">%rsi</span>             # buffer address
-    <span style="color: #859900; font-weight: bold;">mov</span> $mesg_len, <span style="color: #268bd2;">%rdx</span>         # buffer length
-    <span style="color: #859900; font-weight: bold;">syscall</span>
-    <span style="color: #859900; font-weight: bold;">mov</span> <span style="color: #268bd2;">%rax</span>, <span style="color: #268bd2;">%rbx</span>
+<span style="color: #7E57C2;">.section</span> .text
+<span style="color: #7E57C2;">.global</span> _start
+<span style="color: #42A5F5;">_start</span>:                         # ELF entry point
+    <span style="color: #7E57C2;">mov</span> $1, <span style="color: #26A69A;">%rax</span>                # sys_write
+    <span style="color: #7E57C2;">mov</span> $1, <span style="color: #26A69A;">%rdi</span>                # STDOUT
+    <span style="color: #7E57C2;">mov</span> $mesg, <span style="color: #26A69A;">%rsi</span>             # buffer address
+    <span style="color: #7E57C2;">mov</span> $mesg_len, <span style="color: #26A69A;">%rdx</span>         # buffer length
+    <span style="color: #7E57C2;">syscall</span>
+    <span style="color: #7E57C2;">mov</span> <span style="color: #26A69A;">%rax</span>, <span style="color: #26A69A;">%rbx</span>
 
-    <span style="color: #859900; font-weight: bold;">mov</span> $60, <span style="color: #268bd2;">%rax</span>               # sys_exit
-    <span style="color: #859900; font-weight: bold;">mov</span> <span style="color: #268bd2;">%rbx</span>, <span style="color: #268bd2;">%rdi</span>              # 0
-    <span style="color: #859900; font-weight: bold;">syscall</span>
-</code></pre>
+    <span style="color: #7E57C2;">mov</span> $60, <span style="color: #26A69A;">%rax</span>               # sys_exit
+    <span style="color: #7E57C2;">mov</span> <span style="color: #26A69A;">%rbx</span>, <span style="color: #26A69A;">%rdi</span>              # 0
+    <span style="color: #7E57C2;">syscall</span>
+</pre>
 </div>
 
 <ul class="org-ul">
@@ -334,31 +334,31 @@ saved across the system call.</li>
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-asm"><span style="color: #859900; font-weight: bold;">.data</span>
-<span style="color: #268bd2;">_hello</span>:
-  <span style="color: #859900; font-weight: bold;">.asciz</span> <span style="color: #2aa198;">"hello world\n"</span>
+<pre class="src src-asm"><span style="color: #7E57C2;">.data</span>
+<span style="color: #42A5F5;">_hello</span>:
+  <span style="color: #7E57C2;">.asciz</span> <span style="color: #66BB6A;">"hello world\n"</span>
 
-<span style="color: #859900; font-weight: bold;">.text</span>
-<span style="color: #859900; font-weight: bold;">.globl</span> _main
-<span style="color: #268bd2;">_main</span>:
-    <span style="color: #859900; font-weight: bold;">subq</span> $8, <span style="color: #268bd2;">%rsp</span>
+<span style="color: #7E57C2;">.text</span>
+<span style="color: #7E57C2;">.globl</span> _main
+<span style="color: #42A5F5;">_main</span>:
+    <span style="color: #7E57C2;">subq</span> $8, <span style="color: #26A69A;">%rsp</span>
 
-    <span style="color: #859900; font-weight: bold;">movb</span> $0, <span style="color: #268bd2;">%al</span>
-    <span style="color: #859900; font-weight: bold;">leaq</span> _hello(<span style="color: #268bd2;">%rip</span>), <span style="color: #268bd2;">%rdi</span>
-    <span style="color: #859900; font-weight: bold;">call</span> _printf
+    <span style="color: #7E57C2;">movb</span> $0, <span style="color: #26A69A;">%al</span>
+    <span style="color: #7E57C2;">leaq</span> _hello(<span style="color: #26A69A;">%rip</span>), <span style="color: #26A69A;">%rdi</span>
+    <span style="color: #7E57C2;">call</span> _printf
 
-    <span style="color: #859900; font-weight: bold;">movq</span> $0, <span style="color: #268bd2;">%rdi</span>
-    <span style="color: #859900; font-weight: bold;">call</span> _exit
-</code></pre>
+    <span style="color: #7E57C2;">movq</span> $0, <span style="color: #26A69A;">%rdi</span>
+    <span style="color: #7E57C2;">call</span> _exit
+</pre>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2018 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2016-08-06 Sat 21:20. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
+Copyright 2018 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Last updated 2019-02-03 Sun 11:12. <br/>
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.1.9).
 </div>
 </div>
 </body>

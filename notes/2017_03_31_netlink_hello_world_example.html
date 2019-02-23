@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-02-21 Wed 15:32 -->
+<!-- 2019-02-23 Sat 15:47 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Netlink Hello World Example</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="xiangsiwei" />
+<meta name="author" content="siwei" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -186,7 +186,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2017 Free Software Foundation, Inc.
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -243,43 +243,43 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">Netlink Hello World Example</h1>
 
-<div id="outline-container-org76b18e1" class="outline-2">
-<h2 id="org76b18e1">demo kernel code</h2>
-<div class="outline-text-2" id="text-org76b18e1">
+<div id="outline-container-org1325d79" class="outline-2">
+<h2 id="org1325d79">demo kernel code</h2>
+<div class="outline-text-2" id="text-org1325d79">
 <ul class="org-ul">
 <li>hello_nl_kern.c</li>
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">&lt;linux/module.h&gt;</span>
-<span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">&lt;net/sock.h&gt;</span>
-<span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">&lt;linux/netlink.h&gt;</span>
-<span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">&lt;linux/skbuff.h&gt;</span>
+<pre class="src src-c"><span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;linux/module.h&gt;</span>
+<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;net/sock.h&gt;</span>
+<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;linux/netlink.h&gt;</span>
+<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;linux/skbuff.h&gt;</span>
 
-<span style="color: #268bd2;">#define</span> <span style="color: #268bd2;">NETLINK_USER</span> 31
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">NETLINK_USER</span> 31
 
-<span style="color: #859900; font-weight: bold;">struct</span> <span style="color: #b58900;">sock</span> *<span style="color: #268bd2;">nl_sk</span> = <span style="color: #268bd2; font-weight: bold;">NULL</span>;
+<span style="color: #7E57C2;">struct</span> <span style="color: #D84315;">sock</span> *<span style="color: #26A69A;">nl_sk</span> = <span style="color: #5C6BC0;">NULL</span>;
 
-<span style="color: #859900; font-weight: bold;">static</span> <span style="color: #b58900;">void</span> <span style="color: #268bd2;">hello_nl_recv_msg</span>(<span style="color: #859900; font-weight: bold;">struct</span> <span style="color: #b58900;">sk_buff</span> *<span style="color: #268bd2;">skb</span>)
+<span style="color: #7E57C2;">static</span> <span style="color: #D84315;">void</span> <span style="color: #42A5F5;">hello_nl_recv_msg</span>(<span style="color: #7E57C2;">struct</span> <span style="color: #D84315;">sk_buff</span> *<span style="color: #26A69A;">skb</span>)
 {
-        <span style="color: #859900; font-weight: bold;">struct</span> <span style="color: #b58900;">nlmsghdr</span> *<span style="color: #268bd2;">nlh</span>;
-        <span style="color: #b58900;">int</span> <span style="color: #268bd2;">pid</span>;
-        <span style="color: #859900; font-weight: bold;">struct</span> <span style="color: #b58900;">sk_buff</span> *<span style="color: #268bd2;">skb_out</span>;
-        <span style="color: #b58900;">int</span> <span style="color: #268bd2;">msg_size</span>;
-        <span style="color: #b58900;">char</span> *<span style="color: #268bd2;">msg</span> = <span style="color: #2aa198;">"Hello from kernel"</span>;
-        <span style="color: #b58900;">int</span> <span style="color: #268bd2;">res</span>;
-        printk(KERN_INFO <span style="color: #2aa198;">"Entering: %s\n"</span>, __FUNCTION__);
+        <span style="color: #7E57C2;">struct</span> <span style="color: #D84315;">nlmsghdr</span> *<span style="color: #26A69A;">nlh</span>;
+        <span style="color: #D84315;">int</span> <span style="color: #26A69A;">pid</span>;
+        <span style="color: #7E57C2;">struct</span> <span style="color: #D84315;">sk_buff</span> *<span style="color: #26A69A;">skb_out</span>;
+        <span style="color: #D84315;">int</span> <span style="color: #26A69A;">msg_size</span>;
+        <span style="color: #D84315;">char</span> *<span style="color: #26A69A;">msg</span> = <span style="color: #66BB6A;">"Hello from kernel"</span>;
+        <span style="color: #D84315;">int</span> <span style="color: #26A69A;">res</span>;
+        printk(KERN_INFO <span style="color: #66BB6A;">"Entering: %s\n"</span>, __FUNCTION__);
 
         msg_size = strlen(msg);
-        nlh = (<span style="color: #859900; font-weight: bold;">struct</span> <span style="color: #b58900;">nlmsghdr</span> *)skb-&gt;data;
-        printk(KERN_INFO <span style="color: #2aa198;">"Netlink received msg payload: %s\n"</span>,(<span style="color: #b58900;">char</span>*)nlmsg_data(nlh));
+        nlh = (<span style="color: #7E57C2;">struct</span> <span style="color: #D84315;">nlmsghdr</span> *)skb-&gt;data;
+        printk(KERN_INFO <span style="color: #66BB6A;">"Netlink received msg payload: %s\n"</span>,(<span style="color: #D84315;">char</span>*)nlmsg_data(nlh));
         pid = nlh-&gt;nlmsg_pid;
 
         skb_out = nlmsg_new(msg_size,0);
-        <span style="color: #859900; font-weight: bold;">if</span> (<span style="color: #b58900; font-weight: bold;">!</span>skb_out)
+        <span style="color: #7E57C2;">if</span> (<span style="color: #FF1744;">!</span>skb_out)
         {
-                printk(KERN_ERR <span style="color: #2aa198;">"Failed to allocate new skb\n"</span>);
-                <span style="color: #859900; font-weight: bold;">return</span>;
+                printk(KERN_ERR <span style="color: #66BB6A;">"Failed to allocate new skb\n"</span>);
+                <span style="color: #7E57C2;">return</span>;
         }
 
         nlh = nlmsg_put(skb_out, 0, 0, NLMSG_DONE, msg_size, 0);
@@ -287,40 +287,40 @@ for the JavaScript code in this tag.
         strncpy(nlmsg_data(nlh), msg,msg_size);
 
         res = nlmsg_unicast(nl_sk, skb_out, pid);
-        <span style="color: #859900; font-weight: bold;">if</span> (res &lt; 0)
-                printk(KERN_INFO <span style="color: #2aa198;">"Error while sending bak to user\n"</span>);
+        <span style="color: #7E57C2;">if</span> (res &lt; 0)
+                printk(KERN_INFO <span style="color: #66BB6A;">"Error while sending bak to user\n"</span>);
 }
 
-<span style="color: #859900; font-weight: bold;">static</span> <span style="color: #b58900;">int</span> <span style="color: #268bd2;">__init</span> hello_init(<span style="color: #b58900;">void</span>)
+<span style="color: #7E57C2;">static</span> <span style="color: #D84315;">int</span> <span style="color: #42A5F5;">__init</span> hello_init(<span style="color: #D84315;">void</span>)
 {
-        <span style="color: #859900; font-weight: bold;">struct</span> <span style="color: #b58900;">netlink_kernel_cfg</span> <span style="color: #268bd2;">cfg</span> = {
+        <span style="color: #7E57C2;">struct</span> <span style="color: #D84315;">netlink_kernel_cfg</span> <span style="color: #26A69A;">cfg</span> = {
                 .input = hello_nl_recv_msg,
         };
 
-        printk(<span style="color: #2aa198;">"Entering: %s\n"</span>, __FUNCTION__);
+        printk(<span style="color: #66BB6A;">"Entering: %s\n"</span>, __FUNCTION__);
 
         nl_sk = netlink_kernel_create(&amp;init_net, NETLINK_USER, &amp;cfg);
 
-        <span style="color: #859900; font-weight: bold;">if</span> (<span style="color: #b58900; font-weight: bold;">!</span>nl_sk)
+        <span style="color: #7E57C2;">if</span> (<span style="color: #FF1744;">!</span>nl_sk)
         {
-                printk(KERN_ALERT <span style="color: #2aa198;">"Error creating socket.\n"</span>);
-                <span style="color: #859900; font-weight: bold;">return</span> -10;
+                printk(KERN_ALERT <span style="color: #66BB6A;">"Error creating socket.\n"</span>);
+                <span style="color: #7E57C2;">return</span> -10;
         }
 
-        <span style="color: #859900; font-weight: bold;">return</span> 0;
+        <span style="color: #7E57C2;">return</span> 0;
 }
 
-<span style="color: #859900; font-weight: bold;">static</span> <span style="color: #b58900;">void</span> <span style="color: #268bd2;">__exit</span> hello_exit(<span style="color: #b58900;">void</span>)
+<span style="color: #7E57C2;">static</span> <span style="color: #D84315;">void</span> <span style="color: #42A5F5;">__exit</span> hello_exit(<span style="color: #D84315;">void</span>)
 {
-        printk(KERN_INFO <span style="color: #2aa198;">"exiting hello module\n"</span>);
+        printk(KERN_INFO <span style="color: #66BB6A;">"exiting hello module\n"</span>);
         netlink_kernel_release(nl_sk);
 }
 
-module_init(hello_init);
-module_exit(hello_exit);
+<span style="color: #42A5F5;">module_init</span>(hello_init);
+<span style="color: #42A5F5;">module_exit</span>(hello_exit);
 
-MODULE_LICENSE(<span style="color: #2aa198;">"GPL"</span>);
-</code></pre>
+MODULE_LICENSE(<span style="color: #66BB6A;">"GPL"</span>);
+</pre>
 </div>
 
 <ul class="org-ul">
@@ -328,98 +328,98 @@ MODULE_LICENSE(<span style="color: #2aa198;">"GPL"</span>);
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-makefile"><span style="color: #268bd2;">obj-m</span> := hello_nl_kern.o
+<pre class="src src-makefile"><span style="color: #26A69A;">obj-m</span> := hello_nl_kern.o
 
-<span style="color: #268bd2;">KERNEL_SOURCE</span> := /lib/modules/$(<span style="color: #268bd2;">shell</span> uname -r)/build
+<span style="color: #26A69A;">KERNEL_SOURCE</span> := /lib/modules/$(<span style="color: #26A69A;">shell</span> uname -r)/build
 
-<span style="color: #268bd2;">PWD</span> := $(<span style="color: #268bd2;">shell</span> pwd)
+<span style="color: #26A69A;">PWD</span> := $(<span style="color: #26A69A;">shell</span> pwd)
 
-<span style="color: #268bd2;">all</span>:
-        make -C $(<span style="color: #268bd2;">KERNEL_SOURCE</span>) SUBDIRS=${<span style="color: #268bd2;">PWD</span>} modules
-<span style="color: #268bd2;">clean</span>:
-        make -C $(<span style="color: #268bd2;">KERNEL_SOURCE</span>) SUBDIRS=${<span style="color: #268bd2;">PWD</span>} clean
-</code></pre>
+<span style="color: #42A5F5;">all</span>:
+        make -C $(<span style="color: #26A69A;">KERNEL_SOURCE</span>) SUBDIRS=${<span style="color: #26A69A;">PWD</span>} modules
+<span style="color: #42A5F5;">clean</span>:
+        make -C $(<span style="color: #26A69A;">KERNEL_SOURCE</span>) SUBDIRS=${<span style="color: #26A69A;">PWD</span>} clean
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orga64514f" class="outline-2">
-<h2 id="orga64514f">demo user code</h2>
-<div class="outline-text-2" id="text-orga64514f">
+<div id="outline-container-orgff7765d" class="outline-2">
+<h2 id="orgff7765d">demo user code</h2>
+<div class="outline-text-2" id="text-orgff7765d">
 <ul class="org-ul">
 <li>hello_nl_user.c</li>
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">&lt;sys/socket.h&gt;</span>
-<span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">&lt;linux/netlink.h&gt;</span>
-<span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">&lt;stdlib.h&gt;</span>
-<span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">&lt;string.h&gt;</span>
-<span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;sys/socket.h&gt;</span>
+<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;linux/netlink.h&gt;</span>
+<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;stdlib.h&gt;</span>
+<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;string.h&gt;</span>
+<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;stdio.h&gt;</span>
 
-<span style="color: #268bd2;">#define</span> <span style="color: #268bd2;">NETLINK_USER</span> 31
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">NETLINK_USER</span> 31
 
-<span style="color: #268bd2;">#define</span> <span style="color: #268bd2;">MAX_PAYLOAD</span> 1024 <span style="color: #93a1a1;">/* </span><span style="color: #93a1a1;">maximum payload size</span><span style="color: #93a1a1;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">MAX_PAYLOAD</span> 1024 <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">maximum payload size</span><span style="color: #90A4AE;">*/</span>
 
-<span style="color: #859900; font-weight: bold;">struct</span> <span style="color: #b58900;">sockaddr_nl</span> <span style="color: #268bd2;">src_addr</span>, <span style="color: #268bd2;">dest_addr</span>;
-<span style="color: #859900; font-weight: bold;">struct</span> <span style="color: #b58900;">nlmsghdr</span> *<span style="color: #268bd2;">nlh</span> = <span style="color: #268bd2; font-weight: bold;">NULL</span>;
-<span style="color: #859900; font-weight: bold;">struct</span> <span style="color: #b58900;">iovec</span> <span style="color: #268bd2;">iov</span>;
-<span style="color: #b58900;">int</span> <span style="color: #268bd2;">sock_fd</span>;
-<span style="color: #859900; font-weight: bold;">struct</span> <span style="color: #b58900;">msghdr</span> <span style="color: #268bd2;">msg</span>;
+<span style="color: #7E57C2;">struct</span> <span style="color: #D84315;">sockaddr_nl</span> <span style="color: #26A69A;">src_addr</span>, <span style="color: #26A69A;">dest_addr</span>;
+<span style="color: #7E57C2;">struct</span> <span style="color: #D84315;">nlmsghdr</span> *<span style="color: #26A69A;">nlh</span> = <span style="color: #5C6BC0;">NULL</span>;
+<span style="color: #7E57C2;">struct</span> <span style="color: #D84315;">iovec</span> <span style="color: #26A69A;">iov</span>;
+<span style="color: #D84315;">int</span> <span style="color: #26A69A;">sock_fd</span>;
+<span style="color: #7E57C2;">struct</span> <span style="color: #D84315;">msghdr</span> <span style="color: #26A69A;">msg</span>;
 
-<span style="color: #b58900;">int</span> <span style="color: #268bd2;">main</span>(<span style="color: #b58900;">int</span> <span style="color: #268bd2;">argc</span>, <span style="color: #b58900;">char</span> *<span style="color: #268bd2;">argv</span>[])
+<span style="color: #D84315;">int</span> <span style="color: #42A5F5;">main</span>(<span style="color: #D84315;">int</span> <span style="color: #26A69A;">argc</span>, <span style="color: #D84315;">char</span> *<span style="color: #26A69A;">argv</span>[])
 {
         sock_fd = socket(PF_NETLINK, SOCK_RAW, NETLINK_USER);
-        <span style="color: #859900; font-weight: bold;">if</span> (sock_fd &lt; 0)
-                <span style="color: #859900; font-weight: bold;">return</span> -1;
+        <span style="color: #7E57C2;">if</span> (sock_fd &lt; 0)
+                <span style="color: #7E57C2;">return</span> -1;
 
-        memset(&amp;src_addr, 0, <span style="color: #859900; font-weight: bold;">sizeof</span>(src_addr));
+        memset(&amp;src_addr, 0, <span style="color: #7E57C2;">sizeof</span>(src_addr));
         src_addr.nl_family = AF_NETLINK;
         src_addr.nl_pid = getpid();
 
-        bind(sock_fd, (<span style="color: #859900; font-weight: bold;">struct</span> <span style="color: #b58900;">sockaddr</span>*)&amp;src_addr, <span style="color: #859900; font-weight: bold;">sizeof</span>(src_addr));
+        bind(sock_fd, (<span style="color: #7E57C2;">struct</span> <span style="color: #D84315;">sockaddr</span>*)&amp;src_addr, <span style="color: #7E57C2;">sizeof</span>(src_addr));
 
-        memset(&amp;dest_addr, 0, <span style="color: #859900; font-weight: bold;">sizeof</span>(dest_addr));
+        memset(&amp;dest_addr, 0, <span style="color: #7E57C2;">sizeof</span>(dest_addr));
         dest_addr.nl_family = AF_NETLINK;
-        dest_addr.nl_pid = 0; <span style="color: #93a1a1;">/* </span><span style="color: #93a1a1;">For Linux Kernel </span><span style="color: #93a1a1;">*/</span>
-        dest_addr.nl_groups = 0; <span style="color: #93a1a1;">/* </span><span style="color: #93a1a1;">unicast </span><span style="color: #93a1a1;">*/</span>
+        dest_addr.nl_pid = 0; <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">For Linux Kernel </span><span style="color: #90A4AE;">*/</span>
+        dest_addr.nl_groups = 0; <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">unicast </span><span style="color: #90A4AE;">*/</span>
 
-        nlh = (<span style="color: #859900; font-weight: bold;">struct</span> <span style="color: #b58900;">nlmsghdr</span> *)malloc(NLMSG_SPACE(MAX_PAYLOAD));
+        nlh = (<span style="color: #7E57C2;">struct</span> <span style="color: #D84315;">nlmsghdr</span> *)malloc(NLMSG_SPACE(MAX_PAYLOAD));
         memset(nlh, 0, NLMSG_SPACE(MAX_PAYLOAD));
         nlh-&gt;nlmsg_len = NLMSG_SPACE(MAX_PAYLOAD);
         nlh-&gt;nlmsg_pid = getpid();
         nlh-&gt;nlmsg_flags = 0;
 
-        strcpy(NLMSG_DATA(nlh), <span style="color: #2aa198;">"Hello"</span>);
+        strcpy(NLMSG_DATA(nlh), <span style="color: #66BB6A;">"Hello"</span>);
 
-        iov.iov_base = (<span style="color: #b58900;">void</span> *)nlh;
+        iov.iov_base = (<span style="color: #D84315;">void</span> *)nlh;
         iov.iov_len = nlh-&gt;nlmsg_len;
-        msg.msg_name = (<span style="color: #b58900;">void</span> *)&amp;dest_addr;
-        msg.msg_namelen = <span style="color: #859900; font-weight: bold;">sizeof</span>(dest_addr);
+        msg.msg_name = (<span style="color: #D84315;">void</span> *)&amp;dest_addr;
+        msg.msg_namelen = <span style="color: #7E57C2;">sizeof</span>(dest_addr);
         msg.msg_iov = &amp;iov;
         msg.msg_iovlen = 1;
 
-        <span style="color: #93a1a1;">/* </span><span style="color: #93a1a1;">Sending message to kernel </span><span style="color: #93a1a1;">*/</span>
+        <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Sending message to kernel </span><span style="color: #90A4AE;">*/</span>
         sendmsg(sock_fd,&amp;msg,0);
-        printf(<span style="color: #2aa198;">"Waiting for message from kernel\n"</span>);
+        printf(<span style="color: #66BB6A;">"Waiting for message from kernel\n"</span>);
 
-        <span style="color: #93a1a1;">/* </span><span style="color: #93a1a1;">Read message from kernel </span><span style="color: #93a1a1;">*/</span>
+        <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Read message from kernel </span><span style="color: #90A4AE;">*/</span>
         recvmsg(sock_fd, &amp;msg, 0);
-        printf(<span style="color: #2aa198;">"Received message payload: %s\n"</span>, (<span style="color: #b58900;">char</span> *)NLMSG_DATA(nlh));
+        printf(<span style="color: #66BB6A;">"Received message payload: %s\n"</span>, (<span style="color: #D84315;">char</span> *)NLMSG_DATA(nlh));
         close(sock_fd);
 
-        <span style="color: #859900; font-weight: bold;">return</span> 0;
+        <span style="color: #7E57C2;">return</span> 0;
 }
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2018 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2017-03-31 Fri 21:16. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
+Copyright 2018 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Last updated 2019-02-03 Sun 11:12. <br/>
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.1.9).
 </div>
 </div>
 </body>

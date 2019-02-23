@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-02-21 Wed 15:32 -->
+<!-- 2019-02-23 Sat 15:47 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Disable auto suspend after closing laptop lid</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="xiangsiwei" />
+<meta name="author" content="siwei" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -186,7 +186,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2017 Free Software Foundation, Inc.
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -243,35 +243,35 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">Disable auto suspend after closing laptop lid</h1>
 
-<div id="outline-container-org4321a7e" class="outline-2">
-<h2 id="org4321a7e">Edit <code>/etc/systemd/logind.conf</code></h2>
-<div class="outline-text-2" id="text-org4321a7e">
+<div id="outline-container-org6d431d2" class="outline-2">
+<h2 id="org6d431d2">Edit <code>/etc/systemd/logind.conf</code></h2>
+<div class="outline-text-2" id="text-org6d431d2">
 <p>
 set <code>HandleLidSwitch</code> to <code>ignore</code>
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-shell"><span style="color: #268bd2;">HandleLidSwitch</span>=ignore
-</code></pre>
+<pre class="src src-shell"><span style="color: #26A69A;">HandleLidSwitch</span>=ignore
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org6d0c4c1" class="outline-2">
-<h2 id="org6d0c4c1">Restart systemd</h2>
-<div class="outline-text-2" id="text-org6d0c4c1">
+<div id="outline-container-orge44918b" class="outline-2">
+<h2 id="orge44918b">Restart systemd</h2>
+<div class="outline-text-2" id="text-orge44918b">
 <div class="org-src-container">
-<pre><code class="src src-shell">systemctl restart systemd-logind.service
-</code></pre>
+<pre class="src src-shell">systemctl restart systemd-logind.service
+</pre>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2018 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2018-02-19 Mon 23:53. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
+Copyright 2018 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Last updated 2019-02-03 Sun 11:12. <br/>
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.1.9).
 </div>
 </div>
 </body>

@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-02-21 Wed 15:32 -->
+<!-- 2019-02-23 Sat 15:47 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Fix Fcitx Chinese Input for Emacs</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="xiangsiwei" />
+<meta name="author" content="siwei" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -186,7 +186,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2017 Free Software Foundation, Inc.
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -243,9 +243,9 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">Fix Fcitx Chinese Input for Emacs</h1>
 
-<div id="outline-container-orge7edfc5" class="outline-2">
-<h2 id="orge7edfc5">Introduction</h2>
-<div class="outline-text-2" id="text-orge7edfc5">
+<div id="outline-container-org47a0c77" class="outline-2">
+<h2 id="org47a0c77">Introduction</h2>
+<div class="outline-text-2" id="text-org47a0c77">
 <p>
 当 LC_CTYPE 为英文时, 在 Emacs 上可能无法使用输入法。若遇到此情况，请
 在启动 Emacs 时将 LC_CTYPE 设为 zh_CN.UTF-8. 终端下并不会遇到此现象，
@@ -254,39 +254,68 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgd28fa1c" class="outline-2">
-<h2 id="orgd28fa1c">Debian Stretch处理方法</h2>
-<div class="outline-text-2" id="text-orgd28fa1c">
+<div id="outline-container-org7691e83" class="outline-2">
+<h2 id="org7691e83">Debian Stretch处理方法</h2>
+<div class="outline-text-2" id="text-org7691e83">
 <ol class="org-ol">
 <li><p>
 备份/usr/bin/emacs
 </p>
 <div class="org-src-container">
-<pre><code class="src src-shell">mv /usr/bin/emacs /usr/bin/emacs.bak
-</code></pre>
+<pre class="src src-shell">mv /usr/bin/emacs /usr/bin/emacs.bak
+</pre>
 </div></li>
 
 <li><p>
 创建/usr/bin/emacs, 输入一下内容:
 </p>
 <div class="org-src-container">
-<pre><code class="src src-text">LC_CTYPE=zh_CN.UTF-8 /usr/bin/emacs25-x $@
-</code></pre>
+<pre class="src src-text">LC_CTYPE=zh_CN.UTF-8 /usr/bin/emacs25-x $@
+</pre>
 </div>
 
 <div class="org-src-container">
-<pre><code class="src src-shell">chmod +x /usr/bin/emacs
-</code></pre>
+<pre class="src src-shell">chmod +x /usr/bin/emacs
+</pre>
 </div></li>
 </ol>
+</div>
+</div>
+
+<div id="outline-container-org50b9578" class="outline-2">
+<h2 id="org50b9578">在Emacs中启用Fcitx输入法</h2>
+<div class="outline-text-2" id="text-org50b9578">
+<ul class="org-ul">
+<li><p>
+安装fcitx输入法，在 ~/.xinitrc文件中添加如下内容 (我用startx启动图形环境，所以在~/.xinitrc中配置X会话)
+</p>
+<div class="org-src-container">
+<pre class="src src-text">export LC_CTYPE="zh_CN.UTF-8"
+
+export XMODIFIERS='@im=fcitx'
+export GTK_IM_MODULE=xim
+export QT_IM_MODULE=xim
+export GTK3_IM_MODULE=xim
+
+fcitx -d
+</pre>
+</div></li>
+
+<li>用 startx 启动图形会话后，应该可以看到fcitx成功启动。打开Emacs，激活输入法看看.
+注意，一定要加 export LC_CTYPE&#x2026; 那一句，不然在Emacs中无法使用中文输入法.
+现在，Emacs应该可以正常使用Fcitx，如果还是不能使用，可能原因是缺少 zh_CN.UTF-8 的 locale，转3.</li>
+
+<li>运行 locale 命令查看 LC_CTYPE 的值是否是 zh_CN.UTF-8 ，如果不是，说明没有安装 zh_CN.UTF-8 的 locale.
+用root权限运行 dpkg-reconfigure locales 选中 zh_CN.UTF-8, 生成新的locale. 重新启动X，再打开Emacs试试，应该可以正常使用Fcitx了。</li>
+</ul>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2018 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2017-10-03 Tue 17:00. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
+Copyright 2018 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Last updated 2019-02-23 Sat 15:43. <br/>
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.1.9).
 </div>
 </div>
 </body>

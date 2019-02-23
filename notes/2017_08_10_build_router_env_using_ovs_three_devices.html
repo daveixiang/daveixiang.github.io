@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-02-21 Wed 15:32 -->
+<!-- 2019-02-23 Sat 15:47 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Build Router Environment Using OVS - Three Devices</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="xiangsiwei" />
+<meta name="author" content="siwei" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -186,7 +186,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2017 Free Software Foundation, Inc.
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -243,15 +243,15 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">Build Router Environment Using OVS - Three Devices</h1>
 
-<div id="outline-container-org21161e2" class="outline-2">
-<h2 id="org21161e2">Create two bridges using OVS</h2>
-<div class="outline-text-2" id="text-org21161e2">
+<div id="outline-container-org178d8e8" class="outline-2">
+<h2 id="org178d8e8">Create two bridges using OVS</h2>
+<div class="outline-text-2" id="text-org178d8e8">
 <ul class="org-ul">
 <li><p>
 br0
 </p>
 <div class="org-src-container">
-<pre><code class="src src-shell">ip tuntap add name tap01 mode tap
+<pre class="src src-shell">ip tuntap add name tap01 mode tap
 ip tuntap add name tap02 mode tap
 
 ip link set tap01 up
@@ -263,14 +263,14 @@ ip link set tap01 address 12:34:56:78:9a:02
 ovs-vsctl add-br br0
 ovs-vsctl add-port br0 tap01
 ovs-vsctl add-port br0 tap02
-</code></pre>
+</pre>
 </div></li>
 
 <li><p>
 br1
 </p>
 <div class="org-src-container">
-<pre><code class="src src-shell">ip tuntap add name tap11 mode tap
+<pre class="src src-shell">ip tuntap add name tap11 mode tap
 ip tuntap add name tap12 mode tap
 
 ip link set tap11 up
@@ -282,15 +282,15 @@ ip link set tap11 address 12:34:56:78:9a:12
 ovs-vsctl add-br br1
 ovs-vsctl add-port br1 tap11
 ovs-vsctl add-port br1 tap12
-</code></pre>
+</pre>
 </div></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org0d255e3" class="outline-2">
-<h2 id="org0d255e3">Create two common PCs and one Router using qemu enumlator</h2>
-<div class="outline-text-2" id="text-org0d255e3">
+<div id="outline-container-orgca220dc" class="outline-2">
+<h2 id="orgca220dc">Create two common PCs and one Router using qemu enumlator</h2>
+<div class="outline-text-2" id="text-orgca220dc">
 <ol class="org-ol">
 <li><p>
 two PCs
@@ -299,26 +299,26 @@ two PCs
 <li>pc01</li>
 </ul>
 <div class="org-src-container">
-<pre><code class="src src-shell">qemu-system-i386 -name pc01 -enable-kvm <span style="color: #b58900; font-weight: bold;">\</span>
--m 1024M  -kernel ./bzImage <span style="color: #b58900; font-weight: bold;">\</span>
--initrd ./initramfs -append  <span style="color: #2aa198;">"console=ttyS0 quiet"</span> <span style="color: #b58900; font-weight: bold;">\</span>
--nographic -serial mon:stdio <span style="color: #b58900; font-weight: bold;">\</span>
--netdev tap,<span style="color: #268bd2;">id</span>=net1,<span style="color: #268bd2;">ifname</span>=tap02,<span style="color: #268bd2;">script</span>=no,<span style="color: #268bd2;">downscript</span>=no  <span style="color: #b58900; font-weight: bold;">\</span>
--device e1000,<span style="color: #268bd2;">netdev</span>=net1,<span style="color: #268bd2;">mac</span>=<span style="color: #2aa198;">'12:34:56:78:9a:02'</span>
-</code></pre>
+<pre class="src src-shell">qemu-system-i386 -name pc01 -enable-kvm <span style="color: #66BB6A;">\</span>
+-m 1024M  -kernel ./bzImage <span style="color: #66BB6A;">\</span>
+-initrd ./initramfs -append  <span style="color: #66BB6A;">"console=ttyS0 quiet"</span> <span style="color: #66BB6A;">\</span>
+-nographic -serial mon:stdio <span style="color: #66BB6A;">\</span>
+-netdev tap,<span style="color: #26A69A;">id</span>=net1,<span style="color: #26A69A;">ifname</span>=tap02,<span style="color: #26A69A;">script</span>=no,<span style="color: #26A69A;">downscript</span>=no  <span style="color: #66BB6A;">\</span>
+-device e1000,<span style="color: #26A69A;">netdev</span>=net1,<span style="color: #26A69A;">mac</span>=<span style="color: #66BB6A;">'12:34:56:78:9a:02'</span>
+</pre>
 </div>
 
 <ul class="org-ul">
 <li>pc02</li>
 </ul>
 <div class="org-src-container">
-<pre><code class="src src-shell">qemu-system-i386 -enable-kvm -name pc02 <span style="color: #b58900; font-weight: bold;">\</span>
--m 1024M  -kernel ./bzImage <span style="color: #b58900; font-weight: bold;">\</span>
--initrd ./initramfs -append  <span style="color: #2aa198;">"console=ttyS0 quiet"</span> <span style="color: #b58900; font-weight: bold;">\</span>
--nographic -serial mon:stdio <span style="color: #b58900; font-weight: bold;">\</span>
--netdev tap,<span style="color: #268bd2;">id</span>=net1,<span style="color: #268bd2;">ifname</span>=tap12,<span style="color: #268bd2;">script</span>=no,<span style="color: #268bd2;">downscript</span>=no  <span style="color: #b58900; font-weight: bold;">\</span>
--device e1000,<span style="color: #268bd2;">netdev</span>=net1,<span style="color: #268bd2;">mac</span>=<span style="color: #2aa198;">'12:34:56:78:9a:12'</span>
-</code></pre>
+<pre class="src src-shell">qemu-system-i386 -enable-kvm -name pc02 <span style="color: #66BB6A;">\</span>
+-m 1024M  -kernel ./bzImage <span style="color: #66BB6A;">\</span>
+-initrd ./initramfs -append  <span style="color: #66BB6A;">"console=ttyS0 quiet"</span> <span style="color: #66BB6A;">\</span>
+-nographic -serial mon:stdio <span style="color: #66BB6A;">\</span>
+-netdev tap,<span style="color: #26A69A;">id</span>=net1,<span style="color: #26A69A;">ifname</span>=tap12,<span style="color: #26A69A;">script</span>=no,<span style="color: #26A69A;">downscript</span>=no  <span style="color: #66BB6A;">\</span>
+-device e1000,<span style="color: #26A69A;">netdev</span>=net1,<span style="color: #26A69A;">mac</span>=<span style="color: #66BB6A;">'12:34:56:78:9a:12'</span>
+</pre>
 </div></li>
 
 <li><p>
@@ -328,65 +328,65 @@ one Router
 <li>router01</li>
 </ul>
 <div class="org-src-container">
-<pre><code class="src src-shell">qemu-system-i386 -name router01 -enable-kvm <span style="color: #b58900; font-weight: bold;">\</span>
--m 1024M  -kernel ./bzImage <span style="color: #b58900; font-weight: bold;">\</span>
--initrd ./initramfs -append  <span style="color: #2aa198;">"console=ttyS0 quiet"</span> <span style="color: #b58900; font-weight: bold;">\</span>
--nographic -serial mon:stdio <span style="color: #b58900; font-weight: bold;">\</span>
--netdev tap,<span style="color: #268bd2;">id</span>=net1,<span style="color: #268bd2;">ifname</span>=tap01,<span style="color: #268bd2;">script</span>=no,<span style="color: #268bd2;">downscript</span>=no  <span style="color: #b58900; font-weight: bold;">\</span>
--device e1000,<span style="color: #268bd2;">netdev</span>=net1,<span style="color: #268bd2;">mac</span>=<span style="color: #2aa198;">'12:34:56:78:9a:01'</span> <span style="color: #b58900; font-weight: bold;">\</span>
--netdev tap,<span style="color: #268bd2;">id</span>=net2,<span style="color: #268bd2;">ifname</span>=tap11,<span style="color: #268bd2;">script</span>=no,<span style="color: #268bd2;">downscript</span>=no  <span style="color: #b58900; font-weight: bold;">\</span>
--device e1000,<span style="color: #268bd2;">netdev</span>=net2,<span style="color: #268bd2;">mac</span>=<span style="color: #2aa198;">'12:34:56:78:9a:11'</span>
-</code></pre>
+<pre class="src src-shell">qemu-system-i386 -name router01 -enable-kvm <span style="color: #66BB6A;">\</span>
+-m 1024M  -kernel ./bzImage <span style="color: #66BB6A;">\</span>
+-initrd ./initramfs -append  <span style="color: #66BB6A;">"console=ttyS0 quiet"</span> <span style="color: #66BB6A;">\</span>
+-nographic -serial mon:stdio <span style="color: #66BB6A;">\</span>
+-netdev tap,<span style="color: #26A69A;">id</span>=net1,<span style="color: #26A69A;">ifname</span>=tap01,<span style="color: #26A69A;">script</span>=no,<span style="color: #26A69A;">downscript</span>=no  <span style="color: #66BB6A;">\</span>
+-device e1000,<span style="color: #26A69A;">netdev</span>=net1,<span style="color: #26A69A;">mac</span>=<span style="color: #66BB6A;">'12:34:56:78:9a:01'</span> <span style="color: #66BB6A;">\</span>
+-netdev tap,<span style="color: #26A69A;">id</span>=net2,<span style="color: #26A69A;">ifname</span>=tap11,<span style="color: #26A69A;">script</span>=no,<span style="color: #26A69A;">downscript</span>=no  <span style="color: #66BB6A;">\</span>
+-device e1000,<span style="color: #26A69A;">netdev</span>=net2,<span style="color: #26A69A;">mac</span>=<span style="color: #66BB6A;">'12:34:56:78:9a:11'</span>
+</pre>
 </div></li>
 </ol>
 </div>
 </div>
 
-<div id="outline-container-org4b70ce9" class="outline-2">
-<h2 id="org4b70ce9">Configure three devices just created routing rules</h2>
-<div class="outline-text-2" id="text-org4b70ce9">
+<div id="outline-container-orgb108c70" class="outline-2">
+<h2 id="orgb108c70">Configure three devices just created routing rules</h2>
+<div class="outline-text-2" id="text-orgb108c70">
 <ol class="org-ol">
 <li><p>
 pc01
 </p>
 <div class="org-src-container">
-<pre><code class="src src-shell">ip link set eth0 up
+<pre class="src src-shell">ip link set eth0 up
 ip addr add 10.0.0.2/24 dev eth0
 
 ip route add 0.0.0.0/0 via 10.0.0.1 dev eth0
-</code></pre>
+</pre>
 </div></li>
 
 <li><p>
 pc02
 </p>
 <div class="org-src-container">
-<pre><code class="src src-shell">ip link set eth0 up
+<pre class="src src-shell">ip link set eth0 up
 ip addr add 10.0.1.2/24 dev eth0
 
 ip route add 0.0.0.0/0 via 10.0.1.1 dev eth0
-</code></pre>
+</pre>
 </div></li>
 
 <li><p>
 router01
 </p>
 <div class="org-src-container">
-<pre><code class="src src-shell">ip link set eth0 up
+<pre class="src src-shell">ip link set eth0 up
 ip addr add 10.0.0.1/24 dev eth0
 ip link set eth1 up
 ip addr add 10.0.1.1/24 dev eth1
 
-<span style="color: #657b83; font-weight: bold;">echo</span> 1 &gt; /proc/sys/net/ipv4/ip_forward
-</code></pre>
+<span style="color: #0097A7;">echo</span> 1 &gt; /proc/sys/net/ipv4/ip_forward
+</pre>
 </div></li>
 
 <li><p>
 check the result: pc01 ping pc02
 </p>
 <div class="org-src-container">
-<pre><code class="src src-shell">ping 10.0.1.2 -c 3
-</code></pre>
+<pre class="src src-shell">ping 10.0.1.2 -c 3
+</pre>
 </div>
 
 <p>
@@ -394,7 +394,7 @@ and the result show be:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-text">PING 10.0.1.2 (10.0.1.2): 56 data bytes
+<pre class="src src-text">PING 10.0.1.2 (10.0.1.2): 56 data bytes
 64 bytes from 10.0.1.2: seq=0 ttl=63 time=2.097 ms
 64 bytes from 10.0.1.2: seq=1 ttl=63 time=2.543 ms
 64 bytes from 10.0.1.2: seq=2 ttl=63 time=2.451 ms
@@ -402,7 +402,7 @@ and the result show be:
 --- 10.0.1.2 ping statistics ---
 3 packets transmitted, 3 packets received, 0% packet loss
 round-trip min/avg/max = 2.097/2.363/2.543 ms
-</code></pre>
+</pre>
 </div></li>
 </ol>
 </div>
@@ -410,9 +410,9 @@ round-trip min/avg/max = 2.097/2.363/2.543 ms
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2018 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2017-10-05 Thu 14:50. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
+Copyright 2018 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Last updated 2019-02-03 Sun 11:12. <br/>
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.1.9).
 </div>
 </div>
 </body>

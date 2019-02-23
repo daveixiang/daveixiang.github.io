@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-02-21 Wed 15:32 -->
+<!-- 2019-02-23 Sat 15:47 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>GCC inline assembly hello world example</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="xiangsiwei" />
+<meta name="author" content="siwei" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -186,7 +186,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2017 Free Software Foundation, Inc.
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -243,39 +243,39 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">GCC inline assembly hello world example</h1>
 
-<div id="outline-container-orgf75c3a9" class="outline-2">
-<h2 id="orgf75c3a9"></h2>
-<div class="outline-text-2" id="text-orgf75c3a9">
+<div id="outline-container-orgf0a5560" class="outline-2">
+<h2 id="orgf0a5560"></h2>
+<div class="outline-text-2" id="text-orgf0a5560">
 <ul class="org-ul">
 <li>Linux x86</li>
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">&lt;string.h&gt;</span>
-<span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;string.h&gt;</span>
+<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;stdio.h&gt;</span>
 
-<span style="color: #b58900;">int</span> <span style="color: #268bd2;">main</span>(<span style="color: #b58900;">int</span> <span style="color: #268bd2;">argc</span>, <span style="color: #b58900;">char</span> *<span style="color: #268bd2;">argv</span>[])
+<span style="color: #D84315;">int</span> <span style="color: #42A5F5;">main</span>(<span style="color: #D84315;">int</span> <span style="color: #26A69A;">argc</span>, <span style="color: #D84315;">char</span> *<span style="color: #26A69A;">argv</span>[])
 {
-        <span style="color: #b58900;">char</span> *<span style="color: #268bd2;">str</span> = <span style="color: #2aa198;">"Hello World\n"</span>;
-        <span style="color: #b58900;">long</span> <span style="color: #268bd2;">len</span> = strlen(str);
-        <span style="color: #b58900;">int</span> <span style="color: #268bd2;">ret</span> = 0;
-<span style="color: #93a1a1;">/*</span>
-<span style="color: #93a1a1;"> * ssize_t write(int fd, const void *buf, size_t count);</span>
-<span style="color: #93a1a1;"> *</span>
-<span style="color: #93a1a1;"> </span><span style="color: #93a1a1;">*/</span>
-        <span style="color: #859900; font-weight: bold;">__asm__</span>(<span style="color: #2aa198;">"movl $1, %%eax\n\t"</span>    <span style="color: #93a1a1;">// </span><span style="color: #93a1a1;">write syscall</span>
-                <span style="color: #2aa198;">"movl $1, %%ebx\n\t"</span>    <span style="color: #93a1a1;">// </span><span style="color: #93a1a1;">fd   </span>
-                <span style="color: #2aa198;">"movl %1, %%ecx\n\t"</span>    <span style="color: #93a1a1;">// </span><span style="color: #93a1a1;">buf</span>
-                <span style="color: #2aa198;">"movl %2, %%edx\n\t"</span>    <span style="color: #93a1a1;">// </span><span style="color: #93a1a1;">count</span>
-                <span style="color: #2aa198;">"syscall\n\t"</span>
-                <span style="color: #2aa198;">"movl %%eax, %0"</span>        <span style="color: #93a1a1;">// </span><span style="color: #93a1a1;">return result to ret</span>
-                : <span style="color: #2aa198;">"+m"</span>(ret)
-                : <span style="color: #2aa198;">"g"</span>(str), <span style="color: #2aa198;">"g"</span>(len));
-        printf(<span style="color: #2aa198;">"ret %d\n"</span>, ret);
+        <span style="color: #D84315;">char</span> *<span style="color: #26A69A;">str</span> = <span style="color: #66BB6A;">"Hello World\n"</span>;
+        <span style="color: #D84315;">long</span> <span style="color: #26A69A;">len</span> = strlen(str);
+        <span style="color: #D84315;">int</span> <span style="color: #26A69A;">ret</span> = 0;
+<span style="color: #90A4AE;">/*</span>
+<span style="color: #90A4AE;"> * ssize_t write(int fd, const void *buf, size_t count);</span>
+<span style="color: #90A4AE;"> *</span>
+<span style="color: #90A4AE;"> </span><span style="color: #90A4AE;">*/</span>
+        <span style="color: #7E57C2;">__asm__</span>(<span style="color: #66BB6A;">"movl $1, %%eax\n\t"</span>    <span style="color: #90A4AE;">// </span><span style="color: #90A4AE;">write syscall</span>
+                <span style="color: #66BB6A;">"movl $1, %%ebx\n\t"</span>    <span style="color: #90A4AE;">// </span><span style="color: #90A4AE;">fd   </span>
+                <span style="color: #66BB6A;">"movl %1, %%ecx\n\t"</span>    <span style="color: #90A4AE;">// </span><span style="color: #90A4AE;">buf</span>
+                <span style="color: #66BB6A;">"movl %2, %%edx\n\t"</span>    <span style="color: #90A4AE;">// </span><span style="color: #90A4AE;">count</span>
+                <span style="color: #66BB6A;">"syscall\n\t"</span>
+                <span style="color: #66BB6A;">"movl %%eax, %0"</span>        <span style="color: #90A4AE;">// </span><span style="color: #90A4AE;">return result to ret</span>
+                : <span style="color: #66BB6A;">"+m"</span>(ret)
+                : <span style="color: #66BB6A;">"g"</span>(str), <span style="color: #66BB6A;">"g"</span>(len));
+        printf(<span style="color: #66BB6A;">"ret %d\n"</span>, ret);
 
-        <span style="color: #859900; font-weight: bold;">return</span> 0;
+        <span style="color: #7E57C2;">return</span> 0;
 }
-</code></pre>
+</pre>
 </div>
 
 <ul class="org-ul">
@@ -283,40 +283,40 @@ for the JavaScript code in this tag.
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-c"><span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">&lt;string.h&gt;</span>
-<span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;string.h&gt;</span>
+<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;stdio.h&gt;</span>
 
-<span style="color: #b58900;">int</span> <span style="color: #268bd2;">main</span>(<span style="color: #b58900;">int</span> <span style="color: #268bd2;">argc</span>, <span style="color: #b58900;">char</span> *<span style="color: #268bd2;">argv</span>[])
+<span style="color: #D84315;">int</span> <span style="color: #42A5F5;">main</span>(<span style="color: #D84315;">int</span> <span style="color: #26A69A;">argc</span>, <span style="color: #D84315;">char</span> *<span style="color: #26A69A;">argv</span>[])
 {
-        <span style="color: #b58900;">char</span> *<span style="color: #268bd2;">str</span> = <span style="color: #2aa198;">"Hello World\n"</span>;
-        <span style="color: #b58900;">long</span> <span style="color: #268bd2;">len</span> = strlen(str);
-        <span style="color: #b58900;">int</span> <span style="color: #268bd2;">ret</span> = 0;
-<span style="color: #93a1a1;">/*</span>
-<span style="color: #93a1a1;"> * ssize_t write(int fd, const void *buf, size_t count);</span>
-<span style="color: #93a1a1;"> *</span>
-<span style="color: #93a1a1;"> </span><span style="color: #93a1a1;">*/</span>
-        <span style="color: #859900; font-weight: bold;">__asm__</span>(<span style="color: #2aa198;">"movq $1, %%rax\n\t"</span>    <span style="color: #93a1a1;">// </span><span style="color: #93a1a1;">write syscall</span>
-                <span style="color: #2aa198;">"movq $1, %%rdi\n\t"</span>    <span style="color: #93a1a1;">// </span><span style="color: #93a1a1;">fd   </span>
-                <span style="color: #2aa198;">"movq %1, %%rsi\n\t"</span>    <span style="color: #93a1a1;">// </span><span style="color: #93a1a1;">buf</span>
-                <span style="color: #2aa198;">"movl %2, %%edx\n\t"</span>    <span style="color: #93a1a1;">// </span><span style="color: #93a1a1;">count</span>
-                <span style="color: #2aa198;">"syscall\n\t"</span>
-                <span style="color: #2aa198;">"movq %%rax, %0"</span>        <span style="color: #93a1a1;">// </span><span style="color: #93a1a1;">return result to ret</span>
-                : <span style="color: #2aa198;">"+m"</span>(ret)
-                : <span style="color: #2aa198;">"g"</span>(str), <span style="color: #2aa198;">"g"</span>(len));
-        printf(<span style="color: #2aa198;">"ret %d\n"</span>, ret);
+        <span style="color: #D84315;">char</span> *<span style="color: #26A69A;">str</span> = <span style="color: #66BB6A;">"Hello World\n"</span>;
+        <span style="color: #D84315;">long</span> <span style="color: #26A69A;">len</span> = strlen(str);
+        <span style="color: #D84315;">int</span> <span style="color: #26A69A;">ret</span> = 0;
+<span style="color: #90A4AE;">/*</span>
+<span style="color: #90A4AE;"> * ssize_t write(int fd, const void *buf, size_t count);</span>
+<span style="color: #90A4AE;"> *</span>
+<span style="color: #90A4AE;"> </span><span style="color: #90A4AE;">*/</span>
+        <span style="color: #7E57C2;">__asm__</span>(<span style="color: #66BB6A;">"movq $1, %%rax\n\t"</span>    <span style="color: #90A4AE;">// </span><span style="color: #90A4AE;">write syscall</span>
+                <span style="color: #66BB6A;">"movq $1, %%rdi\n\t"</span>    <span style="color: #90A4AE;">// </span><span style="color: #90A4AE;">fd   </span>
+                <span style="color: #66BB6A;">"movq %1, %%rsi\n\t"</span>    <span style="color: #90A4AE;">// </span><span style="color: #90A4AE;">buf</span>
+                <span style="color: #66BB6A;">"movl %2, %%edx\n\t"</span>    <span style="color: #90A4AE;">// </span><span style="color: #90A4AE;">count</span>
+                <span style="color: #66BB6A;">"syscall\n\t"</span>
+                <span style="color: #66BB6A;">"movq %%rax, %0"</span>        <span style="color: #90A4AE;">// </span><span style="color: #90A4AE;">return result to ret</span>
+                : <span style="color: #66BB6A;">"+m"</span>(ret)
+                : <span style="color: #66BB6A;">"g"</span>(str), <span style="color: #66BB6A;">"g"</span>(len));
+        printf(<span style="color: #66BB6A;">"ret %d\n"</span>, ret);
 
-        <span style="color: #859900; font-weight: bold;">return</span> 0;
+        <span style="color: #7E57C2;">return</span> 0;
 }
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2018 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2018-02-21 Wed 15:32. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
+Copyright 2018 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Last updated 2019-02-03 Sun 11:12. <br/>
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.1.9).
 </div>
 </div>
 </body>

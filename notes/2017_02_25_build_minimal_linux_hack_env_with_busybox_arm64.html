@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-02-21 Wed 15:32 -->
+<!-- 2019-02-23 Sat 15:47 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Build Minimal Linux Hack Env with Busybox (Target: arm64)</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="xiangsiwei" />
+<meta name="author" content="siwei" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -186,7 +186,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2017 Free Software Foundation, Inc.
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -243,154 +243,154 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">Build Minimal Linux Hack Env with Busybox (Target: arm64)</h1>
 
-<div id="outline-container-org15f1a9d" class="outline-2">
-<h2 id="org15f1a9d">Build the kernel</h2>
-<div class="outline-text-2" id="text-org15f1a9d">
+<div id="outline-container-orgb7e6b80" class="outline-2">
+<h2 id="orgb7e6b80">Build the kernel</h2>
+<div class="outline-text-2" id="text-orgb7e6b80">
 <ol class="org-ol">
 <li><p>
 Build the kernel
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #268bd2;">ARCH</span>=arm64 <span style="color: #268bd2;">CROSS_COMPILE</span>=aarch64-linux-gnu- make defconfig
-</code></pre>
+<pre class="src src-sh"><span style="color: #26A69A;">ARCH</span>=arm64 <span style="color: #26A69A;">CROSS_COMPILE</span>=aarch64-linux-gnu- make defconfig
+</pre>
 </div></li>
 
 <li><p>
 Simplify arm64 configuration by cutting unused drivers
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #268bd2;">ARCH</span>=arm64 <span style="color: #268bd2;">CROSS_COMPILE</span>=aarch64-linux-gnu- make menuconfig
-</code></pre>
+<pre class="src src-sh"><span style="color: #26A69A;">ARCH</span>=arm64 <span style="color: #26A69A;">CROSS_COMPILE</span>=aarch64-linux-gnu- make menuconfig
+</pre>
 </div></li>
 
 <li><p>
 Create kernel image <i>Image</i>
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #268bd2;">ARCH</span>=arm64 <span style="color: #268bd2;">CROSS_COMPILE</span>=aarch64-linux-gnu- make -j$(<span style="color: #6c71c4; font-weight: bold;">nproc</span>)
-</code></pre>
+<pre class="src src-sh"><span style="color: #26A69A;">ARCH</span>=arm64 <span style="color: #26A69A;">CROSS_COMPILE</span>=aarch64-linux-gnu- make -j$(nproc)
+</pre>
 </div></li>
 </ol>
 </div>
 </div>
 
-<div id="outline-container-org002dc1e" class="outline-2">
-<h2 id="org002dc1e">Build busybox</h2>
-<div class="outline-text-2" id="text-org002dc1e">
+<div id="outline-container-orgf862c07" class="outline-2">
+<h2 id="orgf862c07">Build busybox</h2>
+<div class="outline-text-2" id="text-orgf862c07">
 <ol class="org-ol">
 <li><p>
 Use busybox default configuration
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #268bd2;">ARCH</span>=arm64 <span style="color: #268bd2;">CROSS_COMPILE</span>=aarch64-linux-gnu- make defconfig
-</code></pre>
+<pre class="src src-sh"><span style="color: #26A69A;">ARCH</span>=arm64 <span style="color: #26A69A;">CROSS_COMPILE</span>=aarch64-linux-gnu- make defconfig
+</pre>
 </div></li>
 
 <li><p>
 Customize configurations
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #268bd2;">ARCH</span>=arm64 <span style="color: #268bd2;">CROSS_COMPILE</span>=aarch64-linux-gnu- make menuconfig
-</code></pre>
+<pre class="src src-sh"><span style="color: #26A69A;">ARCH</span>=arm64 <span style="color: #26A69A;">CROSS_COMPILE</span>=aarch64-linux-gnu- make menuconfig
+</pre>
 </div>
 <div class="org-src-container">
-<pre><code class="src src-text">Busybox Settings  ---&gt;
+<pre class="src src-text">Busybox Settings  ---&gt;
    --- Build Options
    [*]   Build BusyBox as a position independent executable
-</code></pre>
+</pre>
 </div></li>
 
 <li><p>
 Create busybox
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #268bd2;">ARCH</span>=arm64 <span style="color: #268bd2;">CROSS_COMPILE</span>=aarch64-linux-gnu- make -j$(<span style="color: #6c71c4; font-weight: bold;">nproc</span>)
-</code></pre>
+<pre class="src src-sh"><span style="color: #26A69A;">ARCH</span>=arm64 <span style="color: #26A69A;">CROSS_COMPILE</span>=aarch64-linux-gnu- make -j$(nproc)
+</pre>
 </div></li>
 
 <li><p>
 Install busybox(default path: <code>BUSYBOX/_install</code>)
 </p>
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #268bd2;">ARCH</span>=arm64 <span style="color: #268bd2;">CROSS_COMPILE</span>=aarch64-linux-gnu- make install
-</code></pre>
+<pre class="src src-sh"><span style="color: #26A69A;">ARCH</span>=arm64 <span style="color: #26A69A;">CROSS_COMPILE</span>=aarch64-linux-gnu- make install
+</pre>
 </div></li>
 </ol>
 </div>
 </div>
 
-<div id="outline-container-org82d063e" class="outline-2">
-<h2 id="org82d063e">Generate minimal initramfs</h2>
-<div class="outline-text-2" id="text-org82d063e">
+<div id="outline-container-org86f445e" class="outline-2">
+<h2 id="org86f445e">Generate minimal initramfs</h2>
+<div class="outline-text-2" id="text-org86f445e">
 <div class="org-src-container">
-<pre><code class="src src-sh"><span style="color: #93a1a1;">#</span><span style="color: #93a1a1;">!/usr/bin/</span><span style="color: #859900; font-weight: bold;">bash</span>
-<span style="color: #268bd2;">ROOTFS</span>=rootfs
-<span style="color: #268bd2;">BUSYBOX</span>=$(<span style="color: #6c71c4; font-weight: bold;">find</span> busybox* -maxdepth 0 -type d)
-<span style="color: #268bd2;">SYSROOT</span>=$(<span style="color: #6c71c4; font-weight: bold;">aarch64-linux-gnu-gcc</span> --print-sysroot)
-<span style="color: #268bd2;">GLIBC_VERSION</span>=$(${<span style="color: #268bd2;">SYSROOT</span>}/usr/bin/ldd --version | head -1 | cut -d<span style="color: #2aa198;">' '</span> -f4)
-<span style="color: #268bd2;">DYNAMIC_LIB_PATH_32</span>=${<span style="color: #268bd2;">SYSROOT</span>}/lib
-<span style="color: #268bd2;">DYNAMIC_LIB_PATH_64</span>=${<span style="color: #268bd2;">SYSROOT</span>}/lib64
+<pre class="src src-sh"><span style="color: #90A4AE;">#</span><span style="color: #90A4AE;">!/usr/bin/</span><span style="color: #7E57C2;">bash</span>
+<span style="color: #26A69A;">ROOTFS</span>=rootfs
+<span style="color: #26A69A;">BUSYBOX</span>=$(find busybox* -maxdepth 0 -type d)
+<span style="color: #26A69A;">SYSROOT</span>=$(aarch64-linux-gnu-gcc --print-sysroot)
+<span style="color: #26A69A;">GLIBC_VERSION</span>=$(${<span style="color: #26A69A;">SYSROOT</span>}/usr/bin/ldd --version | head -1 | cut -d<span style="color: #66BB6A;">' '</span> -f4)
+<span style="color: #26A69A;">DYNAMIC_LIB_PATH_32</span>=${<span style="color: #26A69A;">SYSROOT</span>}/lib
+<span style="color: #26A69A;">DYNAMIC_LIB_PATH_64</span>=${<span style="color: #26A69A;">SYSROOT</span>}/lib64
 
-rm -rf $<span style="color: #268bd2;">ROOTFS</span>
-mkdir -p ${<span style="color: #268bd2;">ROOTFS</span>}/{proc,sys,dev,etc,etc/init.d,lib,lib64,mnt,tmp,go}
+rm -rf $<span style="color: #26A69A;">ROOTFS</span>
+mkdir -p ${<span style="color: #26A69A;">ROOTFS</span>}/{proc,sys,dev,etc,etc/init.d,lib,lib64,mnt,tmp,go}
 
-cat &gt; $<span style="color: #268bd2;">ROOTFS</span>/etc/init.d/rcS &lt;&lt;EOF
-<span style="color: #b58900; font-weight: bold;">#!/bin/sh</span>
-<span style="color: #b58900; font-weight: bold;">mount -t proc none /proc</span>
-<span style="color: #b58900; font-weight: bold;">mount -t sysfs none /sys</span>
-<span style="color: #b58900; font-weight: bold;">/sbin/mdev -s</span>
-<span style="color: #b58900; font-weight: bold;">ifconfig lo up</span>
-<span style="color: #b58900; font-weight: bold;">EOF</span>
+cat &gt; $<span style="color: #26A69A;">ROOTFS</span>/etc/init.d/rcS &lt;&lt;EOF
+<span style="color: #ffa54f;">#!/bin/sh</span>
+<span style="color: #ffa54f;">mount -t proc none /proc</span>
+<span style="color: #ffa54f;">mount -t sysfs none /sys</span>
+<span style="color: #ffa54f;">/sbin/mdev -s</span>
+<span style="color: #ffa54f;">ifconfig lo up</span>
+<span style="color: #ffa54f;">EOF</span>
 
-chmod +x $<span style="color: #268bd2;">ROOTFS</span>/etc/init.d/rcS
+chmod +x $<span style="color: #26A69A;">ROOTFS</span>/etc/init.d/rcS
 
-cat &gt; $<span style="color: #268bd2;">ROOTFS</span>/etc/inittab &lt;&lt;EOF
-<span style="color: #b58900; font-weight: bold;"># /etc/inittab</span>
-<span style="color: #b58900; font-weight: bold;">::sysinit:/etc/init.d/rcS</span>
-<span style="color: #b58900; font-weight: bold;">::askfirst:-/bin/sh</span>
-<span style="color: #b58900; font-weight: bold;">::ctrlaltdel:/sbin/reboot</span>
-<span style="color: #b58900; font-weight: bold;">::shutdown:/bin/umount -a -r</span>
-<span style="color: #b58900; font-weight: bold;">EOF</span>
+cat &gt; $<span style="color: #26A69A;">ROOTFS</span>/etc/inittab &lt;&lt;EOF
+<span style="color: #ffa54f;"># /etc/inittab</span>
+<span style="color: #ffa54f;">::sysinit:/etc/init.d/rcS</span>
+<span style="color: #ffa54f;">::askfirst:-/bin/sh</span>
+<span style="color: #ffa54f;">::ctrlaltdel:/sbin/reboot</span>
+<span style="color: #ffa54f;">::shutdown:/bin/umount -a -r</span>
+<span style="color: #ffa54f;">EOF</span>
 
-chmod +x $<span style="color: #268bd2;">ROOTFS</span>/etc/inittab
+chmod +x $<span style="color: #26A69A;">ROOTFS</span>/etc/inittab
 
-cp -rP ${<span style="color: #268bd2;">BUSYBOX</span>}/_install/* ${<span style="color: #268bd2;">ROOTFS</span>}
+cp -rP ${<span style="color: #26A69A;">BUSYBOX</span>}/_install/* ${<span style="color: #26A69A;">ROOTFS</span>}
 
-cp -rP ${<span style="color: #268bd2;">DYNAMIC_LIB_PATH_64</span>}/libc-${<span style="color: #268bd2;">GLIBC_VERSION</span>}.so ${<span style="color: #268bd2;">ROOTFS</span>}/lib64/
-cp -rP ${<span style="color: #268bd2;">DYNAMIC_LIB_PATH_64</span>}/libc.so.6 ${<span style="color: #268bd2;">ROOTFS</span>}/lib64/
+cp -rP ${<span style="color: #26A69A;">DYNAMIC_LIB_PATH_64</span>}/libc-${<span style="color: #26A69A;">GLIBC_VERSION</span>}.so ${<span style="color: #26A69A;">ROOTFS</span>}/lib64/
+cp -rP ${<span style="color: #26A69A;">DYNAMIC_LIB_PATH_64</span>}/libc.so.6 ${<span style="color: #26A69A;">ROOTFS</span>}/lib64/
 
-cp -rP ${<span style="color: #268bd2;">DYNAMIC_LIB_PATH_64</span>}/libm-${<span style="color: #268bd2;">GLIBC_VERSION</span>}.so ${<span style="color: #268bd2;">ROOTFS</span>}/lib64/
-cp -rP ${<span style="color: #268bd2;">DYNAMIC_LIB_PATH_64</span>}/libm.so.6 ${<span style="color: #268bd2;">ROOTFS</span>}/lib64/
+cp -rP ${<span style="color: #26A69A;">DYNAMIC_LIB_PATH_64</span>}/libm-${<span style="color: #26A69A;">GLIBC_VERSION</span>}.so ${<span style="color: #26A69A;">ROOTFS</span>}/lib64/
+cp -rP ${<span style="color: #26A69A;">DYNAMIC_LIB_PATH_64</span>}/libm.so.6 ${<span style="color: #26A69A;">ROOTFS</span>}/lib64/
 
-cp -rP ${<span style="color: #268bd2;">DYNAMIC_LIB_PATH_64</span>}/librt-${<span style="color: #268bd2;">GLIBC_VERSION</span>}.so ${<span style="color: #268bd2;">ROOTFS</span>}/lib64/
-cp -rP ${<span style="color: #268bd2;">DYNAMIC_LIB_PATH_64</span>}/librt.so.1 ${<span style="color: #268bd2;">ROOTFS</span>}/lib64/
+cp -rP ${<span style="color: #26A69A;">DYNAMIC_LIB_PATH_64</span>}/librt-${<span style="color: #26A69A;">GLIBC_VERSION</span>}.so ${<span style="color: #26A69A;">ROOTFS</span>}/lib64/
+cp -rP ${<span style="color: #26A69A;">DYNAMIC_LIB_PATH_64</span>}/librt.so.1 ${<span style="color: #26A69A;">ROOTFS</span>}/lib64/
 
-cp -rP ${<span style="color: #268bd2;">DYNAMIC_LIB_PATH_64</span>}/libpthread-${<span style="color: #268bd2;">GLIBC_VERSION</span>}.so ${<span style="color: #268bd2;">ROOTFS</span>}/lib64/
-cp -rP ${<span style="color: #268bd2;">DYNAMIC_LIB_PATH_64</span>}/libpthread.so.0 ${<span style="color: #268bd2;">ROOTFS</span>}/lib64/
+cp -rP ${<span style="color: #26A69A;">DYNAMIC_LIB_PATH_64</span>}/libpthread-${<span style="color: #26A69A;">GLIBC_VERSION</span>}.so ${<span style="color: #26A69A;">ROOTFS</span>}/lib64/
+cp -rP ${<span style="color: #26A69A;">DYNAMIC_LIB_PATH_64</span>}/libpthread.so.0 ${<span style="color: #26A69A;">ROOTFS</span>}/lib64/
 
-cp -rP ${<span style="color: #268bd2;">DYNAMIC_LIB_PATH_64</span>}/ld-${<span style="color: #268bd2;">GLIBC_VERSION</span>}.so ${<span style="color: #268bd2;">ROOTFS</span>}/lib64/
-cp -rP ${<span style="color: #268bd2;">DYNAMIC_LIB_PATH_32</span>}/ld-linux-aarch64.so.1 ${<span style="color: #268bd2;">ROOTFS</span>}/lib/
+cp -rP ${<span style="color: #26A69A;">DYNAMIC_LIB_PATH_64</span>}/ld-${<span style="color: #26A69A;">GLIBC_VERSION</span>}.so ${<span style="color: #26A69A;">ROOTFS</span>}/lib64/
+cp -rP ${<span style="color: #26A69A;">DYNAMIC_LIB_PATH_32</span>}/ld-linux-aarch64.so.1 ${<span style="color: #26A69A;">ROOTFS</span>}/lib/
 
-<span style="color: #657b83; font-weight: bold;">cd</span> ${<span style="color: #268bd2;">ROOTFS</span>}
+<span style="color: #0097A7;">cd</span> ${<span style="color: #26A69A;">ROOTFS</span>}
 ln -sf bin/busybox init
 find . | cpio -o --format=newc &gt; ../initramfs
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgfa503ee" class="outline-2">
-<h2 id="orgfa503ee">Test the <i>Image</i> and <i>initramfs</i> just built</h2>
-<div class="outline-text-2" id="text-orgfa503ee">
+<div id="outline-container-orge03f142" class="outline-2">
+<h2 id="orge03f142">Test the <i>Image</i> and <i>initramfs</i> just built</h2>
+<div class="outline-text-2" id="text-orge03f142">
 <p>
 Use qemu to test the <i>Image</i> and <i>initramfs</i> which we just builded:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">qemu-system-aarch64 -machine virt -cpu cortex-a57 <span style="color: #b58900; font-weight: bold;">\</span>
--kernel ./Image -initrd ./initramfs -append <span style="color: #2aa198;">"console=ttyAMA0 quiet"</span> <span style="color: #b58900; font-weight: bold;">\</span>
+<pre class="src src-sh">qemu-system-aarch64 -machine virt -cpu cortex-a57 <span style="color: #66BB6A;">\</span>
+-kernel ./Image -initrd ./initramfs -append <span style="color: #66BB6A;">"console=ttyAMA0 quiet"</span> <span style="color: #66BB6A;">\</span>
 -nographic 
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -398,19 +398,19 @@ and the output just like the following:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-text">Please press Enter to activate this console.
+<pre class="src src-text">Please press Enter to activate this console.
 / # uname -a
 Linux (none) 4.9.51 #1 SMP PREEMPT Thu Sep 28 17:53:59 CST 2017 aarch64 GNU/Linux
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2018 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2017-09-28 Thu 17:59. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
+Copyright 2018 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Last updated 2019-02-03 Sun 11:12. <br/>
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.1.9).
 </div>
 </div>
 </body>

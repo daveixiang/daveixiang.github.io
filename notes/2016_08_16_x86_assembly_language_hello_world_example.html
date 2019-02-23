@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-02-21 Wed 15:32 -->
+<!-- 2019-02-23 Sat 15:47 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>x86 assembly language hello world example</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="xiangsiwei" />
+<meta name="author" content="siwei" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -186,7 +186,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2017 Free Software Foundation, Inc.
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -243,34 +243,34 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">x86 assembly language hello world example</h1>
 
-<div id="outline-container-org4657961" class="outline-2">
-<h2 id="org4657961">Linux x86</h2>
-<div class="outline-text-2" id="text-org4657961">
+<div id="outline-container-org4f351fc" class="outline-2">
+<h2 id="org4f351fc">Linux x86</h2>
+<div class="outline-text-2" id="text-org4f351fc">
 <ul class="org-ul">
 <li>code</li>
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-asm">        <span style="color: #859900; font-weight: bold;">.data</span>
-<span style="color: #268bd2;">str</span>:
-        <span style="color: #859900; font-weight: bold;">.ascii</span> <span style="color: #2aa198;">"Hello world i386!\n"</span>
-        <span style="color: #859900; font-weight: bold;">strlen</span> = . - str
+<pre class="src src-asm">        <span style="color: #7E57C2;">.data</span>
+<span style="color: #42A5F5;">str</span>:
+        <span style="color: #7E57C2;">.ascii</span> <span style="color: #66BB6A;">"Hello world i386!\n"</span>
+        <span style="color: #7E57C2;">strlen</span> = . - str
 
-        <span style="color: #859900; font-weight: bold;">.text</span>
-        <span style="color: #859900; font-weight: bold;">.globl</span> _start
-<span style="color: #268bd2;">_start</span>:
+        <span style="color: #7E57C2;">.text</span>
+        <span style="color: #7E57C2;">.globl</span> _start
+<span style="color: #42A5F5;">_start</span>:
         # write(1, str, strlen)
-        <span style="color: #859900; font-weight: bold;">mov</span> $4, <span style="color: #268bd2;">%eax</span>            # system call 4 is write i386
-        <span style="color: #859900; font-weight: bold;">mov</span> $1, <span style="color: #268bd2;">%ebx</span>            # file handle 1 is stdout
-        <span style="color: #859900; font-weight: bold;">mov</span> $str, <span style="color: #268bd2;">%ecx</span>          # address of string to output
-        <span style="color: #859900; font-weight: bold;">mov</span> $strlen, <span style="color: #268bd2;">%edx</span>       # number of bytes
-        <span style="color: #859900; font-weight: bold;">int</span>  $0x80              # invoke operating system to do the write
+        <span style="color: #7E57C2;">mov</span> $4, <span style="color: #26A69A;">%eax</span>            # system call 4 is write i386
+        <span style="color: #7E57C2;">mov</span> $1, <span style="color: #26A69A;">%ebx</span>            # file handle 1 is stdout
+        <span style="color: #7E57C2;">mov</span> $str, <span style="color: #26A69A;">%ecx</span>          # address of string to output
+        <span style="color: #7E57C2;">mov</span> $strlen, <span style="color: #26A69A;">%edx</span>       # number of bytes
+        <span style="color: #7E57C2;">int</span>  $0x80              # invoke operating system to do the write
 
         # exit(0)
-        <span style="color: #859900; font-weight: bold;">mov</span> $1, <span style="color: #268bd2;">%eax</span>            # system call 60 is exit
-        <span style="color: #859900; font-weight: bold;">mov</span> $0, <span style="color: #268bd2;">%ebx</span>            # return code 0
-        <span style="color: #859900; font-weight: bold;">int</span>  $0x80              # invoke operating system to exit
-</code></pre>
+        <span style="color: #7E57C2;">mov</span> $1, <span style="color: #26A69A;">%eax</span>            # system call 60 is exit
+        <span style="color: #7E57C2;">mov</span> $0, <span style="color: #26A69A;">%ebx</span>            # return code 0
+        <span style="color: #7E57C2;">int</span>  $0x80              # invoke operating system to exit
+</pre>
 </div>
 
 <ul class="org-ul">
@@ -278,41 +278,41 @@ for the JavaScript code in this tag.
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-makefile">as --32 -o hw_i386.o hw_i386.s
+<pre class="src src-makefile">as --32 -o hw_i386.o hw_i386.s
 ld -melf_i386 -o hw_i386 hw_i386.o
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org57b25b4" class="outline-2">
-<h2 id="org57b25b4">Linux x86-64</h2>
-<div class="outline-text-2" id="text-org57b25b4">
+<div id="outline-container-org1387db6" class="outline-2">
+<h2 id="org1387db6">Linux x86-64</h2>
+<div class="outline-text-2" id="text-org1387db6">
 <ul class="org-ul">
 <li>code</li>
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-asm">        <span style="color: #859900; font-weight: bold;">.data</span>
-<span style="color: #268bd2;">str</span>:
-        <span style="color: #859900; font-weight: bold;">.ascii</span>  <span style="color: #2aa198;">"Hello, world amd64\n"</span>
-        <span style="color: #859900; font-weight: bold;">strlen</span> = . - str
+<pre class="src src-asm">        <span style="color: #7E57C2;">.data</span>
+<span style="color: #42A5F5;">str</span>:
+        <span style="color: #7E57C2;">.ascii</span>  <span style="color: #66BB6A;">"Hello, world amd64\n"</span>
+        <span style="color: #7E57C2;">strlen</span> = . - str
 
-        <span style="color: #859900; font-weight: bold;">.text</span>
-        <span style="color: #859900; font-weight: bold;">.global</span> _start
-<span style="color: #268bd2;">_start</span>:
+        <span style="color: #7E57C2;">.text</span>
+        <span style="color: #7E57C2;">.global</span> _start
+<span style="color: #42A5F5;">_start</span>:
         # write(1, str, strlen)
-        <span style="color: #859900; font-weight: bold;">mov</span> $1, <span style="color: #268bd2;">%rax</span>            # system call 1 is write x86_64
-        <span style="color: #859900; font-weight: bold;">mov</span> $1, <span style="color: #268bd2;">%rdi</span>            # file handle 1 is stdout
-        <span style="color: #859900; font-weight: bold;">mov</span> $str, <span style="color: #268bd2;">%rsi</span>          # address of string to output
-        <span style="color: #859900; font-weight: bold;">mov</span> $strlen, <span style="color: #268bd2;">%rdx</span>       # number of bytes
-        <span style="color: #859900; font-weight: bold;">syscall</span>                 # invoke operating system to do the write
+        <span style="color: #7E57C2;">mov</span> $1, <span style="color: #26A69A;">%rax</span>            # system call 1 is write x86_64
+        <span style="color: #7E57C2;">mov</span> $1, <span style="color: #26A69A;">%rdi</span>            # file handle 1 is stdout
+        <span style="color: #7E57C2;">mov</span> $str, <span style="color: #26A69A;">%rsi</span>          # address of string to output
+        <span style="color: #7E57C2;">mov</span> $strlen, <span style="color: #26A69A;">%rdx</span>       # number of bytes
+        <span style="color: #7E57C2;">syscall</span>                 # invoke operating system to do the write
 
         # exit(0)
-        <span style="color: #859900; font-weight: bold;">mov</span> $60, <span style="color: #268bd2;">%rax</span>           # system call 60 is exit
-        <span style="color: #859900; font-weight: bold;">xor</span> <span style="color: #268bd2;">%rdi</span>, <span style="color: #268bd2;">%rdi</span>          # return code 0
-        <span style="color: #859900; font-weight: bold;">syscall</span>                 # invoke operating system to exit
-</code></pre>
+        <span style="color: #7E57C2;">mov</span> $60, <span style="color: #26A69A;">%rax</span>           # system call 60 is exit
+        <span style="color: #7E57C2;">xor</span> <span style="color: #26A69A;">%rdi</span>, <span style="color: #26A69A;">%rdi</span>          # return code 0
+        <span style="color: #7E57C2;">syscall</span>                 # invoke operating system to exit
+</pre>
 </div>
 
 <ul class="org-ul">
@@ -320,18 +320,18 @@ ld -melf_i386 -o hw_i386 hw_i386.o
 </ul>
 
 <div class="org-src-container">
-<pre><code class="src src-makefile">as -o hw_amd64.o hw_amd64.s
+<pre class="src src-makefile">as -o hw_amd64.o hw_amd64.s
 ld -o hw_amd64 hw_amd64.o
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2018 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2018-02-21 Wed 15:27. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
+Copyright 2018 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Last updated 2019-02-03 Sun 11:12. <br/>
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.1.9).
 </div>
 </div>
 </body>

@@ -7,7 +7,7 @@ body {
     background-color:#fff;
     font-family:"Lucida Grande","bitstream vera sans","trebuchet ms",verdana,arial;
     /* text-align:center;*/
-    width: 760px;
+    width:760px;
     margin: auto;
 }
 
@@ -79,7 +79,7 @@ body {
 
 h1, h2, h3 {
     letter-spacing:-1px;
-    color:#444;
+    color:#2D5AC3;
     font-weight:normal;
     margin-bottom:-10px;
 }
@@ -94,6 +94,7 @@ h1 {
 
 h2 {
     font-size:x-large;
+    border-bottom: solid 0.5px #708090; /* slate gray */
     margin-top: 1em;
     margin-bottom: .5em;
     margin-right: 15px;
@@ -146,11 +147,11 @@ h1 a:link:hover, h1 a:visited:hover {
 }
 
 a:visited {
-    color: #b0b0b0;               /* dark olive green */
+    color: #556B2F;               /* dark olive green */
 }
 
 a:link {
-    color: #444;               /* blue */
+    color: #0000CD;               /* blue */
 }
 
 blockquote {

@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-02-21 Wed 15:32 -->
+<!-- 2019-02-23 Sat 15:47 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Clang print self</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="xiangsiwei" />
+<meta name="author" content="siwei" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -186,7 +186,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2017 Free Software Foundation, Inc.
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -243,22 +243,22 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">Clang print self</h1>
 
-<div id="outline-container-orga8e11c9" class="outline-2">
-<h2 id="orga8e11c9">print-self.c</h2>
-<div class="outline-text-2" id="text-orga8e11c9">
+<div id="outline-container-orge43511d" class="outline-2">
+<h2 id="orge43511d">print-self.c</h2>
+<div class="outline-text-2" id="text-orge43511d">
 <p>
 the code is:
 </p>
 <div class="org-src-container">
-<pre><code class="src src-c"><span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">&lt;stdio.h&gt;</span>
-<span style="color: #268bd2;">#include</span> <span style="color: #2aa198;">&lt;stdlib.h&gt;</span>
+<pre class="src src-c"><span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;stdio.h&gt;</span>
+<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;stdlib.h&gt;</span>
 
-<span style="color: #859900; font-weight: bold;">extern</span> <span style="color: #b58900;">char</span> * <span style="color: #268bd2;">_binary_print_self_c_start</span>;  
-<span style="color: #b58900;">int</span> <span style="color: #268bd2;">main</span>()  
+<span style="color: #7E57C2;">extern</span> <span style="color: #D84315;">char</span> * <span style="color: #26A69A;">_binary_print_self_c_start</span>;  
+<span style="color: #D84315;">int</span> <span style="color: #42A5F5;">main</span>()  
 {
-        printf(<span style="color: #2aa198;">"%s"</span>, (<span style="color: #b58900;">char</span> *)&amp;_binary_print_self_c_start);  
+        printf(<span style="color: #66BB6A;">"%s"</span>, (<span style="color: #D84315;">char</span> *)&amp;_binary_print_self_c_start);  
 }
-</code></pre>
+</pre>
 </div>
 
 <p>
@@ -266,18 +266,18 @@ and generate print-self.bin
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-sh">objcopy -I binary -O  elf64-x86-64 -B i386:x86-64  print-self.c print-self.bin
-</code></pre>
+<pre class="src src-sh">objcopy -I binary -O  elf64-x86-64 -B i386:x86-64  print-self.c print-self.bin
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org22dda09" class="outline-2">
-<h2 id="org22dda09">print-self.bin</h2>
-<div class="outline-text-2" id="text-org22dda09">
+<div id="outline-container-orgc66dc1b" class="outline-2">
+<h2 id="orgc66dc1b">print-self.bin</h2>
+<div class="outline-text-2" id="text-orgc66dc1b">
 <div class="org-src-container">
-<pre><code class="src src-sh">readelf --sym print-self.bin
-</code></pre>
+<pre class="src src-sh">readelf --sym print-self.bin
+</pre>
 </div>
 
 <p>
@@ -285,24 +285,24 @@ and the symbols is like:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-text">Symbol table '.symtab' contains 5 entries:
+<pre class="src src-text">Symbol table '.symtab' contains 5 entries:
    Num:    Value          Size Type    Bind   Vis      Ndx Name
      0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND 
      1: 0000000000000000     0 SECTION LOCAL  DEFAULT    1 
      2: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT    1 _binary_print_self_c_star
      3: 000000000000009b     0 NOTYPE  GLOBAL DEFAULT    1 _binary_print_self_c_end
      4: 000000000000009b     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_print_self_c_size
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org599df0e" class="outline-2">
-<h2 id="org599df0e">print-self</h2>
-<div class="outline-text-2" id="text-org599df0e">
+<div id="outline-container-orgf97d033" class="outline-2">
+<h2 id="orgf97d033">print-self</h2>
+<div class="outline-text-2" id="text-orgf97d033">
 <div class="org-src-container">
-<pre><code class="src src-sh">gcc -o print-self print-self.c print-self.bin
-</code></pre>
+<pre class="src src-sh">gcc -o print-self print-self.c print-self.bin
+</pre>
 </div>
 
 <p>
@@ -310,7 +310,7 @@ and check the output:
 </p>
 
 <div class="org-src-container">
-<pre><code class="src src-text">davei@davei:/tmp&gt; ./print-self 
+<pre class="src src-text">davei@davei:/tmp&gt; ./print-self 
 #include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
 
@@ -319,16 +319,16 @@ int main()
 {
         printf("%s", (char *)&amp;_binary_print_self_c_start);  
 }
-</code></pre>
+</pre>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2018 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2016-10-16 Sun 20:15. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.1.1).
+Copyright 2018 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Last updated 2019-02-03 Sun 11:12. <br/>
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.1.9).
 </div>
 </div>
 </body>
