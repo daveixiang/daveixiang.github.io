@@ -6,7 +6,7 @@
 <!-- 2019-02-23 Sat 15:58 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>般若波羅蜜多心經</title>
+<title>Build Minimal Linux Hack Env with Busybox (Target: vexpress-a15)</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="siwei" />
 <style type="text/css">
@@ -180,8 +180,7 @@
   .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
-<link rel='stylesheet' href='css/site.css' type='text/css'/>
-<style type="text/css"> table {margin: 64px auto; font-size: 1em;} table, th, td { border: 0px solid #666;} </style>
+<link rel='stylesheet' href='../css/site.css' type='text/css'/>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -242,482 +241,162 @@ for the JavaScript code in this tag.
 <div class='clearboth'></div>
 </div>
 <div id="content">
-<table>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<h1 class="title">Build Minimal Linux Hack Env with Busybox (Target: vexpress-a15)</h1>
 
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>咒</td>
-<td>苦</td>
-<td>大</td>
-<td>三</td>
-<td>佛</td>
-<td>有</td>
-<td>般</td>
-<td>道</td>
-<td>明</td>
-<td>法</td>
-<td>想</td>
-<td>不</td>
-<td>亦</td>
-<td>空</td>
-<td>五</td>
-<td>觀</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<div id="outline-container-org0f721af" class="outline-2">
+<h2 id="org0f721af">Build the kernel</h2>
+<div class="outline-text-2" id="text-org0f721af">
+<ol class="org-ol">
+<li><p>
+Use <i>vexpress-a15</i> default configuration
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #26A69A;">ARCH</span>=arm <span style="color: #26A69A;">CROSS_COMPILE</span>=arm-linux-gnueabi- make vexpress_defconfig
+</pre>
+</div></li>
 
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>曰</td>
-<td>真</td>
-<td>明</td>
-<td>菩</td>
-<td>依</td>
-<td>恐</td>
-<td>若</td>
-<td>無</td>
-<td>盡</td>
-<td>無</td>
-<td>行</td>
-<td>垢</td>
-<td>復</td>
-<td>不</td>
-<td>蘊</td>
-<td>自</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<li><p>
+Simplify <i>vexpress-a15</i> configuration by cutting off unused drivers
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #26A69A;">ARCH</span>=arm <span style="color: #26A69A;">CROSS_COMPILE</span>=arm-linux-gnueabi- make menuconfig
+</pre>
+</div></li>
 
-<tr>
-<td>&nbsp;</td>
-<td>波</td>
-<td>揭</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>實</td>
-<td>咒</td>
-<td>提</td>
-<td>般</td>
-<td>怖</td>
-<td>波</td>
-<td>智</td>
-<td>乃</td>
-<td>眼</td>
-<td>識</td>
-<td>不</td>
-<td>如</td>
-<td>異</td>
-<td>皆</td>
-<td>在</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<li><p>
+Create kernel image <i>zImage</i>
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #26A69A;">ARCH</span>=arm <span style="color: #26A69A;">CROSS_COMPILE</span>=arm-linux-gnueabi- make -j$(nproc)
+</pre>
+</div></li>
+</ol>
+</div>
+</div>
 
-<tr>
-<td>&nbsp;</td>
-<td>羅</td>
-<td>諦</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>不</td>
-<td>是</td>
-<td>故</td>
-<td>若</td>
-<td>遠</td>
-<td>羅</td>
-<td>亦</td>
-<td>至</td>
-<td>界</td>
-<td>無</td>
-<td>淨</td>
-<td>是</td>
-<td>色</td>
-<td>空</td>
-<td>菩</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<div id="outline-container-orgc2e2ddd" class="outline-2">
+<h2 id="orgc2e2ddd">Build busybox</h2>
+<div class="outline-text-2" id="text-orgc2e2ddd">
+<ol class="org-ol">
+<li><p>
+Use busybox default configuration
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #26A69A;">ARCH</span>=arm <span style="color: #26A69A;">CROSS_COMPILE</span>=arm-linux-gnueabi- make defconfig
+</pre>
+</div></li>
 
-<tr>
-<td>&nbsp;</td>
-<td>僧</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>虛</td>
-<td>無</td>
-<td>知</td>
-<td>波</td>
-<td>離</td>
-<td>密</td>
-<td>無</td>
-<td>無</td>
-<td>乃</td>
-<td>眼</td>
-<td>不</td>
-<td>舍</td>
-<td>色</td>
-<td>度</td>
-<td>薩</td>
-<td>&nbsp;</td>
-<td>般</td>
-</tr>
+<li><p>
+Customize configurations
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #26A69A;">ARCH</span>=arm <span style="color: #26A69A;">CROSS_COMPILE</span>=arm-linux-gnueabi- make menuconfig
+</pre>
+</div></li>
 
-<tr>
-<td>&nbsp;</td>
-<td>揭</td>
-<td>揭</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>故</td>
-<td>上</td>
-<td>般</td>
-<td>羅</td>
-<td>顛</td>
-<td>多</td>
-<td>得</td>
-<td>老</td>
-<td>至</td>
-<td>耳</td>
-<td>增</td>
-<td>利</td>
-<td>即</td>
-<td>一</td>
-<td>行</td>
-<td>&nbsp;</td>
-<td>若</td>
-</tr>
+<li><p>
+Create busybox
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #26A69A;">ARCH</span>=arm <span style="color: #26A69A;">CROSS_COMPILE</span>=arm-linux-gnueabi- make -j$(nproc)
+</pre>
+</div></li>
 
-<tr>
-<td>&nbsp;</td>
-<td>諦</td>
-<td>諦</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>說</td>
-<td>咒</td>
-<td>若</td>
-<td>密</td>
-<td>倒</td>
-<td>故</td>
-<td>以</td>
-<td>死</td>
-<td>無</td>
-<td>鼻</td>
-<td>不</td>
-<td>子</td>
-<td>是</td>
-<td>切</td>
-<td>深</td>
-<td>&nbsp;</td>
-<td>波</td>
-</tr>
+<li><p>
+Install busybox(default path: <code>BUSYBOX/_install</code>)
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #26A69A;">ARCH</span>=arm <span style="color: #26A69A;">CROSS_COMPILE</span>=arm-linux-gnueabi- make install
+</pre>
+</div></li>
+</ol>
+</div>
+</div>
 
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>般</td>
-<td>是</td>
-<td>波</td>
-<td>多</td>
-<td>夢</td>
-<td>心</td>
-<td>無</td>
-<td>亦</td>
-<td>意</td>
-<td>舌</td>
-<td>減</td>
-<td>是</td>
-<td>空</td>
-<td>苦</td>
-<td>般</td>
-<td>&nbsp;</td>
-<td>羅</td>
-</tr>
+<div id="outline-container-org2974192" class="outline-2">
+<h2 id="org2974192">Generate minimal initramfs</h2>
+<div class="outline-text-2" id="text-org2974192">
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #90A4AE;">#</span><span style="color: #90A4AE;">!/usr/bin/</span><span style="color: #7E57C2;">bash</span>
+<span style="color: #26A69A;">ROOTFS</span>=rootfs
+<span style="color: #26A69A;">BUSYBOX</span>=$(find busybox* -maxdepth 0 -type d)
+<span style="color: #26A69A;">SYSROOT</span>=$(arm-linux-gnueabi-gcc --print-sysroot)
+<span style="color: #26A69A;">GLIBC_VERSION</span>=$(${<span style="color: #26A69A;">SYSROOT</span>}/usr/bin/ldd --version | head -1 | cut -d<span style="color: #66BB6A;">' '</span> -f4)
+<span style="color: #26A69A;">DYNAMIC_LIB_PATH</span>=${<span style="color: #26A69A;">SYSROOT</span>}/lib
 
-<tr>
-<td>&nbsp;</td>
-<td>菩</td>
-<td>波</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>若</td>
-<td>無</td>
-<td>羅</td>
-<td>故</td>
-<td>想</td>
-<td>無</td>
-<td>所</td>
-<td>無</td>
-<td>識</td>
-<td>身</td>
-<td>是</td>
-<td>諸</td>
-<td>空</td>
-<td>厄</td>
-<td>若</td>
-<td>&nbsp;</td>
-<td>密</td>
-</tr>
+rm -rf $<span style="color: #26A69A;">ROOTFS</span>
+mkdir -p ${<span style="color: #26A69A;">ROOTFS</span>}/{proc,sys,dev,etc,etc/init.d,lib,mnt,tmp,go}
 
-<tr>
-<td>&nbsp;</td>
-<td>提</td>
-<td>羅</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>波</td>
-<td>等</td>
-<td>密</td>
-<td>得</td>
-<td>究</td>
-<td>罣</td>
-<td>得</td>
-<td>老</td>
-<td>界</td>
-<td>意</td>
-<td>故</td>
-<td>法</td>
-<td>即</td>
-<td>舍</td>
-<td>波</td>
-<td>&nbsp;</td>
-<td>多</td>
-</tr>
+cat &gt; $<span style="color: #26A69A;">ROOTFS</span>/etc/init.d/rcS &lt;&lt;EOF
+<span style="color: #ffa54f;">#!/bin/sh</span>
+<span style="color: #ffa54f;">mount -t proc none /proc</span>
+<span style="color: #ffa54f;">mount -t sysfs none /sys</span>
+<span style="color: #ffa54f;">/sbin/mdev -s</span>
+<span style="color: #ffa54f;">ifconfig lo up</span>
+<span style="color: #ffa54f;">EOF</span>
 
-<tr>
-<td>&nbsp;</td>
-<td>薩</td>
-<td>揭</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>羅</td>
-<td>等</td>
-<td>多</td>
-<td>阿</td>
-<td>竟</td>
-<td>礙</td>
-<td>故</td>
-<td>死</td>
-<td>無</td>
-<td>無</td>
-<td>空</td>
-<td>空</td>
-<td>是</td>
-<td>利</td>
-<td>羅</td>
-<td>&nbsp;</td>
-<td>心</td>
-</tr>
+chmod +x $<span style="color: #26A69A;">ROOTFS</span>/etc/init.d/rcS
 
-<tr>
-<td>項</td>
-<td>婆</td>
-<td>諦</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>密</td>
-<td>咒</td>
-<td>是</td>
-<td>耨</td>
-<td>涅</td>
-<td>無</td>
-<td>菩</td>
-<td>盡</td>
-<td>無</td>
-<td>色</td>
-<td>中</td>
-<td>相</td>
-<td>色</td>
-<td>子</td>
-<td>密</td>
-<td>&nbsp;</td>
-<td>經</td>
-</tr>
+cat &gt; $<span style="color: #26A69A;">ROOTFS</span>/etc/inittab &lt;&lt;EOF
+<span style="color: #ffa54f;"># /etc/inittab</span>
+<span style="color: #ffa54f;">::sysinit:/etc/init.d/rcS</span>
+<span style="color: #ffa54f;">::askfirst:-/bin/sh</span>
+<span style="color: #ffa54f;">::ctrlaltdel:/sbin/reboot</span>
+<span style="color: #ffa54f;">::shutdown:/bin/umount -a -r</span>
+<span style="color: #ffa54f;">EOF</span>
 
-<tr>
-<td>思</td>
-<td>訶</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>多</td>
-<td>能</td>
-<td>大</td>
-<td>多</td>
-<td>槃</td>
-<td>罣</td>
-<td>提</td>
-<td>無</td>
-<td>明</td>
-<td>聲</td>
-<td>無</td>
-<td>不</td>
-<td>受</td>
-<td>色</td>
-<td>多</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+chmod +x $<span style="color: #26A69A;">ROOTFS</span>/etc/inittab
 
-<tr>
-<td>偉</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>咒</td>
-<td>除</td>
-<td>神</td>
-<td>羅</td>
-<td>三</td>
-<td>礙</td>
-<td>薩</td>
-<td>苦</td>
-<td>亦</td>
-<td>香</td>
-<td>色</td>
-<td>生</td>
-<td>想</td>
-<td>不</td>
-<td>時</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+cp -rP ${<span style="color: #26A69A;">BUSYBOX</span>}/_install/* ${<span style="color: #26A69A;">ROOTFS</span>}
 
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>即</td>
-<td>一</td>
-<td>咒</td>
-<td>三</td>
-<td>世</td>
-<td>故</td>
-<td>埵</td>
-<td>集</td>
-<td>無</td>
-<td>味</td>
-<td>無</td>
-<td>不</td>
-<td>行</td>
-<td>異</td>
-<td>照</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+cp -rP ${<span style="color: #26A69A;">DYNAMIC_LIB_PATH</span>}/libc-${<span style="color: #26A69A;">GLIBC_VERSION</span>}.so ${<span style="color: #26A69A;">ROOTFS</span>}/lib/
+cp -rP ${<span style="color: #26A69A;">DYNAMIC_LIB_PATH</span>}/libc.so.6 ${<span style="color: #26A69A;">ROOTFS</span>}/lib/
 
-<tr>
-<td>編</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>說</td>
-<td>切</td>
-<td>是</td>
-<td>藐</td>
-<td>諸</td>
-<td>無</td>
-<td>依</td>
-<td>滅</td>
-<td>無</td>
-<td>觸</td>
-<td>受</td>
-<td>滅</td>
-<td>識</td>
-<td>空</td>
-<td>見</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+cp -rP ${<span style="color: #26A69A;">DYNAMIC_LIB_PATH</span>}/libm-${<span style="color: #26A69A;">GLIBC_VERSION</span>}.so ${<span style="color: #26A69A;">ROOTFS</span>}/lib/
+cp -rP ${<span style="color: #26A69A;">DYNAMIC_LIB_PATH</span>}/libm.so.6 ${<span style="color: #26A69A;">ROOTFS</span>}/lib/
 
-<tr>
-<td>輯</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+cp -rP ${<span style="color: #26A69A;">DYNAMIC_LIB_PATH</span>}/librt-${<span style="color: #26A69A;">GLIBC_VERSION</span>}.so ${<span style="color: #26A69A;">ROOTFS</span>}/lib/
+cp -rP ${<span style="color: #26A69A;">DYNAMIC_LIB_PATH</span>}/librt.so.1 ${<span style="color: #26A69A;">ROOTFS</span>}/lib/
 
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-</table>
+cp -rP ${<span style="color: #26A69A;">DYNAMIC_LIB_PATH</span>}/libpthread-${<span style="color: #26A69A;">GLIBC_VERSION</span>}.so ${<span style="color: #26A69A;">ROOTFS</span>}/lib/
+cp -rP ${<span style="color: #26A69A;">DYNAMIC_LIB_PATH</span>}/libpthread.so.0 ${<span style="color: #26A69A;">ROOTFS</span>}/lib/
+
+cp -rP ${<span style="color: #26A69A;">DYNAMIC_LIB_PATH</span>}/ld-${<span style="color: #26A69A;">GLIBC_VERSION</span>}.so ${<span style="color: #26A69A;">ROOTFS</span>}/lib/
+cp -rP ${<span style="color: #26A69A;">DYNAMIC_LIB_PATH</span>}/ld-linux.so.3 ${<span style="color: #26A69A;">ROOTFS</span>}/lib/
+
+<span style="color: #0097A7;">cd</span> ${<span style="color: #26A69A;">ROOTFS</span>}
+ln -sf bin/busybox init
+find . | cpio -o --format=newc &gt; ../initramfs
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgef31f40" class="outline-2">
+<h2 id="orgef31f40">Test the <i>zImage</i> and <i>initramfs</i> just built</h2>
+<div class="outline-text-2" id="text-orgef31f40">
+<p>
+Use qemu to test the <i>zImage</i> and <i>initramfs</i> which we just builded:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">qemu-system-arm -smp 2 -machine vexpress-a15 -cpu cortex-a15 -m 512M <span style="color: #66BB6A;">\</span>
+-kernel ./zImage -initrd ./initramfs -dtb vexpress-v2p-ca15-tc1.dtb <span style="color: #66BB6A;">\</span>
+-nographic -append <span style="color: #66BB6A;">"console=ttyAMA0 quiet"</span> --serial mon:stdio
+</pre>
+</div>
+
+<p>
+and the output just like the following:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">Please press Enter to activate this console.
+/ <span style="color: #90A4AE;"># </span><span style="color: #90A4AE;">uname -a</span>
+<span style="color: #42A5F5;">Linux</span> (none) 4.9.51 <span style="color: #90A4AE;">#</span><span style="color: #90A4AE;">1 SMP Thu Sep 28 18:56:51 CST 2017 armv7l GNU/Linux</span>
+</pre>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>

@@ -6,7 +6,7 @@
 <!-- 2019-02-23 Sat 15:58 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>般若波羅蜜多心經</title>
+<title>Multiple Ways to Access Qemu Machine Protocol (QMP)</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="siwei" />
 <style type="text/css">
@@ -180,8 +180,7 @@
   .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
-<link rel='stylesheet' href='css/site.css' type='text/css'/>
-<style type="text/css"> table {margin: 64px auto; font-size: 1em;} table, th, td { border: 0px solid #666;} </style>
+<link rel='stylesheet' href='../css/site.css' type='text/css'/>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -242,482 +241,122 @@ for the JavaScript code in this tag.
 <div class='clearboth'></div>
 </div>
 <div id="content">
-<table>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<h1 class="title">Multiple Ways to Access Qemu Machine Protocol (QMP)</h1>
 
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>咒</td>
-<td>苦</td>
-<td>大</td>
-<td>三</td>
-<td>佛</td>
-<td>有</td>
-<td>般</td>
-<td>道</td>
-<td>明</td>
-<td>法</td>
-<td>想</td>
-<td>不</td>
-<td>亦</td>
-<td>空</td>
-<td>五</td>
-<td>觀</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<div id="outline-container-org5eb2136" class="outline-2">
+<h2 id="org5eb2136">Introduction</h2>
+<div class="outline-text-2" id="text-org5eb2136">
+<p>
+QMP (QEMU Machine Protocol) is quiet useful. QMP allows applications
+to communicate withh a running QEMU’s instance. There ae a few
+different ways to access the QEMU monitor to query the guest’s
+information, modify the guest state using the QMP commands.
+</p>
+</div>
+</div>
 
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>曰</td>
-<td>真</td>
-<td>明</td>
-<td>菩</td>
-<td>依</td>
-<td>恐</td>
-<td>若</td>
-<td>無</td>
-<td>盡</td>
-<td>無</td>
-<td>行</td>
-<td>垢</td>
-<td>復</td>
-<td>不</td>
-<td>蘊</td>
-<td>自</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<div id="outline-container-org27fe041" class="outline-2">
+<h2 id="org27fe041">Different ways to access QMP</h2>
+<div class="outline-text-2" id="text-org27fe041">
+</div>
+<div id="outline-container-orgf827308" class="outline-3">
+<h3 id="orgf827308">Access QMP via libvirt’s qemu-monitor-command</h3>
+<div class="outline-text-3" id="text-orgf827308">
+<div class="org-src-container">
+<pre class="src src-sh">virsh qemu-monitor-command ${<span style="color: #26A69A;">domain</span>-name} --pretty <span style="color: #66BB6A;">'{"execute":"query-kvm"}'</span>
+</pre>
+</div>
+</div>
+</div>
 
-<tr>
-<td>&nbsp;</td>
-<td>波</td>
-<td>揭</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>實</td>
-<td>咒</td>
-<td>提</td>
-<td>般</td>
-<td>怖</td>
-<td>波</td>
-<td>智</td>
-<td>乃</td>
-<td>眼</td>
-<td>識</td>
-<td>不</td>
-<td>如</td>
-<td>異</td>
-<td>皆</td>
-<td>在</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<div id="outline-container-org4a11bf8" class="outline-3">
+<h3 id="org4a11bf8">QMP via tcp socket</h3>
+<div class="outline-text-3" id="text-org4a11bf8">
+<ol class="org-ol">
+<li><p>
+launch an qemu instance:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">qemu-system-x86_64 --enable-kvm -drive <span style="color: #26A69A;">if</span>=virtio,<span style="color: #26A69A;">format</span>=qcow2,<span style="color: #26A69A;">index</span>=0,<span style="color: #26A69A;">file</span>=cirros-0.3.5-x86_64-disk.img --qmp tcp:127.0.0.1:12345,server
+</pre>
+</div>
+<p>
+and the output in the terminal like:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">QEMU waiting for connection on: disconnected:tcp:127.0.0.1:12345,server
+</pre>
+</div></li>
 
-<tr>
-<td>&nbsp;</td>
-<td>羅</td>
-<td>諦</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>不</td>
-<td>是</td>
-<td>故</td>
-<td>若</td>
-<td>遠</td>
-<td>羅</td>
-<td>亦</td>
-<td>至</td>
-<td>界</td>
-<td>無</td>
-<td>淨</td>
-<td>是</td>
-<td>色</td>
-<td>空</td>
-<td>菩</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<li><p>
+launch another terminal to access the instance we have
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">telnet 127.0.0.1 12345
+</pre>
+</div>
+<p>
+and the output like:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">Trying 127.0.0.1...
+Connected to 127.0.0.1.
+Escape character is <span style="color: #66BB6A;">'^]'</span>.
+{<span style="color: #66BB6A;">"QMP"</span>: {<span style="color: #66BB6A;">"version"</span>: {<span style="color: #66BB6A;">"qemu"</span>: {<span style="color: #66BB6A;">"micro"</span>: 0, <span style="color: #66BB6A;">"minor"</span>: 8, <span style="color: #66BB6A;">"major"</span>: 2}, <span style="color: #66BB6A;">"package"</span>: <span style="color: #66BB6A;">""</span>}, <span style="color: #66BB6A;">"capabilities"</span>: []}}
+</pre>
+</div></li>
 
-<tr>
-<td>&nbsp;</td>
-<td>僧</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>虛</td>
-<td>無</td>
-<td>知</td>
-<td>波</td>
-<td>離</td>
-<td>密</td>
-<td>無</td>
-<td>無</td>
-<td>乃</td>
-<td>眼</td>
-<td>不</td>
-<td>舍</td>
-<td>色</td>
-<td>度</td>
-<td>薩</td>
-<td>&nbsp;</td>
-<td>般</td>
-</tr>
+<li><p>
+execute <code>query-kvm</code> command
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">{<span style="color: #66BB6A;">"execute"</span> : <span style="color: #66BB6A;">"qmp_capabilities"</span>}
+{<span style="color: #66BB6A;">"return"</span>: {}}
+{<span style="color: #66BB6A;">"execute"</span> : <span style="color: #66BB6A;">"query-kvm"</span>}
+{<span style="color: #66BB6A;">"return"</span>: {<span style="color: #66BB6A;">"enabled"</span>: true, <span style="color: #66BB6A;">"present"</span>: true}}
+</pre>
+</div></li>
+</ol>
+</div>
+</div>
 
-<tr>
-<td>&nbsp;</td>
-<td>揭</td>
-<td>揭</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>故</td>
-<td>上</td>
-<td>般</td>
-<td>羅</td>
-<td>顛</td>
-<td>多</td>
-<td>得</td>
-<td>老</td>
-<td>至</td>
-<td>耳</td>
-<td>增</td>
-<td>利</td>
-<td>即</td>
-<td>一</td>
-<td>行</td>
-<td>&nbsp;</td>
-<td>若</td>
-</tr>
+<div id="outline-container-orgfa4c7cb" class="outline-3">
+<h3 id="orgfa4c7cb">QMP via unix socket</h3>
+<div class="outline-text-3" id="text-orgfa4c7cb">
+<ol class="org-ol">
+<li><p>
+launch an qemu instance with unix socket:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">qemu-system-x86_64 --enable-kvm -drive <span style="color: #26A69A;">if</span>=virtio,<span style="color: #26A69A;">format</span>=qcow2,<span style="color: #26A69A;">index</span>=0,<span style="color: #26A69A;">file</span>=cirros-0.3.5-x86_64-disk.img -qmp unix:./qmp-sock,server
+</pre>
+</div>
+<p>
+and the output in the terminal like:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">QEMU waiting for connection on: disconnected:unix:./qmp-sock,server
+</pre>
+</div></li>
 
-<tr>
-<td>&nbsp;</td>
-<td>諦</td>
-<td>諦</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>說</td>
-<td>咒</td>
-<td>若</td>
-<td>密</td>
-<td>倒</td>
-<td>故</td>
-<td>以</td>
-<td>死</td>
-<td>無</td>
-<td>鼻</td>
-<td>不</td>
-<td>子</td>
-<td>是</td>
-<td>切</td>
-<td>深</td>
-<td>&nbsp;</td>
-<td>波</td>
-</tr>
-
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>般</td>
-<td>是</td>
-<td>波</td>
-<td>多</td>
-<td>夢</td>
-<td>心</td>
-<td>無</td>
-<td>亦</td>
-<td>意</td>
-<td>舌</td>
-<td>減</td>
-<td>是</td>
-<td>空</td>
-<td>苦</td>
-<td>般</td>
-<td>&nbsp;</td>
-<td>羅</td>
-</tr>
-
-<tr>
-<td>&nbsp;</td>
-<td>菩</td>
-<td>波</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>若</td>
-<td>無</td>
-<td>羅</td>
-<td>故</td>
-<td>想</td>
-<td>無</td>
-<td>所</td>
-<td>無</td>
-<td>識</td>
-<td>身</td>
-<td>是</td>
-<td>諸</td>
-<td>空</td>
-<td>厄</td>
-<td>若</td>
-<td>&nbsp;</td>
-<td>密</td>
-</tr>
-
-<tr>
-<td>&nbsp;</td>
-<td>提</td>
-<td>羅</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>波</td>
-<td>等</td>
-<td>密</td>
-<td>得</td>
-<td>究</td>
-<td>罣</td>
-<td>得</td>
-<td>老</td>
-<td>界</td>
-<td>意</td>
-<td>故</td>
-<td>法</td>
-<td>即</td>
-<td>舍</td>
-<td>波</td>
-<td>&nbsp;</td>
-<td>多</td>
-</tr>
-
-<tr>
-<td>&nbsp;</td>
-<td>薩</td>
-<td>揭</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>羅</td>
-<td>等</td>
-<td>多</td>
-<td>阿</td>
-<td>竟</td>
-<td>礙</td>
-<td>故</td>
-<td>死</td>
-<td>無</td>
-<td>無</td>
-<td>空</td>
-<td>空</td>
-<td>是</td>
-<td>利</td>
-<td>羅</td>
-<td>&nbsp;</td>
-<td>心</td>
-</tr>
-
-<tr>
-<td>項</td>
-<td>婆</td>
-<td>諦</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>密</td>
-<td>咒</td>
-<td>是</td>
-<td>耨</td>
-<td>涅</td>
-<td>無</td>
-<td>菩</td>
-<td>盡</td>
-<td>無</td>
-<td>色</td>
-<td>中</td>
-<td>相</td>
-<td>色</td>
-<td>子</td>
-<td>密</td>
-<td>&nbsp;</td>
-<td>經</td>
-</tr>
-
-<tr>
-<td>思</td>
-<td>訶</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>多</td>
-<td>能</td>
-<td>大</td>
-<td>多</td>
-<td>槃</td>
-<td>罣</td>
-<td>提</td>
-<td>無</td>
-<td>明</td>
-<td>聲</td>
-<td>無</td>
-<td>不</td>
-<td>受</td>
-<td>色</td>
-<td>多</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-
-<tr>
-<td>偉</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>咒</td>
-<td>除</td>
-<td>神</td>
-<td>羅</td>
-<td>三</td>
-<td>礙</td>
-<td>薩</td>
-<td>苦</td>
-<td>亦</td>
-<td>香</td>
-<td>色</td>
-<td>生</td>
-<td>想</td>
-<td>不</td>
-<td>時</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>即</td>
-<td>一</td>
-<td>咒</td>
-<td>三</td>
-<td>世</td>
-<td>故</td>
-<td>埵</td>
-<td>集</td>
-<td>無</td>
-<td>味</td>
-<td>無</td>
-<td>不</td>
-<td>行</td>
-<td>異</td>
-<td>照</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-
-<tr>
-<td>編</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>說</td>
-<td>切</td>
-<td>是</td>
-<td>藐</td>
-<td>諸</td>
-<td>無</td>
-<td>依</td>
-<td>滅</td>
-<td>無</td>
-<td>觸</td>
-<td>受</td>
-<td>滅</td>
-<td>識</td>
-<td>空</td>
-<td>見</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-
-<tr>
-<td>輯</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-</table>
+<li><p>
+access the instance we have launched using socat and rlwrap:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">rlwrap socat UNIX-CONNECT:./qmp-sock STDIO
+</pre>
+</div>
+<p>
+and the output like:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">{<span style="color: #66BB6A;">"QMP"</span>: {<span style="color: #66BB6A;">"version"</span>: {<span style="color: #66BB6A;">"qemu"</span>: {<span style="color: #66BB6A;">"micro"</span>: 0, <span style="color: #66BB6A;">"minor"</span>: 8, <span style="color: #66BB6A;">"major"</span>: 2}, <span style="color: #66BB6A;">"package"</span>: <span style="color: #66BB6A;">""</span>}, <span style="color: #66BB6A;">"capabilities"</span>: []}}
+</pre>
+</div></li>
+</ol>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>

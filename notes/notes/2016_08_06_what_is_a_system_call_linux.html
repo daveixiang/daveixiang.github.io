@@ -6,7 +6,7 @@
 <!-- 2019-02-23 Sat 15:58 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>般若波羅蜜多心經</title>
+<title>What is a System Call (Linux)</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="siwei" />
 <style type="text/css">
@@ -180,8 +180,7 @@
   .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
-<link rel='stylesheet' href='css/site.css' type='text/css'/>
-<style type="text/css"> table {margin: 64px auto; font-size: 1em;} table, th, td { border: 0px solid #666;} </style>
+<link rel='stylesheet' href='../css/site.css' type='text/css'/>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -242,482 +241,118 @@ for the JavaScript code in this tag.
 <div class='clearboth'></div>
 </div>
 <div id="content">
-<table>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<h1 class="title">What is a System Call (Linux)</h1>
 
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>咒</td>
-<td>苦</td>
-<td>大</td>
-<td>三</td>
-<td>佛</td>
-<td>有</td>
-<td>般</td>
-<td>道</td>
-<td>明</td>
-<td>法</td>
-<td>想</td>
-<td>不</td>
-<td>亦</td>
-<td>空</td>
-<td>五</td>
-<td>觀</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<div id="outline-container-org527ffe4" class="outline-2">
+<h2 id="org527ffe4">Introduction</h2>
+<div class="outline-text-2" id="text-org527ffe4">
+<p>
+An application program makes a system call to get the operating system
+to perform a service for it, like reading from a file.
+</p>
+</div>
+</div>
 
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>曰</td>
-<td>真</td>
-<td>明</td>
-<td>菩</td>
-<td>依</td>
-<td>恐</td>
-<td>若</td>
-<td>無</td>
-<td>盡</td>
-<td>無</td>
-<td>行</td>
-<td>垢</td>
-<td>復</td>
-<td>不</td>
-<td>蘊</td>
-<td>自</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<div id="outline-container-org77a4fa1" class="outline-2">
+<h2 id="org77a4fa1">System Calls in 32-bit Linux</h2>
+<div class="outline-text-2" id="text-org77a4fa1">
+<ol class="org-ol">
+<li>To make a system call in <code>32-bit</code> Linux, place the system call
+number in <code>eax</code>, then its arguments, in order, in <code>ebx</code>, <code>ecx</code>,
+<code>edx</code>, <code>esi</code>, <code>edi</code>, and <code>ebp</code>, then invoke <code>int 0x80</code>.</li>
 
-<tr>
-<td>&nbsp;</td>
-<td>波</td>
-<td>揭</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>實</td>
-<td>咒</td>
-<td>提</td>
-<td>般</td>
-<td>怖</td>
-<td>波</td>
-<td>智</td>
-<td>乃</td>
-<td>眼</td>
-<td>識</td>
-<td>不</td>
-<td>如</td>
-<td>異</td>
-<td>皆</td>
-<td>在</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<li>Some system calls return information, usually in <code>eax</code>.</li>
 
-<tr>
-<td>&nbsp;</td>
-<td>羅</td>
-<td>諦</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>不</td>
-<td>是</td>
-<td>故</td>
-<td>若</td>
-<td>遠</td>
-<td>羅</td>
-<td>亦</td>
-<td>至</td>
-<td>界</td>
-<td>無</td>
-<td>淨</td>
-<td>是</td>
-<td>色</td>
-<td>空</td>
-<td>菩</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<li>All registers are saved across the system call.</li>
+</ol>
+<div class="org-src-container">
+<pre class="src src-asm"><span style="color: #7E57C2;">.section</span> .data
+<span style="color: #42A5F5;">mesg</span>:
+    <span style="color: #7E57C2;">.asciz</span> <span style="color: #66BB6A;">"Hello World\n"</span>
+<span style="color: #42A5F5;">mesg_len</span> = . - mesg
 
-<tr>
-<td>&nbsp;</td>
-<td>僧</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>虛</td>
-<td>無</td>
-<td>知</td>
-<td>波</td>
-<td>離</td>
-<td>密</td>
-<td>無</td>
-<td>無</td>
-<td>乃</td>
-<td>眼</td>
-<td>不</td>
-<td>舍</td>
-<td>色</td>
-<td>度</td>
-<td>薩</td>
-<td>&nbsp;</td>
-<td>般</td>
-</tr>
+<span style="color: #7E57C2;">.section</span> .text
+<span style="color: #7E57C2;">.global</span> _start
+<span style="color: #42A5F5;">_start</span>:                         # ELF entry point
+    <span style="color: #7E57C2;">mov</span> $4, <span style="color: #26A69A;">%eax</span>                # sys_write
+    <span style="color: #7E57C2;">mov</span> $1, <span style="color: #26A69A;">%ebx</span>                # STDOUT
+    <span style="color: #7E57C2;">mov</span> $mesg, <span style="color: #26A69A;">%ecx</span>             # buffer address
+    <span style="color: #7E57C2;">mov</span> $mesg_len, <span style="color: #26A69A;">%edx</span>         # buffer length
+    <span style="color: #7E57C2;">int</span> $0x80
 
-<tr>
-<td>&nbsp;</td>
-<td>揭</td>
-<td>揭</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>故</td>
-<td>上</td>
-<td>般</td>
-<td>羅</td>
-<td>顛</td>
-<td>多</td>
-<td>得</td>
-<td>老</td>
-<td>至</td>
-<td>耳</td>
-<td>增</td>
-<td>利</td>
-<td>即</td>
-<td>一</td>
-<td>行</td>
-<td>&nbsp;</td>
-<td>若</td>
-</tr>
+    <span style="color: #7E57C2;">mov</span> $1, <span style="color: #26A69A;">%eax</span>                # sys_exit
+    <span style="color: #7E57C2;">mov</span> $0, <span style="color: #26A69A;">%ebx</span>                # error code
+    <span style="color: #7E57C2;">int</span> $0x80
+</pre>
+</div>
+</div>
+</div>
 
-<tr>
-<td>&nbsp;</td>
-<td>諦</td>
-<td>諦</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>說</td>
-<td>咒</td>
-<td>若</td>
-<td>密</td>
-<td>倒</td>
-<td>故</td>
-<td>以</td>
-<td>死</td>
-<td>無</td>
-<td>鼻</td>
-<td>不</td>
-<td>子</td>
-<td>是</td>
-<td>切</td>
-<td>深</td>
-<td>&nbsp;</td>
-<td>波</td>
-</tr>
+<div id="outline-container-org43ab4b2" class="outline-2">
+<h2 id="org43ab4b2">System Calls in 64-bit Linux</h2>
+<div class="outline-text-2" id="text-org43ab4b2">
+<ol class="org-ol">
+<li>To make a system call in <code>64-bit</code> Linux, place the system call
+number in <code>rax</code>, then its arguments, in order, in <code>rdi</code>, <code>rsi</code>,
+<code>rdx</code>, <code>r10</code>, <code>r8</code>, and <code>r9</code>, then invoke <code>syscall</code>.</li>
 
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>般</td>
-<td>是</td>
-<td>波</td>
-<td>多</td>
-<td>夢</td>
-<td>心</td>
-<td>無</td>
-<td>亦</td>
-<td>意</td>
-<td>舌</td>
-<td>減</td>
-<td>是</td>
-<td>空</td>
-<td>苦</td>
-<td>般</td>
-<td>&nbsp;</td>
-<td>羅</td>
-</tr>
+<li>Some system calls return information, usually in <code>rax</code>.</li>
 
-<tr>
-<td>&nbsp;</td>
-<td>菩</td>
-<td>波</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>若</td>
-<td>無</td>
-<td>羅</td>
-<td>故</td>
-<td>想</td>
-<td>無</td>
-<td>所</td>
-<td>無</td>
-<td>識</td>
-<td>身</td>
-<td>是</td>
-<td>諸</td>
-<td>空</td>
-<td>厄</td>
-<td>若</td>
-<td>&nbsp;</td>
-<td>密</td>
-</tr>
+<li>The system call destroys <code>rcx</code> and <code>r11</code> but others registers are
+saved across the system call.</li>
+</ol>
 
-<tr>
-<td>&nbsp;</td>
-<td>提</td>
-<td>羅</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>波</td>
-<td>等</td>
-<td>密</td>
-<td>得</td>
-<td>究</td>
-<td>罣</td>
-<td>得</td>
-<td>老</td>
-<td>界</td>
-<td>意</td>
-<td>故</td>
-<td>法</td>
-<td>即</td>
-<td>舍</td>
-<td>波</td>
-<td>&nbsp;</td>
-<td>多</td>
-</tr>
 
-<tr>
-<td>&nbsp;</td>
-<td>薩</td>
-<td>揭</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>羅</td>
-<td>等</td>
-<td>多</td>
-<td>阿</td>
-<td>竟</td>
-<td>礙</td>
-<td>故</td>
-<td>死</td>
-<td>無</td>
-<td>無</td>
-<td>空</td>
-<td>空</td>
-<td>是</td>
-<td>利</td>
-<td>羅</td>
-<td>&nbsp;</td>
-<td>心</td>
-</tr>
+<ul class="org-ul">
+<li>code01</li>
+</ul>
 
-<tr>
-<td>項</td>
-<td>婆</td>
-<td>諦</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>密</td>
-<td>咒</td>
-<td>是</td>
-<td>耨</td>
-<td>涅</td>
-<td>無</td>
-<td>菩</td>
-<td>盡</td>
-<td>無</td>
-<td>色</td>
-<td>中</td>
-<td>相</td>
-<td>色</td>
-<td>子</td>
-<td>密</td>
-<td>&nbsp;</td>
-<td>經</td>
-</tr>
+<div class="org-src-container">
+<pre class="src src-asm"><span style="color: #7E57C2;">.section</span> .data
+<span style="color: #42A5F5;">mesg</span>:
+    <span style="color: #7E57C2;">.asciz</span> <span style="color: #66BB6A;">"Hello World\n"</span>
+<span style="color: #42A5F5;">mesg_len</span> = . - mesg
 
-<tr>
-<td>思</td>
-<td>訶</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>多</td>
-<td>能</td>
-<td>大</td>
-<td>多</td>
-<td>槃</td>
-<td>罣</td>
-<td>提</td>
-<td>無</td>
-<td>明</td>
-<td>聲</td>
-<td>無</td>
-<td>不</td>
-<td>受</td>
-<td>色</td>
-<td>多</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<span style="color: #7E57C2;">.section</span> .text
+<span style="color: #7E57C2;">.global</span> _start
+<span style="color: #42A5F5;">_start</span>:                         # ELF entry point
+    <span style="color: #7E57C2;">mov</span> $1, <span style="color: #26A69A;">%rax</span>                # sys_write
+    <span style="color: #7E57C2;">mov</span> $1, <span style="color: #26A69A;">%rdi</span>                # STDOUT
+    <span style="color: #7E57C2;">mov</span> $mesg, <span style="color: #26A69A;">%rsi</span>             # buffer address
+    <span style="color: #7E57C2;">mov</span> $mesg_len, <span style="color: #26A69A;">%rdx</span>         # buffer length
+    <span style="color: #7E57C2;">syscall</span>
+    <span style="color: #7E57C2;">mov</span> <span style="color: #26A69A;">%rax</span>, <span style="color: #26A69A;">%rbx</span>
 
-<tr>
-<td>偉</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>咒</td>
-<td>除</td>
-<td>神</td>
-<td>羅</td>
-<td>三</td>
-<td>礙</td>
-<td>薩</td>
-<td>苦</td>
-<td>亦</td>
-<td>香</td>
-<td>色</td>
-<td>生</td>
-<td>想</td>
-<td>不</td>
-<td>時</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+    <span style="color: #7E57C2;">mov</span> $60, <span style="color: #26A69A;">%rax</span>               # sys_exit
+    <span style="color: #7E57C2;">mov</span> <span style="color: #26A69A;">%rbx</span>, <span style="color: #26A69A;">%rdi</span>              # 0
+    <span style="color: #7E57C2;">syscall</span>
+</pre>
+</div>
 
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>即</td>
-<td>一</td>
-<td>咒</td>
-<td>三</td>
-<td>世</td>
-<td>故</td>
-<td>埵</td>
-<td>集</td>
-<td>無</td>
-<td>味</td>
-<td>無</td>
-<td>不</td>
-<td>行</td>
-<td>異</td>
-<td>照</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<ul class="org-ul">
+<li>code02</li>
+</ul>
 
-<tr>
-<td>編</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>說</td>
-<td>切</td>
-<td>是</td>
-<td>藐</td>
-<td>諸</td>
-<td>無</td>
-<td>依</td>
-<td>滅</td>
-<td>無</td>
-<td>觸</td>
-<td>受</td>
-<td>滅</td>
-<td>識</td>
-<td>空</td>
-<td>見</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<div class="org-src-container">
+<pre class="src src-asm"><span style="color: #7E57C2;">.data</span>
+<span style="color: #42A5F5;">_hello</span>:
+  <span style="color: #7E57C2;">.asciz</span> <span style="color: #66BB6A;">"hello world\n"</span>
 
-<tr>
-<td>輯</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<span style="color: #7E57C2;">.text</span>
+<span style="color: #7E57C2;">.globl</span> _main
+<span style="color: #42A5F5;">_main</span>:
+    <span style="color: #7E57C2;">subq</span> $8, <span style="color: #26A69A;">%rsp</span>
 
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-</table>
+    <span style="color: #7E57C2;">movb</span> $0, <span style="color: #26A69A;">%al</span>
+    <span style="color: #7E57C2;">leaq</span> _hello(<span style="color: #26A69A;">%rip</span>), <span style="color: #26A69A;">%rdi</span>
+    <span style="color: #7E57C2;">call</span> _printf
+
+    <span style="color: #7E57C2;">movq</span> $0, <span style="color: #26A69A;">%rdi</span>
+    <span style="color: #7E57C2;">call</span> _exit
+</pre>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>

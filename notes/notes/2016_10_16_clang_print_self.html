@@ -6,7 +6,7 @@
 <!-- 2019-02-23 Sat 15:58 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>般若波羅蜜多心經</title>
+<title>Clang print self</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="siwei" />
 <style type="text/css">
@@ -180,8 +180,7 @@
   .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
-<link rel='stylesheet' href='css/site.css' type='text/css'/>
-<style type="text/css"> table {margin: 64px auto; font-size: 1em;} table, th, td { border: 0px solid #666;} </style>
+<link rel='stylesheet' href='../css/site.css' type='text/css'/>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -242,482 +241,88 @@ for the JavaScript code in this tag.
 <div class='clearboth'></div>
 </div>
 <div id="content">
-<table>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<h1 class="title">Clang print self</h1>
 
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>咒</td>
-<td>苦</td>
-<td>大</td>
-<td>三</td>
-<td>佛</td>
-<td>有</td>
-<td>般</td>
-<td>道</td>
-<td>明</td>
-<td>法</td>
-<td>想</td>
-<td>不</td>
-<td>亦</td>
-<td>空</td>
-<td>五</td>
-<td>觀</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<div id="outline-container-org4007172" class="outline-2">
+<h2 id="org4007172">print-self.c</h2>
+<div class="outline-text-2" id="text-org4007172">
+<p>
+the code is:
+</p>
+<div class="org-src-container">
+<pre class="src src-c"><span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;stdio.h&gt;</span>
+<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;stdlib.h&gt;</span>
 
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>曰</td>
-<td>真</td>
-<td>明</td>
-<td>菩</td>
-<td>依</td>
-<td>恐</td>
-<td>若</td>
-<td>無</td>
-<td>盡</td>
-<td>無</td>
-<td>行</td>
-<td>垢</td>
-<td>復</td>
-<td>不</td>
-<td>蘊</td>
-<td>自</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<span style="color: #7E57C2;">extern</span> <span style="color: #D84315;">char</span> * <span style="color: #26A69A;">_binary_print_self_c_start</span>;  
+<span style="color: #D84315;">int</span> <span style="color: #42A5F5;">main</span>()  
+{
+        printf(<span style="color: #66BB6A;">"%s"</span>, (<span style="color: #D84315;">char</span> *)&amp;_binary_print_self_c_start);  
+}
+</pre>
+</div>
 
-<tr>
-<td>&nbsp;</td>
-<td>波</td>
-<td>揭</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>實</td>
-<td>咒</td>
-<td>提</td>
-<td>般</td>
-<td>怖</td>
-<td>波</td>
-<td>智</td>
-<td>乃</td>
-<td>眼</td>
-<td>識</td>
-<td>不</td>
-<td>如</td>
-<td>異</td>
-<td>皆</td>
-<td>在</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<p>
+and generate print-self.bin
+</p>
 
-<tr>
-<td>&nbsp;</td>
-<td>羅</td>
-<td>諦</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>不</td>
-<td>是</td>
-<td>故</td>
-<td>若</td>
-<td>遠</td>
-<td>羅</td>
-<td>亦</td>
-<td>至</td>
-<td>界</td>
-<td>無</td>
-<td>淨</td>
-<td>是</td>
-<td>色</td>
-<td>空</td>
-<td>菩</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<div class="org-src-container">
+<pre class="src src-sh">objcopy -I binary -O  elf64-x86-64 -B i386:x86-64  print-self.c print-self.bin
+</pre>
+</div>
+</div>
+</div>
 
-<tr>
-<td>&nbsp;</td>
-<td>僧</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>虛</td>
-<td>無</td>
-<td>知</td>
-<td>波</td>
-<td>離</td>
-<td>密</td>
-<td>無</td>
-<td>無</td>
-<td>乃</td>
-<td>眼</td>
-<td>不</td>
-<td>舍</td>
-<td>色</td>
-<td>度</td>
-<td>薩</td>
-<td>&nbsp;</td>
-<td>般</td>
-</tr>
+<div id="outline-container-org6b2b66d" class="outline-2">
+<h2 id="org6b2b66d">print-self.bin</h2>
+<div class="outline-text-2" id="text-org6b2b66d">
+<div class="org-src-container">
+<pre class="src src-sh">readelf --sym print-self.bin
+</pre>
+</div>
 
-<tr>
-<td>&nbsp;</td>
-<td>揭</td>
-<td>揭</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>故</td>
-<td>上</td>
-<td>般</td>
-<td>羅</td>
-<td>顛</td>
-<td>多</td>
-<td>得</td>
-<td>老</td>
-<td>至</td>
-<td>耳</td>
-<td>增</td>
-<td>利</td>
-<td>即</td>
-<td>一</td>
-<td>行</td>
-<td>&nbsp;</td>
-<td>若</td>
-</tr>
+<p>
+and the symbols is like:
+</p>
 
-<tr>
-<td>&nbsp;</td>
-<td>諦</td>
-<td>諦</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>說</td>
-<td>咒</td>
-<td>若</td>
-<td>密</td>
-<td>倒</td>
-<td>故</td>
-<td>以</td>
-<td>死</td>
-<td>無</td>
-<td>鼻</td>
-<td>不</td>
-<td>子</td>
-<td>是</td>
-<td>切</td>
-<td>深</td>
-<td>&nbsp;</td>
-<td>波</td>
-</tr>
+<div class="org-src-container">
+<pre class="src src-text">Symbol table '.symtab' contains 5 entries:
+   Num:    Value          Size Type    Bind   Vis      Ndx Name
+     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+     1: 0000000000000000     0 SECTION LOCAL  DEFAULT    1 
+     2: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT    1 _binary_print_self_c_star
+     3: 000000000000009b     0 NOTYPE  GLOBAL DEFAULT    1 _binary_print_self_c_end
+     4: 000000000000009b     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_print_self_c_size
+</pre>
+</div>
+</div>
+</div>
 
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>般</td>
-<td>是</td>
-<td>波</td>
-<td>多</td>
-<td>夢</td>
-<td>心</td>
-<td>無</td>
-<td>亦</td>
-<td>意</td>
-<td>舌</td>
-<td>減</td>
-<td>是</td>
-<td>空</td>
-<td>苦</td>
-<td>般</td>
-<td>&nbsp;</td>
-<td>羅</td>
-</tr>
+<div id="outline-container-orga57bf5c" class="outline-2">
+<h2 id="orga57bf5c">print-self</h2>
+<div class="outline-text-2" id="text-orga57bf5c">
+<div class="org-src-container">
+<pre class="src src-sh">gcc -o print-self print-self.c print-self.bin
+</pre>
+</div>
 
-<tr>
-<td>&nbsp;</td>
-<td>菩</td>
-<td>波</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>若</td>
-<td>無</td>
-<td>羅</td>
-<td>故</td>
-<td>想</td>
-<td>無</td>
-<td>所</td>
-<td>無</td>
-<td>識</td>
-<td>身</td>
-<td>是</td>
-<td>諸</td>
-<td>空</td>
-<td>厄</td>
-<td>若</td>
-<td>&nbsp;</td>
-<td>密</td>
-</tr>
+<p>
+and check the output:
+</p>
 
-<tr>
-<td>&nbsp;</td>
-<td>提</td>
-<td>羅</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>波</td>
-<td>等</td>
-<td>密</td>
-<td>得</td>
-<td>究</td>
-<td>罣</td>
-<td>得</td>
-<td>老</td>
-<td>界</td>
-<td>意</td>
-<td>故</td>
-<td>法</td>
-<td>即</td>
-<td>舍</td>
-<td>波</td>
-<td>&nbsp;</td>
-<td>多</td>
-</tr>
+<div class="org-src-container">
+<pre class="src src-text">davei@davei:/tmp&gt; ./print-self 
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
 
-<tr>
-<td>&nbsp;</td>
-<td>薩</td>
-<td>揭</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>羅</td>
-<td>等</td>
-<td>多</td>
-<td>阿</td>
-<td>竟</td>
-<td>礙</td>
-<td>故</td>
-<td>死</td>
-<td>無</td>
-<td>無</td>
-<td>空</td>
-<td>空</td>
-<td>是</td>
-<td>利</td>
-<td>羅</td>
-<td>&nbsp;</td>
-<td>心</td>
-</tr>
-
-<tr>
-<td>項</td>
-<td>婆</td>
-<td>諦</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>密</td>
-<td>咒</td>
-<td>是</td>
-<td>耨</td>
-<td>涅</td>
-<td>無</td>
-<td>菩</td>
-<td>盡</td>
-<td>無</td>
-<td>色</td>
-<td>中</td>
-<td>相</td>
-<td>色</td>
-<td>子</td>
-<td>密</td>
-<td>&nbsp;</td>
-<td>經</td>
-</tr>
-
-<tr>
-<td>思</td>
-<td>訶</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>多</td>
-<td>能</td>
-<td>大</td>
-<td>多</td>
-<td>槃</td>
-<td>罣</td>
-<td>提</td>
-<td>無</td>
-<td>明</td>
-<td>聲</td>
-<td>無</td>
-<td>不</td>
-<td>受</td>
-<td>色</td>
-<td>多</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-
-<tr>
-<td>偉</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>咒</td>
-<td>除</td>
-<td>神</td>
-<td>羅</td>
-<td>三</td>
-<td>礙</td>
-<td>薩</td>
-<td>苦</td>
-<td>亦</td>
-<td>香</td>
-<td>色</td>
-<td>生</td>
-<td>想</td>
-<td>不</td>
-<td>時</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>即</td>
-<td>一</td>
-<td>咒</td>
-<td>三</td>
-<td>世</td>
-<td>故</td>
-<td>埵</td>
-<td>集</td>
-<td>無</td>
-<td>味</td>
-<td>無</td>
-<td>不</td>
-<td>行</td>
-<td>異</td>
-<td>照</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-
-<tr>
-<td>編</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>說</td>
-<td>切</td>
-<td>是</td>
-<td>藐</td>
-<td>諸</td>
-<td>無</td>
-<td>依</td>
-<td>滅</td>
-<td>無</td>
-<td>觸</td>
-<td>受</td>
-<td>滅</td>
-<td>識</td>
-<td>空</td>
-<td>見</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-
-<tr>
-<td>輯</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-</table>
+extern char * _binary_print_self_c_start;  
+int main()  
+{
+        printf("%s", (char *)&amp;_binary_print_self_c_start);  
+}
+</pre>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>

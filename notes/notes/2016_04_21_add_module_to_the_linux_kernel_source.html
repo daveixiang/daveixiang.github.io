@@ -6,7 +6,7 @@
 <!-- 2019-02-23 Sat 15:58 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>般若波羅蜜多心經</title>
+<title>Add Module to the Linux Kernel Source</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="siwei" />
 <style type="text/css">
@@ -180,8 +180,7 @@
   .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
-<link rel='stylesheet' href='css/site.css' type='text/css'/>
-<style type="text/css"> table {margin: 64px auto; font-size: 1em;} table, th, td { border: 0px solid #666;} </style>
+<link rel='stylesheet' href='../css/site.css' type='text/css'/>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -242,482 +241,173 @@ for the JavaScript code in this tag.
 <div class='clearboth'></div>
 </div>
 <div id="content">
-<table>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<h1 class="title">Add Module to the Linux Kernel Source</h1>
 
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>咒</td>
-<td>苦</td>
-<td>大</td>
-<td>三</td>
-<td>佛</td>
-<td>有</td>
-<td>般</td>
-<td>道</td>
-<td>明</td>
-<td>法</td>
-<td>想</td>
-<td>不</td>
-<td>亦</td>
-<td>空</td>
-<td>五</td>
-<td>觀</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<div id="outline-container-org55256b3" class="outline-2">
+<h2 id="org55256b3">Create module directory</h2>
+<div class="outline-text-2" id="text-org55256b3">
+<p>
+Create a directory <code>skm</code> inside drivers (which is in the Linux source
+code) for your module and put source code(<code>skm.c</code>) into it. It will
+looks like:
+</p>
 
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>曰</td>
-<td>真</td>
-<td>明</td>
-<td>菩</td>
-<td>依</td>
-<td>恐</td>
-<td>若</td>
-<td>無</td>
-<td>盡</td>
-<td>無</td>
-<td>行</td>
-<td>垢</td>
-<td>復</td>
-<td>不</td>
-<td>蘊</td>
-<td>自</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<div class="org-src-container">
+<pre class="src src-text">{LINUX_SRC_PATH}/drivers/skm/skm.c
+</pre>
+</div>
 
-<tr>
-<td>&nbsp;</td>
-<td>波</td>
-<td>揭</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>實</td>
-<td>咒</td>
-<td>提</td>
-<td>般</td>
-<td>怖</td>
-<td>波</td>
-<td>智</td>
-<td>乃</td>
-<td>眼</td>
-<td>識</td>
-<td>不</td>
-<td>如</td>
-<td>異</td>
-<td>皆</td>
-<td>在</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<p>
+and the source code file skm.c appears like:
+</p>
 
-<tr>
-<td>&nbsp;</td>
-<td>羅</td>
-<td>諦</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>不</td>
-<td>是</td>
-<td>故</td>
-<td>若</td>
-<td>遠</td>
-<td>羅</td>
-<td>亦</td>
-<td>至</td>
-<td>界</td>
-<td>無</td>
-<td>淨</td>
-<td>是</td>
-<td>色</td>
-<td>空</td>
-<td>菩</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<div class="org-src-container">
+<pre class="src src-c"><span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;linux/module.h&gt;</span>
+<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;linux/version.h&gt;</span>
+<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;linux/kernel.h&gt;</span>
 
-<tr>
-<td>&nbsp;</td>
-<td>僧</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>虛</td>
-<td>無</td>
-<td>知</td>
-<td>波</td>
-<td>離</td>
-<td>密</td>
-<td>無</td>
-<td>無</td>
-<td>乃</td>
-<td>眼</td>
-<td>不</td>
-<td>舍</td>
-<td>色</td>
-<td>度</td>
-<td>薩</td>
-<td>&nbsp;</td>
-<td>般</td>
-</tr>
+<span style="color: #7E57C2;">static</span> <span style="color: #D84315;">int</span> <span style="color: #42A5F5;">__init</span> skm_init(<span style="color: #D84315;">void</span>)
+{
+        printk(KERN_INFO <span style="color: #66BB6A;">"Hello Kernel Space!\n"</span>);
 
-<tr>
-<td>&nbsp;</td>
-<td>揭</td>
-<td>揭</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>故</td>
-<td>上</td>
-<td>般</td>
-<td>羅</td>
-<td>顛</td>
-<td>多</td>
-<td>得</td>
-<td>老</td>
-<td>至</td>
-<td>耳</td>
-<td>增</td>
-<td>利</td>
-<td>即</td>
-<td>一</td>
-<td>行</td>
-<td>&nbsp;</td>
-<td>若</td>
-</tr>
+        <span style="color: #7E57C2;">return</span> 0;
+}
 
-<tr>
-<td>&nbsp;</td>
-<td>諦</td>
-<td>諦</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>說</td>
-<td>咒</td>
-<td>若</td>
-<td>密</td>
-<td>倒</td>
-<td>故</td>
-<td>以</td>
-<td>死</td>
-<td>無</td>
-<td>鼻</td>
-<td>不</td>
-<td>子</td>
-<td>是</td>
-<td>切</td>
-<td>深</td>
-<td>&nbsp;</td>
-<td>波</td>
-</tr>
+<span style="color: #7E57C2;">static</span> <span style="color: #D84315;">void</span> <span style="color: #42A5F5;">__exit</span> skm_exit(<span style="color: #D84315;">void</span>)
+{
+        printk(KERN_INFO <span style="color: #66BB6A;">"Bye Kernel Space!\n"</span>);
+}
 
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>般</td>
-<td>是</td>
-<td>波</td>
-<td>多</td>
-<td>夢</td>
-<td>心</td>
-<td>無</td>
-<td>亦</td>
-<td>意</td>
-<td>舌</td>
-<td>減</td>
-<td>是</td>
-<td>空</td>
-<td>苦</td>
-<td>般</td>
-<td>&nbsp;</td>
-<td>羅</td>
-</tr>
+<span style="color: #42A5F5;">module_init</span>(skm_init);
+<span style="color: #42A5F5;">module_exit</span>(skm_exit);
 
-<tr>
-<td>&nbsp;</td>
-<td>菩</td>
-<td>波</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>若</td>
-<td>無</td>
-<td>羅</td>
-<td>故</td>
-<td>想</td>
-<td>無</td>
-<td>所</td>
-<td>無</td>
-<td>識</td>
-<td>身</td>
-<td>是</td>
-<td>諸</td>
-<td>空</td>
-<td>厄</td>
-<td>若</td>
-<td>&nbsp;</td>
-<td>密</td>
-</tr>
+MODULE_LICENSE(<span style="color: #66BB6A;">"GPL"</span>);
+MODULE_AUTHOR(<span style="color: #66BB6A;">"Xiang Davei"</span>);
+MODULE_DESCRIPTION(<span style="color: #66BB6A;">"Simple Kernel Module"</span>)
+</pre>
+</div>
+</div>
+</div>
 
-<tr>
-<td>&nbsp;</td>
-<td>提</td>
-<td>羅</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>波</td>
-<td>等</td>
-<td>密</td>
-<td>得</td>
-<td>究</td>
-<td>罣</td>
-<td>得</td>
-<td>老</td>
-<td>界</td>
-<td>意</td>
-<td>故</td>
-<td>法</td>
-<td>即</td>
-<td>舍</td>
-<td>波</td>
-<td>&nbsp;</td>
-<td>多</td>
-</tr>
+<div id="outline-container-org82f01cb" class="outline-2">
+<h2 id="org82f01cb">Create Makefile file</h2>
+<div class="outline-text-2" id="text-org82f01cb">
+<p>
+Create one <code>Makefile</code> inside <code>skm</code> and add <code>obj-$(CONFG_SKM) += skm.o</code>
+to it. This will appears like:
+</p>
 
-<tr>
-<td>&nbsp;</td>
-<td>薩</td>
-<td>揭</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>羅</td>
-<td>等</td>
-<td>多</td>
-<td>阿</td>
-<td>竟</td>
-<td>礙</td>
-<td>故</td>
-<td>死</td>
-<td>無</td>
-<td>無</td>
-<td>空</td>
-<td>空</td>
-<td>是</td>
-<td>利</td>
-<td>羅</td>
-<td>&nbsp;</td>
-<td>心</td>
-</tr>
+<div class="org-src-container">
+<pre class="src src-text">obj-$(CONFIG_SKM) += skm.o
+</pre>
+</div>
+</div>
+</div>
 
-<tr>
-<td>項</td>
-<td>婆</td>
-<td>諦</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>密</td>
-<td>咒</td>
-<td>是</td>
-<td>耨</td>
-<td>涅</td>
-<td>無</td>
-<td>菩</td>
-<td>盡</td>
-<td>無</td>
-<td>色</td>
-<td>中</td>
-<td>相</td>
-<td>色</td>
-<td>子</td>
-<td>密</td>
-<td>&nbsp;</td>
-<td>經</td>
-</tr>
+<div id="outline-container-org3b8d42c" class="outline-2">
+<h2 id="org3b8d42c">Create Kconfig file</h2>
+<div class="outline-text-2" id="text-org3b8d42c">
+<p>
+Create one <code>Kconfig</code> inside <code>skm</code> , then put the content as the
+following:
+</p>
 
-<tr>
-<td>思</td>
-<td>訶</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>多</td>
-<td>能</td>
-<td>大</td>
-<td>多</td>
-<td>槃</td>
-<td>罣</td>
-<td>提</td>
-<td>無</td>
-<td>明</td>
-<td>聲</td>
-<td>無</td>
-<td>不</td>
-<td>受</td>
-<td>色</td>
-<td>多</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<div class="org-src-container">
+<pre class="src src-text">config SKM
+        tristate "simple kernel module"
+        default y
+        help
+          simple kernel module
+</pre>
+</div>
 
-<tr>
-<td>偉</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>咒</td>
-<td>除</td>
-<td>神</td>
-<td>羅</td>
-<td>三</td>
-<td>礙</td>
-<td>薩</td>
-<td>苦</td>
-<td>亦</td>
-<td>香</td>
-<td>色</td>
-<td>生</td>
-<td>想</td>
-<td>不</td>
-<td>時</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<p>
+into it. And it will looks like:
+</p>
 
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>即</td>
-<td>一</td>
-<td>咒</td>
-<td>三</td>
-<td>世</td>
-<td>故</td>
-<td>埵</td>
-<td>集</td>
-<td>無</td>
-<td>味</td>
-<td>無</td>
-<td>不</td>
-<td>行</td>
-<td>異</td>
-<td>照</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<div class="org-src-container">
+<pre class="src src-text">{LINUX_SRC_PATH}/drivers/skm/Kconfig
+</pre>
+</div>
+</div>
+</div>
 
-<tr>
-<td>編</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>說</td>
-<td>切</td>
-<td>是</td>
-<td>藐</td>
-<td>諸</td>
-<td>無</td>
-<td>依</td>
-<td>滅</td>
-<td>無</td>
-<td>觸</td>
-<td>受</td>
-<td>滅</td>
-<td>識</td>
-<td>空</td>
-<td>見</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<div id="outline-container-orgf3c90a6" class="outline-2">
+<h2 id="orgf3c90a6">Edit Makefile and Kconfig in {LINUX_SRC_PATH}/drivers/</h2>
+<div class="outline-text-2" id="text-orgf3c90a6">
+<p>
+In the <code>Makefile</code> add below in last line
+</p>
 
-<tr>
-<td>輯</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<div class="org-src-container">
+<pre class="src src-text">obj-y += skm/
+</pre>
+</div>
 
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-</table>
+<p>
+or
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">obj-$(CONFIG_SKM) += skm/
+</pre>
+</div>
+
+<p>
+In Kconfig file add below in last line
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">source "drivers/skm/Kconfig"
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc68866c" class="outline-2">
+<h2 id="orgc68866c">Compile the source code with module just added</h2>
+<div class="outline-text-2" id="text-orgc68866c">
+</div>
+<div id="outline-container-org39f4928" class="outline-3">
+<h3 id="org39f4928">Use <i>make menuconfig</i> to choice the module just added</h3>
+<div class="outline-text-3" id="text-org39f4928">
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #26A69A;">ARCH</span>=i386 <span style="color: #26A69A;">CROSS_COMPILE</span>=i686-none-linux- make menuconfig
+</pre>
+</div>
+
+<p>
+and the output looks like:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">Device Drivers  ---&gt;
+    &lt;M&gt; simple kernel module
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4a7b787" class="outline-3">
+<h3 id="org4a7b787">Use <i>make -j$(nproc)</i> to compile the kernel</h3>
+<div class="outline-text-3" id="text-org4a7b787">
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #26A69A;">ARCH</span>=i386 <span style="color: #26A69A;">CROSS_COMPILE</span>=i686-none-linux- make -j$(nproc)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc80774b" class="outline-3">
+<h3 id="orgc80774b">Use <i>make modules_install</i> to install the kernel modules</h3>
+<div class="outline-text-3" id="text-orgc80774b">
+<div class="org-src-container">
+<pre class="src src-sh">make modules_install <span style="color: #26A69A;">INSTALL_MOD_PATH</span>=${<span style="color: #26A69A;">MODULES_PATH</span>}
+</pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>

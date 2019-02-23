@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-02-23 Sat 15:58 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Build Router Environment Using OVS - Five Devices</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="siwei" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel='stylesheet' href='../css/site.css' type='text/css'/>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="preamble" class="status">
+
+<div id='blogtitle'>道常無為而無不為
+<div id='subtitle'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Aal Izz Well</div>
+</div>
+<ul id='mainnav'>
+<li><a href='/'>Xin</a></li>
+<li><a href='/notes/index.html'>Notes</a></li>
+</ul>
+<div class='clearboth'></div>
+</div>
+<div id="content">
+<h1 class="title">Build Router Environment Using OVS - Five Devices</h1>
+
+<div id="outline-container-org440bbd2" class="outline-2">
+<h2 id="org440bbd2">Create four bridges using OVS</h2>
+<div class="outline-text-2" id="text-org440bbd2">
+<ul class="org-ul">
+<li><p>
+br0
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">ip tuntap add name tap01 mode tap
+ip tuntap add name tap02 mode tap
+
+ip link set tap01 up
+ip link set tap02 up
+
+ip link set tap01 address 12:34:56:78:9a:01
+ip link set tap01 address 12:34:56:78:9a:02
+
+ovs-vsctl add-br br0
+ovs-vsctl add-port br0 tap01
+ovs-vsctl add-port br0 tap02
+</pre>
+</div></li>
+
+<li><p>
+br1
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">ip tuntap add name tap11 mode tap
+ip tuntap add name tap12 mode tap
+
+ip link set tap11 up
+ip link set tap12 up
+
+ip link set tap11 address 12:34:56:78:9a:11
+ip link set tap11 address 12:34:56:78:9a:12
+
+ovs-vsctl add-br br1
+ovs-vsctl add-port br1 tap11
+ovs-vsctl add-port br1 tap12
+</pre>
+</div></li>
+
+<li><p>
+br2
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">ip tuntap add name tap21 mode tap
+ip tuntap add name tap22 mode tap
+
+ip link set tap21 up
+ip link set tap22 up
+
+ip link set tap21 address 12:34:56:78:9a:21
+ip link set tap21 address 12:34:56:78:9a:22
+
+ovs-vsctl add-br br2
+ovs-vsctl add-port br2 tap21
+ovs-vsctl add-port br2 tap22
+</pre>
+</div></li>
+
+<li><p>
+br3
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">ip tuntap add name tap31 mode tap
+ip tuntap add name tap32 mode tap
+
+ip link set tap31 up
+ip link set tap32 up
+
+ip link set tap31 address 12:34:56:78:9a:31
+ip link set tap31 address 12:34:56:78:9a:32
+
+ovs-vsctl add-br br3
+ovs-vsctl add-port br3 tap31
+ovs-vsctl add-port br3 tap32
+</pre>
+</div></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org5ab31e5" class="outline-2">
+<h2 id="org5ab31e5">Create two common PCs and three Routers using qemu enumlator</h2>
+<div class="outline-text-2" id="text-org5ab31e5">
+<ol class="org-ol">
+<li><p>
+two PCs
+</p>
+<ul class="org-ul">
+<li>pc01</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-shell">qemu-system-i386 -enable-kvm -m 1024M  -kernel ./bzImage <span style="color: #66BB6A;">\</span>
+-initrd ./initramfs -append  <span style="color: #66BB6A;">"console=ttyS0 quiet"</span> <span style="color: #66BB6A;">\</span>
+-nographic -serial mon:stdio <span style="color: #66BB6A;">\</span>
+-netdev tap,<span style="color: #26A69A;">id</span>=net1,<span style="color: #26A69A;">ifname</span>=tap02,<span style="color: #26A69A;">script</span>=no,<span style="color: #26A69A;">downscript</span>=no  <span style="color: #66BB6A;">\</span>
+-device e1000,<span style="color: #26A69A;">netdev</span>=net1,<span style="color: #26A69A;">mac</span>=<span style="color: #66BB6A;">'12:34:56:78:9a:02'</span>
+</pre>
+</div>
+<ul class="org-ul">
+<li>pc02</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-shell">qemu-system-i386 -enable-kvm -m 1024M  -kernel ./bzImage <span style="color: #66BB6A;">\</span>
+-initrd ./initramfs -append  <span style="color: #66BB6A;">"console=ttyS0 quiet"</span> <span style="color: #66BB6A;">\</span>
+-nographic -serial mon:stdio <span style="color: #66BB6A;">\</span>
+-netdev tap,<span style="color: #26A69A;">id</span>=net1,<span style="color: #26A69A;">ifname</span>=tap32,<span style="color: #26A69A;">script</span>=no,<span style="color: #26A69A;">downscript</span>=no  <span style="color: #66BB6A;">\</span>
+-device e1000,<span style="color: #26A69A;">netdev</span>=net1,<span style="color: #26A69A;">mac</span>=<span style="color: #66BB6A;">'12:34:56:78:9a:32'</span>
+</pre>
+</div></li>
+
+<li><p>
+three Routers
+</p>
+<ul class="org-ul">
+<li>router01</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-shell">qemu-system-i386 -enable-kvm -m 1024M  -kernel ./bzImage <span style="color: #66BB6A;">\</span>
+-initrd ./initramfs -append  <span style="color: #66BB6A;">"console=ttyS0 quiet"</span> <span style="color: #66BB6A;">\</span>
+-nographic -serial mon:stdio <span style="color: #66BB6A;">\</span>
+-netdev tap,<span style="color: #26A69A;">id</span>=net1,<span style="color: #26A69A;">ifname</span>=tap01,<span style="color: #26A69A;">script</span>=no,<span style="color: #26A69A;">downscript</span>=no  <span style="color: #66BB6A;">\</span>
+-device e1000,<span style="color: #26A69A;">netdev</span>=net1,<span style="color: #26A69A;">mac</span>=<span style="color: #66BB6A;">'12:34:56:78:9a:01'</span> <span style="color: #66BB6A;">\</span>
+-netdev tap,<span style="color: #26A69A;">id</span>=net2,<span style="color: #26A69A;">ifname</span>=tap11,<span style="color: #26A69A;">script</span>=no,<span style="color: #26A69A;">downscript</span>=no  <span style="color: #66BB6A;">\</span>
+-device e1000,<span style="color: #26A69A;">netdev</span>=net2,<span style="color: #26A69A;">mac</span>=<span style="color: #66BB6A;">'12:34:56:78:9a:11'</span>
+</pre>
+</div>
+<ul class="org-ul">
+<li>router02</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-shell">qemu-system-i386 -enable-kvm -m 1024M  -kernel ./bzImage <span style="color: #66BB6A;">\</span>
+-initrd ./initramfs -append  <span style="color: #66BB6A;">"console=ttyS0 quiet"</span> <span style="color: #66BB6A;">\</span>
+-nographic -serial mon:stdio <span style="color: #66BB6A;">\</span>
+-netdev tap,<span style="color: #26A69A;">id</span>=net1,<span style="color: #26A69A;">ifname</span>=tap12,<span style="color: #26A69A;">script</span>=no,<span style="color: #26A69A;">downscript</span>=no  <span style="color: #66BB6A;">\</span>
+-device e1000,<span style="color: #26A69A;">netdev</span>=net1,<span style="color: #26A69A;">mac</span>=<span style="color: #66BB6A;">'12:34:56:78:9a:12'</span> <span style="color: #66BB6A;">\</span>
+-netdev tap,<span style="color: #26A69A;">id</span>=net2,<span style="color: #26A69A;">ifname</span>=tap21,<span style="color: #26A69A;">script</span>=no,<span style="color: #26A69A;">downscript</span>=no  <span style="color: #66BB6A;">\</span>
+-device e1000,<span style="color: #26A69A;">netdev</span>=net2,<span style="color: #26A69A;">mac</span>=<span style="color: #66BB6A;">'12:34:56:78:9a:21'</span>
+</pre>
+</div>
+<ul class="org-ul">
+<li>router03</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-shell">qemu-system-i386 -enable-kvm -m 1024M  -kernel ./bzImage <span style="color: #66BB6A;">\</span>
+-initrd ./initramfs -append  <span style="color: #66BB6A;">"console=ttyS0 quiet"</span> <span style="color: #66BB6A;">\</span>
+-nographic -serial mon:stdio <span style="color: #66BB6A;">\</span>
+-netdev tap,<span style="color: #26A69A;">id</span>=net1,<span style="color: #26A69A;">ifname</span>=tap22,<span style="color: #26A69A;">script</span>=no,<span style="color: #26A69A;">downscript</span>=no  <span style="color: #66BB6A;">\</span>
+-device e1000,<span style="color: #26A69A;">netdev</span>=net1,<span style="color: #26A69A;">mac</span>=<span style="color: #66BB6A;">'12:34:56:78:9a:22'</span> <span style="color: #66BB6A;">\</span>
+-netdev tap,<span style="color: #26A69A;">id</span>=net2,<span style="color: #26A69A;">ifname</span>=tap31,<span style="color: #26A69A;">script</span>=no,<span style="color: #26A69A;">downscript</span>=no  <span style="color: #66BB6A;">\</span>
+-device e1000,<span style="color: #26A69A;">netdev</span>=net2,<span style="color: #26A69A;">mac</span>=<span style="color: #66BB6A;">'12:34:56:78:9a:31'</span>
+</pre>
+</div></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orge348eee" class="outline-2">
+<h2 id="orge348eee">Configure five devices just created routing rules</h2>
+<div class="outline-text-2" id="text-orge348eee">
+<ol class="org-ol">
+<li><p>
+pc01
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">ip link set eth0 up
+ip addr add 10.0.0.2/24 dev eth0
+
+ip route add 0.0.0.0/0 via 10.0.0.1 dev eth0
+</pre>
+</div></li>
+
+<li><p>
+pc02
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">ip link set eth0 up
+ip addr add 10.0.3.2/24 dev eth0
+
+ip route add 0.0.0.0/0 via 10.0.3.1 dev eth0
+</pre>
+</div></li>
+
+<li><p>
+router01
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">ip link set eth0 up
+ip addr add 10.0.0.1/24 dev eth0
+ip link set eth1 up
+ip addr add 10.0.1.1/24 dev eth1
+
+ip route add 10.0.2.0/24 via 10.0.1.2 dev eth1
+ip route add 10.0.3.0/24 via 10.0.1.2 dev eth1
+<span style="color: #0097A7;">echo</span> 1 &gt; /proc/sys/net/ipv4/ip_forward
+</pre>
+</div></li>
+
+<li><p>
+router02
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">ip link set eth0 up
+ip addr add 10.0.1.2/24 dev eth0
+ip link set eth1 up
+ip addr add 10.0.2.1/24 dev eth1
+
+ip route add 10.0.3.0/24 via 10.0.2.2 dev eth1
+ip route add 10.0.0.0/24 via 10.0.1.1 dev eth0
+<span style="color: #0097A7;">echo</span> 1 &gt; /proc/sys/net/ipv4/ip_forward
+</pre>
+</div></li>
+
+<li><p>
+router03
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">ip link set eth0 up
+ip addr add 10.0.2.2/24 dev eth0
+ip link set eth1 up
+ip addr add 10.0.3.1/24 dev eth1
+
+ip route add 10.0.1.0/24 via 10.0.2.1 dev eth0
+ip route add 10.0.0.0/24 via 10.0.2.1 dev eth0
+<span style="color: #0097A7;">echo</span> 1 &gt; /proc/sys/net/ipv4/ip_forward
+</pre>
+</div></li>
+
+<li><p>
+check the result: pc01 ping pc02
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">ping 10.0.3.2 -c 3
+</pre>
+</div>
+
+<p>
+and the result show be:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">PING 10.0.3.2 (10.0.3.2): 56 data bytes
+64 bytes from 10.0.3.2: seq=0 ttl=61 time=4.997 ms
+64 bytes from 10.0.3.2: seq=1 ttl=61 time=2.079 ms
+64 bytes from 10.0.3.2: seq=2 ttl=61 time=4.634 ms
+
+--- 10.0.3.2 ping statistics ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 2.079/3.903/4.997 ms
+</pre>
+</div></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<div class='footer'>
+Copyright 2019 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Last updated 2019-02-03 Sun 11:12. <br/>
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.1.9).
+</div>
+</div>
+</body>
+</html>

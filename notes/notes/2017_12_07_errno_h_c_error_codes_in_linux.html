@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-02-23 Sat 15:58 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>errno.h - C Error Codes in Linux</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="siwei" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel='stylesheet' href='../css/site.css' type='text/css'/>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="preamble" class="status">
+
+<div id='blogtitle'>道常無為而無不為
+<div id='subtitle'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Aal Izz Well</div>
+</div>
+<ul id='mainnav'>
+<li><a href='/'>Xin</a></li>
+<li><a href='/notes/index.html'>Notes</a></li>
+</ul>
+<div class='clearboth'></div>
+</div>
+<div id="content">
+<h1 class="title">errno.h - C Error Codes in Linux</h1>
+
+<div id="outline-container-org26a06c2" class="outline-2">
+<h2 id="org26a06c2">include/uapi/asm-generic/errno-base.h</h2>
+<div class="outline-text-2" id="text-org26a06c2">
+<div class="org-src-container">
+<pre class="src src-c"><span style="color: #1E88E5;">#if</span><span style="color: #1E88E5;">n</span><span style="color: #1E88E5;">def</span> _ASM_GENERIC_ERRNO_BASE_H
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">_ASM_GENERIC_ERRNO_BASE_H</span>
+
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EPERM</span>            1      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Operation not permitted </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENOENT</span>           2      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">No such file or directory </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ESRCH</span>            3      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">No such process </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EINTR</span>            4      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Interrupted system call </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EIO</span>              5      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">I/O error </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENXIO</span>            6      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">No such device or address </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">E2BIG</span>            7      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Argument list too long </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENOEXEC</span>          8      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Exec format error </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EBADF</span>            9      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Bad file number </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ECHILD</span>          10      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">No child processes </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EAGAIN</span>          11      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Try again </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENOMEM</span>          12      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Out of memory </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EACCES</span>          13      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Permission denied </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EFAULT</span>          14      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Bad address </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENOTBLK</span>         15      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Block device required </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EBUSY</span>           16      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Device or resource busy </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EEXIST</span>          17      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">File exists </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EXDEV</span>           18      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Cross-device link </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENODEV</span>          19      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">No such device </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENOTDIR</span>         20      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Not a directory </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EISDIR</span>          21      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Is a directory </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EINVAL</span>          22      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Invalid argument </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENFILE</span>          23      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">File table overflow </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EMFILE</span>          24      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Too many open files </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENOTTY</span>          25      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Not a typewriter </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ETXTBSY</span>         26      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Text file busy </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EFBIG</span>           27      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">File too large </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENOSPC</span>          28      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">No space left on device </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ESPIPE</span>          29      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Illegal seek </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EROFS</span>           30      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Read-only file system </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EMLINK</span>          31      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Too many links </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EPIPE</span>           32      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Broken pipe </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EDOM</span>            33      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Math argument out of domain of func </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ERANGE</span>          34      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Math result not representable </span><span style="color: #90A4AE;">*/</span>
+
+<span style="color: #1E88E5;">#endif</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgde84e75" class="outline-2">
+<h2 id="orgde84e75">include/uapi/asm-generic/errno.h</h2>
+<div class="outline-text-2" id="text-orgde84e75">
+<div class="org-src-container">
+<pre class="src src-c"><span style="color: #1E88E5;">#if</span><span style="color: #1E88E5;">n</span><span style="color: #1E88E5;">def</span> _ASM_GENERIC_ERRNO_H
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">_ASM_GENERIC_ERRNO_H</span>
+
+<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;asm-generic/errno-base.h&gt;</span>
+
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EDEADLK</span>         35      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Resource deadlock would occur </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENAMETOOLONG</span>    36      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">File name too long </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENOLCK</span>          37      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">No record locks available </span><span style="color: #90A4AE;">*/</span>
+
+<span style="color: #90A4AE;">/*</span>
+<span style="color: #90A4AE;"> * This error code is special: arch syscall entry code will return</span>
+<span style="color: #90A4AE;"> * -ENOSYS if users try to call a syscall that doesn't exist.  To keep</span>
+<span style="color: #90A4AE;"> * failures of syscalls that really do exist distinguishable from</span>
+<span style="color: #90A4AE;"> * failures due to attempts to use a nonexistent syscall, syscall</span>
+<span style="color: #90A4AE;"> * implementations should refrain from returning -ENOSYS.</span>
+<span style="color: #90A4AE;"> </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENOSYS</span>          38      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Invalid system call number </span><span style="color: #90A4AE;">*/</span>
+
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENOTEMPTY</span>       39      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Directory not empty </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ELOOP</span>           40      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Too many symbolic links encountered </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EWOULDBLOCK</span>     EAGAIN  <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Operation would block </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENOMSG</span>          42      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">No message of desired type </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EIDRM</span>           43      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Identifier removed </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ECHRNG</span>          44      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Channel number out of range </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EL2NSYNC</span>        45      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Level 2 not synchronized </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EL3HLT</span>          46      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Level 3 halted </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EL3RST</span>          47      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Level 3 reset </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ELNRNG</span>          48      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Link number out of range </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EUNATCH</span>         49      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Protocol driver not attached </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENOCSI</span>          50      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">No CSI structure available </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EL2HLT</span>          51      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Level 2 halted </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EBADE</span>           52      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Invalid exchange </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EBADR</span>           53      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Invalid request descriptor </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EXFULL</span>          54      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Exchange full </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENOANO</span>          55      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">No anode </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EBADRQC</span>         56      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Invalid request code </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EBADSLT</span>         57      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Invalid slot </span><span style="color: #90A4AE;">*/</span>
+
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EDEADLOCK</span>       EDEADLK
+
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EBFONT</span>          59      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Bad font file format </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENOSTR</span>          60      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Device not a stream </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENODATA</span>         61      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">No data available </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ETIME</span>           62      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Timer expired </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENOSR</span>           63      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Out of streams resources </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENONET</span>          64      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Machine is not on the network </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENOPKG</span>          65      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Package not installed </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EREMOTE</span>         66      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Object is remote </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENOLINK</span>         67      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Link has been severed </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EADV</span>            68      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Advertise error </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ESRMNT</span>          69      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Srmount error </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ECOMM</span>           70      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Communication error on send </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EPROTO</span>          71      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Protocol error </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EMULTIHOP</span>       72      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Multihop attempted </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EDOTDOT</span>         73      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">RFS specific error </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EBADMSG</span>         74      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Not a data message </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EOVERFLOW</span>       75      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Value too large for defined data type </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENOTUNIQ</span>        76      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Name not unique on network </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EBADFD</span>          77      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">File descriptor in bad state </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EREMCHG</span>         78      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Remote address changed </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ELIBACC</span>         79      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Can not access a needed shared library </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ELIBBAD</span>         80      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Accessing a corrupted shared library </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ELIBSCN</span>         81      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">.lib section in a.out corrupted </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ELIBMAX</span>         82      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Attempting to link in too many shared libraries </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ELIBEXEC</span>        83      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Cannot exec a shared library directly </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EILSEQ</span>          84      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Illegal byte sequence </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ERESTART</span>        85      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Interrupted system call should be restarted </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ESTRPIPE</span>        86      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Streams pipe error </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EUSERS</span>          87      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Too many users </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENOTSOCK</span>        88      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Socket operation on non-socket </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EDESTADDRREQ</span>    89      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Destination address required </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EMSGSIZE</span>        90      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Message too long </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EPROTOTYPE</span>      91      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Protocol wrong type for socket </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENOPROTOOPT</span>     92      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Protocol not available </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EPROTONOSUPPORT</span> 93      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Protocol not supported </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ESOCKTNOSUPPORT</span> 94      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Socket type not supported </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EOPNOTSUPP</span>      95      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Operation not supported on transport endpoint </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EPFNOSUPPORT</span>    96      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Protocol family not supported </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EAFNOSUPPORT</span>    97      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Address family not supported by protocol </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EADDRINUSE</span>      98      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Address already in use </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EADDRNOTAVAIL</span>   99      <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Cannot assign requested address </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENETDOWN</span>        100     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Network is down </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENETUNREACH</span>     101     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Network is unreachable </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENETRESET</span>       102     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Network dropped connection because of reset </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ECONNABORTED</span>    103     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Software caused connection abort </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ECONNRESET</span>      104     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Connection reset by peer </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENOBUFS</span>         105     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">No buffer space available </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EISCONN</span>         106     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Transport endpoint is already connected </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENOTCONN</span>        107     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Transport endpoint is not connected </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ESHUTDOWN</span>       108     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Cannot send after transport endpoint shutdown </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ETOOMANYREFS</span>    109     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Too many references: cannot splice </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ETIMEDOUT</span>       110     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Connection timed out </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ECONNREFUSED</span>    111     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Connection refused </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EHOSTDOWN</span>       112     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Host is down </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EHOSTUNREACH</span>    113     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">No route to host </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EALREADY</span>        114     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Operation already in progress </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EINPROGRESS</span>     115     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Operation now in progress </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ESTALE</span>          116     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Stale file handle </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EUCLEAN</span>         117     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Structure needs cleaning </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENOTNAM</span>         118     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Not a XENIX named type file </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENAVAIL</span>         119     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">No XENIX semaphores available </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EISNAM</span>          120     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Is a named type file </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EREMOTEIO</span>       121     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Remote I/O error </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EDQUOT</span>          122     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Quota exceeded </span><span style="color: #90A4AE;">*/</span>
+
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENOMEDIUM</span>       123     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">No medium found </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EMEDIUMTYPE</span>     124     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Wrong medium type </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ECANCELED</span>       125     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Operation Canceled </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENOKEY</span>          126     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Required key not available </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EKEYEXPIRED</span>     127     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Key has expired </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EKEYREVOKED</span>     128     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Key has been revoked </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EKEYREJECTED</span>    129     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Key was rejected by service </span><span style="color: #90A4AE;">*/</span>
+
+<span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">for robust mutexes </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EOWNERDEAD</span>      130     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Owner died </span><span style="color: #90A4AE;">*/</span>
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ENOTRECOVERABLE</span> 131     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">State not recoverable </span><span style="color: #90A4AE;">*/</span>
+
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">ERFKILL</span>         132     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Operation not possible due to RF-kill </span><span style="color: #90A4AE;">*/</span>
+
+<span style="color: #1E88E5;">#define</span> <span style="color: #26A69A;">EHWPOISON</span>       133     <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">Memory page has hardware error </span><span style="color: #90A4AE;">*/</span>
+
+<span style="color: #1E88E5;">#endif</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<div class='footer'>
+Copyright 2019 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Last updated 2019-02-03 Sun 11:12. <br/>
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.1.9).
+</div>
+</div>
+</body>
+</html>

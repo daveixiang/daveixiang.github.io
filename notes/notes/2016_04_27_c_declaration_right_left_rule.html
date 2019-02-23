@@ -6,7 +6,7 @@
 <!-- 2019-02-23 Sat 15:58 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>般若波羅蜜多心經</title>
+<title>C declaration Right-Left rule</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="siwei" />
 <style type="text/css">
@@ -180,8 +180,7 @@
   .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
-<link rel='stylesheet' href='css/site.css' type='text/css'/>
-<style type="text/css"> table {margin: 64px auto; font-size: 1em;} table, th, td { border: 0px solid #666;} </style>
+<link rel='stylesheet' href='../css/site.css' type='text/css'/>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -242,482 +241,210 @@ for the JavaScript code in this tag.
 <div class='clearboth'></div>
 </div>
 <div id="content">
-<table>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<h1 class="title">C declaration Right-Left rule</h1>
 
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>咒</td>
-<td>苦</td>
-<td>大</td>
-<td>三</td>
-<td>佛</td>
-<td>有</td>
-<td>般</td>
-<td>道</td>
-<td>明</td>
-<td>法</td>
-<td>想</td>
-<td>不</td>
-<td>亦</td>
-<td>空</td>
-<td>五</td>
-<td>觀</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<div id="outline-container-org658a850" class="outline-2">
+<h2 id="org658a850">Introduction</h2>
+<div class="outline-text-2" id="text-org658a850">
+<div class="org-src-container">
+<pre class="src src-text">The "right-left" rule is a completely regular rule for deciphering C
+declarations.  It can also be useful in creating them.
 
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>曰</td>
-<td>真</td>
-<td>明</td>
-<td>菩</td>
-<td>依</td>
-<td>恐</td>
-<td>若</td>
-<td>無</td>
-<td>盡</td>
-<td>無</td>
-<td>行</td>
-<td>垢</td>
-<td>復</td>
-<td>不</td>
-<td>蘊</td>
-<td>自</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+First, symbols.  Read
 
-<tr>
-<td>&nbsp;</td>
-<td>波</td>
-<td>揭</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>實</td>
-<td>咒</td>
-<td>提</td>
-<td>般</td>
-<td>怖</td>
-<td>波</td>
-<td>智</td>
-<td>乃</td>
-<td>眼</td>
-<td>識</td>
-<td>不</td>
-<td>如</td>
-<td>異</td>
-<td>皆</td>
-<td>在</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+     *          as "pointer to"                 - always on the left side
+     []         as "array of"                   - always on the right side
+     ()         as "function returning"         - always on the right side
 
-<tr>
-<td>&nbsp;</td>
-<td>羅</td>
-<td>諦</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>不</td>
-<td>是</td>
-<td>故</td>
-<td>若</td>
-<td>遠</td>
-<td>羅</td>
-<td>亦</td>
-<td>至</td>
-<td>界</td>
-<td>無</td>
-<td>淨</td>
-<td>是</td>
-<td>色</td>
-<td>空</td>
-<td>菩</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+as you encounter them in the declaration.
 
-<tr>
-<td>&nbsp;</td>
-<td>僧</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>虛</td>
-<td>無</td>
-<td>知</td>
-<td>波</td>
-<td>離</td>
-<td>密</td>
-<td>無</td>
-<td>無</td>
-<td>乃</td>
-<td>眼</td>
-<td>不</td>
-<td>舍</td>
-<td>色</td>
-<td>度</td>
-<td>薩</td>
-<td>&nbsp;</td>
-<td>般</td>
-</tr>
+STEP 1
+------
+Find the identifier.  This is your starting point.  Then say to yourself,
+"identifier is."  You've started your declaration.
 
-<tr>
-<td>&nbsp;</td>
-<td>揭</td>
-<td>揭</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>故</td>
-<td>上</td>
-<td>般</td>
-<td>羅</td>
-<td>顛</td>
-<td>多</td>
-<td>得</td>
-<td>老</td>
-<td>至</td>
-<td>耳</td>
-<td>增</td>
-<td>利</td>
-<td>即</td>
-<td>一</td>
-<td>行</td>
-<td>&nbsp;</td>
-<td>若</td>
-</tr>
+STEP 2
+------
+Look at the symbols on the right of the identifier.  If, say, you find "()"
+there, then you know that this is the declaration for a function.  So you
+would then have "identifier is function returning".  Or if you found a 
+"[]" there, you would say "identifier is array of".  Continue right until
+you run out of symbols *OR* hit a *right* parenthesis ")".  (If you hit a 
+left parenthesis, that's the beginning of a () symbol, even if there
+is stuff in between the parentheses.  More on that below.)
 
-<tr>
-<td>&nbsp;</td>
-<td>諦</td>
-<td>諦</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>說</td>
-<td>咒</td>
-<td>若</td>
-<td>密</td>
-<td>倒</td>
-<td>故</td>
-<td>以</td>
-<td>死</td>
-<td>無</td>
-<td>鼻</td>
-<td>不</td>
-<td>子</td>
-<td>是</td>
-<td>切</td>
-<td>深</td>
-<td>&nbsp;</td>
-<td>波</td>
-</tr>
+STEP 3
+------
+Look at the symbols to the left of the identifier.  If it is not one of our
+symbols above (say, something like "int"), just say it.  Otherwise, translate
+it into English using that table above.  Keep going left until you run out of
+symbols *OR* hit a *left* parenthesis "(".  
 
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>般</td>
-<td>是</td>
-<td>波</td>
-<td>多</td>
-<td>夢</td>
-<td>心</td>
-<td>無</td>
-<td>亦</td>
-<td>意</td>
-<td>舌</td>
-<td>減</td>
-<td>是</td>
-<td>空</td>
-<td>苦</td>
-<td>般</td>
-<td>&nbsp;</td>
-<td>羅</td>
-</tr>
+Now repeat steps 2 and 3 until you've formed your declaration.  Here are some
+examples:
 
-<tr>
-<td>&nbsp;</td>
-<td>菩</td>
-<td>波</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>若</td>
-<td>無</td>
-<td>羅</td>
-<td>故</td>
-<td>想</td>
-<td>無</td>
-<td>所</td>
-<td>無</td>
-<td>識</td>
-<td>身</td>
-<td>是</td>
-<td>諸</td>
-<td>空</td>
-<td>厄</td>
-<td>若</td>
-<td>&nbsp;</td>
-<td>密</td>
-</tr>
+     int *p[];
 
-<tr>
-<td>&nbsp;</td>
-<td>提</td>
-<td>羅</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>波</td>
-<td>等</td>
-<td>密</td>
-<td>得</td>
-<td>究</td>
-<td>罣</td>
-<td>得</td>
-<td>老</td>
-<td>界</td>
-<td>意</td>
-<td>故</td>
-<td>法</td>
-<td>即</td>
-<td>舍</td>
-<td>波</td>
-<td>&nbsp;</td>
-<td>多</td>
-</tr>
+1) Find identifier.          int *p[];
+                                  ^
+   "p is"
 
-<tr>
-<td>&nbsp;</td>
-<td>薩</td>
-<td>揭</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>羅</td>
-<td>等</td>
-<td>多</td>
-<td>阿</td>
-<td>竟</td>
-<td>礙</td>
-<td>故</td>
-<td>死</td>
-<td>無</td>
-<td>無</td>
-<td>空</td>
-<td>空</td>
-<td>是</td>
-<td>利</td>
-<td>羅</td>
-<td>&nbsp;</td>
-<td>心</td>
-</tr>
+2) Move right until out of symbols or right parenthesis hit.
+                             int *p[];
+                                   ^^
+   "p is array of"
 
-<tr>
-<td>項</td>
-<td>婆</td>
-<td>諦</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>密</td>
-<td>咒</td>
-<td>是</td>
-<td>耨</td>
-<td>涅</td>
-<td>無</td>
-<td>菩</td>
-<td>盡</td>
-<td>無</td>
-<td>色</td>
-<td>中</td>
-<td>相</td>
-<td>色</td>
-<td>子</td>
-<td>密</td>
-<td>&nbsp;</td>
-<td>經</td>
-</tr>
+3) Can't move right anymore (out of symbols), so move left and find:
+                             int *p[];
+                                 ^
+   "p is array of pointer to"
 
-<tr>
-<td>思</td>
-<td>訶</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>多</td>
-<td>能</td>
-<td>大</td>
-<td>多</td>
-<td>槃</td>
-<td>罣</td>
-<td>提</td>
-<td>無</td>
-<td>明</td>
-<td>聲</td>
-<td>無</td>
-<td>不</td>
-<td>受</td>
-<td>色</td>
-<td>多</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+4) Keep going left and find:
+                             int *p[];
+                             ^^^
+   "p is array of pointer to int". 
+   (or "p is an array where each element is of type pointer to int")
 
-<tr>
-<td>偉</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>咒</td>
-<td>除</td>
-<td>神</td>
-<td>羅</td>
-<td>三</td>
-<td>礙</td>
-<td>薩</td>
-<td>苦</td>
-<td>亦</td>
-<td>香</td>
-<td>色</td>
-<td>生</td>
-<td>想</td>
-<td>不</td>
-<td>時</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+Another example:
 
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>即</td>
-<td>一</td>
-<td>咒</td>
-<td>三</td>
-<td>世</td>
-<td>故</td>
-<td>埵</td>
-<td>集</td>
-<td>無</td>
-<td>味</td>
-<td>無</td>
-<td>不</td>
-<td>行</td>
-<td>異</td>
-<td>照</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+   int *(*func())();
 
-<tr>
-<td>編</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>說</td>
-<td>切</td>
-<td>是</td>
-<td>藐</td>
-<td>諸</td>
-<td>無</td>
-<td>依</td>
-<td>滅</td>
-<td>無</td>
-<td>觸</td>
-<td>受</td>
-<td>滅</td>
-<td>識</td>
-<td>空</td>
-<td>見</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+1) Find the identifier.      int *(*func())();
+                                    ^^^^
+   "func is"
 
-<tr>
-<td>輯</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+2) Move right.               int *(*func())();
+                                        ^^
+   "func is function returning"
 
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-</table>
+3) Can't move right anymore because of the right parenthesis, so move left.
+                             int *(*func())();
+                                   ^
+   "func is function returning pointer to"
+
+4) Can't move left anymore because of the left parenthesis, so keep going
+   right.                    int *(*func())();
+                                           ^^
+   "func is function returning pointer to function returning"
+
+5) Can't move right anymore because we're out of symbols, so go left.
+                             int *(*func())();
+                                 ^
+   "func is function returning pointer to function returning pointer to"
+
+6) And finally, keep going left, because there's nothing left on the right.
+                             int *(*func())();
+                             ^^^
+   "func is function returning pointer to function returning pointer to int".
+
+
+As you can see, this rule can be quite useful.  You can also use it to
+sanity check yourself while you are creating declarations, and to give
+you a hint about where to put the next symbol and whether parentheses
+are required.
+
+Some declarations look much more complicated than they are due to array
+sizes and argument lists in prototype form.  If you see "[3]", that's
+read as "array (size 3) of...".  If you see "(char *,int)" that's read
+as "function expecting (char *,int) and returning...".  Here's a fun
+one:
+
+                 int (*(*fun_one)(char *,double))[9][20];
+
+I won't go through each of the steps to decipher this one.
+
+Ok.  It's:
+
+     "fun_one is pointer to function expecting (char *,double) and 
+      returning pointer to array (size 9) of array (size 20) of int."
+
+As you can see, it's not as complicated if you get rid of the array sizes
+and argument lists:
+
+     int (*(*fun_one)())[][];
+
+You can decipher it that way, and then put in the array sizes and argument
+lists later.
+
+Some final words:
+
+It is quite possible to make illegal declarations using this rule,
+so some knowledge of what's legal in C is necessary.  For instance,
+if the above had been:
+
+     int *((*fun_one)())[][];
+
+it would have been "fun_one is pointer to function returning array of array of
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^
+pointer to int".  Since a function cannot return an array, but only a 
+pointer to an array, that declaration is illegal.
+
+
+Illegal combinations include:
+
+         []() - cannot have an array of functions
+         ()() - cannot have a function that returns a function
+         ()[] - cannot have a function that returns an array
+
+In all the above cases, you would need a set of parens to bind a *
+symbol on the left between these () and [] right-side symbols in order
+for the declaration to be legal.
+
+Here are some legal and illegal examples:
+
+int i;                  an int
+int *p;                 an int pointer (ptr to an int)
+int a[];                an array of ints
+int f();                a function returning an int
+int **pp;               a pointer to an int pointer (ptr to a ptr to an int)
+int (*pa)[];            a pointer to an array of ints
+int (*pf)();            a pointer to a function returning an int
+int *ap[];              an array of int pointers (array of ptrs to ints)
+int aa[][];             an array of arrays of ints
+int af[]();             an array of functions returning an int (ILLEGAL)
+int *fp();              a function returning an int pointer
+int fa()[];             a function returning an array of ints (ILLEGAL)
+int ff()();             a function returning a function returning an int
+                                (ILLEGAL)
+int ***ppp;             a pointer to a pointer to an int pointer
+int (**ppa)[];          a pointer to a pointer to an array of ints
+int (**ppf)();          a pointer to a pointer to a function returning an int
+int *(*pap)[];          a pointer to an array of int pointers
+int (*paa)[][];         a pointer to an array of arrays of ints
+int (*paf)[]();         a pointer to a an array of functions returning an int
+                                (ILLEGAL)
+int *(*pfp)();          a pointer to a function returning an int pointer
+int (*pfa)()[];         a pointer to a function returning an array of ints
+                                (ILLEGAL)
+int (*pff)()();         a pointer to a function returning a function
+                                returning an int (ILLEGAL)
+int **app[];            an array of pointers to int pointers
+int (*apa[])[];         an array of pointers to arrays of ints
+int (*apf[])();         an array of pointers to functions returning an int
+int *aap[][];           an array of arrays of int pointers
+int aaa[][][];          an array of arrays of arrays of ints
+int aaf[][]();          an array of arrays of functions returning an int
+                                (ILLEGAL)
+int *afp[]();           an array of functions returning int pointers (ILLEGAL)
+int afa[]()[];          an array of functions returning an array of ints
+                                (ILLEGAL)
+int aff[]()();          an array of functions returning functions
+                                returning an int (ILLEGAL)
+int **fpp();            a function returning a pointer to an int pointer
+int (*fpa())[];         a function returning a pointer to an array of ints
+int (*fpf())();         a function returning a pointer to a function
+                                returning an int
+int *fap()[];           a function returning an array of int pointers (ILLEGAL)
+int faa()[][];          a function returning an array of arrays of ints
+                                (ILLEGAL)
+int faf()[]();          a function returning an array of functions
+                                returning an int (ILLEGAL)
+int *ffp()();           a function returning a function
+                                returning an int pointer (ILLEGAL)
+</pre>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
