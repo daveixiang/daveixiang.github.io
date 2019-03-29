@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-02-23 Sat 15:47 -->
+<!-- 2019-03-29 Fri 10:53 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>docker问题合集</title>
@@ -161,6 +161,19 @@
   .footdef  { margin-bottom: 1em; }
   .figure { padding: 1em; }
   .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
   .inlinetask {
     padding: 10px;
     border: 2px solid gray;
@@ -186,7 +199,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2018 Free Software Foundation, Inc.
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -243,9 +256,9 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">docker问题合集</h1>
 
-<div id="outline-container-org6aff81c" class="outline-2">
-<h2 id="org6aff81c">解决容器内执行iptables权限不够</h2>
-<div class="outline-text-2" id="text-org6aff81c">
+<div id="outline-container-orgc4d5cca" class="outline-2">
+<h2 id="orgc4d5cca">解决容器内执行iptables权限不够</h2>
+<div class="outline-text-2" id="text-orgc4d5cca">
 <div class="org-src-container">
 <pre class="src src-text">iptables -t mangle -nvL                                                                                                                                      
 iptables v1.4.21: can't initialize iptables table `mangle': Permission denied (you must be root)
@@ -259,39 +272,39 @@ iptables v1.4.21: can't initialize iptables table `mangle': Permission denied (y
 </div>
 </div>
 
-<div id="outline-container-orgcd9b8f8" class="outline-2">
-<h2 id="orgcd9b8f8">退出容器但不关闭当前容器</h2>
-<div class="outline-text-2" id="text-orgcd9b8f8">
+<div id="outline-container-orgc0b874d" class="outline-2">
+<h2 id="orgc0b874d">退出容器但不关闭当前容器</h2>
+<div class="outline-text-2" id="text-orgc0b874d">
 <ul class="org-ul">
 <li>正常退出不关闭容器,请按Ctrl+P+Q进行退出容器</li>
 <li><p>
 使用exit退出,那么在退出之后会关闭容器,可以使用下面的流程进行恢复
 </p>
 <div class="org-src-container">
-<pre class="src src-shell">docker restart ${<span style="color: #26A69A;">CONTAINER_ID</span>}
-docker attach ${<span style="color: #26A69A;">CONTAINER_ID</span>}
+<pre class="src src-shell">docker restart ${<span style="color: #f8f8f2;">CONTAINER_ID</span>}
+docker attach ${<span style="color: #f8f8f2;">CONTAINER_ID</span>}
 </pre>
 </div></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org63202f2" class="outline-2">
-<h2 id="org63202f2">创建容器network namespace的跟踪文件</h2>
-<div class="outline-text-2" id="text-org63202f2">
+<div id="outline-container-org64a3038" class="outline-2">
+<h2 id="org64a3038">创建容器network namespace的跟踪文件</h2>
+<div class="outline-text-2" id="text-org64a3038">
 <div class="org-src-container">
-<pre class="src src-shell">docker inspect -f <span style="color: #66BB6A;">'{{State.Pid}}'</span> ${<span style="color: #26A69A;">CONTAINER_ID</span>}
+<pre class="src src-shell">docker inspect -f <span style="color: #f1fa8c;">'{{State.Pid}}'</span> ${<span style="color: #f8f8f2;">CONTAINER_ID</span>}
 
-ln -sf /proc/${<span style="color: #26A69A;">PID</span>}/ns/net /var/run/netns/${<span style="color: #26A69A;">PID</span>}
+ln -sf /proc/${<span style="color: #f8f8f2;">PID</span>}/ns/net /var/run/netns/${<span style="color: #f8f8f2;">PID</span>}
 </pre>
 </div>
 </div>
 </div>
 
 
-<div id="outline-container-org06eb545" class="outline-2">
-<h2 id="org06eb545">docker cmd alias</h2>
-<div class="outline-text-2" id="text-org06eb545">
+<div id="outline-container-org3ad87bc" class="outline-2">
+<h2 id="org3ad87bc">docker cmd alias</h2>
+<div class="outline-text-2" id="text-org3ad87bc">
 <ul class="org-ul">
 <li><p>
 docker-pid
@@ -316,9 +329,9 @@ exec docker inspect --format '{{ .NetworkSettings.IPAddress }}' "$@"
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2018 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Copyright 2019 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
 Last updated 2019-02-23 Sat 15:39. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.1.9).
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.2.1).
 </div>
 </div>
 </body>

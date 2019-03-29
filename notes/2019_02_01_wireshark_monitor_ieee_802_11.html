@@ -6,7 +6,7 @@
 <!-- 2019-03-29 Fri 10:53 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>哀秦</title>
+<title>如何利用wireshark监听IEEE 802.11</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="siwei" />
 <style type="text/css">
@@ -254,23 +254,32 @@ for the JavaScript code in this tag.
 <div class='clearboth'></div>
 </div>
 <div id="content">
-<h1 class="title">哀秦</h1>
-<p class="verse">
-哀秦 項籍<br />
-<br />
-崤函雖在險勢非<br />
-<br />
-秦風已去土俑殘<br />
-<br />
-苦菜烈酒未得嘗<br />
-<br />
-遊魂遍野向西山<br />
-</p>
+<h1 class="title">如何利用wireshark监听IEEE 802.11</h1>
+
+<div id="outline-container-org79e054f" class="outline-2">
+<h2 id="org79e054f">设置monitor模式</h2>
+<div class="outline-text-2" id="text-org79e054f">
+<div class="org-src-container">
+<pre class="src src-shell">iw dev wlan0 interface add mon0 type monitor
+ip link set mon0 up
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgad08cec" class="outline-2">
+<h2 id="orgad08cec">删除mon0</h2>
+<div class="outline-text-2" id="text-orgad08cec">
+<div class="org-src-container">
+<pre class="src src-shell">iw dev mon0 interface del
+</pre>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
 Copyright 2019 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2019-02-03 Sun 11:12. <br/>
+Last updated 2019-03-07 Thu 16:30. <br/>
 Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.2.1).
 </div>
 </div>

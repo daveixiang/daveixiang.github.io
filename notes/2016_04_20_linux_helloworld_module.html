@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-02-23 Sat 15:47 -->
+<!-- 2019-03-29 Fri 10:53 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Linux Hello World Module</title>
@@ -161,6 +161,19 @@
   .footdef  { margin-bottom: 1em; }
   .figure { padding: 1em; }
   .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
   .inlinetask {
     padding: 10px;
     border: 2px solid gray;
@@ -186,7 +199,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2018 Free Software Foundation, Inc.
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -243,45 +256,45 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">Linux Hello World Module</h1>
 
-<div id="outline-container-org81df073" class="outline-2">
-<h2 id="org81df073"></h2>
-<div class="outline-text-2" id="text-org81df073">
+<div id="outline-container-org52c7316" class="outline-2">
+<h2 id="org52c7316"></h2>
+<div class="outline-text-2" id="text-org52c7316">
 <ul class="org-ul">
 <li>Source code</li>
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-c"><span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;linux/module.h&gt;</span>
-<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;linux/init.h&gt;</span>
-<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;linux/kernel.h&gt;</span>
-<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;linux/sched.h&gt;</span>
+<pre class="src src-c"><span style="color: #ffb86c;">#include</span> <span style="color: #f1fa8c;">&lt;linux/module.h&gt;</span>
+<span style="color: #ffb86c;">#include</span> <span style="color: #f1fa8c;">&lt;linux/init.h&gt;</span>
+<span style="color: #ffb86c;">#include</span> <span style="color: #f1fa8c;">&lt;linux/kernel.h&gt;</span>
+<span style="color: #ffb86c;">#include</span> <span style="color: #f1fa8c;">&lt;linux/sched.h&gt;</span>
 
-<span style="color: #7E57C2;">static</span> __init <span style="color: #D84315;">int</span> <span style="color: #42A5F5;">hwm_init</span>(<span style="color: #D84315;">void</span>)
+<span style="color: #ff79c6; font-weight: bold;">static</span> __init <span style="color: #bd93f9;">int</span> <span style="color: #50fa7b; font-weight: bold;">hwm_init</span>(<span style="color: #bd93f9;">void</span>)
 {
-        <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">do_this() </span><span style="color: #90A4AE;">*/</span>
-        <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">do_that() </span><span style="color: #90A4AE;">*/</span>
-        <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">do_something_else() </span><span style="color: #90A4AE;">*/</span>
+        <span style="color: #6272a4;">/* </span><span style="color: #6272a4;">do_this() </span><span style="color: #6272a4;">*/</span>
+        <span style="color: #6272a4;">/* </span><span style="color: #6272a4;">do_that() </span><span style="color: #6272a4;">*/</span>
+        <span style="color: #6272a4;">/* </span><span style="color: #6272a4;">do_something_else() </span><span style="color: #6272a4;">*/</span>
 
-        printk(KERN_INFO <span style="color: #66BB6A;">"hwm module being loaded\n"</span>);
-        <span style="color: #7E57C2;">return</span> 0;
+        printk(KERN_INFO <span style="color: #f1fa8c;">"hwm module being loaded\n"</span>);
+        <span style="color: #ff79c6; font-weight: bold;">return</span> 0;
 }
 
-<span style="color: #7E57C2;">static</span> __exit <span style="color: #D84315;">void</span> <span style="color: #42A5F5;">hwm_exit</span>(<span style="color: #D84315;">void</span>)
+<span style="color: #ff79c6; font-weight: bold;">static</span> __exit <span style="color: #bd93f9;">void</span> <span style="color: #50fa7b; font-weight: bold;">hwm_exit</span>(<span style="color: #bd93f9;">void</span>)
 {
-        <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">undo_something_else() </span><span style="color: #90A4AE;">*/</span>
-        <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">undo_that() </span><span style="color: #90A4AE;">*/</span>
-        <span style="color: #90A4AE;">/* </span><span style="color: #90A4AE;">undo_this() </span><span style="color: #90A4AE;">*/</span>
+        <span style="color: #6272a4;">/* </span><span style="color: #6272a4;">undo_something_else() </span><span style="color: #6272a4;">*/</span>
+        <span style="color: #6272a4;">/* </span><span style="color: #6272a4;">undo_that() </span><span style="color: #6272a4;">*/</span>
+        <span style="color: #6272a4;">/* </span><span style="color: #6272a4;">undo_this() </span><span style="color: #6272a4;">*/</span>
 
-        printk(KERN_INFO <span style="color: #66BB6A;">"hwm module being unloaded\n"</span>);
+        printk(KERN_INFO <span style="color: #f1fa8c;">"hwm module being unloaded\n"</span>);
 }
 
-<span style="color: #42A5F5;">module_init</span>(hwm_init);
-<span style="color: #42A5F5;">module_exit</span>(hwm_exit);
+<span style="color: #50fa7b; font-weight: bold;">module_init</span>(hwm_init);
+<span style="color: #50fa7b; font-weight: bold;">module_exit</span>(hwm_exit);
 
-MODULE_AUTHOR(<span style="color: #66BB6A;">"davei"</span>);
-MODULE_LICENSE(<span style="color: #66BB6A;">"GPL"</span>);
-MODULE_DESCRIPTION(<span style="color: #66BB6A;">"Hello World Module"</span>);
-<span style="color: #42A5F5;">MODULE_INFO</span>(flavor, <span style="color: #66BB6A;">"Linux"</span>);
+MODULE_AUTHOR(<span style="color: #f1fa8c;">"davei"</span>);
+MODULE_LICENSE(<span style="color: #f1fa8c;">"GPL"</span>);
+MODULE_DESCRIPTION(<span style="color: #f1fa8c;">"Hello World Module"</span>);
+<span style="color: #50fa7b; font-weight: bold;">MODULE_INFO</span>(flavor, <span style="color: #f1fa8c;">"Linux"</span>);
 </pre>
 </div>
 
@@ -294,16 +307,16 @@ MODULE_DESCRIPTION(<span style="color: #66BB6A;">"Hello World Module"</span>);
 
 ifeq ($(KERNELRELEASE),)  
 
-KERNELDIR ?= /lib/modules/$(<span style="color: #D84315;">shell</span> <span style="color: #26A69A;">uname</span> -r)/build 
-PWD := $(<span style="color: #D84315;">shell</span> <span style="color: #26A69A;">pwd</span>)  
+KERNELDIR ?= /lib/modules/$(<span style="color: #bd93f9;">shell</span> <span style="color: #f8f8f2;">uname</span> -r)/build 
+PWD := $(<span style="color: #bd93f9;">shell</span> <span style="color: #f8f8f2;">pwd</span>)  
 
 all:
-        $(MAKE) -C $(KERNELDIR) M=$(PWD) <span style="color: #D84315;">modules</span>  
-<span style="color: #42A5F5;">clean</span>:
+        $(MAKE) -C $(KERNELDIR) M=$(PWD) <span style="color: #bd93f9;">modules</span>  
+<span style="color: #50fa7b; font-weight: bold;">clean</span>:
         $(MAKE) -C $(KERNELDIR) M=$(PWD) clean
-<span style="color: #7E57C2;">else</span>  
+<span style="color: #ff79c6; font-weight: bold;">else</span>  
 
-$(info Building <span style="color: #D84315;">with</span> <span style="color: #26A69A;">KERNELRELEASE</span> = ${KERNELRELEASE})  
+$(info Building <span style="color: #bd93f9;">with</span> <span style="color: #f8f8f2;">KERNELRELEASE</span> = ${KERNELRELEASE})  
 
 endif
 </pre>
@@ -337,9 +350,9 @@ vermagic:       4.1.15 SMP mod_unload modversions
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2018 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Copyright 2019 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
 Last updated 2019-02-03 Sun 11:12. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.1.9).
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.2.1).
 </div>
 </div>
 </body>

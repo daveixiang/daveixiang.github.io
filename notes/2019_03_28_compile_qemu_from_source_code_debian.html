@@ -6,7 +6,7 @@
 <!-- 2019-03-29 Fri 10:53 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>哀秦</title>
+<title>Compile qemu from source code(Debian)</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="siwei" />
 <style type="text/css">
@@ -254,23 +254,41 @@ for the JavaScript code in this tag.
 <div class='clearboth'></div>
 </div>
 <div id="content">
-<h1 class="title">哀秦</h1>
-<p class="verse">
-哀秦 項籍<br />
-<br />
-崤函雖在險勢非<br />
-<br />
-秦風已去土俑殘<br />
-<br />
-苦菜烈酒未得嘗<br />
-<br />
-遊魂遍野向西山<br />
-</p>
+<h1 class="title">Compile qemu from source code(Debian)</h1>
+
+<div id="outline-container-orga1638fb" class="outline-2">
+<h2 id="orga1638fb">install dependencies</h2>
+<div class="outline-text-2" id="text-orga1638fb">
+<div class="org-src-container">
+<pre class="src src-shell">apt-get build-dep qemu
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1297ace" class="outline-2">
+<h2 id="org1297ace">configure and compile qemu</h2>
+<div class="outline-text-2" id="text-org1297ace">
+<div class="org-src-container">
+<pre class="src src-shell">./configure --prefix=/Application/hack/qemu <span style="color: #f1fa8c;">\</span>
+--target-list=aarch64-softmmu,arm-softmmu,i386-softmmu,mips-softmmu,mips64-softmmu,<span style="color: #f1fa8c;">\</span>
+mips64el-softmmu,mipsel-softmmu,x86_64-softmmu,aarch64-linux-user,aarch64_be-linux-user,<span style="color: #f1fa8c;">\</span>
+arm-linux-user,armeb-linux-user,i386-linux-user,mips-linux-user,mips64-linux-user,<span style="color: #f1fa8c;">\</span>
+mips64el-linux-user,mipsel-linux-user,mipsn32-linux-user,mipsn32el-linux-user,<span style="color: #f1fa8c;">\</span>
+x86_64-linux-user
+
+make -j$(nproc)
+
+make install
+</pre>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
 Copyright 2019 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2019-02-03 Sun 11:12. <br/>
+Last updated 2019-03-29 Fri 10:37. <br/>
 Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.2.1).
 </div>
 </div>

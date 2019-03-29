@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-02-23 Sat 15:47 -->
+<!-- 2019-03-29 Fri 10:53 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Fix Fcitx Chinese Input for Emacs</title>
@@ -161,6 +161,19 @@
   .footdef  { margin-bottom: 1em; }
   .figure { padding: 1em; }
   .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
   .inlinetask {
     padding: 10px;
     border: 2px solid gray;
@@ -186,7 +199,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2018 Free Software Foundation, Inc.
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -243,9 +256,9 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">Fix Fcitx Chinese Input for Emacs</h1>
 
-<div id="outline-container-org47a0c77" class="outline-2">
-<h2 id="org47a0c77">Introduction</h2>
-<div class="outline-text-2" id="text-org47a0c77">
+<div id="outline-container-org8543d27" class="outline-2">
+<h2 id="org8543d27">Introduction</h2>
+<div class="outline-text-2" id="text-org8543d27">
 <p>
 当 LC_CTYPE 为英文时, 在 Emacs 上可能无法使用输入法。若遇到此情况，请
 在启动 Emacs 时将 LC_CTYPE 设为 zh_CN.UTF-8. 终端下并不会遇到此现象，
@@ -254,9 +267,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org7691e83" class="outline-2">
-<h2 id="org7691e83">Debian Stretch处理方法</h2>
-<div class="outline-text-2" id="text-org7691e83">
+<div id="outline-container-org80f5114" class="outline-2">
+<h2 id="org80f5114">Debian Stretch处理方法</h2>
+<div class="outline-text-2" id="text-org80f5114">
 <ol class="org-ol">
 <li><p>
 备份/usr/bin/emacs
@@ -282,9 +295,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org50b9578" class="outline-2">
-<h2 id="org50b9578">在Emacs中启用Fcitx输入法</h2>
-<div class="outline-text-2" id="text-org50b9578">
+<div id="outline-container-org5afba1f" class="outline-2">
+<h2 id="org5afba1f">在Emacs中启用Fcitx输入法</h2>
+<div class="outline-text-2" id="text-org5afba1f">
 <ul class="org-ul">
 <li><p>
 安装fcitx输入法，在 ~/.xinitrc文件中添加如下内容 (我用startx启动图形环境，所以在~/.xinitrc中配置X会话)
@@ -302,20 +315,20 @@ fcitx -d
 </div></li>
 
 <li>用 startx 启动图形会话后，应该可以看到fcitx成功启动。打开Emacs，激活输入法看看.
-注意，一定要加 export LC_CTYPE&#x2026; 那一句，不然在Emacs中无法使用中文输入法.
-现在，Emacs应该可以正常使用Fcitx，如果还是不能使用，可能原因是缺少 zh_CN.UTF-8 的 locale，转3.</li>
+  注意，一定要加 export LC_CTYPE&#x2026; 那一句，不然在Emacs中无法使用中文输入法.
+  现在，Emacs应该可以正常使用Fcitx，如果还是不能使用，可能原因是缺少 zh_CN.UTF-8 的 locale，转3.</li>
 
 <li>运行 locale 命令查看 LC_CTYPE 的值是否是 zh_CN.UTF-8 ，如果不是，说明没有安装 zh_CN.UTF-8 的 locale.
-用root权限运行 dpkg-reconfigure locales 选中 zh_CN.UTF-8, 生成新的locale. 重新启动X，再打开Emacs试试，应该可以正常使用Fcitx了。</li>
+  用root权限运行 dpkg-reconfigure locales 选中 zh_CN.UTF-8, 生成新的locale. 重新启动X，再打开Emacs试试，应该可以正常使用Fcitx了。</li>
 </ul>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2018 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Copyright 2019 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
 Last updated 2019-02-23 Sat 15:43. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.1.9).
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.2.1).
 </div>
 </div>
 </body>

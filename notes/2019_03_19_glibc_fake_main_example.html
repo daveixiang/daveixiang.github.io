@@ -6,7 +6,7 @@
 <!-- 2019-03-29 Fri 10:53 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>哀秦</title>
+<title>glibc fake main example</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="siwei" />
 <style type="text/css">
@@ -254,23 +254,68 @@ for the JavaScript code in this tag.
 <div class='clearboth'></div>
 </div>
 <div id="content">
-<h1 class="title">哀秦</h1>
-<p class="verse">
-哀秦 項籍<br />
-<br />
-崤函雖在險勢非<br />
-<br />
-秦風已去土俑殘<br />
-<br />
-苦菜烈酒未得嘗<br />
-<br />
-遊魂遍野向西山<br />
-</p>
+<h1 class="title">glibc fake main example</h1>
+
+<div id="outline-container-org6461726" class="outline-2">
+<h2 id="org6461726">source code</h2>
+<div class="outline-text-2" id="text-org6461726">
+<div class="org-src-container">
+<pre class="src src-c"><span style="color: #ffb86c;">#include</span> <span style="color: #f1fa8c;">&lt;stdio.h&gt;</span>
+
+<span style="color: #ffb86c;">#define</span> <span style="color: #f8f8f2;">__USE_GNU</span>
+<span style="color: #ffb86c;">#include</span> <span style="color: #f1fa8c;">&lt;dlfcn.h&gt;</span>
+
+<span style="color: #ff79c6; font-weight: bold;">static</span> <span style="color: #bd93f9;">void</span> <span style="color: #50fa7b; font-weight: bold;">do_something</span>(<span style="color: #bd93f9;">void</span>)
+{
+        printf(<span style="color: #f1fa8c;">"Hello!\n"</span>);
+}
+
+<span style="color: #bd93f9;">int</span> <span style="color: #50fa7b; font-weight: bold;">__libc_start_main</span>(<span style="color: #bd93f9;">int</span> (*<span style="color: #50fa7b; font-weight: bold;">main</span>)(<span style="color: #bd93f9;">int</span>, <span style="color: #bd93f9;">char</span> **, <span style="color: #bd93f9;">char</span> **),
+                        <span style="color: #bd93f9;">int</span> <span style="color: #f8f8f2;">argc</span>, <span style="color: #bd93f9;">char</span> **<span style="color: #f8f8f2;">ubp_av</span>, <span style="color: #bd93f9;">void</span> (*<span style="color: #50fa7b; font-weight: bold;">init</span>)(<span style="color: #bd93f9;">void</span>),
+                        <span style="color: #bd93f9;">void</span> (*<span style="color: #50fa7b; font-weight: bold;">fini</span>)(<span style="color: #bd93f9;">void</span>), <span style="color: #bd93f9;">void</span> (*<span style="color: #50fa7b; font-weight: bold;">rtld_fini</span>)(<span style="color: #bd93f9;">void</span>),
+                        <span style="color: #bd93f9;">void</span> (*<span style="color: #f8f8f2;">stack_end</span>))
+{
+        <span style="color: #bd93f9;">int</span> (*<span style="color: #50fa7b; font-weight: bold;">__libc_start_main_real</span>)(<span style="color: #bd93f9;">int</span> (*<span style="color: #50fa7b; font-weight: bold;">main</span>) (<span style="color: #bd93f9;">int</span>, <span style="color: #bd93f9;">char</span> **, <span style="color: #bd93f9;">char</span> **),
+                                <span style="color: #bd93f9;">int</span> <span style="color: #f8f8f2;">argc</span>, <span style="color: #bd93f9;">char</span> **<span style="color: #f8f8f2;">ubp_av</span>, <span style="color: #bd93f9;">void</span> (*<span style="color: #50fa7b; font-weight: bold;">init</span>)(<span style="color: #bd93f9;">void</span>),
+                                <span style="color: #bd93f9;">void</span> (*<span style="color: #50fa7b; font-weight: bold;">fini</span>)(<span style="color: #bd93f9;">void</span>), <span style="color: #bd93f9;">void</span> (*<span style="color: #50fa7b; font-weight: bold;">rtld_fini</span>)(<span style="color: #bd93f9;">void</span>),
+                                <span style="color: #bd93f9;">void</span> (*<span style="color: #f8f8f2;">stack_end</span>));
+
+        do_something();
+
+        __libc_start_main_real = dlsym(RTLD_NEXT, <span style="color: #f1fa8c;">"__libc_start_main"</span>);
+
+        <span style="color: #ff79c6; font-weight: bold;">return</span> __libc_start_main_real(main, argc, ubp_av, init, fini,
+                                rtld_fini, stack_end);
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfa8e486" class="outline-2">
+<h2 id="orgfa8e486">compile</h2>
+<div class="outline-text-2" id="text-orgfa8e486">
+<div class="org-src-container">
+<pre class="src src-c">gcc -o libfakemain.so -fPIC -shared fakemain.c -ldl
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org381dca6" class="outline-2">
+<h2 id="org381dca6">test</h2>
+<div class="outline-text-2" id="text-org381dca6">
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #f8f8f2;">LD_PRELOAD</span>=./libfakemain.so ls
+</pre>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
 Copyright 2019 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2019-02-03 Sun 11:12. <br/>
+Last updated 2019-03-19 Tue 20:25. <br/>
 Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.2.1).
 </div>
 </div>

@@ -6,7 +6,7 @@
 <!-- 2019-03-29 Fri 10:53 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>哀秦</title>
+<title>Cross compile linux kernel module(OpenWrt)</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="siwei" />
 <style type="text/css">
@@ -254,23 +254,85 @@ for the JavaScript code in this tag.
 <div class='clearboth'></div>
 </div>
 <div id="content">
-<h1 class="title">哀秦</h1>
-<p class="verse">
-哀秦 項籍<br />
-<br />
-崤函雖在險勢非<br />
-<br />
-秦風已去土俑殘<br />
-<br />
-苦菜烈酒未得嘗<br />
-<br />
-遊魂遍野向西山<br />
+<h1 class="title">Cross compile linux kernel module(OpenWrt)</h1>
+<p>
+Builds outside OpenWRT in a separate directory, very clean and fast.
 </p>
+
+<div id="outline-container-orgff2c5fb" class="outline-2">
+<h2 id="orgff2c5fb">Directory layout</h2>
+<div class="outline-text-2" id="text-orgff2c5fb">
+<div class="org-src-container">
+<pre class="src src-shell">Makefile
+oops_exp.c
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org093ff2b" class="outline-2">
+<h2 id="org093ff2b">Kernel module source code</h2>
+<div class="outline-text-2" id="text-org093ff2b">
+<div class="org-src-container">
+<pre class="src src-c"><span style="color: #ffb86c;">#include</span> <span style="color: #f1fa8c;">&lt;linux/module.h&gt;</span>
+<span style="color: #ffb86c;">#include</span> <span style="color: #f1fa8c;">&lt;linux/kernel.h&gt;</span>
+
+<span style="color: #ff79c6; font-weight: bold;">static</span> <span style="color: #bd93f9;">int</span> <span style="color: #50fa7b; font-weight: bold;">oops_exp_init</span>(<span style="color: #bd93f9;">void</span>)
+
+{
+        <span style="color: #bd93f9;">int</span> *<span style="color: #f8f8f2;">p</span> = 0;
+
+        printk(KERN_ERR <span style="color: #f1fa8c;">"crash module starting\n"</span>);
+
+        printk(KERN_ERR <span style="color: #f1fa8c;">"%d\n"</span>, *p);
+
+        <span style="color: #ff79c6; font-weight: bold;">return</span> 0;
+}
+
+<span style="color: #ff79c6; font-weight: bold;">static</span> <span style="color: #bd93f9;">void</span> <span style="color: #50fa7b; font-weight: bold;">oops_exp_exit</span>(<span style="color: #bd93f9;">void</span>)
+{
+        printk(KERN_ERR <span style="color: #f1fa8c;">"crash module exiting\n"</span>);
+}
+
+<span style="color: #50fa7b; font-weight: bold;">module_init</span>(oops_exp_init);
+<span style="color: #50fa7b; font-weight: bold;">module_exit</span>(oops_exp_exit);
+
+MODULE_LICENSE(<span style="color: #f1fa8c;">"GPL"</span>);
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org89afa3a" class="outline-2">
+<h2 id="org89afa3a">Makefile</h2>
+<div class="outline-text-2" id="text-org89afa3a">
+<div class="org-src-container">
+<pre class="src src-makefile"><span style="color: #f8f8f2;">obj-m</span>   += oops_exp.o
+
+<span style="color: #f8f8f2;">OPENWRT_HOME</span> := 
+
+<span style="color: #f8f8f2;">KDIR</span>    := ${<span style="color: #f8f8f2;">OPENWRT_HOME</span>}/build_dir/target-mipsel_24kc_musl/linux-ramips_mt7621/linux-4.9.77/
+<span style="color: #f8f8f2;">PWD</span>     := $(<span style="color: #f8f8f2;">shell</span> pwd)
+
+<span style="color: #f8f8f2;">LD</span>      := mipsel-openwrt-linux-ld
+
+<span style="color: #f8f8f2;">CROSS_COMPILE</span>=mipsel-openwrt-linux-
+
+<span style="color: #50fa7b; font-weight: bold;">default</span>:
+        $(<span style="color: #f8f8f2;">MAKE</span>) ARCH=mips -C $(<span style="color: #f8f8f2;">KDIR</span>) SUBDIRS=$(<span style="color: #f8f8f2;">PWD</span>) CROSS_COMPILE=mipsel-openwrt-linux- modules 
+<span style="background-color: #ff69b4;">        #</span><span style="color: #6272a4;">rm -r -f .tmp_versions *.mod.c .*.cmd *.o *.symvers</span>
+<span style="color: #50fa7b; font-weight: bold;">clean</span>:
+        $(<span style="color: #f8f8f2;">MAKE</span>) -C $(<span style="color: #f8f8f2;">KDIR</span>) SUBDIRS=$(<span style="color: #f8f8f2;">PWD</span>) clean
+</pre>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
 Copyright 2019 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2019-02-03 Sun 11:12. <br/>
+Last updated 2019-03-12 Tue 09:31. <br/>
 Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.2.1).
 </div>
 </div>

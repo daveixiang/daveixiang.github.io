@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-02-23 Sat 15:47 -->
+<!-- 2019-03-29 Fri 10:53 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Clang print self</title>
@@ -161,6 +161,19 @@
   .footdef  { margin-bottom: 1em; }
   .figure { padding: 1em; }
   .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
   .inlinetask {
     padding: 10px;
     border: 2px solid gray;
@@ -186,7 +199,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2018 Free Software Foundation, Inc.
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -243,20 +256,20 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">Clang print self</h1>
 
-<div id="outline-container-orge43511d" class="outline-2">
-<h2 id="orge43511d">print-self.c</h2>
-<div class="outline-text-2" id="text-orge43511d">
+<div id="outline-container-org3e2c0ef" class="outline-2">
+<h2 id="org3e2c0ef">print-self.c</h2>
+<div class="outline-text-2" id="text-org3e2c0ef">
 <p>
 the code is:
 </p>
 <div class="org-src-container">
-<pre class="src src-c"><span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;stdio.h&gt;</span>
-<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;stdlib.h&gt;</span>
+<pre class="src src-c"><span style="color: #ffb86c;">#include</span> <span style="color: #f1fa8c;">&lt;stdio.h&gt;</span>
+<span style="color: #ffb86c;">#include</span> <span style="color: #f1fa8c;">&lt;stdlib.h&gt;</span>
 
-<span style="color: #7E57C2;">extern</span> <span style="color: #D84315;">char</span> * <span style="color: #26A69A;">_binary_print_self_c_start</span>;  
-<span style="color: #D84315;">int</span> <span style="color: #42A5F5;">main</span>()  
+<span style="color: #ff79c6; font-weight: bold;">extern</span> <span style="color: #bd93f9;">char</span> * <span style="color: #f8f8f2;">_binary_print_self_c_start</span>;  
+<span style="color: #bd93f9;">int</span> <span style="color: #50fa7b; font-weight: bold;">main</span>()  
 {
-        printf(<span style="color: #66BB6A;">"%s"</span>, (<span style="color: #D84315;">char</span> *)&amp;_binary_print_self_c_start);  
+        printf(<span style="color: #f1fa8c;">"%s"</span>, (<span style="color: #bd93f9;">char</span> *)&amp;_binary_print_self_c_start);  
 }
 </pre>
 </div>
@@ -272,9 +285,9 @@ and generate print-self.bin
 </div>
 </div>
 
-<div id="outline-container-orgc66dc1b" class="outline-2">
-<h2 id="orgc66dc1b">print-self.bin</h2>
-<div class="outline-text-2" id="text-orgc66dc1b">
+<div id="outline-container-org681d9d3" class="outline-2">
+<h2 id="org681d9d3">print-self.bin</h2>
+<div class="outline-text-2" id="text-org681d9d3">
 <div class="org-src-container">
 <pre class="src src-sh">readelf --sym print-self.bin
 </pre>
@@ -297,9 +310,9 @@ and the symbols is like:
 </div>
 </div>
 
-<div id="outline-container-orgf97d033" class="outline-2">
-<h2 id="orgf97d033">print-self</h2>
-<div class="outline-text-2" id="text-orgf97d033">
+<div id="outline-container-orgfe1ee99" class="outline-2">
+<h2 id="orgfe1ee99">print-self</h2>
+<div class="outline-text-2" id="text-orgfe1ee99">
 <div class="org-src-container">
 <pre class="src src-sh">gcc -o print-self print-self.c print-self.bin
 </pre>
@@ -326,9 +339,9 @@ int main()
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2018 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Copyright 2019 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
 Last updated 2019-02-03 Sun 11:12. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.1.9).
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.2.1).
 </div>
 </div>
 </body>

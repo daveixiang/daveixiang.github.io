@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-02-23 Sat 15:47 -->
+<!-- 2019-03-29 Fri 10:53 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Add Module to the Linux Kernel Source</title>
@@ -161,6 +161,19 @@
   .footdef  { margin-bottom: 1em; }
   .figure { padding: 1em; }
   .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
   .inlinetask {
     padding: 10px;
     border: 2px solid gray;
@@ -186,7 +199,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2018 Free Software Foundation, Inc.
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -243,9 +256,9 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">Add Module to the Linux Kernel Source</h1>
 
-<div id="outline-container-org383b947" class="outline-2">
-<h2 id="org383b947">Create module directory</h2>
-<div class="outline-text-2" id="text-org383b947">
+<div id="outline-container-org905a9a3" class="outline-2">
+<h2 id="org905a9a3">Create module directory</h2>
+<div class="outline-text-2" id="text-org905a9a3">
 <p>
 Create a directory <code>skm</code> inside drivers (which is in the Linux source
 code) for your module and put source code(<code>skm.c</code>) into it. It will
@@ -262,36 +275,36 @@ and the source code file skm.c appears like:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-c"><span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;linux/module.h&gt;</span>
-<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;linux/version.h&gt;</span>
-<span style="color: #1E88E5;">#include</span> <span style="color: #66BB6A;">&lt;linux/kernel.h&gt;</span>
+<pre class="src src-c"><span style="color: #ffb86c;">#include</span> <span style="color: #f1fa8c;">&lt;linux/module.h&gt;</span>
+<span style="color: #ffb86c;">#include</span> <span style="color: #f1fa8c;">&lt;linux/version.h&gt;</span>
+<span style="color: #ffb86c;">#include</span> <span style="color: #f1fa8c;">&lt;linux/kernel.h&gt;</span>
 
-<span style="color: #7E57C2;">static</span> <span style="color: #D84315;">int</span> <span style="color: #42A5F5;">__init</span> skm_init(<span style="color: #D84315;">void</span>)
+<span style="color: #ff79c6; font-weight: bold;">static</span> <span style="color: #bd93f9;">int</span> <span style="color: #50fa7b; font-weight: bold;">__init</span> skm_init(<span style="color: #bd93f9;">void</span>)
 {
-        printk(KERN_INFO <span style="color: #66BB6A;">"Hello Kernel Space!\n"</span>);
+        printk(KERN_INFO <span style="color: #f1fa8c;">"Hello Kernel Space!\n"</span>);
 
-        <span style="color: #7E57C2;">return</span> 0;
+        <span style="color: #ff79c6; font-weight: bold;">return</span> 0;
 }
 
-<span style="color: #7E57C2;">static</span> <span style="color: #D84315;">void</span> <span style="color: #42A5F5;">__exit</span> skm_exit(<span style="color: #D84315;">void</span>)
+<span style="color: #ff79c6; font-weight: bold;">static</span> <span style="color: #bd93f9;">void</span> <span style="color: #50fa7b; font-weight: bold;">__exit</span> skm_exit(<span style="color: #bd93f9;">void</span>)
 {
-        printk(KERN_INFO <span style="color: #66BB6A;">"Bye Kernel Space!\n"</span>);
+        printk(KERN_INFO <span style="color: #f1fa8c;">"Bye Kernel Space!\n"</span>);
 }
 
-<span style="color: #42A5F5;">module_init</span>(skm_init);
-<span style="color: #42A5F5;">module_exit</span>(skm_exit);
+<span style="color: #50fa7b; font-weight: bold;">module_init</span>(skm_init);
+<span style="color: #50fa7b; font-weight: bold;">module_exit</span>(skm_exit);
 
-MODULE_LICENSE(<span style="color: #66BB6A;">"GPL"</span>);
-MODULE_AUTHOR(<span style="color: #66BB6A;">"Xiang Davei"</span>);
-MODULE_DESCRIPTION(<span style="color: #66BB6A;">"Simple Kernel Module"</span>)
+MODULE_LICENSE(<span style="color: #f1fa8c;">"GPL"</span>);
+MODULE_AUTHOR(<span style="color: #f1fa8c;">"Xiang Davei"</span>);
+MODULE_DESCRIPTION(<span style="color: #f1fa8c;">"Simple Kernel Module"</span>)
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org78dff2e" class="outline-2">
-<h2 id="org78dff2e">Create Makefile file</h2>
-<div class="outline-text-2" id="text-org78dff2e">
+<div id="outline-container-orgae6a344" class="outline-2">
+<h2 id="orgae6a344">Create Makefile file</h2>
+<div class="outline-text-2" id="text-orgae6a344">
 <p>
 Create one <code>Makefile</code> inside <code>skm</code> and add <code>obj-$(CONFG_SKM) += skm.o</code>
 to it. This will appears like:
@@ -304,9 +317,9 @@ to it. This will appears like:
 </div>
 </div>
 
-<div id="outline-container-orgf8f2567" class="outline-2">
-<h2 id="orgf8f2567">Create Kconfig file</h2>
-<div class="outline-text-2" id="text-orgf8f2567">
+<div id="outline-container-orge46b533" class="outline-2">
+<h2 id="orge46b533">Create Kconfig file</h2>
+<div class="outline-text-2" id="text-orge46b533">
 <p>
 Create one <code>Kconfig</code> inside <code>skm</code> , then put the content as the
 following:
@@ -332,9 +345,9 @@ into it. And it will looks like:
 </div>
 </div>
 
-<div id="outline-container-org6484bbd" class="outline-2">
-<h2 id="org6484bbd">Edit Makefile and Kconfig in {LINUX_SRC_PATH}/drivers/</h2>
-<div class="outline-text-2" id="text-org6484bbd">
+<div id="outline-container-org479e025" class="outline-2">
+<h2 id="org479e025">Edit Makefile and Kconfig in {LINUX_SRC_PATH}/drivers/</h2>
+<div class="outline-text-2" id="text-org479e025">
 <p>
 In the <code>Makefile</code> add below in last line
 </p>
@@ -364,15 +377,15 @@ In Kconfig file add below in last line
 </div>
 </div>
 
-<div id="outline-container-orgc69b5f0" class="outline-2">
-<h2 id="orgc69b5f0">Compile the source code with module just added</h2>
-<div class="outline-text-2" id="text-orgc69b5f0">
+<div id="outline-container-orgd488506" class="outline-2">
+<h2 id="orgd488506">Compile the source code with module just added</h2>
+<div class="outline-text-2" id="text-orgd488506">
 </div>
-<div id="outline-container-orgbb72998" class="outline-3">
-<h3 id="orgbb72998">Use <i>make menuconfig</i> to choice the module just added</h3>
-<div class="outline-text-3" id="text-orgbb72998">
+<div id="outline-container-org7593e81" class="outline-3">
+<h3 id="org7593e81">Use <i>make menuconfig</i> to choice the module just added</h3>
+<div class="outline-text-3" id="text-org7593e81">
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #26A69A;">ARCH</span>=i386 <span style="color: #26A69A;">CROSS_COMPILE</span>=i686-none-linux- make menuconfig
+<pre class="src src-sh"><span style="color: #f8f8f2;">ARCH</span>=i386 <span style="color: #f8f8f2;">CROSS_COMPILE</span>=i686-none-linux- make menuconfig
 </pre>
 </div>
 
@@ -388,21 +401,21 @@ and the output looks like:
 </div>
 </div>
 
-<div id="outline-container-org6416fb2" class="outline-3">
-<h3 id="org6416fb2">Use <i>make -j$(nproc)</i> to compile the kernel</h3>
-<div class="outline-text-3" id="text-org6416fb2">
+<div id="outline-container-org6f4c1e1" class="outline-3">
+<h3 id="org6f4c1e1">Use <i>make -j$(nproc)</i> to compile the kernel</h3>
+<div class="outline-text-3" id="text-org6f4c1e1">
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #26A69A;">ARCH</span>=i386 <span style="color: #26A69A;">CROSS_COMPILE</span>=i686-none-linux- make -j$(nproc)
+<pre class="src src-sh"><span style="color: #f8f8f2;">ARCH</span>=i386 <span style="color: #f8f8f2;">CROSS_COMPILE</span>=i686-none-linux- make -j$(nproc)
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org634a735" class="outline-3">
-<h3 id="org634a735">Use <i>make modules_install</i> to install the kernel modules</h3>
-<div class="outline-text-3" id="text-org634a735">
+<div id="outline-container-org6e2c874" class="outline-3">
+<h3 id="org6e2c874">Use <i>make modules_install</i> to install the kernel modules</h3>
+<div class="outline-text-3" id="text-org6e2c874">
 <div class="org-src-container">
-<pre class="src src-sh">make modules_install <span style="color: #26A69A;">INSTALL_MOD_PATH</span>=${<span style="color: #26A69A;">MODULES_PATH</span>}
+<pre class="src src-sh">make modules_install <span style="color: #f8f8f2;">INSTALL_MOD_PATH</span>=${<span style="color: #f8f8f2;">MODULES_PATH</span>}
 </pre>
 </div>
 </div>
@@ -411,9 +424,9 @@ and the output looks like:
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2018 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Copyright 2019 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
 Last updated 2019-02-03 Sun 11:12. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.1.9).
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.2.1).
 </div>
 </div>
 </body>

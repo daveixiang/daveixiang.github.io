@@ -6,7 +6,7 @@
 <!-- 2019-03-29 Fri 10:53 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>哀秦</title>
+<title>iw命令总结</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="siwei" />
 <style type="text/css">
@@ -254,23 +254,84 @@ for the JavaScript code in this tag.
 <div class='clearboth'></div>
 </div>
 <div id="content">
-<h1 class="title">哀秦</h1>
-<p class="verse">
-哀秦 項籍<br />
-<br />
-崤函雖在險勢非<br />
-<br />
-秦風已去土俑殘<br />
-<br />
-苦菜烈酒未得嘗<br />
-<br />
-遊魂遍野向西山<br />
+<h1 class="title">iw命令总结</h1>
+
+<div id="outline-container-org6c6a536" class="outline-2">
+<h2 id="org6c6a536">帮助</h2>
+<div class="outline-text-2" id="text-org6c6a536">
+<div class="org-src-container">
+<pre class="src src-shell">iw help
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6b0f3ef" class="outline-2">
+<h2 id="org6b0f3ef">获取设备功能</h2>
+</div>
+
+<div id="outline-container-org8fed49f" class="outline-2">
+<h2 id="org8fed49f">扫描</h2>
+</div>
+
+<div id="outline-container-org7af2847" class="outline-2">
+<h2 id="org7af2847">监听事件</h2>
+</div>
+
+<div id="outline-container-org7ba6711" class="outline-2">
+<h2 id="org7ba6711">获得链路状态</h2>
+</div>
+
+<div id="outline-container-orgef7837c" class="outline-2">
+<h2 id="orgef7837c">获取station统计信息</h2>
+<div class="outline-text-2" id="text-orgef7837c">
+<div class="org-src-container">
+<pre class="src src-shell">iw dev wlan0 station dump
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7182a22" class="outline-2">
+<h2 id="org7182a22">获取station对应的peer统计信息</h2>
+<div class="outline-text-2" id="text-org7182a22">
+<div class="org-src-container">
+<pre class="src src-shell">iw dev wlan0 station get &lt;WIRELESS-MAC&gt;
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org4dccdcf" class="outline-2">
+<h2 id="org4dccdcf">使用iw添加接口</h2>
+<div class="outline-text-2" id="text-org4dccdcf">
+<ul class="org-ul">
+<li>monitor</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-shell">iw phy phy0 interface add moni0 type monitor
+</pre>
+</div>
+<ul class="org-ul">
+<li><p>
+managed(also station)
 </p>
+<div class="org-src-container">
+<pre class="src src-shell">
+</pre>
+</div></li>
+<li>wds</li>
+<li>mesh(also mp)</li>
+<li>ibss(also adhoc)</li>
+</ul>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
 Copyright 2019 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2019-02-03 Sun 11:12. <br/>
+Last updated 2019-03-18 Mon 19:12. <br/>
 Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.2.1).
 </div>
 </div>

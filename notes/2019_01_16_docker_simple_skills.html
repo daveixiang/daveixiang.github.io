@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-02-23 Sat 15:47 -->
+<!-- 2019-03-29 Fri 10:53 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>git simple skills</title>
@@ -161,6 +161,19 @@
   .footdef  { margin-bottom: 1em; }
   .figure { padding: 1em; }
   .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
   .inlinetask {
     padding: 10px;
     border: 2px solid gray;
@@ -186,7 +199,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2018 Free Software Foundation, Inc.
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -243,9 +256,9 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">git simple skills</h1>
 
-<div id="outline-container-org66e8663" class="outline-2">
-<h2 id="org66e8663">show commit shortly</h2>
-<div class="outline-text-2" id="text-org66e8663">
+<div id="outline-container-orgb4aaf87" class="outline-2">
+<h2 id="orgb4aaf87">show commit shortly</h2>
+<div class="outline-text-2" id="text-orgb4aaf87">
 <div class="org-src-container">
 <pre class="src src-shell">git show -s --pretty=format:%h
 </pre>
@@ -253,9 +266,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org1b306a9" class="outline-2">
-<h2 id="org1b306a9">show current branch name</h2>
-<div class="outline-text-2" id="text-org1b306a9">
+<div id="outline-container-orgc8e2a70" class="outline-2">
+<h2 id="orgc8e2a70">show current branch name</h2>
+<div class="outline-text-2" id="text-orgc8e2a70">
 <div class="org-src-container">
 <pre class="src src-shell">git rev-parse --abbrev-ref HEAD
 </pre>
@@ -263,9 +276,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org409e1fd" class="outline-2">
-<h2 id="org409e1fd">jenkins show git branch</h2>
-<div class="outline-text-2" id="text-org409e1fd">
+<div id="outline-container-orgffa8f51" class="outline-2">
+<h2 id="orgffa8f51">jenkins show git branch</h2>
+<div class="outline-text-2" id="text-orgffa8f51">
 <div class="org-src-container">
 <pre class="src src-shellx">TEMP_GIT_BRANCH=${GIT_BRANCH}
 MY_GIT_BRANCH="${TEMP_GIT_BRANCH#*/}"
@@ -276,9 +289,9 @@ MY_GIT_BRANCH="${TEMP_GIT_BRANCH#*/}"
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2018 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Copyright 2019 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
 Last updated 2019-02-23 Sat 15:45. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.1.9).
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.2.1).
 </div>
 </div>
 </body>
