@@ -6,7 +6,7 @@
 <!-- 2019-09-06 Fri 17:19 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Add OpenSUSE Leap 42.2 repos</title>
+<title>Save disk space with apt-get option "no-install-recommends" in Debian</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="xiangsiwei" />
 <link rel='stylesheet' href='../css/site.css' type='text/css'/>
@@ -70,30 +70,40 @@ for the JavaScript code in this tag.
 <div class='clearboth'></div>
 </div>
 <div id="content">
-<h1 class="title">Add OpenSUSE Leap 42.2 repos</h1>
+<h1 class="title">Save disk space with apt-get option "no-install-recommends" in Debian</h1>
 
-<div id="outline-container-orge1f8f11" class="outline-2">
-<h2 id="orge1f8f11"></h2>
-<div class="outline-text-2" id="text-orge1f8f11">
+<div id="outline-container-org9acf1dd" class="outline-2">
+<h2 id="org9acf1dd">why disable automatic recommendations</h2>
+<div class="outline-text-2" id="text-org9acf1dd">
+<p>
+Every package in Debian has a set required packages, a set of
+recommended packages and a set of suggested packages. The required
+packages are dependencies, so their installation is mandatory, but the
+installation of other two sets can be skipped. The recommended and
+suggested packages are not essential to the functioning of the package
+being installed. Disabling the installation of recommendations allows
+to save a lot of disk space.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb065b99" class="outline-2">
+<h2 id="orgb065b99">how disable automatic recommendations</h2>
+<div class="outline-text-2" id="text-orgb065b99">
 <ol class="org-ol">
 <li><p>
-Remove previous repos
+Disable recommendations temporally (for single package
+installation), adding the &#x2013;no-install-recommends option:
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">zypper repos | grep Yes | cut -f3 -d <span style="color: #198844;">'|'</span> | sed -e <span style="color: #198844;">"s/ //"</span> | awk <span style="color: #198844;">'{print "zypper rr " $1}'</span> | bash
+<pre class="src src-shell">apt-get install package --no-install-recommends
 </pre>
 </div></li>
-
 <li><p>
-Add the repos and refresh
+Disable recommendations permanently, using apt.conf file:
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/oss/ openSUSE-leap-42.2-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/non-oss/ openSUSE-leap-42.2-Non-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/oss openSUSE-leap-42.2-Update-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/non-oss/ openSUSE-leap-42.2-Update-Non-Oss
-
-zypper refresh
+<pre class="src src-shell"><span style="color: #3971ed;">echo</span> -e <span style="color: #198844;">'APT::Install-Recommends "0";\nAPT::Install-Suggests "0";'</span> | sudo tee /etc/apt/apt.conf
 </pre>
 </div></li>
 </ol>
@@ -103,7 +113,7 @@ zypper refresh
 <div id="postamble" class="status">
 <div class='footer'>
 Copyright 2019 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2019-02-03 Sun 11:12. <br/>
+Last updated 2019-05-02 Thu 18:41. <br/>
 Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.2 (<a href="https://orgmode.org">Org</a> mode 9.2.1).
 </div>
 </div>

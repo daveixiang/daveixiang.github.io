@@ -3,196 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-03-29 Fri 10:53 -->
+<!-- 2019-09-06 Fri 17:19 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Add Module to the Linux Kernel Source</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="siwei" />
-<style type="text/css">
- <!--/*--><![CDATA[/*><!--*/
-  .title  { text-align: center;
-             margin-bottom: .2em; }
-  .subtitle { text-align: center;
-              font-size: medium;
-              font-weight: bold;
-              margin-top:0; }
-  .todo   { font-family: monospace; color: red; }
-  .done   { font-family: monospace; color: green; }
-  .priority { font-family: monospace; color: orange; }
-  .tag    { background-color: #eee; font-family: monospace;
-            padding: 2px; font-size: 80%; font-weight: normal; }
-  .timestamp { color: #bebebe; }
-  .timestamp-kwd { color: #5f9ea0; }
-  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
-  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
-  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
-  .underline { text-decoration: underline; }
-  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
-  p.verse { margin-left: 3%; }
-  pre {
-    border: 1px solid #ccc;
-    box-shadow: 3px 3px 3px #eee;
-    padding: 8pt;
-    font-family: monospace;
-    overflow: auto;
-    margin: 1.2em;
-  }
-  pre.src {
-    position: relative;
-    overflow: visible;
-    padding-top: 1.2em;
-  }
-  pre.src:before {
-    display: none;
-    position: absolute;
-    background-color: white;
-    top: -10px;
-    right: 10px;
-    padding: 3px;
-    border: 1px solid black;
-  }
-  pre.src:hover:before { display: inline;}
-  /* Languages per Org manual */
-  pre.src-asymptote:before { content: 'Asymptote'; }
-  pre.src-awk:before { content: 'Awk'; }
-  pre.src-C:before { content: 'C'; }
-  /* pre.src-C++ doesn't work in CSS */
-  pre.src-clojure:before { content: 'Clojure'; }
-  pre.src-css:before { content: 'CSS'; }
-  pre.src-D:before { content: 'D'; }
-  pre.src-ditaa:before { content: 'ditaa'; }
-  pre.src-dot:before { content: 'Graphviz'; }
-  pre.src-calc:before { content: 'Emacs Calc'; }
-  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
-  pre.src-fortran:before { content: 'Fortran'; }
-  pre.src-gnuplot:before { content: 'gnuplot'; }
-  pre.src-haskell:before { content: 'Haskell'; }
-  pre.src-hledger:before { content: 'hledger'; }
-  pre.src-java:before { content: 'Java'; }
-  pre.src-js:before { content: 'Javascript'; }
-  pre.src-latex:before { content: 'LaTeX'; }
-  pre.src-ledger:before { content: 'Ledger'; }
-  pre.src-lisp:before { content: 'Lisp'; }
-  pre.src-lilypond:before { content: 'Lilypond'; }
-  pre.src-lua:before { content: 'Lua'; }
-  pre.src-matlab:before { content: 'MATLAB'; }
-  pre.src-mscgen:before { content: 'Mscgen'; }
-  pre.src-ocaml:before { content: 'Objective Caml'; }
-  pre.src-octave:before { content: 'Octave'; }
-  pre.src-org:before { content: 'Org mode'; }
-  pre.src-oz:before { content: 'OZ'; }
-  pre.src-plantuml:before { content: 'Plantuml'; }
-  pre.src-processing:before { content: 'Processing.js'; }
-  pre.src-python:before { content: 'Python'; }
-  pre.src-R:before { content: 'R'; }
-  pre.src-ruby:before { content: 'Ruby'; }
-  pre.src-sass:before { content: 'Sass'; }
-  pre.src-scheme:before { content: 'Scheme'; }
-  pre.src-screen:before { content: 'Gnu Screen'; }
-  pre.src-sed:before { content: 'Sed'; }
-  pre.src-sh:before { content: 'shell'; }
-  pre.src-sql:before { content: 'SQL'; }
-  pre.src-sqlite:before { content: 'SQLite'; }
-  /* additional languages in org.el's org-babel-load-languages alist */
-  pre.src-forth:before { content: 'Forth'; }
-  pre.src-io:before { content: 'IO'; }
-  pre.src-J:before { content: 'J'; }
-  pre.src-makefile:before { content: 'Makefile'; }
-  pre.src-maxima:before { content: 'Maxima'; }
-  pre.src-perl:before { content: 'Perl'; }
-  pre.src-picolisp:before { content: 'Pico Lisp'; }
-  pre.src-scala:before { content: 'Scala'; }
-  pre.src-shell:before { content: 'Shell Script'; }
-  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
-  /* additional language identifiers per "defun org-babel-execute"
-       in ob-*.el */
-  pre.src-cpp:before  { content: 'C++'; }
-  pre.src-abc:before  { content: 'ABC'; }
-  pre.src-coq:before  { content: 'Coq'; }
-  pre.src-groovy:before  { content: 'Groovy'; }
-  /* additional language identifiers from org-babel-shell-names in
-     ob-shell.el: ob-shell is the only babel language using a lambda to put
-     the execution function name together. */
-  pre.src-bash:before  { content: 'bash'; }
-  pre.src-csh:before  { content: 'csh'; }
-  pre.src-ash:before  { content: 'ash'; }
-  pre.src-dash:before  { content: 'dash'; }
-  pre.src-ksh:before  { content: 'ksh'; }
-  pre.src-mksh:before  { content: 'mksh'; }
-  pre.src-posh:before  { content: 'posh'; }
-  /* Additional Emacs modes also supported by the LaTeX listings package */
-  pre.src-ada:before { content: 'Ada'; }
-  pre.src-asm:before { content: 'Assembler'; }
-  pre.src-caml:before { content: 'Caml'; }
-  pre.src-delphi:before { content: 'Delphi'; }
-  pre.src-html:before { content: 'HTML'; }
-  pre.src-idl:before { content: 'IDL'; }
-  pre.src-mercury:before { content: 'Mercury'; }
-  pre.src-metapost:before { content: 'MetaPost'; }
-  pre.src-modula-2:before { content: 'Modula-2'; }
-  pre.src-pascal:before { content: 'Pascal'; }
-  pre.src-ps:before { content: 'PostScript'; }
-  pre.src-prolog:before { content: 'Prolog'; }
-  pre.src-simula:before { content: 'Simula'; }
-  pre.src-tcl:before { content: 'tcl'; }
-  pre.src-tex:before { content: 'TeX'; }
-  pre.src-plain-tex:before { content: 'Plain TeX'; }
-  pre.src-verilog:before { content: 'Verilog'; }
-  pre.src-vhdl:before { content: 'VHDL'; }
-  pre.src-xml:before { content: 'XML'; }
-  pre.src-nxml:before { content: 'XML'; }
-  /* add a generic configuration mode; LaTeX export needs an additional
-     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
-  pre.src-conf:before { content: 'Configuration File'; }
-
-  table { border-collapse:collapse; }
-  caption.t-above { caption-side: top; }
-  caption.t-bottom { caption-side: bottom; }
-  td, th { vertical-align:top;  }
-  th.org-right  { text-align: center;  }
-  th.org-left   { text-align: center;   }
-  th.org-center { text-align: center; }
-  td.org-right  { text-align: right;  }
-  td.org-left   { text-align: left;   }
-  td.org-center { text-align: center; }
-  dt { font-weight: bold; }
-  .footpara { display: inline; }
-  .footdef  { margin-bottom: 1em; }
-  .figure { padding: 1em; }
-  .figure p { text-align: center; }
-  .equation-container {
-    display: table;
-    text-align: center;
-    width: 100%;
-  }
-  .equation {
-    vertical-align: middle;
-  }
-  .equation-label {
-    display: table-cell;
-    text-align: right;
-    vertical-align: middle;
-  }
-  .inlinetask {
-    padding: 10px;
-    border: 2px solid gray;
-    margin: 10px;
-    background: #ffffcc;
-  }
-  #org-div-home-and-up
-   { text-align: right; font-size: 70%; white-space: nowrap; }
-  textarea { overflow-x: auto; }
-  .linenr { font-size: smaller }
-  .code-highlighted { background-color: #ffff00; }
-  .org-info-js_info-navigation { border-style: none; }
-  #org-info-js_console-label
-    { font-size: 10px; font-weight: bold; white-space: nowrap; }
-  .org-info-js_search-highlight
-    { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { width: 90%; }
-  /*]]>*/-->
-</style>
+<meta name="author" content="xiangsiwei" />
 <link rel='stylesheet' href='../css/site.css' type='text/css'/>
 <script type="text/javascript">
 /*
@@ -256,9 +72,9 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">Add Module to the Linux Kernel Source</h1>
 
-<div id="outline-container-org905a9a3" class="outline-2">
-<h2 id="org905a9a3">Create module directory</h2>
-<div class="outline-text-2" id="text-org905a9a3">
+<div id="outline-container-orgb967a0f" class="outline-2">
+<h2 id="orgb967a0f">Create module directory</h2>
+<div class="outline-text-2" id="text-orgb967a0f">
 <p>
 Create a directory <code>skm</code> inside drivers (which is in the Linux source
 code) for your module and put source code(<code>skm.c</code>) into it. It will
@@ -275,36 +91,36 @@ and the source code file skm.c appears like:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-c"><span style="color: #ffb86c;">#include</span> <span style="color: #f1fa8c;">&lt;linux/module.h&gt;</span>
-<span style="color: #ffb86c;">#include</span> <span style="color: #f1fa8c;">&lt;linux/version.h&gt;</span>
-<span style="color: #ffb86c;">#include</span> <span style="color: #f1fa8c;">&lt;linux/kernel.h&gt;</span>
+<pre class="src src-c"><span style="color: #3971ed;">#include</span> <span style="color: #198844;">&lt;linux/module.h&gt;</span>
+<span style="color: #3971ed;">#include</span> <span style="color: #198844;">&lt;linux/version.h&gt;</span>
+<span style="color: #3971ed;">#include</span> <span style="color: #198844;">&lt;linux/kernel.h&gt;</span>
 
-<span style="color: #ff79c6; font-weight: bold;">static</span> <span style="color: #bd93f9;">int</span> <span style="color: #50fa7b; font-weight: bold;">__init</span> skm_init(<span style="color: #bd93f9;">void</span>)
+<span style="color: #a36ac7;">static</span> <span style="color: #fba922;">int</span> <span style="color: #3971ed;">__init</span> skm_init(<span style="color: #fba922;">void</span>)
 {
-        printk(KERN_INFO <span style="color: #f1fa8c;">"Hello Kernel Space!\n"</span>);
+        printk(KERN_INFO <span style="color: #198844;">"Hello Kernel Space!\n"</span>);
 
-        <span style="color: #ff79c6; font-weight: bold;">return</span> 0;
+        <span style="color: #a36ac7;">return</span> 0;
 }
 
-<span style="color: #ff79c6; font-weight: bold;">static</span> <span style="color: #bd93f9;">void</span> <span style="color: #50fa7b; font-weight: bold;">__exit</span> skm_exit(<span style="color: #bd93f9;">void</span>)
+<span style="color: #a36ac7;">static</span> <span style="color: #fba922;">void</span> <span style="color: #3971ed;">__exit</span> skm_exit(<span style="color: #fba922;">void</span>)
 {
-        printk(KERN_INFO <span style="color: #f1fa8c;">"Bye Kernel Space!\n"</span>);
+        printk(KERN_INFO <span style="color: #198844;">"Bye Kernel Space!\n"</span>);
 }
 
-<span style="color: #50fa7b; font-weight: bold;">module_init</span>(skm_init);
-<span style="color: #50fa7b; font-weight: bold;">module_exit</span>(skm_exit);
+<span style="color: #3971ed;">module_init</span>(skm_init);
+<span style="color: #3971ed;">module_exit</span>(skm_exit);
 
-MODULE_LICENSE(<span style="color: #f1fa8c;">"GPL"</span>);
-MODULE_AUTHOR(<span style="color: #f1fa8c;">"Xiang Davei"</span>);
-MODULE_DESCRIPTION(<span style="color: #f1fa8c;">"Simple Kernel Module"</span>)
+MODULE_LICENSE(<span style="color: #198844;">"GPL"</span>);
+MODULE_AUTHOR(<span style="color: #198844;">"Xiang Davei"</span>);
+MODULE_DESCRIPTION(<span style="color: #198844;">"Simple Kernel Module"</span>)
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgae6a344" class="outline-2">
-<h2 id="orgae6a344">Create Makefile file</h2>
-<div class="outline-text-2" id="text-orgae6a344">
+<div id="outline-container-org3b24f4e" class="outline-2">
+<h2 id="org3b24f4e">Create Makefile file</h2>
+<div class="outline-text-2" id="text-org3b24f4e">
 <p>
 Create one <code>Makefile</code> inside <code>skm</code> and add <code>obj-$(CONFG_SKM) += skm.o</code>
 to it. This will appears like:
@@ -317,9 +133,9 @@ to it. This will appears like:
 </div>
 </div>
 
-<div id="outline-container-orge46b533" class="outline-2">
-<h2 id="orge46b533">Create Kconfig file</h2>
-<div class="outline-text-2" id="text-orge46b533">
+<div id="outline-container-org361e83d" class="outline-2">
+<h2 id="org361e83d">Create Kconfig file</h2>
+<div class="outline-text-2" id="text-org361e83d">
 <p>
 Create one <code>Kconfig</code> inside <code>skm</code> , then put the content as the
 following:
@@ -345,9 +161,9 @@ into it. And it will looks like:
 </div>
 </div>
 
-<div id="outline-container-org479e025" class="outline-2">
-<h2 id="org479e025">Edit Makefile and Kconfig in {LINUX_SRC_PATH}/drivers/</h2>
-<div class="outline-text-2" id="text-org479e025">
+<div id="outline-container-org6edf6c9" class="outline-2">
+<h2 id="org6edf6c9">Edit Makefile and Kconfig in {LINUX_SRC_PATH}/drivers/</h2>
+<div class="outline-text-2" id="text-org6edf6c9">
 <p>
 In the <code>Makefile</code> add below in last line
 </p>
@@ -377,15 +193,15 @@ In Kconfig file add below in last line
 </div>
 </div>
 
-<div id="outline-container-orgd488506" class="outline-2">
-<h2 id="orgd488506">Compile the source code with module just added</h2>
-<div class="outline-text-2" id="text-orgd488506">
+<div id="outline-container-org3a37ef6" class="outline-2">
+<h2 id="org3a37ef6">Compile the source code with module just added</h2>
+<div class="outline-text-2" id="text-org3a37ef6">
 </div>
-<div id="outline-container-org7593e81" class="outline-3">
-<h3 id="org7593e81">Use <i>make menuconfig</i> to choice the module just added</h3>
-<div class="outline-text-3" id="text-org7593e81">
+<div id="outline-container-orgab5831b" class="outline-3">
+<h3 id="orgab5831b">Use <i>make menuconfig</i> to choice the module just added</h3>
+<div class="outline-text-3" id="text-orgab5831b">
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #f8f8f2;">ARCH</span>=i386 <span style="color: #f8f8f2;">CROSS_COMPILE</span>=i686-none-linux- make menuconfig
+<pre class="src src-sh"><span style="color: #cc342b;">ARCH</span>=i386 <span style="color: #cc342b;">CROSS_COMPILE</span>=i686-none-linux- make menuconfig
 </pre>
 </div>
 
@@ -401,21 +217,21 @@ and the output looks like:
 </div>
 </div>
 
-<div id="outline-container-org6f4c1e1" class="outline-3">
-<h3 id="org6f4c1e1">Use <i>make -j$(nproc)</i> to compile the kernel</h3>
-<div class="outline-text-3" id="text-org6f4c1e1">
+<div id="outline-container-orga52c46d" class="outline-3">
+<h3 id="orga52c46d">Use <i>make -j$(nproc)</i> to compile the kernel</h3>
+<div class="outline-text-3" id="text-orga52c46d">
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #f8f8f2;">ARCH</span>=i386 <span style="color: #f8f8f2;">CROSS_COMPILE</span>=i686-none-linux- make -j$(nproc)
+<pre class="src src-sh"><span style="color: #cc342b;">ARCH</span>=i386 <span style="color: #cc342b;">CROSS_COMPILE</span>=i686-none-linux- make -j$(nproc)
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org6e2c874" class="outline-3">
-<h3 id="org6e2c874">Use <i>make modules_install</i> to install the kernel modules</h3>
-<div class="outline-text-3" id="text-org6e2c874">
+<div id="outline-container-org64edfb9" class="outline-3">
+<h3 id="org64edfb9">Use <i>make modules_install</i> to install the kernel modules</h3>
+<div class="outline-text-3" id="text-org64edfb9">
 <div class="org-src-container">
-<pre class="src src-sh">make modules_install <span style="color: #f8f8f2;">INSTALL_MOD_PATH</span>=${<span style="color: #f8f8f2;">MODULES_PATH</span>}
+<pre class="src src-sh">make modules_install <span style="color: #cc342b;">INSTALL_MOD_PATH</span>=${<span style="color: #cc342b;">MODULES_PATH</span>}
 </pre>
 </div>
 </div>
@@ -424,9 +240,9 @@ and the output looks like:
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2019 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Copyright 2019 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
 Last updated 2019-02-03 Sun 11:12. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.2.1).
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.2 (<a href="https://orgmode.org">Org</a> mode 9.2.1).
 </div>
 </div>
 </body>

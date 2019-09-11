@@ -6,7 +6,7 @@
 <!-- 2019-09-06 Fri 17:19 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Add OpenSUSE Leap 42.2 repos</title>
+<title>Lookbehind assertion is not fixed length</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="xiangsiwei" />
 <link rel='stylesheet' href='../css/site.css' type='text/css'/>
@@ -56,6 +56,28 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="preamble" class="status">
@@ -70,40 +92,33 @@ for the JavaScript code in this tag.
 <div class='clearboth'></div>
 </div>
 <div id="content">
-<h1 class="title">Add OpenSUSE Leap 42.2 repos</h1>
-
-<div id="outline-container-orge1f8f11" class="outline-2">
-<h2 id="orge1f8f11"></h2>
-<div class="outline-text-2" id="text-orge1f8f11">
-<ol class="org-ol">
-<li><p>
-Remove previous repos
+<h1 class="title">Lookbehind assertion is not fixed length</h1>
+<p>
+I am using grep for extracting string from file. If my regular
+expression looks like:
 </p>
-<div class="org-src-container">
-<pre class="src src-sh">zypper repos | grep Yes | cut -f3 -d <span style="color: #198844;">'|'</span> | sed -e <span style="color: #198844;">"s/ //"</span> | awk <span style="color: #198844;">'{print "zypper rr " $1}'</span> | bash
-</pre>
-</div></li>
 
-<li><p>
-Add the repos and refresh
-</p>
 <div class="org-src-container">
-<pre class="src src-sh">zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/oss/ openSUSE-leap-42.2-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/non-oss/ openSUSE-leap-42.2-Non-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/oss openSUSE-leap-42.2-Update-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/non-oss/ openSUSE-leap-42.2-Update-Non-Oss
-
-zypper refresh
+<pre class="src src-shell">grep -P -o -z <span style="color: #198844;">'(?&lt;=^ManagementCidr\s*=\s*).*'</span>
 </pre>
-</div></li>
-</ol>
 </div>
+
+<p>
+I will get an error "Lookbehind assertion is not fixed
+length". Problem is in \s*. (?&lt;=) works only if match if fixed
+size. In regular expressing for grep \K it will reset matched text at
+this point. So grep command that do what I want will be:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">grep -P -o -z <span style="color: #198844;">'^ManagementCidr\s*=\s*\K(.*)</span>
+</pre>
 </div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
 Copyright 2019 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2019-02-03 Sun 11:12. <br/>
+Last updated 2019-06-14 Fri 10:28. <br/>
 Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.2 (<a href="https://orgmode.org">Org</a> mode 9.2.1).
 </div>
 </div>

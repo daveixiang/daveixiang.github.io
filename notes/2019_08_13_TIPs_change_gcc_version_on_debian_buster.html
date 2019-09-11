@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-09-06 Fri 17:19 -->
+<!-- 2019-09-06 Fri 17:48 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Add OpenSUSE Leap 42.2 repos</title>
+<title>Change GCC version on Debian buster</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="xiangsiwei" />
 <link rel='stylesheet' href='../css/site.css' type='text/css'/>
@@ -70,40 +70,68 @@ for the JavaScript code in this tag.
 <div class='clearboth'></div>
 </div>
 <div id="content">
-<h1 class="title">Add OpenSUSE Leap 42.2 repos</h1>
+<h1 class="title">Change GCC version on Debian buster</h1>
+<p>
+In the following example, will provide instructions about how to
+install and use multiple versions of GCC on Debian buster
+</p>
 
-<div id="outline-container-orge1f8f11" class="outline-2">
-<h2 id="orge1f8f11"></h2>
-<div class="outline-text-2" id="text-orge1f8f11">
 <ol class="org-ol">
 <li><p>
-Remove previous repos
+install the desired gcc and g++ versions
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">zypper repos | grep Yes | cut -f3 -d <span style="color: #198844;">'|'</span> | sed -e <span style="color: #198844;">"s/ //"</span> | awk <span style="color: #198844;">'{print "zypper rr " $1}'</span> | bash
+<pre class="src src-shell">apt install gcc-7 g++-7
 </pre>
 </div></li>
 
 <li><p>
-Add the repos and refresh
+configure alternative for each version and associate a priority
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/oss/ openSUSE-leap-42.2-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/non-oss/ openSUSE-leap-42.2-Non-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/oss openSUSE-leap-42.2-Update-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/non-oss/ openSUSE-leap-42.2-Update-Non-Oss
-
-zypper refresh
+<pre class="src src-shell">update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/bin/g++-8
+update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 70 --slave /usr/bin/g++ g++ /usr/bin/g++-7
 </pre>
 </div></li>
+
+<li><p>
+choose the default gcc version
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">update-alternatives --config gcc
+</pre>
+</div>
+<p>
+#+begin_src txt
+</p></li>
 </ol>
+<p>
+There are 2 choices for the alternative gcc (providing /usr/bin/gcc).
+</p>
+
+<p>
+Selection    Path            Priority   Status
+</p>
+<hr />
+<div id="outline-container-org907423c" class="outline-2">
+<h2 id="org907423c">0            /usr/bin/gcc-8   80        auto mode</h2>
+<div class="outline-text-2" id="text-org907423c">
+<p>
+1            /usr/bin/gcc-7   70        manual mode
+2            /usr/bin/gcc-8   80        manual mode
+</p>
+
+<p>
+Press &lt;enter&gt; to keep the current choice[*], or type selection number: 0
+   #+end_src
+</p>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
 Copyright 2019 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2019-02-03 Sun 11:12. <br/>
+Last updated 2019-09-06 Fri 17:46. <br/>
 Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.2 (<a href="https://orgmode.org">Org</a> mode 9.2.1).
 </div>
 </div>

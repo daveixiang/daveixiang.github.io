@@ -3,196 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-03-29 Fri 10:53 -->
+<!-- 2019-09-06 Fri 17:19 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Build Minimal Linux Hack Env with Busybox (Target: vexpress-a15)</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="siwei" />
-<style type="text/css">
- <!--/*--><![CDATA[/*><!--*/
-  .title  { text-align: center;
-             margin-bottom: .2em; }
-  .subtitle { text-align: center;
-              font-size: medium;
-              font-weight: bold;
-              margin-top:0; }
-  .todo   { font-family: monospace; color: red; }
-  .done   { font-family: monospace; color: green; }
-  .priority { font-family: monospace; color: orange; }
-  .tag    { background-color: #eee; font-family: monospace;
-            padding: 2px; font-size: 80%; font-weight: normal; }
-  .timestamp { color: #bebebe; }
-  .timestamp-kwd { color: #5f9ea0; }
-  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
-  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
-  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
-  .underline { text-decoration: underline; }
-  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
-  p.verse { margin-left: 3%; }
-  pre {
-    border: 1px solid #ccc;
-    box-shadow: 3px 3px 3px #eee;
-    padding: 8pt;
-    font-family: monospace;
-    overflow: auto;
-    margin: 1.2em;
-  }
-  pre.src {
-    position: relative;
-    overflow: visible;
-    padding-top: 1.2em;
-  }
-  pre.src:before {
-    display: none;
-    position: absolute;
-    background-color: white;
-    top: -10px;
-    right: 10px;
-    padding: 3px;
-    border: 1px solid black;
-  }
-  pre.src:hover:before { display: inline;}
-  /* Languages per Org manual */
-  pre.src-asymptote:before { content: 'Asymptote'; }
-  pre.src-awk:before { content: 'Awk'; }
-  pre.src-C:before { content: 'C'; }
-  /* pre.src-C++ doesn't work in CSS */
-  pre.src-clojure:before { content: 'Clojure'; }
-  pre.src-css:before { content: 'CSS'; }
-  pre.src-D:before { content: 'D'; }
-  pre.src-ditaa:before { content: 'ditaa'; }
-  pre.src-dot:before { content: 'Graphviz'; }
-  pre.src-calc:before { content: 'Emacs Calc'; }
-  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
-  pre.src-fortran:before { content: 'Fortran'; }
-  pre.src-gnuplot:before { content: 'gnuplot'; }
-  pre.src-haskell:before { content: 'Haskell'; }
-  pre.src-hledger:before { content: 'hledger'; }
-  pre.src-java:before { content: 'Java'; }
-  pre.src-js:before { content: 'Javascript'; }
-  pre.src-latex:before { content: 'LaTeX'; }
-  pre.src-ledger:before { content: 'Ledger'; }
-  pre.src-lisp:before { content: 'Lisp'; }
-  pre.src-lilypond:before { content: 'Lilypond'; }
-  pre.src-lua:before { content: 'Lua'; }
-  pre.src-matlab:before { content: 'MATLAB'; }
-  pre.src-mscgen:before { content: 'Mscgen'; }
-  pre.src-ocaml:before { content: 'Objective Caml'; }
-  pre.src-octave:before { content: 'Octave'; }
-  pre.src-org:before { content: 'Org mode'; }
-  pre.src-oz:before { content: 'OZ'; }
-  pre.src-plantuml:before { content: 'Plantuml'; }
-  pre.src-processing:before { content: 'Processing.js'; }
-  pre.src-python:before { content: 'Python'; }
-  pre.src-R:before { content: 'R'; }
-  pre.src-ruby:before { content: 'Ruby'; }
-  pre.src-sass:before { content: 'Sass'; }
-  pre.src-scheme:before { content: 'Scheme'; }
-  pre.src-screen:before { content: 'Gnu Screen'; }
-  pre.src-sed:before { content: 'Sed'; }
-  pre.src-sh:before { content: 'shell'; }
-  pre.src-sql:before { content: 'SQL'; }
-  pre.src-sqlite:before { content: 'SQLite'; }
-  /* additional languages in org.el's org-babel-load-languages alist */
-  pre.src-forth:before { content: 'Forth'; }
-  pre.src-io:before { content: 'IO'; }
-  pre.src-J:before { content: 'J'; }
-  pre.src-makefile:before { content: 'Makefile'; }
-  pre.src-maxima:before { content: 'Maxima'; }
-  pre.src-perl:before { content: 'Perl'; }
-  pre.src-picolisp:before { content: 'Pico Lisp'; }
-  pre.src-scala:before { content: 'Scala'; }
-  pre.src-shell:before { content: 'Shell Script'; }
-  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
-  /* additional language identifiers per "defun org-babel-execute"
-       in ob-*.el */
-  pre.src-cpp:before  { content: 'C++'; }
-  pre.src-abc:before  { content: 'ABC'; }
-  pre.src-coq:before  { content: 'Coq'; }
-  pre.src-groovy:before  { content: 'Groovy'; }
-  /* additional language identifiers from org-babel-shell-names in
-     ob-shell.el: ob-shell is the only babel language using a lambda to put
-     the execution function name together. */
-  pre.src-bash:before  { content: 'bash'; }
-  pre.src-csh:before  { content: 'csh'; }
-  pre.src-ash:before  { content: 'ash'; }
-  pre.src-dash:before  { content: 'dash'; }
-  pre.src-ksh:before  { content: 'ksh'; }
-  pre.src-mksh:before  { content: 'mksh'; }
-  pre.src-posh:before  { content: 'posh'; }
-  /* Additional Emacs modes also supported by the LaTeX listings package */
-  pre.src-ada:before { content: 'Ada'; }
-  pre.src-asm:before { content: 'Assembler'; }
-  pre.src-caml:before { content: 'Caml'; }
-  pre.src-delphi:before { content: 'Delphi'; }
-  pre.src-html:before { content: 'HTML'; }
-  pre.src-idl:before { content: 'IDL'; }
-  pre.src-mercury:before { content: 'Mercury'; }
-  pre.src-metapost:before { content: 'MetaPost'; }
-  pre.src-modula-2:before { content: 'Modula-2'; }
-  pre.src-pascal:before { content: 'Pascal'; }
-  pre.src-ps:before { content: 'PostScript'; }
-  pre.src-prolog:before { content: 'Prolog'; }
-  pre.src-simula:before { content: 'Simula'; }
-  pre.src-tcl:before { content: 'tcl'; }
-  pre.src-tex:before { content: 'TeX'; }
-  pre.src-plain-tex:before { content: 'Plain TeX'; }
-  pre.src-verilog:before { content: 'Verilog'; }
-  pre.src-vhdl:before { content: 'VHDL'; }
-  pre.src-xml:before { content: 'XML'; }
-  pre.src-nxml:before { content: 'XML'; }
-  /* add a generic configuration mode; LaTeX export needs an additional
-     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
-  pre.src-conf:before { content: 'Configuration File'; }
-
-  table { border-collapse:collapse; }
-  caption.t-above { caption-side: top; }
-  caption.t-bottom { caption-side: bottom; }
-  td, th { vertical-align:top;  }
-  th.org-right  { text-align: center;  }
-  th.org-left   { text-align: center;   }
-  th.org-center { text-align: center; }
-  td.org-right  { text-align: right;  }
-  td.org-left   { text-align: left;   }
-  td.org-center { text-align: center; }
-  dt { font-weight: bold; }
-  .footpara { display: inline; }
-  .footdef  { margin-bottom: 1em; }
-  .figure { padding: 1em; }
-  .figure p { text-align: center; }
-  .equation-container {
-    display: table;
-    text-align: center;
-    width: 100%;
-  }
-  .equation {
-    vertical-align: middle;
-  }
-  .equation-label {
-    display: table-cell;
-    text-align: right;
-    vertical-align: middle;
-  }
-  .inlinetask {
-    padding: 10px;
-    border: 2px solid gray;
-    margin: 10px;
-    background: #ffffcc;
-  }
-  #org-div-home-and-up
-   { text-align: right; font-size: 70%; white-space: nowrap; }
-  textarea { overflow-x: auto; }
-  .linenr { font-size: smaller }
-  .code-highlighted { background-color: #ffff00; }
-  .org-info-js_info-navigation { border-style: none; }
-  #org-info-js_console-label
-    { font-size: 10px; font-weight: bold; white-space: nowrap; }
-  .org-info-js_search-highlight
-    { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { width: 90%; }
-  /*]]>*/-->
-</style>
+<meta name="author" content="xiangsiwei" />
 <link rel='stylesheet' href='../css/site.css' type='text/css'/>
 <script type="text/javascript">
 /*
@@ -256,15 +72,15 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">Build Minimal Linux Hack Env with Busybox (Target: vexpress-a15)</h1>
 
-<div id="outline-container-orgff51279" class="outline-2">
-<h2 id="orgff51279">Build the kernel</h2>
-<div class="outline-text-2" id="text-orgff51279">
+<div id="outline-container-orgee1c80a" class="outline-2">
+<h2 id="orgee1c80a">Build the kernel</h2>
+<div class="outline-text-2" id="text-orgee1c80a">
 <ol class="org-ol">
 <li><p>
 Use <i>vexpress-a15</i> default configuration
 </p>
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #f8f8f2;">ARCH</span>=arm <span style="color: #f8f8f2;">CROSS_COMPILE</span>=arm-linux-gnueabi- make vexpress_defconfig
+<pre class="src src-sh"><span style="color: #cc342b;">ARCH</span>=arm <span style="color: #cc342b;">CROSS_COMPILE</span>=arm-linux-gnueabi- make vexpress_defconfig
 </pre>
 </div></li>
 
@@ -272,7 +88,7 @@ Use <i>vexpress-a15</i> default configuration
 Simplify <i>vexpress-a15</i> configuration by cutting off unused drivers
 </p>
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #f8f8f2;">ARCH</span>=arm <span style="color: #f8f8f2;">CROSS_COMPILE</span>=arm-linux-gnueabi- make menuconfig
+<pre class="src src-sh"><span style="color: #cc342b;">ARCH</span>=arm <span style="color: #cc342b;">CROSS_COMPILE</span>=arm-linux-gnueabi- make menuconfig
 </pre>
 </div></li>
 
@@ -280,22 +96,22 @@ Simplify <i>vexpress-a15</i> configuration by cutting off unused drivers
 Create kernel image <i>zImage</i>
 </p>
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #f8f8f2;">ARCH</span>=arm <span style="color: #f8f8f2;">CROSS_COMPILE</span>=arm-linux-gnueabi- make -j$(nproc)
+<pre class="src src-sh"><span style="color: #cc342b;">ARCH</span>=arm <span style="color: #cc342b;">CROSS_COMPILE</span>=arm-linux-gnueabi- make -j$(nproc)
 </pre>
 </div></li>
 </ol>
 </div>
 </div>
 
-<div id="outline-container-org90e936d" class="outline-2">
-<h2 id="org90e936d">Build busybox</h2>
-<div class="outline-text-2" id="text-org90e936d">
+<div id="outline-container-org7998757" class="outline-2">
+<h2 id="org7998757">Build busybox</h2>
+<div class="outline-text-2" id="text-org7998757">
 <ol class="org-ol">
 <li><p>
 Use busybox default configuration
 </p>
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #f8f8f2;">ARCH</span>=arm <span style="color: #f8f8f2;">CROSS_COMPILE</span>=arm-linux-gnueabi- make defconfig
+<pre class="src src-sh"><span style="color: #cc342b;">ARCH</span>=arm <span style="color: #cc342b;">CROSS_COMPILE</span>=arm-linux-gnueabi- make defconfig
 </pre>
 </div></li>
 
@@ -303,7 +119,7 @@ Use busybox default configuration
 Customize configurations
 </p>
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #f8f8f2;">ARCH</span>=arm <span style="color: #f8f8f2;">CROSS_COMPILE</span>=arm-linux-gnueabi- make menuconfig
+<pre class="src src-sh"><span style="color: #cc342b;">ARCH</span>=arm <span style="color: #cc342b;">CROSS_COMPILE</span>=arm-linux-gnueabi- make menuconfig
 </pre>
 </div></li>
 
@@ -311,7 +127,7 @@ Customize configurations
 Create busybox
 </p>
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #f8f8f2;">ARCH</span>=arm <span style="color: #f8f8f2;">CROSS_COMPILE</span>=arm-linux-gnueabi- make -j$(nproc)
+<pre class="src src-sh"><span style="color: #cc342b;">ARCH</span>=arm <span style="color: #cc342b;">CROSS_COMPILE</span>=arm-linux-gnueabi- make -j$(nproc)
 </pre>
 </div></li>
 
@@ -319,65 +135,65 @@ Create busybox
 Install busybox(default path: <code>BUSYBOX/_install</code>)
 </p>
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #f8f8f2;">ARCH</span>=arm <span style="color: #f8f8f2;">CROSS_COMPILE</span>=arm-linux-gnueabi- make install
+<pre class="src src-sh"><span style="color: #cc342b;">ARCH</span>=arm <span style="color: #cc342b;">CROSS_COMPILE</span>=arm-linux-gnueabi- make install
 </pre>
 </div></li>
 </ol>
 </div>
 </div>
 
-<div id="outline-container-org8ad0e2c" class="outline-2">
-<h2 id="org8ad0e2c">Generate minimal initramfs</h2>
-<div class="outline-text-2" id="text-org8ad0e2c">
+<div id="outline-container-org5eb7562" class="outline-2">
+<h2 id="org5eb7562">Generate minimal initramfs</h2>
+<div class="outline-text-2" id="text-org5eb7562">
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #6272a4;">#</span><span style="color: #6272a4;">!/usr/bin/</span><span style="color: #ff79c6; font-weight: bold;">bash</span>
-<span style="color: #f8f8f2;">ROOTFS</span>=rootfs
-<span style="color: #f8f8f2;">BUSYBOX</span>=$(find busybox* -maxdepth 0 -type d)
-<span style="color: #f8f8f2;">SYSROOT</span>=$(arm-linux-gnueabi-gcc --print-sysroot)
-<span style="color: #f8f8f2;">GLIBC_VERSION</span>=$(${<span style="color: #f8f8f2;">SYSROOT</span>}/usr/bin/ldd --version | head -1 | cut -d<span style="color: #f1fa8c;">' '</span> -f4)
-<span style="color: #f8f8f2;">DYNAMIC_LIB_PATH</span>=${<span style="color: #f8f8f2;">SYSROOT</span>}/lib
+<pre class="src src-sh"><span style="color: #373b41;">#</span><span style="color: #969896;">!/usr/bin/</span><span style="color: #a36ac7;">bash</span>
+<span style="color: #cc342b;">ROOTFS</span>=rootfs
+<span style="color: #cc342b;">BUSYBOX</span>=$(find busybox* -maxdepth 0 -type d)
+<span style="color: #cc342b;">SYSROOT</span>=$(arm-linux-gnueabi-gcc --print-sysroot)
+<span style="color: #cc342b;">GLIBC_VERSION</span>=$(${<span style="color: #cc342b;">SYSROOT</span>}/usr/bin/ldd --version | head -1 | cut -d<span style="color: #198844;">' '</span> -f4)
+<span style="color: #cc342b;">DYNAMIC_LIB_PATH</span>=${<span style="color: #cc342b;">SYSROOT</span>}/lib
 
-rm -rf $<span style="color: #f8f8f2;">ROOTFS</span>
-mkdir -p ${<span style="color: #f8f8f2;">ROOTFS</span>}/{proc,sys,dev,etc,etc/init.d,lib,mnt,tmp,go}
+rm -rf $<span style="color: #cc342b;">ROOTFS</span>
+mkdir -p ${<span style="color: #cc342b;">ROOTFS</span>}/{proc,sys,dev,etc,etc/init.d,lib,mnt,tmp,go}
 
-cat &gt; $<span style="color: #f8f8f2;">ROOTFS</span>/etc/init.d/rcS &lt;&lt;EOF
-<span style="color: #ffff00; font-weight: bold;">#!/bin/sh</span>
-<span style="color: #ffff00; font-weight: bold;">mount -t proc none /proc</span>
-<span style="color: #ffff00; font-weight: bold;">mount -t sysfs none /sys</span>
-<span style="color: #ffff00; font-weight: bold;">/sbin/mdev -s</span>
-<span style="color: #ffff00; font-weight: bold;">ifconfig lo up</span>
-<span style="color: #ffff00; font-weight: bold;">EOF</span>
+cat &gt; $<span style="color: #cc342b;">ROOTFS</span>/etc/init.d/rcS &lt;&lt;EOF
+<span style="color: #198844;">#!/bin/sh</span>
+<span style="color: #198844;">mount -t proc none /proc</span>
+<span style="color: #198844;">mount -t sysfs none /sys</span>
+<span style="color: #198844;">/sbin/mdev -s</span>
+<span style="color: #198844;">ifconfig lo up</span>
+<span style="color: #198844;">EOF</span>
 
-chmod +x $<span style="color: #f8f8f2;">ROOTFS</span>/etc/init.d/rcS
+chmod +x $<span style="color: #cc342b;">ROOTFS</span>/etc/init.d/rcS
 
-cat &gt; $<span style="color: #f8f8f2;">ROOTFS</span>/etc/inittab &lt;&lt;EOF
-<span style="color: #ffff00; font-weight: bold;"># /etc/inittab</span>
-<span style="color: #ffff00; font-weight: bold;">::sysinit:/etc/init.d/rcS</span>
-<span style="color: #ffff00; font-weight: bold;">::askfirst:-/bin/sh</span>
-<span style="color: #ffff00; font-weight: bold;">::ctrlaltdel:/sbin/reboot</span>
-<span style="color: #ffff00; font-weight: bold;">::shutdown:/bin/umount -a -r</span>
-<span style="color: #ffff00; font-weight: bold;">EOF</span>
+cat &gt; $<span style="color: #cc342b;">ROOTFS</span>/etc/inittab &lt;&lt;EOF
+<span style="color: #198844;"># /etc/inittab</span>
+<span style="color: #198844;">::sysinit:/etc/init.d/rcS</span>
+<span style="color: #198844;">::askfirst:-/bin/sh</span>
+<span style="color: #198844;">::ctrlaltdel:/sbin/reboot</span>
+<span style="color: #198844;">::shutdown:/bin/umount -a -r</span>
+<span style="color: #198844;">EOF</span>
 
-chmod +x $<span style="color: #f8f8f2;">ROOTFS</span>/etc/inittab
+chmod +x $<span style="color: #cc342b;">ROOTFS</span>/etc/inittab
 
-cp -rP ${<span style="color: #f8f8f2;">BUSYBOX</span>}/_install/* ${<span style="color: #f8f8f2;">ROOTFS</span>}
+cp -rP ${<span style="color: #cc342b;">BUSYBOX</span>}/_install/* ${<span style="color: #cc342b;">ROOTFS</span>}
 
-cp -rP ${<span style="color: #f8f8f2;">DYNAMIC_LIB_PATH</span>}/libc-${<span style="color: #f8f8f2;">GLIBC_VERSION</span>}.so ${<span style="color: #f8f8f2;">ROOTFS</span>}/lib/
-cp -rP ${<span style="color: #f8f8f2;">DYNAMIC_LIB_PATH</span>}/libc.so.6 ${<span style="color: #f8f8f2;">ROOTFS</span>}/lib/
+cp -rP ${<span style="color: #cc342b;">DYNAMIC_LIB_PATH</span>}/libc-${<span style="color: #cc342b;">GLIBC_VERSION</span>}.so ${<span style="color: #cc342b;">ROOTFS</span>}/lib/
+cp -rP ${<span style="color: #cc342b;">DYNAMIC_LIB_PATH</span>}/libc.so.6 ${<span style="color: #cc342b;">ROOTFS</span>}/lib/
 
-cp -rP ${<span style="color: #f8f8f2;">DYNAMIC_LIB_PATH</span>}/libm-${<span style="color: #f8f8f2;">GLIBC_VERSION</span>}.so ${<span style="color: #f8f8f2;">ROOTFS</span>}/lib/
-cp -rP ${<span style="color: #f8f8f2;">DYNAMIC_LIB_PATH</span>}/libm.so.6 ${<span style="color: #f8f8f2;">ROOTFS</span>}/lib/
+cp -rP ${<span style="color: #cc342b;">DYNAMIC_LIB_PATH</span>}/libm-${<span style="color: #cc342b;">GLIBC_VERSION</span>}.so ${<span style="color: #cc342b;">ROOTFS</span>}/lib/
+cp -rP ${<span style="color: #cc342b;">DYNAMIC_LIB_PATH</span>}/libm.so.6 ${<span style="color: #cc342b;">ROOTFS</span>}/lib/
 
-cp -rP ${<span style="color: #f8f8f2;">DYNAMIC_LIB_PATH</span>}/librt-${<span style="color: #f8f8f2;">GLIBC_VERSION</span>}.so ${<span style="color: #f8f8f2;">ROOTFS</span>}/lib/
-cp -rP ${<span style="color: #f8f8f2;">DYNAMIC_LIB_PATH</span>}/librt.so.1 ${<span style="color: #f8f8f2;">ROOTFS</span>}/lib/
+cp -rP ${<span style="color: #cc342b;">DYNAMIC_LIB_PATH</span>}/librt-${<span style="color: #cc342b;">GLIBC_VERSION</span>}.so ${<span style="color: #cc342b;">ROOTFS</span>}/lib/
+cp -rP ${<span style="color: #cc342b;">DYNAMIC_LIB_PATH</span>}/librt.so.1 ${<span style="color: #cc342b;">ROOTFS</span>}/lib/
 
-cp -rP ${<span style="color: #f8f8f2;">DYNAMIC_LIB_PATH</span>}/libpthread-${<span style="color: #f8f8f2;">GLIBC_VERSION</span>}.so ${<span style="color: #f8f8f2;">ROOTFS</span>}/lib/
-cp -rP ${<span style="color: #f8f8f2;">DYNAMIC_LIB_PATH</span>}/libpthread.so.0 ${<span style="color: #f8f8f2;">ROOTFS</span>}/lib/
+cp -rP ${<span style="color: #cc342b;">DYNAMIC_LIB_PATH</span>}/libpthread-${<span style="color: #cc342b;">GLIBC_VERSION</span>}.so ${<span style="color: #cc342b;">ROOTFS</span>}/lib/
+cp -rP ${<span style="color: #cc342b;">DYNAMIC_LIB_PATH</span>}/libpthread.so.0 ${<span style="color: #cc342b;">ROOTFS</span>}/lib/
 
-cp -rP ${<span style="color: #f8f8f2;">DYNAMIC_LIB_PATH</span>}/ld-${<span style="color: #f8f8f2;">GLIBC_VERSION</span>}.so ${<span style="color: #f8f8f2;">ROOTFS</span>}/lib/
-cp -rP ${<span style="color: #f8f8f2;">DYNAMIC_LIB_PATH</span>}/ld-linux.so.3 ${<span style="color: #f8f8f2;">ROOTFS</span>}/lib/
+cp -rP ${<span style="color: #cc342b;">DYNAMIC_LIB_PATH</span>}/ld-${<span style="color: #cc342b;">GLIBC_VERSION</span>}.so ${<span style="color: #cc342b;">ROOTFS</span>}/lib/
+cp -rP ${<span style="color: #cc342b;">DYNAMIC_LIB_PATH</span>}/ld-linux.so.3 ${<span style="color: #cc342b;">ROOTFS</span>}/lib/
 
-<span style="color: #ffb86c;">cd</span> ${<span style="color: #f8f8f2;">ROOTFS</span>}
+<span style="color: #3971ed;">cd</span> ${<span style="color: #cc342b;">ROOTFS</span>}
 ln -sf bin/busybox init
 find . | cpio -o --format=newc &gt; ../initramfs
 </pre>
@@ -385,16 +201,16 @@ find . | cpio -o --format=newc &gt; ../initramfs
 </div>
 </div>
 
-<div id="outline-container-orgf766ca7" class="outline-2">
-<h2 id="orgf766ca7">Test the <i>zImage</i> and <i>initramfs</i> just built</h2>
-<div class="outline-text-2" id="text-orgf766ca7">
+<div id="outline-container-orgd60b341" class="outline-2">
+<h2 id="orgd60b341">Test the <i>zImage</i> and <i>initramfs</i> just built</h2>
+<div class="outline-text-2" id="text-orgd60b341">
 <p>
 Use qemu to test the <i>zImage</i> and <i>initramfs</i> which we just builded:
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">qemu-system-arm -smp 2 -machine vexpress-a15 -cpu cortex-a15 -m 512M <span style="color: #f1fa8c;">\</span>
--kernel ./zImage -initrd ./initramfs -dtb vexpress-v2p-ca15-tc1.dtb <span style="color: #f1fa8c;">\</span>
--nographic -append <span style="color: #f1fa8c;">"console=ttyAMA0 quiet"</span> --serial mon:stdio
+<pre class="src src-sh">qemu-system-arm -smp 2 -machine vexpress-a15 -cpu cortex-a15 -m 512M <span style="color: #198844;">\</span>
+-kernel ./zImage -initrd ./initramfs -dtb vexpress-v2p-ca15-tc1.dtb <span style="color: #198844;">\</span>
+-nographic -append <span style="color: #198844;">"console=ttyAMA0 quiet"</span> --serial mon:stdio
 </pre>
 </div>
 
@@ -404,8 +220,8 @@ and the output just like the following:
 
 <div class="org-src-container">
 <pre class="src src-sh">Please press Enter to activate this console.
-/ <span style="color: #6272a4;"># </span><span style="color: #6272a4;">uname -a</span>
-<span style="color: #50fa7b; font-weight: bold;">Linux</span> (none) 4.9.51 <span style="color: #6272a4;">#</span><span style="color: #6272a4;">1 SMP Thu Sep 28 18:56:51 CST 2017 armv7l GNU/Linux</span>
+/ <span style="color: #373b41;"># </span><span style="color: #969896;">uname -a</span>
+<span style="color: #3971ed;">Linux</span> (none) 4.9.51 <span style="color: #373b41;">#</span><span style="color: #969896;">1 SMP Thu Sep 28 18:56:51 CST 2017 armv7l GNU/Linux</span>
 </pre>
 </div>
 </div>
@@ -413,9 +229,9 @@ and the output just like the following:
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
-Copyright 2019 siwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
+Copyright 2019 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
 Last updated 2019-02-03 Sun 11:12. <br/>
-Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.2.1).
+Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.2 (<a href="https://orgmode.org">Org</a> mode 9.2.1).
 </div>
 </div>
 </body>

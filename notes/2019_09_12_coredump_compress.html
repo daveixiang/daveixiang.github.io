@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-09-06 Fri 17:19 -->
+<!-- 2019-09-11 Wed 14:42 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Add OpenSUSE Leap 42.2 repos</title>
+<title>Compress coredump to reduce size</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="xiangsiwei" />
 <link rel='stylesheet' href='../css/site.css' type='text/css'/>
@@ -70,40 +70,55 @@ for the JavaScript code in this tag.
 <div class='clearboth'></div>
 </div>
 <div id="content">
-<h1 class="title">Add OpenSUSE Leap 42.2 repos</h1>
-
-<div id="outline-container-orge1f8f11" class="outline-2">
-<h2 id="orge1f8f11"></h2>
-<div class="outline-text-2" id="text-orge1f8f11">
+<h1 class="title">Compress coredump to reduce size</h1>
 <ol class="org-ol">
 <li><p>
-Remove previous repos
+add the shell environ to core.sh:
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">zypper repos | grep Yes | cut -f3 -d <span style="color: #198844;">'|'</span> | sed -e <span style="color: #198844;">"s/ //"</span> | awk <span style="color: #198844;">'{print "zypper rr " $1}'</span> | bash
+<pre class="src src-shell"><span style="color: #d5c4a1;">#</span><span style="color: #bdae93;">!/bin/</span><span style="color: #8f3f71;">sh</span>
+<span style="color: #8f3f71;">exec</span> /bin/gzip -f - &gt; <span style="color: #79740e;">"/tmp/$1-$2-$3-$4-$5.core.gz"</span>   
 </pre>
 </div></li>
 
 <li><p>
-Add the repos and refresh
+and core_pattern(/proc/sys/kernel/core_pattern):
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/oss/ openSUSE-leap-42.2-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/non-oss/ openSUSE-leap-42.2-Non-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/oss openSUSE-leap-42.2-Update-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/non-oss/ openSUSE-leap-42.2-Update-Non-Oss
+<pre class="src src-shell">|/sbin/core.sh %e %p %h %s %t
+</pre>
+</div></li>
 
-zypper refresh
+<li><p>
+need to test:
+</p>
+<div class="org-src-container">
+<pre class="src src-text">|/bin/gzip -f - &gt; /tmp/%e-%t-%p-%s.gz
+</pre>
+</div></li>
+
+<li><p>
+core parameter format:
+</p>
+<div class="org-src-container">
+<pre class="src src-text">%p: pid
+%: '%' is dropped
+%%: output one '%'
+%u: uid
+%g: gid
+%s: signal number
+%t: UNIX time of dump
+%h: hostname
+%e: executable filename
+%: both are dropped
 </pre>
 </div></li>
 </ol>
 </div>
-</div>
-</div>
 <div id="postamble" class="status">
 <div class='footer'>
 Copyright 2019 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2019-02-03 Sun 11:12. <br/>
+Last updated 2019-09-11 Wed 14:42. <br/>
 Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.2 (<a href="https://orgmode.org">Org</a> mode 9.2.1).
 </div>
 </div>

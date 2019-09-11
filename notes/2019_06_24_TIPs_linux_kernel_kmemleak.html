@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-09-06 Fri 17:18 -->
+<!-- 2019-09-11 Wed 14:42 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Using OVS to Build Minimal Linux Networking Hack Environment</title>
+<title>Linux Kernel Kmemleak</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="xiangsiwei" />
 <link rel='stylesheet' href='../css/site.css' type='text/css'/>
@@ -70,88 +70,97 @@ for the JavaScript code in this tag.
 <div class='clearboth'></div>
 </div>
 <div id="content">
-<h1 class="title">Using OVS to Build Minimal Linux Networking Hack Environment</h1>
+<h1 class="title">Linux Kernel Kmemleak</h1>
+<p>
+kmemleak can be used to trace memleak in kernel space. The memory may
+be allocated by kmalloc/kzalloc, vmalloc, kmem_cache_alloc or
+per_cpu_alloc.
+</p>
 
-<div id="outline-container-org4581222" class="outline-2">
-<h2 id="org4581222">Create Openvswitch bridge and two tap devices for vms</h2>
-<div class="outline-text-2" id="text-org4581222">
+<div id="outline-container-org3e279eb" class="outline-2">
+<h2 id="org3e279eb">Build in kmemleak in linux kernel</h2>
+<div class="outline-text-2" id="text-org3e279eb">
+<p>
+Enable CONFIG_DEBUG_KMEMLEAK in kernel config, then build the kernel.
+</p>
 <div class="org-src-container">
-<pre class="src src-sh">ip tuntap add name tap01 mode tap
-ip tuntap add name tap02 mode tap
-
-ip link set tap01 up
-ip link set tap02 up
-
-ip link set tap01 address 12:34:56:78:9a:01
-ip link set tap01 address 12:34:56:78:9a:02
-
-ovs-vsctl add-br br0
-ovs-vsctl add-port br0 tap01
-ovs-vsctl add-port br0 tap02
+<pre class="src src-text">Kernel hacking ---&gt;
+    [*] Kernel memory leak detector
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgfc50805" class="outline-2">
-<h2 id="orgfc50805">Start the two vms and config network</h2>
-<div class="outline-text-2" id="text-orgfc50805">
+
+<div id="outline-container-org009c50f" class="outline-2">
+<h2 id="org009c50f">Enable kmemleak scan</h2>
+<div class="outline-text-2" id="text-org009c50f">
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #427b58;">echo</span> scan &gt; /sys/kernel/debug/kmemleak
+</pre>
 </div>
-<div id="outline-container-org59bce75" class="outline-3">
-<h3 id="org59bce75">configure vm01</h3>
-<div class="outline-text-3" id="text-org59bce75">
+
+<p>
+Start application which may trigger kernel memleak issue, so kmemleak
+can capture it.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4ba1af7" class="outline-2">
+<h2 id="org4ba1af7">Check kmemleak result</h2>
+<div class="outline-text-2" id="text-org4ba1af7">
+<div class="org-src-container">
+<pre class="src src-shell">cat /sys/kernel/debug/kmemleak
+</pre>
+</div>
+<p>
+It would show the issue points with something like bellow, which shows
+the leak address, size, and process name and ID.
+</p>
+
+<p>
+And you can clear previous result by
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #427b58;">echo</span> clear &gt; /sys/kernel/debug/kmemleak
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9156bf3" class="outline-2">
+<h2 id="org9156bf3">Limitations and Drawbacks</h2>
+<div class="outline-text-2" id="text-org9156bf3">
 <ul class="org-ul">
-<li>start vm01</li>
+<li>kmemleak scan redueces performance of memory allocation and
+free. It even may cause application stuck for short time.</li>
+
+<li>It may report some fake memory leak report which is not real
+memleak. Scan again if necessary.</li>
 </ul>
+</div>
+</div>
 
+<div id="outline-container-org73af552" class="outline-2">
+<h2 id="org73af552">Useful commands</h2>
+<div class="outline-text-2" id="text-org73af552">
+<p>
+refer to $linux/Documentation/kmemleak.txt
+</p>
 <div class="org-src-container">
-<pre class="src src-sh">qemu-system-x86_64 -m 2048M -enable-kvm <span style="color: #198844;">\</span>
--nographic <span style="color: #198844;">\</span>
--kernel ./bzImage -initrd ./initramfs <span style="color: #198844;">\</span>
--append  <span style="color: #198844;">"console=ttyS0 quiet"</span> <span style="color: #198844;">\</span>
--netdev tap,<span style="color: #cc342b;">id</span>=net1,<span style="color: #cc342b;">ifname</span>=tap01,<span style="color: #cc342b;">script</span>=no,<span style="color: #cc342b;">downscript</span>=no  <span style="color: #198844;">\</span>
--device e1000,<span style="color: #cc342b;">netdev</span>=net1,<span style="color: #cc342b;">mac</span>=<span style="color: #198844;">'12:34:56:78:9a:01'</span>
+<pre class="src src-text">off           - disable kmemleak (irreversible)
+stack=on      - enable the task stacks scanning (default)
+stack=off     - disable the tasks stacks scanning
+scan=on       - start the automatic memory scanning thread (default)
+scan=off      - stop the automatic memory scanning thread
+scan=&lt;secs&gt;   - set the automatic memory scanning period in seconds
+                (default 600, 0 to stop the automatic scanning)
+scan          - trigger a memory scan
+clear         - clear list of current memory leak suspects, done by
+                marking all current reported unreferenced objects grey
+dump=&lt;addr&gt;   - dump information about the object found at &lt;addr&gt;
 </pre>
-</div>
-
-<ul class="org-ul">
-<li>configure vm01 network</li>
-</ul>
-
-<div class="org-src-container">
-<pre class="src src-sh">ip link set eth0 up
-ip addr add 192.168.0.1/24 dev eth0
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org97869d4" class="outline-3">
-<h3 id="org97869d4">configure vm02</h3>
-<div class="outline-text-3" id="text-org97869d4">
-<ul class="org-ul">
-<li>start vm02</li>
-</ul>
-
-<div class="org-src-container">
-<pre class="src src-sh">qemu-system-x86_64 -m 2048M -enable-kvm <span style="color: #198844;">\</span>
--nographic <span style="color: #198844;">\</span>
--kernel ./bzImage -initrd ./initramfs <span style="color: #198844;">\</span>
--append  <span style="color: #198844;">"console=ttyS0 quiet"</span> <span style="color: #198844;">\</span>
--netdev tap,<span style="color: #cc342b;">id</span>=net2,<span style="color: #cc342b;">ifname</span>=tap02,<span style="color: #cc342b;">script</span>=no,<span style="color: #cc342b;">downscript</span>=no  <span style="color: #198844;">\</span>
--device e1000,<span style="color: #cc342b;">netdev</span>=net2,<span style="color: #cc342b;">mac</span>=<span style="color: #198844;">'12:34:56:78:9a:02'</span>
-</pre>
-</div>
-
-<ul class="org-ul">
-<li>configure vm02 network</li>
-</ul>
-
-<div class="org-src-container">
-<pre class="src src-sh">ip link set eth0 up
-ip addr add 192.168.0.2/24 dev eth0
-</pre>
-</div>
 </div>
 </div>
 </div>
@@ -159,7 +168,7 @@ ip addr add 192.168.0.2/24 dev eth0
 <div id="postamble" class="status">
 <div class='footer'>
 Copyright 2019 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2019-02-03 Sun 11:12. <br/>
+Last updated 2019-09-06 Fri 18:12. <br/>
 Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.2 (<a href="https://orgmode.org">Org</a> mode 9.2.1).
 </div>
 </div>

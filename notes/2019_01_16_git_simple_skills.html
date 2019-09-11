@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-09-06 Fri 17:19 -->
+<!-- 2019-09-06 Fri 17:18 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Add OpenSUSE Leap 42.2 repos</title>
+<title>git simple skills</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="xiangsiwei" />
 <link rel='stylesheet' href='../css/site.css' type='text/css'/>
@@ -70,40 +70,43 @@ for the JavaScript code in this tag.
 <div class='clearboth'></div>
 </div>
 <div id="content">
-<h1 class="title">Add OpenSUSE Leap 42.2 repos</h1>
+<h1 class="title">git simple skills</h1>
 
-<div id="outline-container-orge1f8f11" class="outline-2">
-<h2 id="orge1f8f11"></h2>
-<div class="outline-text-2" id="text-orge1f8f11">
-<ol class="org-ol">
-<li><p>
-Remove previous repos
-</p>
+<div id="outline-container-orgfd692c7" class="outline-2">
+<h2 id="orgfd692c7">show commit shortly</h2>
+<div class="outline-text-2" id="text-orgfd692c7">
 <div class="org-src-container">
-<pre class="src src-sh">zypper repos | grep Yes | cut -f3 -d <span style="color: #198844;">'|'</span> | sed -e <span style="color: #198844;">"s/ //"</span> | awk <span style="color: #198844;">'{print "zypper rr " $1}'</span> | bash
+<pre class="src src-shell">git show -s --pretty=format:%h
 </pre>
-</div></li>
+</div>
+</div>
+</div>
 
-<li><p>
-Add the repos and refresh
-</p>
+<div id="outline-container-orgdd692cf" class="outline-2">
+<h2 id="orgdd692cf">show current branch name</h2>
+<div class="outline-text-2" id="text-orgdd692cf">
 <div class="org-src-container">
-<pre class="src src-sh">zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/oss/ openSUSE-leap-42.2-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/distribution/leap/42.2/repo/non-oss/ openSUSE-leap-42.2-Non-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/oss openSUSE-leap-42.2-Update-Oss
-zypper addrepo -f http://mirrors4.tuna.tsinghua.edu.cn/opensuse/update/leap/42.2/non-oss/ openSUSE-leap-42.2-Update-Non-Oss
-
-zypper refresh
+<pre class="src src-shell">git rev-parse --abbrev-ref HEAD
 </pre>
-</div></li>
-</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgbecf2f4" class="outline-2">
+<h2 id="orgbecf2f4">jenkins show git branch</h2>
+<div class="outline-text-2" id="text-orgbecf2f4">
+<div class="org-src-container">
+<pre class="src src-shellx">TEMP_GIT_BRANCH=${GIT_BRANCH}
+MY_GIT_BRANCH="${TEMP_GIT_BRANCH#*/}"
+</pre>
+</div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <div class='footer'>
 Copyright 2019 xiangsiwei (<a href="http://validator.w3.org/check?uri=referer">Validate</a> HTML).<br/>
-Last updated 2019-02-03 Sun 11:12. <br/>
+Last updated 2019-02-23 Sat 15:45. <br/>
 Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.2 (<a href="https://orgmode.org">Org</a> mode 9.2.1).
 </div>
 </div>
